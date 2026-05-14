@@ -1,0 +1,604 @@
+\documentclass[12pt,a4paper]{article}
+
+% =====================
+% Packages
+% =====================
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{longtable}
+
+\geometry{margin=2.5cm}
+\onehalfspacing
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\title{\textbf{Ground Truth, Loss Function và Evaluation trong Recommender System}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Trong \textit{Recommender System} (RS), việc huấn luyện và đánh giá mô hình không đơn giản như các bài toán supervised learning thông thường. Lý do là ground truth trong RS thường được xây dựng từ \textit{observed user-item interactions}, trong khi mục tiêu thật sự của hệ thống là dự đoán \textit{true user preference}: nếu user được nhìn thấy một item, user có thật sự thích, click, xem, mua, hoặc đánh giá cao item đó hay không. Đặc biệt trong bối cảnh \textit{implicit feedback}, việc không có interaction không đồng nghĩa với negative feedback, vì user có thể chưa từng được exposed với item. Do đó, cả training loss và offline evaluation trong RS đều chịu ảnh hưởng của \textit{exposure bias}, \textit{selection bias}, \textit{popularity bias}, và \textit{missing-not-at-random} feedback.
+
+Bài viết này trình bày khái niệm ground truth trong RS, các loại feedback thường gặp, vai trò của loss function trong quá trình optimization, sự khác biệt giữa loss và evaluation metrics, hạn chế của offline evaluation, cũng như các hướng đánh giá đáng tin cậy hơn như exposure-aware evaluation, randomized exposure, counterfactual evaluation và propensity-based debiasing.
+\end{abstract}
+
+\section{Vấn đề chính}
+
+Trong nhiều bài toán machine learning truyền thống, ground truth thường tương đối rõ ràng. Ví dụ, trong classification, một mẫu dữ liệu có label thật là $0$ hoặc $1$. Khi đó, loss function được thiết kế để đo độ sai lệch giữa label thật và prediction của model. Nếu label đáng tin cậy, việc giảm loss thường có ý nghĩa trực tiếp: model đang học tốt hơn mapping từ input sang output.
+
+Tuy nhiên, trong \textit{Recommender System}, ground truth thường không trực tiếp biểu diễn việc một item có thật sự tốt cho user hay không. Thay vào đó, ground truth thường được suy ra từ lịch sử tương tác của user với item. Điều này tạo ra một vấn đề nền tảng: loss function và evaluation metric đều có thể đang tối ưu hoặc đo lường trên một proxy của true preference, chứ không phải true preference thật sự.
+
+Một câu hỏi cốt lõi trong RS là:
+
+\begin{quote}
+Nếu user $u$ được nhìn thấy item $i$, liệu user có thích, click, xem, mua, hoặc đánh giá cao item đó hay không?
+\end{quote}
+
+Tuy nhiên, dữ liệu log thường chỉ cho biết:
+
+\begin{quote}
+User $u$ đã từng tương tác với item $i$ hay chưa.
+\end{quote}
+
+Hai câu hỏi này không tương đương nhau. Một user không tương tác với item không nhất thiết là vì user không thích item đó. User có thể chưa từng nhìn thấy item, item có thể không được hệ thống cũ hiển thị, hoặc item được hiển thị ở vị trí quá thấp nên user không chú ý. Vì vậy, observed interaction không nên được xem là true preference một cách tuyệt đối.
+
+Luận điểm chính của bài viết là:
+
+\begin{quote}
+Trong RS, vấn đề không chỉ là chọn loss function hay evaluation metric nào, mà là phải hiểu rằng cả loss và evaluation đều phụ thuộc vào cách ground truth được tạo ra từ historical logs. Nếu historical logs bị bias, thì optimization và evaluation cũng có thể bị bias.
+\end{quote}
+
+\section{Ground Truth trong Recommender System}
+
+Với một user $u$ và item $i$, ta thường ký hiệu interaction quan sát được là:
+
+\begin{equation}
+Y_{ui} =
+\begin{cases}
+1, & \text{nếu user } u \text{ có interaction với item } i, \\
+0, & \text{nếu không quan sát thấy interaction.}
+\end{cases}
+\end{equation}
+
+Trong nhiều nghiên cứu, $Y_{ui}=1$ được xem là positive label. Tuy nhiên, $Y_{ui}=0$ không nên được hiểu là negative label chắc chắn. Trong implicit feedback, việc không có interaction chỉ có nghĩa là hệ thống không quan sát được phản hồi tích cực, chứ không chứng minh rằng user không thích item đó \cite{saito2020unbiased}.
+
+Một cách mô hình hóa hợp lý hơn là tách interaction quan sát được thành hai thành phần:
+
+\begin{equation}
+Y_{ui} = E_{ui} \cdot R_{ui},
+\end{equation}
+
+trong đó:
+
+\begin{itemize}[leftmargin=*]
+    \item $E_{ui}$ là biến \textit{exposure}, biểu diễn user $u$ có được nhìn thấy item $i$ hay không;
+    \item $R_{ui}$ là biến \textit{relevance} hoặc \textit{true preference}, biểu diễn user $u$ có thật sự quan tâm đến item $i$ hay không;
+    \item $Y_{ui}$ là interaction quan sát được, ví dụ click, view, purchase hoặc rating.
+\end{itemize}
+
+Theo cách nhìn này, user chỉ có thể click hoặc mua một item nếu user đã được exposed với item đó. Do đó:
+
+\begin{equation}
+P(Y_{ui}=1) = P(E_{ui}=1) \cdot P(R_{ui}=1 \mid E_{ui}=1).
+\end{equation}
+
+Mục tiêu lý tưởng của RS là ước lượng $R_{ui}$, nhưng dữ liệu thực tế thường chỉ quan sát được $Y_{ui}$. Đây là nguyên nhân chính làm cho cả loss function và evaluation trong RS trở nên khó khăn. Model thường được huấn luyện để dự đoán $Y_{ui}$, trong khi điều ta thật sự muốn là dự đoán $R_{ui}$.
+
+\section{Các loại Feedback và Ground Truth}
+
+\subsection{Explicit Feedback}
+
+\textit{Explicit feedback} là phản hồi trực tiếp từ user, ví dụ rating từ 1 đến 5 sao, like/dislike, hoặc review score.
+
+Ví dụ:
+
+\begin{equation}
+r_{ui} \in \{1,2,3,4,5\}.
+\end{equation}
+
+Trong một số bài toán, rating có thể được chuyển thành label nhị phân:
+
+\begin{equation}
+Y_{ui} =
+\begin{cases}
+1, & r_{ui} \geq 4, \\
+0, & r_{ui} \leq 2.
+\end{cases}
+\end{equation}
+
+Ưu điểm của explicit feedback là label rõ ràng hơn implicit feedback. Tuy nhiên, explicit feedback cũng có bias vì không phải user nào cũng rating, và user thường chỉ rating khi họ có động lực mạnh, ví dụ rất thích hoặc rất không thích item. Vì vậy, ngay cả explicit feedback cũng không hoàn toàn đại diện cho toàn bộ preference distribution của user.
+
+\subsection{Implicit Feedback}
+
+\textit{Implicit feedback} là phản hồi gián tiếp từ hành vi của user, ví dụ click, view, watch time, add-to-cart, purchase, save hoặc share. Đây là loại dữ liệu phổ biến trong RS vì dễ thu thập ở quy mô lớn.
+
+Trong implicit feedback, một interaction tích cực như click hoặc purchase có thể được xem là tín hiệu positive. Tuy nhiên, missing interaction không nên được xem là negative chắc chắn. Saito et al. chỉ ra rằng implicit feedback có bản chất \textit{positive-unlabeled}: click là positive signal, còn item không được click là unlabeled vì user có thể chưa từng được exposed với item \cite{saito2020unbiased}.
+
+Điều này ảnh hưởng trực tiếp đến loss function. Nếu tất cả unobserved items bị gán label $0$, model sẽ học một bài toán khác với bài toán true preference. Khi đó, model không chỉ học user thích gì, mà còn học item nào có khả năng được exposed trong hệ thống cũ.
+
+\subsection{Exposure-aware Feedback}
+
+\textit{Exposure-aware feedback} là trường hợp hệ thống biết item nào đã được hiển thị cho user. Khi đó, ground truth có thể được xây dựng tốt hơn:
+
+\begin{equation}
+Y_{ui} =
+\begin{cases}
+1, & E_{ui}=1 \text{ và user click/purchase item } i, \\
+0, & E_{ui}=1 \text{ và user bỏ qua item } i, \\
+?, & E_{ui}=0.
+\end{cases}
+\end{equation}
+
+Trường hợp này phản ánh đúng hơn câu hỏi: ``Khi user đã nhìn thấy item, user có phản ứng tích cực hay không?'' Tuy nhiên, exposure-aware feedback vẫn có thể bị bias vì item được exposed thường do hệ thống cũ quyết định, không phải được chọn ngẫu nhiên.
+
+\subsection{Randomized Exposure}
+
+\textit{Randomized exposure} là trường hợp item được hiển thị ngẫu nhiên cho user, sau đó hệ thống đo phản ứng của user. Đây là dạng dữ liệu gần với ground truth hơn vì exposure không bị chi phối quá mạnh bởi recommender cũ.
+
+Dữ liệu randomized hoặc missing-completely-at-random thường được xem là hữu ích để đánh giá và ước lượng propensity trong các phương pháp debiasing \cite{schnabel2016recommendations}. Tuy nhiên, randomized exposure thường tốn chi phí và có thể ảnh hưởng xấu đến user experience nếu hiển thị item kém liên quan.
+
+\section{Loss Function trong Recommender System}
+
+\subsection{Vai trò của Loss Function}
+
+Trong machine learning, loss function là hàm mục tiêu được tối ưu trong quá trình training. Với một model có tham số $\theta$, training thường được biểu diễn dưới dạng:
+
+\begin{equation}
+\theta^* = \arg\min_{\theta} \sum_{(u,i) \in \mathcal{D}_{train}} L(y_{ui}, \hat{y}_{ui}; \theta),
+\end{equation}
+
+trong đó $y_{ui}$ là label quan sát được và $\hat{y}_{ui}$ là prediction của model.
+
+Trong RS, điểm quan trọng là $y_{ui}$ thường không phải true preference, mà là observed interaction. Vì vậy, loss function trong RS thường tối ưu:
+
+\begin{equation}
+L(Y_{ui}, \hat{Y}_{ui}),
+\end{equation}
+
+trong khi mục tiêu lý tưởng là:
+
+\begin{equation}
+L(R_{ui}, \hat{R}_{ui}).
+\end{equation}
+
+Khoảng cách giữa $Y_{ui}$ và $R_{ui}$ tạo ra sự lệch pha giữa optimization objective và recommendation objective.
+
+\subsection{Pointwise Loss}
+
+\textit{Pointwise loss} xem mỗi cặp user--item là một mẫu độc lập. Model nhận input $(u,i)$ và dự đoán một score hoặc xác suất $\hat{y}_{ui}$.
+
+Với rating prediction, loss phổ biến là mean squared error:
+
+\begin{equation}
+L_{MSE} = \frac{1}{|\mathcal{D}|} \sum_{(u,i) \in \mathcal{D}} (r_{ui} - \hat{r}_{ui})^2.
+\end{equation}
+
+Với implicit feedback hoặc CTR prediction, loss phổ biến là binary cross-entropy:
+
+\begin{equation}
+L_{BCE} = - \sum_{(u,i) \in \mathcal{D}} \left[y_{ui}\log(\hat{y}_{ui}) + (1-y_{ui})\log(1-\hat{y}_{ui})\right].
+\end{equation}
+
+Pointwise loss dễ triển khai và scale tốt. Tuy nhiên, nó có hai hạn chế quan trọng trong RS. Thứ nhất, nó không trực tiếp tối ưu thứ tự ranking. Thứ hai, nếu unobserved items bị xem là negative, BCE sẽ ép model học rằng item không được click là item user không thích. Giả định này không đúng trong implicit feedback.
+
+\subsection{Weighted Loss và Confidence Weighting}
+
+Trong implicit feedback, một cách xử lý phổ biến là không xem tất cả missing interactions như negative mạnh. Thay vào đó, model gán confidence khác nhau cho positive và unobserved samples. Ví dụ, positive interaction có trọng số cao hơn, còn unobserved interaction có trọng số thấp hơn:
+
+\begin{equation}
+L = \sum_{u,i} c_{ui}(p_{ui} - \hat{p}_{ui})^2,
+\end{equation}
+
+trong đó $p_{ui}$ là preference nhị phân và $c_{ui}$ là confidence weight \cite{hu2008collaborative}. Cách tiếp cận này thừa nhận rằng missing interaction không chắc là negative, nhưng vẫn sử dụng chúng như tín hiệu yếu.
+
+Tuy nhiên, confidence weighting không loại bỏ hoàn toàn exposure bias. Nó chỉ làm mềm giả định negative bằng cách giảm trọng số của unobserved samples.
+
+\subsection{Pairwise Ranking Loss}
+
+\textit{Pairwise loss} không dự đoán label tuyệt đối của từng item, mà so sánh thứ tự giữa một positive item và một negative item. Với user $u$, giả sử $i^+$ là item positive và $i^-$ là item negative, mục tiêu là:
+
+\begin{equation}
+s(u,i^+) > s(u,i^-).
+\end{equation}
+
+Một loss phổ biến là Bayesian Personalized Ranking (BPR):
+
+\begin{equation}
+L_{BPR} = - \sum_{(u,i^+,i^-)} \log \sigma(s(u,i^+) - s(u,i^-)),
+\end{equation}
+
+trong đó $\sigma(\cdot)$ là sigmoid function \cite{rendle2009bpr}.
+
+BPR phù hợp hơn pointwise loss cho bài toán ranking vì nó trực tiếp học quan hệ thứ tự. Tuy nhiên, BPR vẫn phụ thuộc vào cách chọn negative item $i^-$. Nếu $i^-$ được sample từ unobserved items, nó có thể là item user thật sự thích nhưng chưa được exposed. Khi đó, model bị ép giảm score của một item có thể relevant.
+
+Vì vậy, pairwise loss không giải quyết triệt để vấn đề missing-not-at-random. Nó chỉ chuyển bài toán từ classification sang relative ranking.
+
+\subsection{Listwise Loss}
+
+\textit{Listwise loss} cố gắng tối ưu cả danh sách recommendation thay vì từng item hoặc từng cặp item. Ý tưởng là so sánh danh sách predicted ranking với một danh sách lý tưởng:
+
+\begin{equation}
+L_{listwise} = L(\pi_u, \pi_u^*),
+\end{equation}
+
+trong đó $\pi_u$ là ranking do model tạo ra và $\pi_u^*$ là ranking lý tưởng theo ground truth.
+
+Listwise loss gần hơn với các metric như NDCG@K hoặc MAP@K, vì nó quan tâm đến vị trí của item trong danh sách. Tuy nhiên, listwise loss cũng cần một ground truth ranking đáng tin cậy. Trong RS, ground truth ranking thường không đầy đủ vì ta chỉ quan sát được một phần nhỏ tương tác của user. Do đó, ngay cả listwise loss cũng có thể bị bias nếu danh sách lý tưởng được tạo từ historical logs không đầy đủ.
+
+\subsection{Negative Sampling và Bias trong Loss}
+
+Trong implicit recommendation, số lượng unobserved items thường rất lớn. Vì vậy, training thường dùng \textit{negative sampling}: với mỗi positive item, sample một số item chưa tương tác làm negative examples.
+
+Nếu negative samples được lấy ngẫu nhiên từ toàn bộ catalog, nhiều item có thể là item user chưa từng thấy. Nếu negative samples được lấy từ popular items, model học bài toán khó hơn nhưng cũng có thể bị ảnh hưởng bởi popularity. Nếu negative samples được lấy từ exposed-but-not-clicked items, label negative đáng tin hơn nhưng cần exposure logs.
+
+Do đó, negative sampling không chỉ là kỹ thuật tối ưu tốc độ training, mà còn là một giả định về bản chất của missing feedback. Các chiến lược negative sampling khác nhau có thể dẫn đến các model khác nhau ngay cả khi dùng cùng kiến trúc và cùng loss.
+
+\section{Offline Evaluation trong Recommender System}
+
+Một cách đánh giá phổ biến trong RS là offline evaluation. Quy trình thường gồm các bước sau:
+
+\begin{enumerate}[leftmargin=*]
+    \item Chia interaction log thành train set và test set.
+    \item Huấn luyện model trên train set.
+    \item Với mỗi user, model tạo ra danh sách top-$K$ recommended items.
+    \item So sánh danh sách top-$K$ với các item trong test set.
+\end{enumerate}
+
+Ví dụ, với user $u$, giả sử item trong test set là:
+
+\begin{equation}
+\mathcal{I}^{test}_u = \{i_5\}.
+\end{equation}
+
+Nếu model recommend top-5 items là:
+
+\begin{equation}
+\hat{\mathcal{I}}^5_u = [i_8, i_2, i_5, i_9, i_{10}],
+\end{equation}
+
+thì model được tính là có hit vì item $i_5$ xuất hiện trong top-5.
+
+Các metric phổ biến gồm:
+
+\begin{equation}
+Recall@K = \frac{|\hat{\mathcal{I}}^K_u \cap \mathcal{I}^{test}_u|}{|\mathcal{I}^{test}_u|},
+\end{equation}
+
+\begin{equation}
+Precision@K = \frac{|\hat{\mathcal{I}}^K_u \cap \mathcal{I}^{test}_u|}{K},
+\end{equation}
+
+và \textit{Normalized Discounted Cumulative Gain}:
+
+\begin{equation}
+NDCG@K = \frac{DCG@K}{IDCG@K}.
+\end{equation}
+
+Trong đó:
+
+\begin{equation}
+DCG@K = \sum_{j=1}^{K} \frac{rel_j}{\log_2(j+1)}.
+\end{equation}
+
+$NDCG@K$ xem xét cả việc item đúng có xuất hiện trong top-$K$ hay không và vị trí của item đó trong ranking.
+
+\section{Hạn chế của Offline Evaluation}
+
+Offline evaluation có một hạn chế quan trọng: test set chỉ chứa các observed interactions. Nếu model recommend một item mà user thật sự có thể thích nhưng chưa từng tương tác trong log, offline metric vẫn xem đó là sai.
+
+Do đó:
+
+\begin{equation}
+\text{Observed interaction} \neq \text{True preference}.
+\end{equation}
+
+và:
+
+\begin{equation}
+\text{Missing interaction} \neq \text{Negative feedback}.
+\end{equation}
+
+Đây là vấn đề lớn trong implicit feedback. Nhiều phương pháp evaluation hoặc training giả định rằng unobserved items là negative samples, nhưng giả định này có thể sai vì các item chưa quan sát được có thể vẫn là item user thích \cite{saito2020unbiased}.
+
+Một vấn đề khác là \textit{missing-not-at-random} (MNAR). Interaction log không được sinh ra ngẫu nhiên; popular items hoặc items được recommender cũ hiển thị nhiều hơn có xác suất được click cao hơn. Vì vậy, model mới được train và đánh giá trên log cũ có thể học lại bias của hệ thống cũ thay vì học true preference.
+
+\section{Mismatch giữa Loss, Evaluation Metric và True Utility}
+
+\subsection{Loss thấp không đảm bảo Evaluation tốt}
+
+Một nhầm lẫn phổ biến là cho rằng nếu training loss hoặc validation loss giảm thì recommendation chắc chắn tốt hơn. Điều này không luôn đúng trong RS.
+
+Lý do thứ nhất là loss thường được tính trên từng sample hoặc từng cặp item, trong khi evaluation metric như Recall@K hoặc NDCG@K chỉ quan tâm đến top-$K$ items. Một model có thể cải thiện prediction ở vùng score thấp, làm loss giảm, nhưng top-$K$ ranking không thay đổi.
+
+Lý do thứ hai là loss có thể bị chi phối bởi negative samples. Nếu negative samples quá dễ, model có thể đạt loss thấp bằng cách phân biệt positive items với các item rất không liên quan, nhưng không học được ranking tinh tế giữa các item có khả năng relevant.
+
+Lý do thứ ba là evaluation metrics như Recall@K, HitRate@K và NDCG@K thường không differentiable. Vì vậy, training loss chỉ là \textit{surrogate objective}: một hàm thay thế mà ta hy vọng tương quan với metric cuối cùng.
+
+\subsection{Evaluation cao không đảm bảo Online Performance tốt}
+
+Offline metric cao cũng không đảm bảo model sẽ hoạt động tốt khi deploy. Offline evaluation đo khả năng khớp với held-out interactions trong historical log. Nếu historical log bị chi phối bởi recommender cũ, offline metric cao có thể chỉ cho thấy model mới tái tạo tốt hành vi của recommender cũ.
+
+Ví dụ, một model recommend toàn item phổ biến có thể đạt Recall@K cao vì popular items xuất hiện nhiều trong test set. Tuy nhiên, model đó có thể thiếu cá nhân hóa, giảm diversity, làm nghèo trải nghiệm khám phá của user và gây bất lợi cho long-tail items.
+
+Do đó, cần phân biệt ba tầng mục tiêu:
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{p{3.2cm} p{4.5cm} p{5.5cm}}
+\toprule
+\textbf{Tầng} & \textbf{Câu hỏi} & \textbf{Ví dụ} \\
+\midrule
+Optimization & Model có fit training data không? & BCE loss, BPR loss, MSE \\
+Offline evaluation & Model có recover held-out interactions không? & Recall@K, NDCG@K, HitRate@K \\
+Online utility & Model có cải thiện trải nghiệm thật không? & CTR, CVR, retention, revenue, satisfaction, A/B testing \\
+\bottomrule
+\end{tabular}
+\caption{Ba tầng mục tiêu trong training và evaluation của Recommender System.}
+\label{tab:three_layers}
+\end{table}
+
+Ba tầng này có liên quan nhưng không đồng nhất. Một model có thể loss thấp, offline NDCG cao, nhưng online performance thấp nếu nó học popularity bias, exposure bias hoặc hành vi của hệ thống cũ.
+
+\section{Sampled Evaluation và Full-catalog Evaluation}
+
+Một chi tiết quan trọng trong offline evaluation là candidate set được tạo như thế nào.
+
+Trong \textit{sampled evaluation}, với mỗi user, ta thường lấy một số ít positive test items và sample thêm một số negative items, ví dụ 99 negatives. Model chỉ cần rank đúng trong tập nhỏ này. Cách này nhanh và phổ biến, nhưng có thể làm metric quá lạc quan vì negative samples thường dễ phân biệt.
+
+Trong \textit{full-catalog evaluation}, model phải rank trên toàn bộ item catalog, trừ các item đã xuất hiện trong train. Cách này gần với production hơn, vì recommender thật phải chọn top-$K$ từ một không gian item rất lớn. Tuy nhiên, full-catalog evaluation tốn chi phí tính toán hơn.
+
+Điểm quan trọng là:
+
+\begin{quote}
+Metric từ sampled evaluation không nên được so sánh trực tiếp với metric từ full-catalog evaluation.
+\end{quote}
+
+Một model có NDCG@10 rất cao trên sampled evaluation chưa chắc có NDCG@10 tốt khi phải rank trên toàn bộ catalog. Vì vậy, khi báo cáo kết quả, paper cần mô tả rõ candidate set được tạo như thế nào.
+
+\section{Temporal Split và Data Leakage}
+
+Cách chia train/test cũng ảnh hưởng mạnh đến evaluation. Nếu dùng random split, model có thể vô tình dùng thông tin tương lai để dự đoán quá khứ. Ví dụ user có chuỗi interaction theo thời gian:
+
+\begin{equation}
+i_1 \rightarrow i_2 \rightarrow i_3 \rightarrow i_4 \rightarrow i_5.
+\end{equation}
+
+Nếu random split đưa $i_5$ vào train và $i_2$ vào test, evaluation không còn phản ánh bối cảnh production, vì recommender thật không thể dùng interaction tương lai để dự đoán interaction quá khứ.
+
+Trong production, recommender thường dùng lịch sử quá khứ để dự đoán hành vi tương lai. Vì vậy, temporal split thường đáng tin hơn:
+
+\begin{equation}
+\mathcal{D}_{train} = \{(u,i,t): t < T\},
+\end{equation}
+
+\begin{equation}
+\mathcal{D}_{test} = \{(u,i,t): t \geq T\}.
+\end{equation}
+
+Một biến thể phổ biến là leave-one-out theo thời gian: với mỗi user, interaction cuối cùng làm test, interaction gần cuối làm validation, và các interaction trước đó làm train. Cách này giúp evaluation gần với câu hỏi: ``Dựa trên quá khứ của user, model có dự đoán được interaction tiếp theo không?''
+
+\section{Exposure Bias và Selection Bias}
+
+\textit{Exposure bias} xảy ra khi user chỉ có cơ hội tương tác với những item đã được hệ thống hiển thị. Nếu một item không được exposed, user không thể click hoặc mua item đó, dù item có thể phù hợp.
+
+\textit{Selection bias} xảy ra khi dữ liệu quan sát được không đại diện cho toàn bộ không gian user-item. Ví dụ, những item phổ biến hoặc item được rank cao bởi hệ thống cũ thường xuất hiện nhiều hơn trong log.
+
+Các bias này làm cho evaluation bị lệch. Một model có thể đạt điểm offline cao vì nó recommend các item giống với hệ thống cũ hoặc các item phổ biến, chứ không nhất thiết vì nó dự đoán tốt true preference.
+
+\section{Popularity Bias, Diversity và Novelty}
+
+Một recommender có thể đạt metric cao bằng cách recommend các item phổ biến. Điều này xảy ra vì popular items thường có nhiều interactions hơn, do đó có xác suất xuất hiện trong train và test set cao hơn. Tuy nhiên, nếu quá phụ thuộc vào popularity, hệ thống có thể tạo ra trải nghiệm kém cá nhân hóa.
+
+Do đó, ngoài accuracy metrics như Recall@K và NDCG@K, nhiều hệ thống cần đo thêm các khía cạnh khác:
+
+\begin{itemize}[leftmargin=*]
+    \item \textit{Catalog coverage}: tỷ lệ item trong catalog từng được recommend.
+    \item \textit{Intra-list diversity}: mức độ đa dạng giữa các item trong cùng một recommendation list.
+    \item \textit{Novelty}: mức độ mới lạ của item đối với user.
+    \item \textit{Serendipity}: item vừa bất ngờ vừa hữu ích đối với user.
+    \item \textit{Long-tail exposure}: khả năng phân phối exposure cho các item ít phổ biến hơn.
+\end{itemize}
+
+Các metric này không thay thế Recall@K hoặc NDCG@K, nhưng giúp đánh giá recommender ở góc độ rộng hơn. Trong nhiều sản phẩm, recommendation tốt không chỉ là đúng, mà còn phải đa dạng, mới lạ, công bằng và có ích cho mục tiêu dài hạn.
+
+\section{Counterfactual Evaluation và Propensity Score}
+
+Một hướng xử lý bias trong offline evaluation là \textit{counterfactual evaluation}. Thay vì chỉ hỏi model có khớp với historical log hay không, counterfactual evaluation cố gắng ước lượng điều gì sẽ xảy ra nếu một policy recommendation mới được triển khai.
+
+Một kỹ thuật phổ biến là \textit{Inverse Propensity Scoring} (IPS). Giả sử $p_{ui}$ là xác suất item $i$ được exposed cho user $u$, IPS gán trọng số lớn hơn cho những interaction hiếm được quan sát:
+
+\begin{equation}
+\hat{R}_{IPS} = \frac{1}{|\mathcal{D}|} \sum_{(u,i) \in \mathcal{D}} \frac{Y_{ui} \cdot \delta_{ui}}{p_{ui}},
+\end{equation}
+
+trong đó:
+
+\begin{itemize}[leftmargin=*]
+    \item $p_{ui}$ là \textit{propensity score};
+    \item $\delta_{ui}$ là reward hoặc relevance signal quan sát được;
+    \item $\mathcal{D}$ là tập interaction log.
+\end{itemize}
+
+IPS giúp giảm bias do exposure không ngẫu nhiên, nhưng có thể gặp vấn đề variance cao nếu propensity score quá nhỏ. Do đó, nhiều nghiên cứu sử dụng các biến thể như \textit{clipped IPS}, \textit{self-normalized IPS} hoặc \textit{doubly robust estimator} \cite{saito2020unbiased,liang2016modeling}.
+
+\section{Online Evaluation và A/B Testing}
+
+Offline evaluation hữu ích vì nhanh, rẻ và có thể lặp lại nhiều lần. Tuy nhiên, offline evaluation không thể thay thế hoàn toàn online evaluation. Trong online setting, model thật sự được deploy cho user và hệ thống đo phản ứng thực tế.
+
+Các online metrics thường bao gồm:
+
+\begin{itemize}[leftmargin=*]
+    \item CTR: tỷ lệ click trên impression.
+    \item CVR: tỷ lệ conversion sau click hoặc sau impression.
+    \item Watch time hoặc dwell time.
+    \item Retention: user có quay lại sản phẩm hay không.
+    \item Revenue hoặc GMV trong e-commerce.
+    \item Explicit satisfaction: survey, rating, like/dislike.
+    \item Negative feedback: hide, report, not interested, unsubscribe.
+\end{itemize}
+
+Tuy nhiên, online metric cũng cần được diễn giải cẩn thận. CTR cao không chắc là tốt nếu model tạo clickbait. Watch time cao không chắc là tốt nếu nội dung gây nghiện hoặc làm giảm satisfaction dài hạn. Vì vậy, online evaluation thường cần kết hợp nhiều metric ngắn hạn và dài hạn.
+
+\section{Keyword quan trọng}
+
+\begin{longtable}{p{4cm} p{9cm}}
+\toprule
+\textbf{Keyword} & \textbf{Giải thích} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Keyword} & \textbf{Giải thích} \\
+\midrule
+\endhead
+\textit{Ground truth} & Label dùng để đánh giá model. Trong RS, ground truth thường là observed interaction trong test set, không nhất thiết là true preference. \\
+\textit{True preference} & Mức độ user thật sự thích hoặc quan tâm đến item. Đây là mục tiêu lý tưởng nhưng thường không quan sát trực tiếp được. \\
+\textit{Observed interaction} & Tương tác được ghi nhận trong log, ví dụ click, view, purchase, rating. \\
+\textit{Implicit feedback} & Feedback gián tiếp từ hành vi user, ví dụ click hoặc purchase. Missing interaction không nên xem là negative chắc chắn. \\
+\textit{Explicit feedback} & Feedback trực tiếp như rating hoặc like/dislike. \\
+\textit{Exposure} & Việc user có được nhìn thấy item hay không. User chỉ có thể tương tác với item nếu đã được exposed. \\
+\textit{Exposure bias} & Bias do user chỉ tương tác với các item đã được hệ thống hiển thị. \\
+\textit{Selection bias} & Bias do dữ liệu quan sát được không đại diện cho toàn bộ không gian user-item. \\
+\textit{Popularity bias} & Bias khiến item phổ biến được recommend nhiều hơn và tiếp tục nhận thêm interaction. \\
+\textit{MNAR} & Viết tắt của \textit{Missing Not At Random}. Nghĩa là dữ liệu bị thiếu không ngẫu nhiên, thường do cơ chế hiển thị hoặc popularity. \\
+\textit{Positive-unlabeled learning} & Thiết lập học máy trong đó positive samples được quan sát, còn samples không có label là unlabeled thay vì negative. \\
+\textit{Negative sampling} & Kỹ thuật lấy một số unobserved items làm negative examples, dù các item này không chắc là negative thật. \\
+\textit{Pointwise loss} & Loss xem từng cặp user-item như một mẫu độc lập, ví dụ BCE hoặc MSE. \\
+\textit{Pairwise loss} & Loss học quan hệ thứ tự giữa item positive và item negative, ví dụ BPR loss. \\
+\textit{Listwise loss} & Loss tối ưu cả danh sách ranking thay vì từng item hoặc từng cặp. \\
+\textit{Surrogate objective} & Hàm loss thay thế được tối ưu vì metric cuối cùng như NDCG@K thường không differentiable. \\
+\textit{Offline evaluation} & Đánh giá model bằng dữ liệu lịch sử đã thu thập, thường thông qua train/test split. \\
+\textit{Online evaluation} & Đánh giá model trực tiếp với user thật, ví dụ A/B testing. \\
+\textit{Counterfactual evaluation} & Đánh giá chính sách recommendation mới dựa trên log cũ bằng cách điều chỉnh bias từ cơ chế thu thập dữ liệu. \\
+\textit{Propensity score} & Xác suất một user-item pair được quan sát hoặc exposed. Thường dùng trong IPS để hiệu chỉnh bias. \\
+\textit{IPS} & \textit{Inverse Propensity Scoring}, kỹ thuật đánh trọng số ngược với propensity score để giảm bias. \\
+\bottomrule
+\caption{Một số keyword quan trọng trong evaluation và loss function của Recommender System.}
+\label{tab:evaluation_keywords}
+\end{longtable}
+
+\section{Đoạn viết ngắn có thể dùng trong paper}
+
+Trong paper, có thể trình bày vấn đề này như sau:
+
+\begin{quote}
+In recommender systems, the training loss is usually optimized over observed user-item interactions, while offline evaluation metrics measure how well the model ranks held-out interactions. However, observed interactions do not necessarily represent true user preference. In implicit feedback settings, a positive interaction such as a click or purchase indicates some degree of user interest, while the absence of interaction should be treated as unknown rather than negative, since the user may not have been exposed to the item. Therefore, both optimization and evaluation suffer from exposure bias, selection bias, and missing-not-at-random feedback. A more reliable evaluation requires exposure-aware logs, randomized exposure, or debiasing techniques such as propensity-based evaluation.
+\end{quote}
+
+Bản tiếng Việt:
+
+\begin{quote}
+Trong Recommender System, training loss thường được tối ưu trên các tương tác quan sát được giữa user và item, trong khi offline metrics đo khả năng model xếp hạng đúng các interaction được giữ lại trong test set. Tuy nhiên, observed interaction không nhất thiết phản ánh true user preference. Trong implicit feedback, một tương tác tích cực như click hoặc purchase cho thấy một mức độ quan tâm nhất định, trong khi việc không có interaction nên được xem là unknown thay vì negative, vì user có thể chưa từng được exposed với item đó. Do đó, cả optimization và evaluation trong Recommender System đều chịu ảnh hưởng của exposure bias, selection bias và missing-not-at-random feedback. Một đánh giá đáng tin cậy hơn cần sử dụng exposure-aware logs, randomized exposure hoặc các kỹ thuật debiasing như propensity-based evaluation.
+\end{quote}
+
+\section{Gợi ý hướng phát triển thành paper}
+
+Nếu phát triển thành paper hoặc report học thuật, có thể chọn một trong ba hướng chính sau.
+
+\subsection{Hướng 1: Survey và Conceptual Analysis}
+
+Hướng này tập trung tổng hợp và phân tích các vấn đề nền tảng của loss và evaluation trong RS. Câu hỏi nghiên cứu có thể là:
+
+\begin{quote}
+Why do conventional loss functions and offline evaluation metrics fail to fully capture true user preference in recommender systems?
+\end{quote}
+
+Cấu trúc phù hợp:
+
+\begin{enumerate}[leftmargin=*]
+    \item Ground truth và feedback trong RS.
+    \item Loss functions dưới implicit feedback.
+    \item Offline metrics và giả định của chúng.
+    \item Bias trong training và evaluation.
+    \item Debiasing và counterfactual evaluation.
+\end{enumerate}
+
+\subsection{Hướng 2: Empirical Study}
+
+Hướng này thực nghiệm trên dataset như MovieLens, Amazon Reviews hoặc Yelp. Có thể so sánh:
+
+\begin{itemize}[leftmargin=*]
+    \item BCE loss vs BPR loss vs weighted loss.
+    \item Random split vs temporal split.
+    \item Sampled evaluation vs full-catalog evaluation.
+    \item Popularity baseline vs personalized model.
+\end{itemize}
+
+Mục tiêu là chứng minh rằng kết luận về model có thể thay đổi mạnh tùy theo loss, negative sampling và evaluation protocol.
+
+\subsection{Hướng 3: Debiased Evaluation}
+
+Hướng này tập trung vào exposure bias và propensity-based evaluation. Câu hỏi nghiên cứu có thể là:
+
+\begin{quote}
+How can propensity-based estimators reduce bias in offline recommender evaluation under missing-not-at-random feedback?
+\end{quote}
+
+Có thể phân tích IPS, clipped IPS, self-normalized IPS và doubly robust estimator. Hướng này sâu hơn về causal inference và phù hợp nếu paper muốn có đóng góp phương pháp.
+
+\section{Kết luận}
+
+Ground truth trong RS không nên được hiểu đơn giản là ``item tốt'' hoặc ``item không tốt''. Trong đa số offline evaluation, ground truth chỉ là item mà user đã tương tác trong test set. Điều này tạo ra khoảng cách giữa observed interaction và true preference.
+
+Loss function trong RS cũng chịu cùng vấn đề. Model thường minimize loss trên observed interactions, trong khi mục tiêu thật sự là dự đoán true user preference. Nếu unobserved items bị xem là negative, loss có thể ép model học sai preference. Nếu historical logs bị chi phối bởi recommender cũ, model có thể học lại exposure pattern và popularity bias thay vì học relevance thật sự.
+
+Vì vậy, khi nghiên cứu evaluation trong RS, cần xem xét đồng thời ba yếu tố: ground truth, loss function và evaluation protocol. Một đánh giá đáng tin cậy hơn cần phân biệt rõ interaction, exposure và relevance; sử dụng temporal split và candidate set hợp lý; báo cáo thêm diversity, novelty và coverage khi cần; đồng thời cân nhắc các phương pháp debiasing như exposure-aware evaluation, randomized exposure, counterfactual evaluation và propensity-based estimators.
+
+\begin{thebibliography}{99}
+
+\bibitem{hu2008collaborative}
+Y. Hu, Y. Koren, and C. Volinsky,
+``Collaborative Filtering for Implicit Feedback Datasets,''
+in \textit{Proceedings of the 8th IEEE International Conference on Data Mining (ICDM)}, 2008.
+
+\bibitem{rendle2009bpr}
+S. Rendle, C. Freudenthaler, Z. Gantner, and L. Schmidt-Thieme,
+``BPR: Bayesian Personalized Ranking from Implicit Feedback,''
+in \textit{Proceedings of the 25th Conference on Uncertainty in Artificial Intelligence (UAI)}, 2009.
+
+\bibitem{saito2020unbiased}
+Y. Saito, S. Yaginuma, Y. Nishino, H. Sakata, and K. Nakata,
+``Unbiased Recommender Learning from Missing-Not-At-Random Implicit Feedback,''
+in \textit{Proceedings of the 13th International Conference on Web Search and Data Mining (WSDM)}, 2020.
+
+\bibitem{schnabel2016recommendations}
+T. Schnabel, A. Swaminathan, A. Singh, N. Chandak, and T. Joachims,
+``Recommendations as Treatments: Debiasing Learning and Evaluation,''
+in \textit{Proceedings of the 33rd International Conference on Machine Learning (ICML)}, 2016.
+
+\bibitem{liang2016modeling}
+D. Liang, L. Charlin, J. McInerney, and D. M. Blei,
+``Modeling User Exposure in Recommendation,''
+in \textit{Proceedings of the 25th International Conference on World Wide Web (WWW)}, 2016.
+
+\bibitem{yang2018unbiased}
+L. Yang, Y. Cui, Y. Xuan, C. Wang, S. Belongie, and D. Estrin,
+``Unbiased Offline Recommender Evaluation for Missing-Not-At-Random Implicit Feedback,''
+in \textit{Proceedings of the 12th ACM Conference on Recommender Systems (RecSys)}, 2018.
+
+\bibitem{chen2020adversarial}
+J. Chen, H. Dong, X. Wang, F. Feng, M. Wang, and X. He,
+``Bias and Debias in Recommender System: A Survey and Future Directions,''
+\textit{arXiv preprint arXiv:2010.03240}, 2020.
+
+\end{thebibliography}
+
+\end{document}

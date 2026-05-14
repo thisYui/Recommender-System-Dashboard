@@ -58,3 +58,5 @@ Thumbs.db
 htmlcov/
 
 experiments/results/
+
+notebooks/*.html

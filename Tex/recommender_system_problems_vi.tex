@@ -1,0 +1,370 @@
+\documentclass[12pt,a4paper]{article}
+
+% =====================
+% Packages
+% =====================
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{xcolor}
+
+\geometry{margin=2.5cm}
+\onehalfspacing
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\title{\textbf{Một số vấn đề hiện tại trong Recommender System}}
+\author{ }
+\date{ }
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Recommender System (RS) là một hướng nghiên cứu quan trọng trong lĩnh vực khai phá dữ liệu, học máy và hệ thống thông tin. 
+Mặc dù các mô hình recommendation hiện đại đã đạt được nhiều kết quả tốt, RS vẫn tồn tại nhiều thách thức như \textit{cold-start problem}, \textit{data sparsity}, \textit{popularity bias}, \textit{filter bubble}, \textit{lack of explainability}, \textit{privacy}, \textit{scalability}, và các vấn đề mới phát sinh khi tích hợp \textit{Large Language Models} (LLMs). 
+Bài viết này trình bày ngắn gọn một số vấn đề chính trong RS, đồng thời gợi ý các hướng nghiên cứu tiềm năng có thể phát triển thành đề tài paper.
+\end{abstract}
+
+\section{Giới thiệu}
+
+\textit{Recommender System} là hệ thống có nhiệm vụ gợi ý item phù hợp cho user dựa trên dữ liệu lịch sử, đặc trưng nội dung, hoặc ngữ cảnh sử dụng. 
+Các hệ thống này được ứng dụng rộng rãi trong thương mại điện tử, mạng xã hội, nền tảng xem phim, nghe nhạc, đọc tin tức, giáo dục trực tuyến và nhiều dịch vụ số khác.
+
+Tuy nhiên, việc xây dựng một RS hiệu quả không chỉ dừng lại ở việc tối ưu độ chính xác của ranking. 
+Trong thực tế, RS còn phải đối mặt với nhiều vấn đề như thiếu dữ liệu, thiên lệch về item phổ biến, thiếu khả năng giải thích, rủi ro riêng tư và khó mở rộng ở quy mô lớn. 
+Gần đây, sự xuất hiện của \textit{Large Language Models} mở ra nhiều cơ hội mới cho recommendation, nhưng đồng thời cũng tạo ra các thách thức về chi phí, độ trễ, tính trung thực của giải thích và bảo vệ dữ liệu cá nhân \cite{wu2024llmrec,fan2024llmrec}.
+
+\section{Cold-start Problem}
+
+\textit{Cold-start problem} là một trong những vấn đề lâu đời của RS. 
+Vấn đề này xảy ra khi hệ thống thiếu dữ liệu ban đầu để đưa ra recommendation chính xác cho user mới hoặc item mới \cite{zhang2025coldstart}. 
+Có hai dạng phổ biến:
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{User cold-start}: user mới chưa có lịch sử tương tác như click, rating, purchase hoặc view.
+    \item \textbf{Item cold-start}: item mới chưa có đủ interaction từ user nên khó được hệ thống gợi ý.
+\end{itemize}
+
+Ví dụ, trong một hệ thống gợi ý phim, nếu user chưa từng đánh giá bộ phim nào, mô hình khó xác định họ thích thể loại nào. 
+Tương tự, một bộ phim mới dù có chất lượng tốt cũng có thể không được recommend vì chưa có đủ interaction.
+
+Một số hướng nghiên cứu cho vấn đề này bao gồm \textit{content-based recommendation}, \textit{semantic embedding}, \textit{hybrid recommender system}, và \textit{active preference elicitation}. 
+Trong bối cảnh gần đây, LLMs cũng được xem là một hướng tiềm năng vì có khả năng khai thác thông tin ngữ nghĩa từ title, description, review hoặc profile của user \cite{zhang2025coldstart,wu2024llmrec}.
+
+\section{Data Sparsity}
+
+\textit{Data sparsity} xảy ra khi ma trận \textit{user-item interaction} rất thưa. 
+Trong thực tế, số item mà một user từng tương tác thường rất nhỏ so với tổng số item trong hệ thống. 
+Điều này làm cho các mô hình dựa trên \textit{collaborative filtering} khó học được representation ổn định cho user và item.
+
+Ví dụ, một nền tảng thương mại điện tử có thể có hàng triệu sản phẩm, nhưng mỗi user chỉ xem hoặc mua một số lượng nhỏ sản phẩm. 
+Khi dữ liệu quá thưa, mô hình khó nhận ra các user có sở thích tương tự nhau, đồng thời khó học mối quan hệ giữa các item.
+
+Các hướng nghiên cứu thường được sử dụng để giảm tác động của data sparsity bao gồm:
+
+\begin{itemize}[leftmargin=*]
+    \item \textit{Graph-based recommendation};
+    \item \textit{Self-supervised learning};
+    \item \textit{Contrastive learning};
+    \item Kết hợp interaction data với content data trong \textit{hybrid recommender system}.
+\end{itemize}
+
+\section{Popularity Bias}
+
+\textit{Popularity bias} là hiện tượng RS có xu hướng gợi ý quá nhiều item phổ biến. 
+Những item đã có nhiều interaction lại càng được recommend nhiều hơn, trong khi các \textit{long-tail items} hoặc item mới khó có cơ hội xuất hiện \cite{klimashevskaia2024popularity}. 
+Vấn đề này có thể tạo ra hiệu ứng khuếch đại theo thời gian, khiến hệ thống ngày càng phụ thuộc vào các item đã nổi tiếng.
+
+Popularity bias ảnh hưởng đến cả user và provider. 
+Về phía user, recommendation có thể trở nên kém đa dạng. 
+Về phía provider, các creator hoặc seller nhỏ có thể không nhận được exposure công bằng.
+
+Một số hướng nghiên cứu tiềm năng bao gồm:
+
+\begin{itemize}[leftmargin=*]
+    \item \textit{Popularity debiasing};
+    \item \textit{Popularity-aware re-ranking};
+    \item Tối ưu đồng thời \textit{accuracy}, \textit{diversity}, và \textit{fairness};
+    \item Tăng \textit{long-tail exposure}.
+\end{itemize}
+
+\section{Filter Bubble và Echo Chamber}
+
+\textit{Filter bubble} là hiện tượng user bị mắc kẹt trong một vùng nội dung hẹp vì hệ thống liên tục gợi ý các item quá giống với lịch sử trước đó. 
+\textit{Echo chamber} thường được nhắc đến trong các domain như news, social media hoặc political content, khi user chủ yếu tiếp xúc với nội dung củng cố quan điểm sẵn có.
+
+Vấn đề này thường xuất hiện khi hệ thống tối ưu quá mạnh cho \textit{short-term engagement} hoặc \textit{short-term relevance}, trong khi ít quan tâm đến \textit{diversity}, \textit{novelty} và \textit{serendipity}. 
+Popularity bias cũng có thể làm giảm cơ hội khám phá nội dung mới hoặc ít phổ biến \cite{klimashevskaia2024popularity}.
+
+Các hướng nghiên cứu liên quan gồm:
+
+\begin{itemize}[leftmargin=*]
+    \item \textit{Diversity-aware recommendation};
+    \item \textit{Novelty-aware recommendation};
+    \item \textit{Serendipity recommendation};
+    \item \textit{Multi-objective recommendation}.
+\end{itemize}
+
+\section{Lack of Explainability}
+
+\textit{Explainability} là khả năng giải thích vì sao hệ thống gợi ý một item cho user. 
+Đây là một vấn đề quan trọng vì recommendation không chỉ cần chính xác mà còn cần minh bạch và đáng tin cậy \cite{zhang2020explainable}. 
+
+Nhiều mô hình hiện đại như \textit{deep learning-based recommender}, \textit{graph neural network recommender}, hoặc \textit{sequential recommender} có thể đạt accuracy cao nhưng khó giải thích. 
+Điều này làm user khó hiểu vì sao họ nhận được một recommendation cụ thể, đồng thời khiến system designer khó debug model.
+
+Ví dụ, thay vì chỉ hiển thị ``Recommended for you'', hệ thống có thể giải thích: 
+``Gợi ý phim này vì bạn đã thích các phim thuộc thể loại drama và romance.''
+
+Một vấn đề quan trọng khác là chất lượng của explanation. 
+Một explanation có thể nghe hợp lý nhưng không thật sự phản ánh logic bên trong của model. 
+Do đó, việc đánh giá explanation cần xem xét các yếu tố như \textit{faithfulness}, \textit{persuasiveness}, \textit{readability} và \textit{user satisfaction} \cite{chen2022why}.
+
+\section{Privacy and Data Protection}
+
+RS thường sử dụng nhiều dữ liệu cá nhân như lịch sử click, lịch sử mua hàng, vị trí, thời gian hoạt động, review và lịch sử xem nội dung. 
+Vì vậy, \textit{privacy} là một vấn đề quan trọng, đặc biệt trong các domain nhạy cảm như healthcare, finance hoặc education.
+
+Trong bối cảnh \textit{LLM-based recommender}, privacy càng đáng chú ý hơn vì input có thể bao gồm ngôn ngữ tự nhiên, hội thoại hoặc preference chi tiết của user \cite{wu2024llmrec,fan2024llmrec}. 
+Nếu dữ liệu này bị rò rỉ hoặc sử dụng sai mục đích, user có thể mất niềm tin vào hệ thống.
+
+Các hướng nghiên cứu tiềm năng bao gồm:
+
+\begin{itemize}[leftmargin=*]
+    \item \textit{Federated recommendation};
+    \item \textit{Differential privacy};
+    \item \textit{Privacy-preserving embedding};
+    \item Thiết kế hệ thống theo hướng \textit{privacy-by-design}.
+\end{itemize}
+
+\section{Scalability và Real-time Recommendation}
+
+Trong thực tế, RS có thể phải phục vụ hàng triệu user và hàng triệu item. 
+Do đó, mô hình không chỉ cần chính xác mà còn phải có khả năng mở rộng và phản hồi nhanh. 
+\textit{Scalability} liên quan đến khả năng xử lý dữ liệu lớn, còn \textit{real-time recommendation} liên quan đến khả năng cập nhật recommendation gần như ngay lập tức khi user có hành vi mới.
+
+Với LLM-based recommender, vấn đề này càng rõ hơn vì LLM thường có chi phí inference cao và latency lớn \cite{wu2024llmrec,fan2024llmrec}. 
+Một hướng triển khai thực tế là \textit{two-stage recommendation}, trong đó hệ thống dùng retrieval model để lấy candidate nhanh, sau đó dùng re-ranking model để sắp xếp lại một tập item nhỏ hơn.
+
+Các hướng nghiên cứu bao gồm:
+
+\begin{itemize}[leftmargin=*]
+    \item \textit{Two-stage recommendation};
+    \item \textit{Model compression};
+    \item \textit{Knowledge distillation};
+    \item \textit{Cost-aware LLM re-ranking}.
+\end{itemize}
+
+\section{Evaluation Problem}
+
+Đánh giá RS không đơn giản. 
+Một mô hình có điểm \textit{Recall@K} hoặc \textit{NDCG@K} cao trên offline dataset chưa chắc đã tạo ra trải nghiệm tốt trong thực tế. 
+Kết quả thực nghiệm có thể bị ảnh hưởng bởi cách chia train/test, cách chọn negative samples, hoặc metric được sử dụng.
+
+Ngoài accuracy, RS còn cần được đánh giá theo nhiều chiều như \textit{diversity}, \textit{novelty}, \textit{fairness}, \textit{coverage}, \textit{calibration} và \textit{user satisfaction}. 
+Với explainable recommendation, việc đánh giá càng khó hơn vì cần đánh giá cả chất lượng của explanation \cite{chen2022why}.
+
+Một số hướng nghiên cứu liên quan gồm:
+
+\begin{itemize}[leftmargin=*]
+    \item \textit{Multi-metric evaluation};
+    \item Đánh giá theo từng nhóm user như sparse users, active users, cold-start users;
+    \item Kết hợp offline evaluation với user study;
+    \item Phân tích trade-off giữa \textit{accuracy}, \textit{diversity}, \textit{fairness}, và \textit{novelty}.
+\end{itemize}
+
+\section{Dynamic User Preference}
+
+\textit{Dynamic user preference} nghĩa là sở thích của user thay đổi theo thời gian hoặc theo ngữ cảnh. 
+Ví dụ, user hôm nay muốn nghe nhạc buồn, nhưng ngày mai lại muốn nghe nhạc tập gym. 
+Một user tháng này tìm mua laptop, nhưng tháng sau có thể không còn quan tâm đến laptop nữa.
+
+Nếu mô hình chỉ học \textit{long-term preference}, nó có thể bỏ qua \textit{short-term intent} của user. 
+Do đó, các hướng như \textit{sequential recommendation}, \textit{session-based recommendation}, và \textit{time-aware attention} trở nên quan trọng.
+
+Các hướng nghiên cứu tiềm năng bao gồm:
+
+\begin{itemize}[leftmargin=*]
+    \item \textit{Sequential recommendation};
+    \item \textit{Session-based recommendation};
+    \item \textit{Time-aware attention};
+    \item Kết hợp \textit{short-term preference} và \textit{long-term preference}.
+\end{itemize}
+
+\section{Multimodal Recommendation}
+
+\textit{Multimodal recommendation} là hướng recommendation sử dụng nhiều loại dữ liệu khác nhau như text, image, video, audio, metadata và interaction. 
+Trong các nền tảng hiện đại như e-commerce, short video, news hoặc music, item thường chứa nhiều modality khác nhau. 
+Việc khai thác multimodal features có thể giúp mô hình hiểu item tốt hơn và giảm ảnh hưởng của data sparsity \cite{wei2023multimodal}.
+
+Ví dụ, trong e-commerce, một sản phẩm có thể có ảnh, tên sản phẩm, mô tả, review, giá, brand, category và lịch sử click. 
+Thách thức là làm sao kết hợp các modality này một cách hiệu quả.
+
+Một số hướng nghiên cứu gồm:
+
+\begin{itemize}[leftmargin=*]
+    \item \textit{Multimodal fusion};
+    \item \textit{Cross-modal attention};
+    \item Kết hợp \textit{image embedding}, \textit{text embedding}, và \textit{collaborative embedding};
+    \item Dùng \textit{vision-language model} cho item representation.
+\end{itemize}
+
+\section{Robustness and Attack}
+
+\textit{Robustness} là khả năng hệ thống hoạt động ổn định khi có dữ liệu nhiễu, fake interaction hoặc tấn công có chủ đích. 
+RS có thể bị thao túng bởi fake reviews, fake ratings, bot clicks, spam accounts hoặc \textit{shilling attacks}.
+
+Ví dụ, một seller có thể tạo nhiều tài khoản giả để tăng rating sản phẩm, khiến hệ thống hiểu sai rằng sản phẩm đó rất tốt. 
+Điều này có thể làm giảm chất lượng recommendation và làm user mất niềm tin vào hệ thống.
+
+Các hướng nghiên cứu tiềm năng gồm:
+
+\begin{itemize}[leftmargin=*]
+    \item \textit{Robust recommendation};
+    \item \textit{Anomaly detection} cho user-item interaction;
+    \item \textit{Adversarial training};
+    \item Phát hiện fake feedback hoặc suspicious behavior.
+\end{itemize}
+
+\section{Vấn đề mới trong LLM-based Recommender}
+
+Gần đây, LLMs được sử dụng trong RS để hiểu intent, tạo explanation, xử lý text data hoặc hỗ trợ \textit{conversational recommendation}. 
+Các survey gần đây cho thấy LLMs có thể được dùng như feature encoder, reasoning module, conversational interface hoặc generative recommender \cite{wu2024llmrec,fan2024llmrec}.
+
+Tuy nhiên, LLM-based recommender cũng tạo ra nhiều vấn đề mới:
+
+\begin{itemize}[leftmargin=*]
+    \item \textit{High inference cost}: chi phí suy luận cao.
+    \item \textit{Latency}: phản hồi chậm nếu gọi LLM trực tiếp.
+    \item \textit{Hallucination}: LLM có thể tạo explanation sai hoặc thông tin không có thật.
+    \item \textit{Faithfulness issue}: explanation nghe hợp lý nhưng không phản ánh đúng logic của recommender.
+    \item \textit{Privacy risk}: dữ liệu user có thể nhạy cảm.
+    \item \textit{Evaluation difficulty}: khó đánh giá đồng thời recommendation quality và explanation quality.
+\end{itemize}
+
+Một hướng thực tế là dùng LLM theo kiểu hỗ trợ thay vì thay thế toàn bộ RS. 
+Ví dụ, hệ thống có thể dùng retrieval model để lấy candidate, sau đó dùng LLM để re-rank hoặc generate explanation cho một số item đã được chọn.
+
+\section{Bảng tóm tắt}
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{p{4cm} p{3.5cm} p{6cm}}
+\toprule
+\textbf{Vấn đề} & \textbf{Keyword} & \textbf{Hướng nghiên cứu tiềm năng} \\
+\midrule
+User/item mới thiếu dữ liệu & Cold-start problem & Content-based, semantic embedding, active learning \\
+Ma trận interaction thưa & Data sparsity & Graph-based RS, contrastive learning, hybrid RS \\
+Item phổ biến được ưu tiên quá mức & Popularity bias & Debiasing, re-ranking, long-tail recommendation \\
+Gợi ý quá giống lịch sử user & Filter bubble & Diversity-aware, serendipity, novelty-aware RS \\
+Không giải thích được recommendation & Explainability & LLM explanation, graph explanation, interpretable RS \\
+Dữ liệu user nhạy cảm & Privacy & Federated learning, differential privacy \\
+Khó mở rộng cho hệ thống lớn & Scalability & Two-stage recommendation, model compression \\
+Đánh giá chưa phản ánh thực tế & Evaluation problem & Multi-metric evaluation, user study \\
+Sở thích user thay đổi & Dynamic user preference & Sequential RS, session-based RS, time-aware attention \\
+Dữ liệu nhiều dạng & Multimodal recommendation & Multimodal fusion, cross-modal attention \\
+Dễ bị fake interaction & Robustness & Anomaly detection, adversarial training \\
+LLM tạo cơ hội và rủi ro mới & LLM-based recommender & RAG, LLM re-ranking, faithful explanation \\
+\bottomrule
+\end{tabular}
+\caption{Tóm tắt một số vấn đề hiện tại trong Recommender System.}
+\label{tab:rs_problems}
+\end{table}
+
+\section{Gợi ý hướng phát triển thành paper}
+
+Từ các vấn đề trên, có thể chọn một số hướng khả thi để phát triển thành đề tài nghiên cứu:
+
+\subsection{Popularity Bias và Long-tail Recommendation}
+
+\textbf{Research problem}: RS thường ưu tiên popular items, làm giảm exposure của long-tail items. 
+
+\textbf{Possible method}: đề xuất một \textit{popularity-aware re-ranking} method để cân bằng giữa relevance và long-tail exposure.
+
+\textbf{Evaluation metrics}: Recall@K, NDCG@K, Coverage, Diversity, Average Popularity.
+
+\subsection{Cold-start Recommendation với Semantic Embedding}
+
+\textbf{Research problem}: User hoặc item mới thiếu interaction nên collaborative filtering hoạt động kém.
+
+\textbf{Possible method}: kết hợp \textit{collaborative embedding} với \textit{semantic embedding} từ metadata, review hoặc item description.
+
+\textbf{Evaluation metrics}: Recall@K, NDCG@K, HitRate@K, cold-start subset performance.
+
+\subsection{Explainable Recommendation với LLM}
+
+\textbf{Research problem}: Deep recommender thường khó giải thích, trong khi explanation giúp tăng trust và transparency.
+
+\textbf{Possible method}: dùng ranking model để tạo recommendation, sau đó dùng LLM-based explanation layer để sinh natural-language explanation.
+
+\textbf{Evaluation metrics}: ranking accuracy, faithfulness, readability, user preference.
+
+\subsection{Cost-aware LLM Recommender}
+
+\textbf{Research problem}: LLM giúp hiểu intent và tạo explanation tốt hơn nhưng có inference cost và latency cao.
+
+\textbf{Possible method}: dùng retrieval model để lấy top-N candidates, sau đó chỉ dùng LLM để re-rank hoặc explain một tập nhỏ.
+
+\textbf{Evaluation metrics}: NDCG@K, latency, cost per recommendation, explanation quality.
+
+\section{Kết luận}
+
+Recommender System hiện đại không chỉ cần tối ưu accuracy mà còn cần giải quyết nhiều vấn đề thực tế như cold-start, data sparsity, popularity bias, filter bubble, explainability, privacy, scalability và evaluation. 
+Sự xuất hiện của LLMs mở ra nhiều hướng mới cho RS, đặc biệt trong việc hiểu ngữ cảnh, xử lý ngôn ngữ tự nhiên và tạo explanation. 
+Tuy nhiên, LLM-based recommender cũng đặt ra các thách thức mới về chi phí, độ trễ, hallucination, faithfulness và privacy. 
+Do đó, các nghiên cứu trong tương lai nên xem recommendation như một bài toán đa mục tiêu, trong đó accuracy cần được cân bằng với fairness, diversity, explainability, efficiency và user trust.
+
+\begin{thebibliography}{99}
+
+\bibitem{zhang2025coldstart}
+W. Zhang, Y. Bei, L. Yang, H. P. Zou, P. Zhou, A. Liu, Y. Li, H. Chen, J. Wang, Y. Wang, F. Huang, S. Zhou, J. Bu, A. Lin, J. Caverlee, F. Karray, I. King, and P. S. Yu,
+``Cold-Start Recommendation towards the Era of Large Language Models (LLMs): A Comprehensive Survey and Roadmap,''
+\textit{arXiv preprint arXiv:2501.01945}, 2025.
+
+\bibitem{wu2024llmrec}
+L. Wu, Z. Zheng, Z. Qiu, H. Wang, H. Gu, T. Shen, C. Qin, C. Zhu, H. Zhu, Q. Liu, H. Xiong, and E. Chen,
+``A Survey on Large Language Models for Recommendation,''
+\textit{World Wide Web}, 2024.
+
+\bibitem{fan2024llmrec}
+W. Fan, X. Zhao, X. Chen, J. Tang, and Q. Li,
+``A Survey on Large Language Models for Recommendation,''
+\textit{arXiv preprint arXiv:2305.19860}, 2023.
+
+\bibitem{klimashevskaia2024popularity}
+A. Klimashevskaia, D. Jannach, M. Elahi, and C. Trattner,
+``A Survey on Popularity Bias in Recommender Systems,''
+\textit{User Modeling and User-Adapted Interaction}, vol. 34, pp. 1777--1834, 2024.
+
+\bibitem{zhang2020explainable}
+Y. Zhang and X. Chen,
+``Explainable Recommendation: A Survey and New Perspectives,''
+\textit{Foundations and Trends in Information Retrieval}, vol. 14, no. 1, pp. 1--101, 2020.
+
+\bibitem{chen2022why}
+X. Chen, Y. Zhang, and J.-R. Wen,
+``Measuring `Why' in Recommender Systems: A Comprehensive Survey on the Evaluation of Explainable Recommendation,''
+\textit{arXiv preprint arXiv:2202.06466}, 2022.
+
+\bibitem{wei2023multimodal}
+Y. Wei, X. Wang, L. Nie, S. He, R. Hong, and T.-S. Chua,
+``Multimodal Recommender Systems: A Survey,''
+\textit{arXiv preprint arXiv:2302.03883}, 2023.
+
+\end{thebibliography}
+
+\end{document}

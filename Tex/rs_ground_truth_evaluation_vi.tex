@@ -1,0 +1,509 @@
+\documentclass[12pt,a4paper]{article}
+
+% =====================
+% Packages
+% =====================
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\geometry{margin=2.5cm}
+\onehalfspacing
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\title{\textbf{Ground Truth và Evaluation trong Recommender System}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Trong \textit{Recommender System} (RS), việc đánh giá mô hình không đơn giản như các bài toán supervised learning thông thường. 
+Lý do là ground truth trong RS thường được xây dựng từ các tín hiệu quan sát được như rating, click, view, watch time, like, add-to-cart hoặc purchase. 
+Tuy nhiên, các tín hiệu này không trực tiếp phản ánh \textit{true preference} của user đối với item. 
+Một interaction được quan sát có thể chịu ảnh hưởng bởi exposure, vị trí hiển thị, giao diện, kỳ vọng, giá cả, ngữ cảnh sử dụng, hoặc quá trình tiêu dùng sau khi user đã chọn item. 
+Vì vậy, ground truth trong RS nên được hiểu là một proxy có nhiễu của user preference, thay vì một nhãn khách quan cho việc item ``tốt'' hay ``không tốt''. 
+Bài viết này trình bày các vấn đề chính trong ground truth và evaluation của RS, bao gồm hạn chế của rating, sự khác biệt giữa các feedback signal, exposure bias, selection bias, missing-not-at-random feedback, offline evaluation, và một số hướng đánh giá đáng tin cậy hơn như exposure-aware evaluation, randomized exposure và counterfactual evaluation.
+\end{abstract}
+
+\section{Giới thiệu}
+
+Trong nhiều bài toán machine learning truyền thống, ground truth thường được xác định tương đối rõ ràng. 
+Ví dụ, trong bài toán classification, mỗi mẫu dữ liệu thường có một label thật như $0$ hoặc $1$. 
+Tuy nhiên, trong \textit{Recommender System}, ground truth phức tạp hơn nhiều. 
+Một recommender system không chỉ cần dự đoán item nào từng được user click, xem hoặc mua, mà lý tưởng hơn, nó cần dự đoán item nào thật sự phù hợp với sở thích, nhu cầu hoặc mục tiêu của user.
+
+Một câu hỏi cốt lõi trong RS là:
+
+\begin{quote}
+Nếu user $u$ được nhìn thấy item $i$, liệu user có thích, click, xem, mua, hoặc đánh giá cao item đó hay không?
+\end{quote}
+
+Tuy nhiên, dữ liệu log thường chỉ cho biết:
+
+\begin{quote}
+User $u$ đã từng tương tác với item $i$ hay chưa.
+\end{quote}
+
+Hai câu hỏi này không tương đương nhau. 
+Một user không tương tác với item không nhất thiết là vì user không thích item đó. 
+User có thể chưa từng nhìn thấy item, item có thể không được hệ thống cũ hiển thị, hoặc user có thể quan tâm nhưng chưa có điều kiện hành động. 
+Ngược lại, một user có interaction với item cũng không đồng nghĩa rằng user thật sự hài lòng với item sau khi trải nghiệm. 
+Do đó, observed feedback không nên được xem là true preference một cách tuyệt đối.
+
+\section{Ground Truth trong Recommender System}
+
+Với một user $u$ và item $i$, interaction quan sát được thường được ký hiệu là:
+
+\begin{equation}
+Y_{ui} =
+\begin{cases}
+1, & \text{nếu user } u \text{ có interaction với item } i, \\
+0, & \text{nếu không quan sát thấy interaction.}
+\end{cases}
+\end{equation}
+
+Trong nhiều thiết lập, $Y_{ui}=1$ được xem là positive label. 
+Tuy nhiên, $Y_{ui}=0$ không nên được hiểu là negative label chắc chắn. 
+Đặc biệt trong \textit{implicit feedback}, việc không có interaction chỉ có nghĩa là hệ thống không quan sát được phản hồi tích cực, chứ không chứng minh rằng user không thích item đó \cite{saito2020unbiased}.
+
+Một cách mô hình hóa hợp lý hơn là tách interaction quan sát được thành hai thành phần: exposure và relevance. 
+Ta có thể viết:
+
+\begin{equation}
+Y_{ui} = E_{ui} \cdot R_{ui},
+\end{equation}
+
+trong đó:
+
+\begin{itemize}[leftmargin=*]
+    \item $E_{ui}$ là biến \textit{exposure}, biểu diễn việc user $u$ có được nhìn thấy item $i$ hay không;
+    \item $R_{ui}$ là biến \textit{relevance} hoặc \textit{true preference}, biểu diễn việc user $u$ có thật sự quan tâm hoặc thấy item $i$ phù hợp hay không;
+    \item $Y_{ui}$ là feedback hoặc interaction quan sát được, ví dụ click, view, purchase hoặc rating.
+\end{itemize}
+
+Theo cách nhìn này, user chỉ có thể click, mua hoặc đánh giá một item nếu user đã được exposed với item đó. 
+Do đó:
+
+\begin{equation}
+P(Y_{ui}=1) = P(E_{ui}=1) \cdot P(R_{ui}=1 \mid E_{ui}=1).
+\end{equation}
+
+Mục tiêu lý tưởng của RS là ước lượng $R_{ui}$, nhưng dữ liệu thực tế thường chỉ quan sát được $Y_{ui}$. 
+Đây là nguyên nhân chính khiến evaluation trong RS khó hơn các bài toán supervised learning thông thường.
+
+\section{Các loại Feedback trong Recommender System}
+
+Ground truth trong RS phụ thuộc mạnh vào loại feedback được sử dụng. 
+Mỗi loại feedback đo một khía cạnh khác nhau của hành vi user và có mức độ tin cậy khác nhau.
+
+\subsection{Explicit Feedback}
+
+\textit{Explicit feedback} là phản hồi trực tiếp từ user, ví dụ rating từ 1 đến 5 sao, like/dislike hoặc review score. 
+Ví dụ:
+
+\begin{equation}
+r_{ui} \in \{1,2,3,4,5\}.
+\end{equation}
+
+Trong một số bài toán, rating có thể được chuyển thành label nhị phân:
+
+\begin{equation}
+Y_{ui} =
+\begin{cases}
+1, & r_{ui} \geq 4, \\
+0, & r_{ui} \leq 2.
+\end{cases}
+\end{equation}
+
+Explicit feedback có ưu điểm là dễ diễn giải hơn implicit feedback. 
+Tuy nhiên, nó vẫn không phải ground truth hoàn hảo. 
+Không phải user nào cũng rating, và user thường chỉ rating khi họ có động lực mạnh, chẳng hạn rất thích hoặc rất không thích item. 
+Vì vậy, rating data có thể chịu \textit{selection bias} do user tự chọn item nào để đánh giá.
+
+\subsection{Implicit Feedback}
+
+\textit{Implicit feedback} là phản hồi gián tiếp từ hành vi của user, ví dụ click, view, watch time, add-to-cart, purchase, save hoặc share. 
+Đây là loại dữ liệu phổ biến trong RS vì dễ thu thập ở quy mô lớn.
+
+Trong implicit feedback, một interaction tích cực như click hoặc purchase có thể được xem là tín hiệu positive. 
+Tuy nhiên, missing interaction không nên được xem là negative chắc chắn. 
+Saito et al. chỉ ra rằng implicit feedback có bản chất \textit{positive-unlabeled}: interaction được quan sát là positive signal, còn item không được tương tác là unlabeled vì user có thể chưa từng được exposed với item \cite{saito2020unbiased}.
+
+\subsection{Exposure-aware Feedback}
+
+\textit{Exposure-aware feedback} là trường hợp hệ thống biết item nào đã được hiển thị cho user. 
+Khi đó, ground truth có thể được xây dựng tốt hơn:
+
+\begin{equation}
+Y_{ui} =
+\begin{cases}
+1, & E_{ui}=1 \text{ và user có phản ứng tích cực với item } i, \\
+0, & E_{ui}=1 \text{ và user bỏ qua item } i, \\
+?, & E_{ui}=0.
+\end{cases}
+\end{equation}
+
+Trường hợp này phản ánh đúng hơn câu hỏi: 
+``Khi user đã nhìn thấy item, user có phản ứng tích cực hay không?''
+
+Tuy nhiên, exposure-aware feedback vẫn có thể bị bias vì item được exposed thường do hệ thống cũ quyết định, không phải được chọn ngẫu nhiên. 
+Do đó, nó vẫn chịu ảnh hưởng của \textit{exposure bias} và \textit{selection bias}.
+
+\subsection{Randomized Exposure}
+
+\textit{Randomized exposure} là trường hợp item được hiển thị ngẫu nhiên cho user, sau đó hệ thống đo phản ứng của user. 
+Đây là dạng dữ liệu gần với ground truth hơn vì exposure không bị chi phối quá mạnh bởi recommender cũ. 
+Dữ liệu randomized hoặc missing-completely-at-random thường hữu ích cho việc đánh giá và ước lượng propensity trong các phương pháp debiasing \cite{schnabel2016recommendations}.
+
+Tuy nhiên, randomized exposure thường tốn chi phí và có thể làm giảm trải nghiệm user nếu hệ thống hiển thị nhiều item kém liên quan. 
+Vì vậy, trong thực tế, randomized exposure thường chỉ được dùng trên một phần nhỏ traffic hoặc trong các thí nghiệm kiểm soát như A/B testing.
+
+\section{Hạn chế của Rating như Ground Truth}
+
+Ngay cả khi chỉ xét \textit{explicit feedback} như rating, ta cũng không nên xem rating là ground truth hoàn hảo cho mức độ user yêu thích bản thân item. 
+Rating thường được đưa ra sau khi user đã tiêu dùng hoặc trải nghiệm item. 
+Do đó, rating phản ánh \textit{post-consumption satisfaction}, tức mức độ hài lòng sau toàn bộ quá trình trải nghiệm, hơn là chỉ phản ánh \textit{intrinsic item relevance}.
+
+Nói cách khác, rating không chỉ phụ thuộc vào việc item có phù hợp với sở thích của user hay không. 
+Nó còn chịu ảnh hưởng bởi kỳ vọng ban đầu, giá cả, chất lượng giao hàng, dịch vụ, giao diện nền tảng, thời điểm sử dụng, trạng thái cảm xúc của user, hoặc sự khác biệt giữa kỳ vọng và trải nghiệm thực tế.
+
+Ví dụ, một user có thể đánh giá thấp một sản phẩm không phải vì họ không quan tâm đến loại sản phẩm đó, mà vì sản phẩm giao chậm, đóng gói kém, giá cao, mô tả không đúng kỳ vọng, hoặc dịch vụ sau bán hàng không tốt. 
+Trong trường hợp này, rating phản ánh chất lượng của toàn bộ trải nghiệm tiêu dùng hơn là mức độ phù hợp của item với sở thích của user.
+
+Do đó, thay vì giả định rating $R_{ui}$ là biểu diễn trực tiếp cho \textit{true preference} $P_{ui}$, ta có thể xem rating như một tín hiệu nhiễu được tạo ra bởi nhiều yếu tố tiềm ẩn:
+
+\begin{equation}
+R_{ui} = f(P_{ui}, Q_i, C_{ui}, S_{ui}, \epsilon_{ui}),
+\end{equation}
+
+trong đó:
+
+\begin{itemize}[leftmargin=*]
+    \item $R_{ui}$ là rating quan sát được của user $u$ đối với item $i$;
+    \item $P_{ui}$ là \textit{true preference}, tức mức độ user thật sự quan tâm hoặc yêu thích item;
+    \item $Q_i$ là \textit{perceived item quality}, tức chất lượng item theo cảm nhận của user;
+    \item $C_{ui}$ là \textit{contextual factors}, bao gồm giá, thời gian, giao hàng, dịch vụ, giao diện nền tảng hoặc hoàn cảnh sử dụng;
+    \item $S_{ui}$ là \textit{subjective state}, bao gồm kỳ vọng, tâm trạng hoặc động cơ đánh giá của user;
+    \item $\epsilon_{ui}$ là nhiễu ngẫu nhiên.
+\end{itemize}
+
+Cách nhìn này cho thấy rating chỉ là một proxy không hoàn hảo của true preference. 
+Rating có thể hữu ích để đo \textit{post-consumption satisfaction}, nhưng không nên được hiểu là nhãn tuyệt đối cho việc item có phù hợp với user hay không.
+
+\section{So sánh các Feedback Signal}
+
+Các loại feedback khác nhau trong recommender system phản ánh các khía cạnh hành vi khác nhau của user. 
+Không có feedback signal nào hoàn toàn tương đương với true preference.
+
+\textit{Click} và \textit{view} thường mang tính \textit{directional} hơn rating, vì chúng cho thấy user có sự quan tâm ban đầu đến item trước khi tiêu dùng đầy đủ. 
+Tuy nhiên, click có thể bị ảnh hưởng bởi \textit{position bias}, \textit{presentation bias}, thumbnail, tiêu đề hấp dẫn hoặc clickbait. 
+View còn là tín hiệu yếu hơn, vì việc user nhìn thấy hoặc mở một item không nhất thiết đồng nghĩa với việc user thật sự thích item đó.
+
+\textit{Watch time} hoặc \textit{dwell time} thường được dùng như proxy cho engagement, đặc biệt trong video recommendation hoặc news recommendation. 
+Tuy nhiên, watch time có thể bị bias rất mạnh. 
+Một video dài có thể tạo ra watch time cao hơn chỉ vì nó dài hơn, không nhất thiết vì user thích nội dung đó hơn. 
+Ngoài ra, user có thể để video chạy nền, xem trong lúc phân tâm, hoặc mất nhiều thời gian để nhận ra rằng nội dung đó không phù hợp. 
+Vì vậy, watch time phản ánh \textit{engagement duration}, nhưng không phải lúc nào cũng phản ánh true preference. 
+Trong video recommendation, watch time có thể bị ảnh hưởng bởi \textit{duration bias} và \textit{noisy watching} \cite{zhao2023watchtime}.
+
+So với click, view và watch time, các signal như \textit{like} và \textit{add-to-cart} thường là tín hiệu positive mạnh hơn. 
+Like là một hành động explicit thể hiện user có đánh giá tích cực đối với item. 
+Add-to-cart trong e-commerce còn thể hiện \textit{purchase intent}, tức ý định mua hàng, và thường mạnh hơn click hoặc view. 
+Tuy nhiên, các signal này vẫn không hoàn hảo. 
+User có thể like vì nhiều lý do xã hội, hoặc add-to-cart nhưng không mua do giá, phí vận chuyển, khuyến mãi thay đổi, giới hạn ngân sách hoặc thay đổi nhu cầu.
+
+Vì vậy, feedback trong recommender system nên được hiểu như một hệ thống các tín hiệu hành vi có ý nghĩa và độ tin cậy khác nhau, thay vì một ground truth duy nhất.
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{p{3cm} p{5cm} p{5cm}}
+\toprule
+\textbf{Feedback signal} & \textbf{Ý nghĩa chính} & \textbf{Bias hoặc hạn chế chính} \\
+\midrule
+Rating 
+& Mức độ hài lòng sau trải nghiệm 
+& Bị ảnh hưởng bởi kỳ vọng, giá, dịch vụ, giao hàng, ngữ cảnh và tâm trạng user \\
+
+Click 
+& Sự quan tâm ban đầu hoặc directional intent 
+& Bị ảnh hưởng bởi position bias, thumbnail, tiêu đề, clickbait và cách hiển thị \\
+
+View 
+& Attention signal yếu hoặc exposure 
+& User nhìn thấy item chưa chắc đồng nghĩa với việc user thích item \\
+
+Watch time 
+& Thời lượng engagement 
+& Bị ảnh hưởng bởi duration bias, autoplay, multitasking hoặc noisy watching \\
+
+Like 
+& Tín hiệu positive explicit 
+& Sparse, phụ thuộc vào thói quen và động cơ phản hồi của user \\
+
+Add-to-cart 
+& Purchase intent 
+& Có thể bị bỏ giỏ hàng do giá, phí vận chuyển, ngân sách hoặc thay đổi nhu cầu \\
+
+Purchase 
+& Conversion hoặc realized utility 
+& Bị ảnh hưởng bởi giá, khuyến mãi, khả năng chi trả và nhu cầu tức thời \\
+\bottomrule
+\end{tabular}
+\caption{So sánh các loại feedback signal trong recommender system.}
+\label{tab:feedback_signal_comparison}
+\end{table}
+
+\section{Observed Feedback như Proxy của Latent Preference}
+
+Từ các phân tích trên, ground truth trong recommender system không nên được hiểu là một nhãn khách quan cho việc item ``tốt'' hay ``không tốt''. 
+Thay vào đó, ground truth phụ thuộc mạnh vào loại feedback được sử dụng.
+
+Rating phản ánh mức độ hài lòng sau khi tiêu dùng item. 
+Click và view phản ánh sự quan tâm ban đầu hoặc khả năng item thu hút sự chú ý. 
+Watch time phản ánh thời lượng engagement nhưng có thể bị bias mạnh. 
+Like và add-to-cart là các tín hiệu positive mạnh hơn, nhưng thường sparse và vẫn chịu ảnh hưởng bởi nhiều yếu tố ngoài true preference.
+
+Một cách tổng quát, ta có thể mô hình hóa observed feedback như một proxy nhiễu của latent user preference:
+
+\begin{equation}
+Y_{ui}^{(a)} = g_a(P_{ui}, E_{ui}, C_{ui}, B_{ui}, \epsilon_{ui}),
+\end{equation}
+
+trong đó:
+
+\begin{itemize}[leftmargin=*]
+    \item $Y_{ui}^{(a)}$ là feedback quan sát được của loại hành động $a$, ví dụ click, view, rating, like hoặc add-to-cart;
+    \item $P_{ui}$ là \textit{latent user preference};
+    \item $E_{ui}$ là \textit{exposure}, tức user có nhìn thấy item hay không;
+    \item $C_{ui}$ là các yếu tố ngữ cảnh;
+    \item $B_{ui}$ là các bias do hành vi user hoặc nền tảng gây ra;
+    \item $\epsilon_{ui}$ là nhiễu ngẫu nhiên.
+\end{itemize}
+
+Công thức này nhấn mạnh rằng mỗi loại feedback đo một khía cạnh khác nhau của hành vi user. 
+Do đó, các feedback signal không nên được đối xử như nhau trong training và evaluation. 
+Ví dụ, click có thể phù hợp để mô hình hóa \textit{short-term interest}, like và add-to-cart có thể đáng tin cậy hơn để mô hình hóa \textit{positive intent}, trong khi rating phù hợp hơn để mô hình hóa \textit{post-consumption satisfaction} thay vì pure item relevance.
+
+\section{Offline Evaluation trong Recommender System}
+
+Một cách đánh giá phổ biến trong RS là \textit{offline evaluation}. 
+Quy trình thường gồm các bước sau:
+
+\begin{enumerate}[leftmargin=*]
+    \item Chia interaction log thành train set và test set.
+    \item Huấn luyện model trên train set.
+    \item Với mỗi user, model tạo ra danh sách top-$K$ recommended items.
+    \item So sánh danh sách top-$K$ với các item trong test set.
+\end{enumerate}
+
+Ví dụ, với user $u$, giả sử item trong test set là:
+
+\begin{equation}
+\mathcal{I}^{test}_u = \{i_5\}.
+\end{equation}
+
+Nếu model recommend top-5 items là:
+
+\begin{equation}
+\hat{\mathcal{I}}^5_u = [i_8, i_2, i_5, i_9, i_{10}],
+\end{equation}
+
+thì model được tính là có hit vì item $i_5$ xuất hiện trong top-5.
+
+Các metric phổ biến gồm:
+
+\begin{equation}
+Recall@K = \frac{|\hat{\mathcal{I}}^K_u \cap \mathcal{I}^{test}_u|}{|\mathcal{I}^{test}_u|},
+\end{equation}
+
+\begin{equation}
+Precision@K = \frac{|\hat{\mathcal{I}}^K_u \cap \mathcal{I}^{test}_u|}{K},
+\end{equation}
+
+và \textit{Normalized Discounted Cumulative Gain}:
+
+\begin{equation}
+NDCG@K = \frac{DCG@K}{IDCG@K}.
+\end{equation}
+
+Trong đó, $NDCG@K$ xem xét cả việc item đúng có xuất hiện trong top-$K$ hay không và vị trí của item đó trong ranking.
+
+\section{Hạn chế của Offline Evaluation}
+
+Offline evaluation có một hạn chế quan trọng: test set chỉ chứa các observed interactions. 
+Nếu model recommend một item mà user thật sự có thể thích nhưng chưa từng tương tác trong log, offline metric vẫn xem đó là sai.
+
+Do đó:
+
+\begin{equation}
+\text{Observed interaction} \neq \text{True preference}.
+\end{equation}
+
+và:
+
+\begin{equation}
+\text{Missing interaction} \neq \text{Negative feedback}.
+\end{equation}
+
+Đây là vấn đề lớn trong implicit feedback. 
+Nhiều phương pháp evaluation hoặc training giả định rằng unobserved items là negative samples, nhưng giả định này có thể sai vì các item chưa quan sát được có thể vẫn là item user thích \cite{saito2020unbiased}.
+
+Một vấn đề khác là \textit{missing-not-at-random} (MNAR). 
+Interaction log không được sinh ra ngẫu nhiên; popular items hoặc items được recommender cũ hiển thị nhiều hơn có xác suất được click cao hơn. 
+Vì vậy, model mới được train và đánh giá trên log cũ có thể học lại bias của hệ thống cũ thay vì học true preference.
+
+\section{Exposure Bias và Selection Bias}
+
+\textit{Exposure bias} xảy ra khi user chỉ có cơ hội tương tác với những item đã được hệ thống hiển thị. 
+Nếu một item không được exposed, user không thể click hoặc mua item đó, dù item có thể phù hợp.
+
+\textit{Selection bias} xảy ra khi dữ liệu quan sát được không đại diện cho toàn bộ không gian user-item. 
+Ví dụ, những item phổ biến, item được rank cao, hoặc item được hệ thống cũ hiển thị nhiều hơn thường xuất hiện nhiều hơn trong log.
+
+Các bias này làm cho evaluation bị lệch. 
+Một model có thể đạt điểm offline cao vì nó recommend các item giống với hệ thống cũ hoặc các item phổ biến, chứ không nhất thiết vì nó dự đoán tốt true preference.
+
+\section{Counterfactual Evaluation và Propensity Score}
+
+Một hướng xử lý bias trong offline evaluation là \textit{counterfactual evaluation}. 
+Thay vì chỉ hỏi model có khớp với historical log hay không, counterfactual evaluation cố gắng ước lượng điều gì sẽ xảy ra nếu một policy recommendation mới được triển khai.
+
+Một kỹ thuật phổ biến là \textit{Inverse Propensity Scoring} (IPS). 
+Giả sử $p_{ui}$ là xác suất item $i$ được exposed cho user $u$, IPS gán trọng số lớn hơn cho những interaction hiếm được quan sát:
+
+\begin{equation}
+\hat{R}_{IPS} = \frac{1}{|\mathcal{D}|} \sum_{(u,i) \in \mathcal{D}} \frac{Y_{ui} \cdot \delta_{ui}}{p_{ui}},
+\end{equation}
+
+trong đó:
+
+\begin{itemize}[leftmargin=*]
+    \item $p_{ui}$ là \textit{propensity score};
+    \item $\delta_{ui}$ là reward hoặc relevance signal quan sát được;
+    \item $\mathcal{D}$ là tập interaction log.
+\end{itemize}
+
+IPS giúp giảm bias do exposure không ngẫu nhiên, nhưng có thể gặp vấn đề variance cao nếu propensity score quá nhỏ. 
+Do đó, nhiều nghiên cứu sử dụng các biến thể như \textit{clipped IPS}, \textit{self-normalized IPS} hoặc \textit{doubly robust estimator} \cite{saito2020unbiased,liang2016modeling}.
+
+\section{Keyword quan trọng}
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{p{4cm} p{9cm}}
+\toprule
+\textbf{Keyword} & \textbf{Giải thích} \\
+\midrule
+\textit{Ground truth} & Label dùng để đánh giá model. Trong RS, ground truth thường là observed feedback trong test set, không nhất thiết là true preference. \\
+\textit{True preference} & Mức độ user thật sự thích hoặc quan tâm đến item. Đây là mục tiêu lý tưởng nhưng thường không quan sát trực tiếp được. \\
+\textit{Latent preference} & Sở thích tiềm ẩn của user đối với item, không quan sát trực tiếp mà phải suy ra từ feedback. \\
+\textit{Observed feedback} & Tín hiệu được ghi nhận trong log, ví dụ click, view, rating, like, add-to-cart hoặc purchase. \\
+\textit{Explicit feedback} & Feedback trực tiếp từ user như rating, like/dislike hoặc review score. \\
+\textit{Implicit feedback} & Feedback gián tiếp từ hành vi user, ví dụ click, view, watch time, purchase. Missing interaction không nên xem là negative chắc chắn. \\
+\textit{Post-consumption satisfaction} & Mức độ hài lòng của user sau khi đã trải nghiệm item hoặc dịch vụ. Rating thường phản ánh khía cạnh này. \\
+\textit{Intrinsic item relevance} & Mức độ item tự thân phù hợp với sở thích hoặc nhu cầu của user. \\
+\textit{Exposure} & Việc user có được nhìn thấy item hay không. User chỉ có thể tương tác với item nếu đã được exposed. \\
+\textit{Exposure bias} & Bias do user chỉ tương tác với các item đã được hệ thống hiển thị. \\
+\textit{Selection bias} & Bias do dữ liệu quan sát được không đại diện cho toàn bộ không gian user-item. \\
+\textit{MNAR} & Viết tắt của \textit{Missing Not At Random}. Dữ liệu bị thiếu không ngẫu nhiên, thường do cơ chế hiển thị hoặc popularity. \\
+\textit{Positive-unlabeled learning} & Thiết lập học máy trong đó positive samples được quan sát, còn samples không có label là unlabeled thay vì negative. \\
+\textit{Negative sampling} & Kỹ thuật lấy một số unobserved items làm negative examples, dù các item này không chắc là negative thật. \\
+\textit{Duration bias} & Bias xảy ra khi item dài hơn tự nhiên tạo ra watch time cao hơn, dù user không nhất thiết thích hơn. \\
+\textit{Noisy watching} & Trường hợp watch time không phản ánh sự yêu thích thật, ví dụ user xem trong lúc phân tâm hoặc để nội dung chạy nền. \\
+\textit{Purchase intent} & Ý định mua hàng, thường được phản ánh bởi add-to-cart, wishlist hoặc checkout behavior. \\
+\textit{Offline evaluation} & Đánh giá model bằng dữ liệu lịch sử đã thu thập, thường thông qua train/test split. \\
+\textit{Online evaluation} & Đánh giá model trực tiếp với user thật, ví dụ A/B testing. \\
+\textit{Counterfactual evaluation} & Đánh giá chính sách recommendation mới dựa trên log cũ bằng cách điều chỉnh bias từ cơ chế thu thập dữ liệu. \\
+\textit{Propensity score} & Xác suất một user-item pair được quan sát hoặc exposed. Thường dùng trong IPS để hiệu chỉnh bias. \\
+\textit{IPS} & \textit{Inverse Propensity Scoring}, kỹ thuật đánh trọng số ngược với propensity score để giảm bias. \\
+\bottomrule
+\end{tabular}
+\caption{Một số keyword quan trọng trong ground truth và evaluation của Recommender System.}
+\label{tab:evaluation_keywords}
+\end{table}
+
+\section{Đoạn viết ngắn có thể dùng trong paper}
+
+Có thể tóm tắt vấn đề ground truth trong RS như sau:
+
+\begin{quote}
+Trong Recommender System, ground truth trong offline evaluation thường được xây dựng từ các feedback signal quan sát được giữa user và item. 
+Tuy nhiên, observed feedback không nhất thiết phản ánh true user preference. 
+Một rating có thể phản ánh post-consumption satisfaction hơn là intrinsic item relevance; một click hoặc view có thể phản ánh initial interest nhưng vẫn chịu position bias và presentation bias; watch time có thể phản ánh engagement nhưng bị ảnh hưởng bởi duration bias; trong khi like và add-to-cart là các tín hiệu positive intent mạnh hơn nhưng thường sparse. 
+Do đó, feedback quan sát được nên được xem là proxy có nhiễu của latent user preference, thay vì một ground truth tuyệt đối. 
+Một đánh giá đáng tin cậy hơn cần phân biệt rõ giữa exposure, interaction, relevance và các loại feedback signal khác nhau.
+\end{quote}
+
+\section{Kết luận}
+
+Ground truth trong RS không nên được hiểu đơn giản là ``item tốt'' hoặc ``item không tốt''. 
+Trong đa số offline evaluation, ground truth chỉ là feedback hoặc interaction mà hệ thống quan sát được trong test set. 
+Điều này tạo ra khoảng cách giữa observed feedback và true preference.
+
+Rating, dù là explicit feedback, vẫn không phản ánh hoàn toàn sở thích thật của user đối với bản thân item, vì nó chịu ảnh hưởng bởi toàn bộ quá trình tiêu dùng và mức độ hài lòng sau trải nghiệm. 
+Click, view, watch time, like, add-to-cart và purchase cũng đều có ý nghĩa riêng và các dạng bias riêng. 
+Do đó, khi training và evaluating recommender system, cần phân biệt rõ loại feedback được sử dụng, ý nghĩa hành vi của feedback đó, và bias có thể đi kèm.
+
+Các phương pháp như exposure-aware evaluation, randomized exposure, counterfactual evaluation và propensity-based debiasing là các hướng quan trọng để giảm bias trong evaluation. 
+Tuy nhiên, không có phương pháp nào hoàn toàn loại bỏ được khoảng cách giữa observed feedback và true preference. 
+Vì vậy, evaluation trong RS nên được xem là một bài toán ước lượng preference từ các tín hiệu hành vi không hoàn hảo, thay vì một bài toán so khớp label đơn giản như trong supervised learning truyền thống.
+
+\begin{thebibliography}{99}
+
+\bibitem{saito2020unbiased}
+Y. Saito, S. Yaginuma, Y. Nishino, H. Sakata, and K. Nakata,
+``Unbiased Recommender Learning from Missing-Not-At-Random Implicit Feedback,''
+in \textit{Proceedings of the 13th International Conference on Web Search and Data Mining (WSDM)}, 2020.
+
+\bibitem{schnabel2016recommendations}
+T. Schnabel, A. Swaminathan, A. Singh, N. Chandak, and T. Joachims,
+``Recommendations as Treatments: Debiasing Learning and Evaluation,''
+in \textit{Proceedings of the 33rd International Conference on Machine Learning (ICML)}, 2016.
+
+\bibitem{liang2016modeling}
+D. Liang, L. Charlin, J. McInerney, and D. M. Blei,
+``Modeling User Exposure in Recommendation,''
+in \textit{Proceedings of the 25th International Conference on World Wide Web (WWW)}, 2016.
+
+\bibitem{yang2018unbiased}
+L. Yang, Y. Cui, Y. Xuan, C. Wang, S. Belongie, and D. Estrin,
+``Unbiased Offline Recommender Evaluation for Missing-Not-At-Random Implicit Feedback,''
+in \textit{Proceedings of the 12th ACM Conference on Recommender Systems (RecSys)}, 2018.
+
+\bibitem{chen2020bias}
+J. Chen, H. Dong, X. Wang, F. Feng, M. Wang, and X. He,
+``Bias and Debias in Recommender System: A Survey and Future Directions,''
+\textit{arXiv preprint arXiv:2010.03240}, 2020.
+
+\bibitem{zhao2023watchtime}
+H. Zhao, L. Zhang, J. Xu, G. Cai, Z. Dong, and J.-R. Wen,
+``Uncovering User Interest from Biased and Noised Watch Time in Video Recommendation,''
+in \textit{Proceedings of the 17th ACM Conference on Recommender Systems (RecSys)}, 2023.
+
+\bibitem{hu2008implicit}
+Y. Hu, Y. Koren, and C. Volinsky,
+``Collaborative Filtering for Implicit Feedback Datasets,''
+in \textit{Proceedings of the 8th IEEE International Conference on Data Mining (ICDM)}, 2008.
+
+\end{thebibliography}
+
+\end{document}

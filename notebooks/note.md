@@ -1,0 +1,1 @@
+sysystem: thích ưứng dc khủng khoảng truyền thông
