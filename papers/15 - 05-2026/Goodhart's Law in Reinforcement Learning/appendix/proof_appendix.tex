@@ -1,0 +1,136 @@
+\section{Proofs}
+\label{appendix:proofs}
+
+\setcounter{proposition}{0}
+\setcounter{theorem}{0}
+%\setcounter{lemma}{0}
+\setcounter{corollary}{0}
+
+\begin{proposition}
+The set $\Polytope = \{\occmeas{\policy}: \policy \in \Policies\}$ is the convex hull of the finite set of points corresponding to the deterministic policies $\Polytope_d \coloneqq \{\occmeas{\policy}: \policy \in \DetPolicies\}$. It lies in a linear subspace of dimension $|\S|(|\A| - 1)$.
+\end{proposition}
+
+\begin{proof}
+
+Proof of the second half of this proposition, which says that the dimension of the affine space containing $\Polytope$ has at most $|\S|(|\A|-1)$ dimensions, can be found in \cite[Lemma~A.2]{skalse2023misspecification}.
+To prove
+\citet[Equation~6.9.2]{puterman1994} outlines the following linear program:
+\begin{align*}
+    \text{maximise: } & \R \cdot \occmeas{} & \\
+    \text{subject to: } &  
+    \sum_{a \in \A} \occmeas{}(s',a) - \discount \sum_{s \in \S, a \in \A} \T(s, a, s')\cdot \occmeas{}(s,a) = \m(s)  &  \forall s' \in \S \\
+    & \occmeas{}(s,a) \geq 0 & \forall s,a \in \S \times \A
+\end{align*}
+\citet[Theorem~6.9.1]{puterman1994} proves that (i) for any $\policy \in \Policies$, $\occmeas{\policy}$ satisfies this linear program and (ii) for any feasible solution to this linear program $\occmeas{}$, there is a policy $\policy$ such that $\occmeas{} = \occmeas{\policy}$. In other words, $\Omega = \{\occmeas{} \mid \occmeas{} \in \mathbb{R}^{|\S||\A|} A\occmeas{}=\mu, \occmeas{} \geq 0,\}$ where $A$ is an $|\S|$ by $|\S||\A|$ matrix.
+
+Denote the convex hull of a finite set $X$ as $conv(X)$. We first show that $\Polytope = conv(\Polytope_d)$. The fact that $conv(\Polytope_d) \subseteq \Polytope$ follows straight from the fact that $\Polytope_d \subseteq \Polytope$, and from the fact that $\Polytope$ must be convex since it is the set of solutions a set of linear equations.
+
+We show that $\Polytope \subseteq conv(\Polytope_d)$ by strong induction on 
+$$k(\occmeas{}) \coloneqq \sum_{s \in \S} \max (0, \{ a \mid \{\occmeas{}(s,a)\geq 0 \mid - 1 \} \mid)$$
+Intuitively, $k(\occmeas{}) = 0$ if and only if there is a deterministic policy corresponding to $\occmeas{}$ and $k(\occmeas{})$ increases with the number of potential actions available in visited states. The base case of the induction is simple, if $k(\occmeas{}) = 0$, then there is a deterministic policy $\policy_d$ such that $\occmeas{} = \occmeas{\policy_d}$ and therefore $\occmeas{} \in \Polytope_d \subseteq conv(\Polytope_d)$.
+
+For the inductive step, suppose $\occmeas{}' \in conv(\Polytope_d)$ for all $\occmeas{}' \in \Polytope$ with $k(\occmeas{})' < K$ and consider any $\occmeas{}$ with $k(\occmeas{})=K$. We will use the following lemma, which is closely related to \citep[Lemma~6.3]{feinberg2012}.
+
+\begin{lemma}\label{lem:splitting}
+For any occupancy measure $\occmeas{}$ with $k(\occmeas{})>0$, let occupancy measure $x$ be a \textit{deterministic reduction} of $\occmeas{}$ if and only if $k(x)=0$ and, for all $s,a$, if $x(s,a)>0$ then $\occmeas{}(s,a)>0$. If $x$ is a deterministic reduction of $\alpha$, then there exists some $\alpha \in (0,1)$ and $y \in \Polytope$ such that $\occmeas{} = \alpha x + (1-\alpha) y$ and $k(y) < k(\occmeas{})$.
+\end{lemma}
+Intuitively, since a deterministic reduction always exists, \cref{lem:splitting} says that any occupancy measure corresponding to a stochastic policy can be split into an occupancy measure corresponding to a deterministic policy, and an occupancy measure with a smaller $k$ number. Proof of \cref{lem:splitting} is easy, choose $\alpha$ to be the maximum value such that $(\occmeas{} - \alpha x)(s,a) \geq 0$ for all $s$ and $a$, then set $y = \frac{1}{1-\alpha}(\occmeas{} - \alpha x)$. For at least one $s$, $a$, we will have $(\occmeas{} - \alpha x)(s,a)=0$ and therefore $k(y) < k(\occmeas{})$. It remains to show that $y in \Polytope$, but this follows straightforwardly from \cite[Theorem~6.9.1]{puterman1994} and the fact that $y \geq 0$, and $Ay=\frac{1}{1-\alpha}A(\occmeas{} - \alpha x)=\frac{1}{1-\alpha}(b-\alpha b) =b$.
+
+If $k(\occmeas{})' < K$, then by \cref{lem:splitting}, $\occmeas{} = \alpha x + (1-\alpha) y$ with $k(x)=0$ and $k(y)<K$. By inductive hypothesis, since $k(y)<K$, $y \in conv(\Polytope_d)$ and therefore $y$ is a convex combination of vectors in $\Polytope_d$. Since $k(x)=0$, we know that $x \in \Polytope_d$ and therefore $\alpha x + (1-\alpha) y$ is also a convex combination of vectors in $\Polytope_d$. This suffices to show $\occmeas{} \in conv(\Polytope_d)$.
+
+By induction $\occmeas{} \in conv(\Polytope_d)$, for all values of $k(\occmeas{})$, and therefore $\Polytope \subseteq conv(\Polytope_d)$.
+
+\end{proof}
+
+
+\begin{proposition}
+We have $\Angle{\TrueR}{\ProxR} = 0$ if and only if $\TrueR, \ProxR$ induce the same ordering of policies, or, in other words, $\J_{\TrueR}(\policy) \leq \J_{\TrueR}(\policy') \iff \J_{\ProxR}(\policy) \leq \J_{\ProxR}(\policy')$ for all policies $\policy, \policy'$.
+\end{proposition}
+
+\begin{proof}
+We show that $\Angle{\TrueR}{\ProxR}$ satisfies the conditions of \citep[Theorem 2.6]{skalse2023misspecification}. Recall that $\Angle{\TrueR}{\ProxR}$ is the angle between $M_\tau R_0$ and $M_\tau R_1$, where $M_\tau$ projects vectors onto $\Omega$.
+Now, note that two reward functions $R_0$, $R_1$ induce different policy orderings if and only if the corresponding policy evaluation functions $\J_0$, $\J_1$ induce different policy orderings. Moreover, recall that for each $i$ $\J_i$ can be viewed as the linear function $\R_i \cdot \occmeas{\policy}$ for $\occmeas{\policy} \in \Omega$. Two linear functions $\ell_0, \ell_1$ defined over a domain $D$ which contains an open set induce different orderings if and only if $\ell_0$ and $\ell_1$ have a non-zero angle after being projected onto $D$. Finally, $\Omega$ does contain a set that is open in the smallest affine space which contains $\Omega$, as per Proposition~\ref{prop:convex_hull}. This means that $R_0$ and $R_1$ induce the same ordering of policies if and only if the angle between $M_\tau R_0$ and $M_\tau R_1$ is 0 (meaning that $\Angle{\TrueR}{\ProxR} = 0$). This completes the proof.
+\end{proof}
+
+\begin{proposition}[Concavity of Steepest Ascent]%\label{prop:concave_proof}
+If $\TangentVec_i := \frac{\occmeas{\policy_{i+1}}-\occmeas{\policy_i}}{||\occmeas{\policy_{i+1}}-\occmeas{\policy_i}||}$ for $\occmeas{\policy_i}$ produced by steepest ascent on reward vector $\R$, $\TangentVec_i \cdot \R$ is nonincreasing. 
+\end{proposition}
+\begin{proof}
+By the definition of steepest ascent given in \cite{denel_steepest_1981}, $\vec{t}_i$ will be the unit vector in the \enquote{cone of tangents} $$\ConeTangent(\occmeas{\policy_{i}}) := \{\vec{t}: ||\vec{t}|| = 1, \exists \lambda > 0, \occmeas{\policy_i} + \lambda \vec{t} \in \Omega\}$$
+that maximizes $\vec{t}_i \cdot \R$. This is what it formally means to go in the direction that leads to the fastest increase in reward.
+
+For sake of contradiction, assume $\TangentVec_{i+1} \cdot \R>\TangentVec_{i}\cdot \R$, and let $\vec{t_i'} = \frac{\occmeas{\policy_{i+2}}-\occmeas{\policy_{i}}}{||\occmeas{\policy_{i+2}}-\occmeas{\policy_{i}}||}$. Then
+\begin{align*}
+\vec{t_i'}\cdot \R = \left(\frac{\TangentVec_{i+1}||\occmeas{\policy_{i+2}}-\occmeas{\policy_{i+1}}||+\TangentVec_{i}||\occmeas{\policy_{i+1}}-\occmeas{\policy_{i}}||}{||\occmeas{\policy_{i+2}}-\occmeas{\policy_{i}}||}\right) \cdot \R\\ \geq \left(\frac{\TangentVec_{i+1}||\occmeas{\policy_{i+2}}-\occmeas{\policy_{i+1}}||+\TangentVec_{i}||\occmeas{\policy_{i+1}}-\occmeas{\policy_{i}}||}{||\occmeas{\policy_{i+2}}-\occmeas{\policy_{i+1}}||+||\occmeas{\policy_{i+1}}-\occmeas{\policy_{i}}||}\right) \cdot \R > \TangentVec_{i}\cdot \R
+\end{align*}
+where the former inequality follows from triangle inequality and the latter follows as the expression is a weighted average of $\TangentVec_{i+1} \cdot \R$ and $\TangentVec_{i} \cdot \R$. We also have for $\lambda = ||\occmeas{\policy_{i+2}}-\occmeas{\policy_{i}}||$, $\occmeas{\policy_i}+\lambda \vec{t_i'} = \occmeas{\policy_{i+2}} \in \Polytope$. But then $\vec{t_i'} \in \ConeTangent(\occmeas{\policy_{i}})$, contradicting that $\TangentVec_{i} = \amax_{\ConeTangent(\occmeas{\policy_{i}})}\TangentVec \cdot \R$.
+\end{proof}
+
+\begin{theorem}[Optimal Stopping]%\label{thm:optimal_stopping}
+Let $\ProxR$ be any reward function, let $\theta \in [0,\pi]$ be any angle, and let $\pi_A, \pi_B$ be any two policies. Then there exists a reward function $\TrueR$ with $\Angle{\TrueR}{\ProxR} \leq \AngBound$ and $\J_{\TrueR}(\policy_A) > \J_{\TrueR}(\policy_B)$ if and only if 
+$$
+\frac{\J_{\ProxR}(\policy_B)-\J_{\ProxR}(\policy_A)}{||\occmeas{\policy_B}-\occmeas{\policy_A}||} < \sin(\AngBound)||\QProj_\T \ProxR||
+$$
+\end{theorem}
+\begin{proof}\label{proof:opt_stop}
+Let $\vec{d} := \occmeas{\policy_B}-\occmeas{\policy_A}$ denote the difference in occupancy measures. The inequality can be rewritten as 
+$$
+\exists \R \textrm { such that }  \Angle{\R}{\ProxR} \leq \theta\textrm{ and } \vec{d} \cdot \R < 0 \iff \cos\left(\Angle{\ProxR}{\vec{d}}\right) < \sin(\theta)
+$$ 
+
+To show one direction, if $\vec{d} \cdot \R < 0$ we have 
+$\vec{d} \cdot \QProj_\T\R < 0$ as $\vec{d}$ is parallel to $\Omega$. This gives
+$\Angle{\R}{\vec{d}} > \frac{\pi}{2}$ and
+$$\Angle{\R}{\vec{d}}\leq \Angle{\ProxR}{\vec{d}}+\Angle{\TrueR}{\ProxR} \leq \Angle{\ProxR}{\vec{d}}+\AngBound.$$
+It follows that $\Angle{\ProxR}{\vec{d}}> \frac{\pi}{2}-\AngBound$, and thus $\CosDist{\ProxR}{\vec{d}} < \sin(\theta)$.
+
+If instead $\CosDist{\ProxR}{\vec{d}} < \sin(\AngBound)$, 
+we have $\Angle{\R}{ \vec{d}} > \frac{\pi}{2}-\theta$. To choose $\R$, there will be two vectors $\R \in \FeasibleR^\RMag$ that lie at the intersection of the plane $\linearspan{\occmeas{\policy}, \QProj_\T\ProxR}$ with the cone 
+$\Angle{\R}{\ProxR} = \AngBound$. One will satisfy $\Angle{\R}{\occmeas{\policy}} = \Angle{\R}{\ProxR}+\Angle{\ProxR}{\occmeas{\policy}}$ (informally, when $\ProxR$ lies between $\occmeas{\policy}$ and $\R$).
+Then this $\R$ gives 
+$$\Angle{\R}{\vec{d}} = \Angle{\R}{\ProxR}+\Angle{\R}{\vec{d}} > \theta + \frac{\pi}{2}-\theta = \frac{\pi}{2}$$
+so
+$\R \cdot \vec{d} < 0$. 
+\end{proof}
+\begin{proposition}\label{thm:regularised_reward}
+    Given a proxy reward $\ProxR$, let $\FeasibleR^\RMag$ be the set of possible true rewards
+    $\R$ such that 
+    $\Angle{\R}{\ProxR} \leq \theta$ and $\R$ is normalized so that $||\QProj_\T \R|| = ||\QProj_\T \ProxR||$. 
+    
+    Then we have that a policy $\policy$ maximises $\min_{\R \in \FeasibleR^\RMag}\J_{\R}(\policy)$ if and only if it maximises $\J_{\ProxR}(\policy)- \kappa ||\occmeas{\policy}|| \sin\left(\Angle{\occmeas{\policy}}{\ProxR}\right)$,
+    where 
+    $\kappa = \tan(\AngBound)||\QProj_\T\ProxR||$.
+
+    Moreover, each local maximum of this objective is a global maximum when restricted to $\Omega$, giving that this function can be practically optimised for.
+\end{proposition}
+\begin{proof}
+Note that $$\min_{\R \in \FeasibleR^\RMag}\J_{\R}(\policy) = \occmeas{\policy} \cdot \QProj_\T\R = ||\QProj_\T\ProxR||||\occmeas{\policy}||\left(\min_{\R \in \FeasibleR^\RMag}\cos\left(\Angle{\occmeas{\policy}}{\R}\right)\right)$$
+as $||\QProj_\T\ProxR|| = ||\QProj_\T\TrueR||$ for all $\TrueR$. Now we claim
+$$\min_{\R \in \FeasibleR^\RMag}\cos\left(\Angle{\R}{\occmeas{\policy}}\right) = \cos\left(\Angle{\ProxR}{ \occmeas{\policy}}+\theta\right).$$
+
+
+To show this, we can take $\R \in \FeasibleR^\RMag$ with $\Angle{\R}{\occmeas{\policy}} = \Angle{\ProxR}{\occmeas{\policy}}+\theta$ (such an $\R$ is described in \cref{proof:opt_stop}). This then gives $$\min_{\R \in \FeasibleR^\RMag}\cos\left(\Angle{\R}{\occmeas{\policy}}\right) \leq \cos\left(\Angle{\R}{ \occmeas{\policy}}+\theta\right).$$ We also have $$\cos\left(\Angle{\R}{\occmeas{\policy}}\right) \geq \cos\left(\Angle{\ProxR}{ \occmeas{\policy}}+\Angle{\ProxR}{ \R}\right) \geq \cos\left(\Angle{\ProxR}{ \occmeas{\policy}}+\theta\right)$$
+for any $\R$.
+Then $$\min_{\R \in \FeasibleR^\RMag}\cos\left(\Angle{\R}{\occmeas{\policy}}\right) = \cos\left(\Angle{\ProxR}{ \occmeas{\policy}}+\theta\right) =$$$$ \cos(\AngBound)\cos\left(\Angle{\ProxR}{\occmeas{\policy}}\right)-\sin(\AngBound)\sin\left(\Angle{\ProxR}{ \occmeas{\policy}}\right).$$
+
+Rearranging gives $$\left.\min_{\R \in \FeasibleR^\RMag} \J_{\R}(\policy)\right. \propto 
+ \left.\ProxR \cdot \occmeas{\policy}-\tan{\theta}||\occmeas{\policy}||||\QProj_\T\TrueR||\sin\left(\Angle{\ProxR}{\occmeas{\policy}}\right)\right.$$ which is equivalent to the given objective.
+
+To show that all local maxima are global maxima, note that $\min_{\R \in \FeasibleR^\RMag} \J_{\R}(\policy) = \min_{\R \in \FeasibleR^\RMag} \occmeas{\policy} \cdot \R$ in $\Polytope$ is a minimum over linear functions, and is therefore convex. This then gives that each local maximum of $\min_{\R \in \FeasibleR^\RMag} \J_\R(\pi)$ is a global maximum, so the same holds for the given objective function.
+\end{proof}
+\begin{proposition}%[]
+Let $\TrueR$ be a true reward and $\ProxR$ a proxy reward such that $\|\TrueR\| = \|\ProxR\| = 1$ and $\Angle{\TrueR}{\ProxR} = \AngBound$, and assume that the steepest ascent algorithm applied to $\ProxR$ produces a sequence of policies $\policy_0, \policy_1, \dots \policy_n$. If $\OptimalPolicy$ is optimal for $\TrueR$, we have that
+$$
+|\J_{\TrueR}(\policy_{n}) - \J_{\TrueR}(\OptimalPolicy)| \leq 
+\mathrm{diameter}(\Omega) - \| \occmeas{\policy_{n}} - \occmeas{\policy_{0}}\|\cos(\AngBound).
+$$
+\end{proposition}
+
+\begin{proof}
+The bound is composed of two terms: (1) how much total reward $\R$ is there to gain, and (2) how much did we gain already. Since the reward vector is normalised, the range of reward over the $\Polytope$ is its diameter. The gains that had already been made by the Steepest Ascent algorithm equal $\|\occmeas{\policy_{n}} - \occmeas{\policy_{0}}\|$, but this has to be scaled by the (pessimistic) factor of $\cos(\AngBound)$, since this is the alignment of the true and proxy reward.
+\end{proof}
+
+The bound can be difficult to compute exactly. A simple but crude approximation of the diameter is
+\[
+\max_{\occmeaselem_1,\occmeaselem_1 \in \Polytope} \|\occmeaselem_1  - \occmeaselem_2\|_2 \leq 2 \max_{\occmeaselem \in \Polytope} \|\occmeaselem\|_2 \leq \frac{2}{1 - \gamma}
+\]

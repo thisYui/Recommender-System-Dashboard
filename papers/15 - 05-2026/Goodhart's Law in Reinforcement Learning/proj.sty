@@ -1,0 +1,186 @@
+\usepackage{caption, amsmath, amssymb, mathtools, extpfeil, float, yfonts, csquotes, lipsum, fancyhdr, algorithm, algpseudocode, hyperref, amsthm, mathabx, soul, babel, rotating,cleveref} 
+\setquotestyle{english}
+\usepackage[inline]{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{automata, positioning, arrows.meta}
+\usepackage{subcaption}
+\usepackage{accents}
+\usepackage{svg}
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{framed}
+\usepackage{caption} 
+\captionsetup[table]{skip=10pt}
+
+% COMMENTS 
+% \newcommand{klaus}[1]{\todo[bordercolor=red, linecolor=red]{{{\color{red} Klaus: } #1}}}
+\newcommand{\klaus}[1]{\todo[bordercolor=red, linecolor=red]{Klaus:  #1}}
+\newcommand{\xing}[1]{\todo[bordercolor=green, linecolor=green]{{{\color{green} Xingjian: } #1}}}
+\newcommand{\oliver}[1]{\todo[bordercolor=blue, linecolor=blue]{{{\color{blue} Oliver: } #1}}}
+\newcommand{\jacek}[1]{\todo[bordercolor=magenta, linecolor=magenta]{{{\color{magenta} Jacek: } #1}}}
+
+\newcommand{\joar}[1]{\todo[bordercolor=orange, linecolor=orange]{{{\color{magenta} Joar: } #1}}}
+
+\newcommand{\charlie}[1]{\todo[bordercolor=purple, linecolor=purple]{{{\color{purple} Charlie: } #1}}}
+\newcommand{\charlieil}[1]{\todo[inline]{{{\color{purple} Charlie: #1 }}}}
+% \newcommand{\charlie}[1]{}
+% \newcommand{\charlieil}[1]{}
+%\theoremstyle{plain}
+%\newtheorem{corollary}[theorem]
+%\newtheorem{theorem}{Theorem} %[section]
+%\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{example}{Example}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\newtheorem{claim}{Claim}
+\newtheorem*{claim*}{Claim}
+
+
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\newcommand{\J}{\mathcal{J}}
+% \newcommand{\J}{J}    
+
+\newcommand{\Rspace}{{\hat{\mathcal{R}}}}
+
+% Components of Markov Decision Process (apart from reward)
+\newcommand{\Environment}{M}
+\newcommand{\States}{S}
+\renewcommand{\S}{\States}
+\newcommand{\Actions}{A}
+\newcommand{\A}{\Actions}
+\newcommand{\reward}{R}
+\newcommand{\R}{\reward}
+\newcommand{\TrueR}{\R_0}
+\newcommand{\ProxR}{\R_1}
+\newcommand{\TransitionDistribution}{\tau}
+\newcommand{\TransitionMatrix}{T}
+\newcommand{\TMat}{\TransitionMatrix}
+\newcommand{\T}{\TransitionDistribution}
+\newcommand{\InitStateDistribution}{\mu} %{\iota}
+\newcommand{\m}{\InitStateDistribution} %{\iota}
+\newcommand{\discount}{\gamma}
+
+
+\newcommand{\Policies}{\Pi}
+\newcommand{\DetPolicies}{\Policies_0}
+\newcommand{\Trajectories}{\Xi}
+\newcommand{\SAF}{\Xi}  % State-Action frequencies
+\newcommand{\SF}{\Xi} % State frequencies
+
+% \newcommand{\TransitionSet}{\mathcal{T}}
+% \newcommand{\InitStateSet}{\mathcal{I}}
+
+\newcommand{\norm}[1]{\lVert#1\rVert}
+
+\newcommand{\FullMDP}{\langle \States, \Actions, \TransitionDistribution, \InitStateDistribution, \reward, \discount \rangle}
+\newcommand{\FullMDPR}{\langle \States, \Actions, \TransitionDistribution, \InitStateDistribution, \discount \rangle}
+\newcommand{\MDP}{MDP}
+\newcommand{\MDPR}{MDP{\textbackslash}R }
+% \newcommand{\MDPd}{\langle \States, \Actions, \TransitionDistribution, \InitStateDistribution, \reward, d \rangle}
+
+% Reward function domains
+\newcommand{\SxS}{{\States{\times}\States}}
+\newcommand{\SxA}{{\States{\times}\Actions}}
+\newcommand{\SxAxS}{{\States{\times}\Actions{\times}\States}}
+\newcommand{\dist}[1]{\Delta(#1)}
+
+\newcommand{\occmeas}[1]{\mathbf{\eta^{#1}}}
+\newcommand{\occmeaselem}{\eta}
+
+% value functions etc.
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\Q}{Q}
+\newcommand{\V}{V}
+\newcommand{\Returns}{G}
+\newcommand{\Evaluation}{\mathcal{J}}
+\newcommand{\EvaluationMCE}{\Evaluation^{\mathrm{H}}_\beta}
+\newcommand{\Qfor}[1]{\Q^{#1}}
+\newcommand{\Vfor}[1]{\V^{#1}}
+\newcommand{\Afor}[1]{\A^{#1}}
+\newcommand{\QStar}{\Q^\star}
+\newcommand{\VStar}{\V^\star}
+\newcommand{\AStar}{\A^\star}
+\newcommand{\QSoft}{\Q^{\mathrm{H}}_\alpha}
+\newcommand{\QSoftN}[1]{\Q^{\mathrm{H}}_{\beta,#1}}
+
+% policies
+\newcommand{\policy}{\pi}
+\newcommand{\OptimalPolicy}{\policy_\star}
+\newcommand{\basePolicy}{\policy_0}
+\newcommand{\greedyPolicyWrt}[1]{\policy^{#1}_{\star}}
+\newcommand{\epsGreedyPolicyWrt}[1]{\policy^{#1}_{\epsilon}}
+\newcommand{\BoltzmannPolicyWrt}[1]{\policy^{#1}_{\beta}}
+\newcommand{\BoltzmannRationalPolicy}{\policy^\star_\beta}
+\newcommand{\MaximumEntropyPolicy}{\policy_\beta}
+\newcommand{\MCEPolicy}{\policy^{\mathrm{H}}_\beta}
+\newcommand{\Polytope}{\Omega}
+% rewards
+% \newcommand{\ExpectedReward}{\mathcal{R}}
+% \newcommand{\VectorReward}{\vec{r}}
+\newcommand{\VectorReward}{R}
+\newcommand{\VecR}{\VectorReward}
+% \newcommand{\VecProx}{\vec{r'}}
+\newcommand{\VecProx}{R'}
+
+\newcommand{\Expect}[2]{\mathbb{E}_{#1}\left[{#2}\right]}
+\newcommand{\Prob}[1]{\mathbb{P}\left({#1}\right)}
+\newcommand{\Probs}[2]{\mathbb{P}_{#1}\left({#2}\right)}
+
+\usepackage{xcolor}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\green}[1]{\textcolor{teal}{#1}}
+\newcommand{\orange}[1]{\textcolor{orange}{#1}}
+
+% \newcommand{\PS}{\mathrm{PS}_\gamma}
+% \newcommand{\SR}{S'\mathrm{R}_\TransitionDistribution}
+% \newcommand{\LS}{\mathrm{LS}}
+% \newcommand{\OPT}{\mathrm{OP}_{\TransitionDistribution,\gamma}}
+% \newcommand{\Mx}{\mathrm{M}_\mathcal{X}}
+% \newcommand{\CS}{\mathrm{CS}}
+% \newcommand{\kPS}[1]{\mathrm{PS}_{\discount,\InitStateDistribution}^{#1}}
+
+\newcommand{\trajectory}{\xi}
+\newcommand{\RR}{\mathbb{R}}
+
+% Theory
+\newcommand{\ConeTangent}{T}
+\newcommand{\TangentVec}{\vec{t}}
+\newcommand{\ExtremalIndex}{I}
+\newcommand{\plane}{P}
+\newcommand{\Angle}[2]{\mathrm{arg}\left({#1}, {#2}\right)}
+\newcommand{\AngBound}{\theta}
+\newcommand{\CosBound}{\theta}
+\newcommand{\SinBound}{\epsilon}
+\newcommand{\FeasibleR}{\mathcal{F}_{\R}}
+\newcommand{\RMag}{\theta}
+\newcommand{\CosDist}[2]{\cos\left(\Angle{{#1}}{{#2}}\right)}
+\newcommand{\SinDist}[2]{\sin\left(\Angle{{#1}}{{#2}}\right)}
+% Misc
+\newcommand{\amax}{\text{argmax}}
+\newcommand{\proj}{proj}
+
+\newcommand{\QProj}{M} % orthogonal projection matrix onto the policy image space
+
+\newcommand{\canonical}[2]{\mathcal{C}_{#1}{#2}}
+\newcommand{\normalised}[1]{\widehat{#1}}
+\newcommand{\id}[1]{\textrm{id}}
+
+
+\definecolor{mygreen}{rgb}{0.6,1,0.6} % Defining the lightest green
+\newcommand{\cellcolora}[1]{\cellcolor{mygreen!#1!white}}
+
+\newcommand{\Cosine}{d_c}
+\newcommand{\linearspan}[1]{\textrm{span}(#1)}
+\newcommand{\twonorm}[1]{\|#1\|_2} % this doesn't look very good...
+\algrenewcommand\algorithmicindent{0.5em}%

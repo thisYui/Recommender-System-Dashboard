@@ -1,0 +1,35 @@
+\section{Preliminaries}\label{sec:preliminaries}
+
+
+A \emph{Markov Decision Process} (MDP) is a tuple $\FullMDP$, where $\S$ is a set of \emph{states}, $\A$ is a set of \emph{actions}, $\T: \SxA \to \dist{S}$ is a transition function describing the outcomes of taking actions at certain states, $\m \in \dist{S}$ is the distribution of the initial state, $\R \in \RR^{|\SxA|}$ gives the reward for taking actions at each state, and $\gamma \in [0, 1]$ is a time discount factor.
+In the remainder of the paper, we consider $\A$ and $\S$ to be finite. Our work will mostly be concerned with rewardless MDPs, denoted by \MDPR = $\FullMDPR$, where the true reward $\R$ is unknown.
+A \emph{trajectory} is a sequence $\trajectory = (s_0, a_0, s_1, a_1, \ldots)$ such that $a_i \in \A$, $s_i \in \S$ for all $i$.
+We denote the space of all trajectories by $\Trajectories$.
+A \emph{policy} is a function $\policy :\S \to \dist{A}$. We say that the policy $\policy$ is deterministic if for each state $s$ there is some $a \in \A$ such that $\policy(s) = \delta_{a}$. We denote the space of all policies by $\Policies$ and the set of all deterministic policies by $\DetPolicies$.
+Each policy $\policy$ on an \MDPR induces a probability distribution over trajectories $\Prob{\trajectory | \policy}$; drawing a trajectory $(s_0, a_0, s_1, a_1, \ldots)$ from a policy $\policy$ means that $s_0$ is drawn from $\m$, each $a_i$ is drawn from $\policy(s_i)$, and $s_{i+1}$ is drawn from $\T(s_i, a_i)$ for each $i$. 
+For a given \MDP, the \emph{return} of a trajectory $\trajectory$ is defined to be $\Returns(\trajectory) := \sum_{t=0}^\infty \discount^t \R(s_t, a_t)$ and the expected return of a policy $\policy$ to be $\J(\policy) = \Expect{\trajectory \sim \policy}{G(\trajectory)}$.
+
+An \emph{optimal policy} is one that maximizes expected return; the set of optimal policies is denoted by $\OptimalPolicy$. There might be more than one optimal policy, but the set $\OptimalPolicy$ always contains at least one deterministic policy~\citep{sutton2018}. We define the value-function $\Vfor{\policy}:\S \to \RR$ such that $\Vfor{\policy}[s] = \Expect{\trajectory \sim \policy}{G(\trajectory)|s_0 = s}$, and define the $Q$-function $\Qfor{\policy}:\SxA \to \RR$ to be $\Qfor{\policy}(s, a) = \Expect{\trajectory \sim \policy}{G(\trajectory)|s_0 = s, a_0=a}$. $\VStar, \QStar$ are the value and $Q$ functions under an optimal policy. Given an \MDPR, each reward $R$ defines a separate $\Vfor{\pi}_\R$, $\Qfor{\pi}_\R$, and $\J_\R(\pi)$. In the remainder of this section, we fix a particular {\MDPR = $\FullMDPR$}.
+
+\subsection{The Convex Perspective}\label{subsec:convex-perspective}
+
+In this section, we introduce some theoretical constructs that are needed to express many of our results. We first need to familiarise ourselves with the \emph{occupancy measures} of policies:
+
+\begin{definition}[State-action occupancy measure]\label{def:measure}
+    We define a function $\occmeas{-} : \Policies \to \RR^{|\SxA|}$, assigning, to each $\policy \in \Policies$, a vector of \emph{occupancy measure} describing the discounted frequency that a policy takes each action in each state. Formally,
+    \[
+        \occmeas{\policy}(s,a) = \sum_{t = 0}^{\infty} \gamma^t \Prob{s_t = s, a_t = a \mid \trajectory \sim \policy}
+    \]
+\end{definition}
+%Note also that 
+We can recover $\policy$ from $\occmeas{\policy}$ on all visited states by $\pi(s, a) = (1 - \gamma)\occmeas{\policy}(s,a)/\left(\sum_{a' \in \A} \occmeas{\policy}(s, a')\right)$. If $\sum_{a' \in \A} \occmeas{\policy}(s, a') = 0$, we can set $\pi(s, a)$ arbitrarily.
+This means that we often can decide to work with the set of possible occupancy measures, rather than the set of all policies.\oliver{should clear this part up}
+Moreover:
+
+
+\begin{proposition}\label{prop:convex_hull}
+The set $\Polytope = \{\occmeas{\policy}: \policy \in \Policies\}$ is the convex hull of the finite set of points corresponding to the deterministic policies $\{\occmeas{\policy}: \policy \in \DetPolicies\}$. It lies in an affine subspace of dimension $|\S|(|\A| - 1)$.
+\end{proposition}
+
+Note that $\J_\R(\policy) = \occmeas{\policy} \cdot \VecR$, meaning that each reward $\R$ induces a linear function on the convex polytope $\Polytope$, which reduces finding the optimal policy to solving a linear programming problem in $\Polytope$. Many of our results crucially rely on this insight.
+We denote the orthogonal projection map from $\RR^{|\SxA|}$ to $\linearspan{\Polytope}$ by $\QProj_\T$, which means $\J_\R(\policy) = \occmeas{\policy} \cdot \QProj_\T\VecR$, The proof of Proposition~\ref{prop:convex_hull}, and all other proofs, are given in the appendix.
