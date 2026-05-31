@@ -1,0 +1,128 @@
+\section{Experiment}
+In this section, we evaluate the effectiveness of our proposed framework through comprehensive experiments. 
+First, we present the experimental settings, including details about the datasets, compared baselines, evaluation metrics, and the parameter configurations. Then, we report the main experimental results, highlighting the performance of the proposed framework compared with various baseline methods.
+Finally, we analyze the contributions of individual model components and the impact of parameters used in our framework. We also assess the generalizability of K-RagRec in the zero-shot setting. We present the generalizability study in Appendix~\ref{appendix:General}.
+
+
+
+\subsection{\textbf{Experimental Settings}}
+\subsubsection{\textbf{Datasets}}\label{datasets}
+To evaluate the performance of our K-RagRec framework, we adopt three real-world datasets.
+\textbf{MovieLens-1M}\footnote{https://grouplens.org/datasets/movielens/1m/} is a dataset containing approximately one million movie ratings and textual descriptions of movies (i.e., “title”). 
+\textbf{MovieLens-20M}\footnote{https://grouplens.org/datasets/movielens/20m/} is a large-scale movie ratings dataset encompassing over 20 million ratings from more than 138,000 users on 27,000 movies.
+\textbf{Amazon Book}\footnote{https://jmcauley.ucsd.edu/data/amazon/} is a book recommendation dataset that records more than 10 million user ratings of books and the titles of the books.
+In addition, we adopt the popular knowledge graph \textit{Freebase}\footnote{https://developers.google.com/freebase} and filter out the triples related to the three datasets to reconstruct the KG. The statistics of these three datasets and KG are presented in Table~\ref{tab:datasets}. 
+
+
+
+% & \# Entities &  & 1,278,544 & 1,378,445 \\
+%           & \# Relations &     & 508    & 753 \\
+
+
+
+
+
+
+\subsubsection{\textbf{Baselines}}\label{baseline}
+
+In the realm of LLM-based recommendation research, our work pioneers the investigation of retrieving knowledge from KGs to enhance the recommendation capabilities of LLMs.
+Therefore, to evaluate the effectiveness, we compare our proposed framework with a series of meticulously crafted KG RAG-enhanced LLM recommendation baselines.
+We first include two typical inference-only methods Retrieve-Rewrite-Answer~\citep{wu2023retrieve} (KG-Text) and KAPING~\citep{baek2023knowledge}, where the former retrieves sub-graphs and textualizes them, and the latter retrieves triples.
+We exclude some knowledge reasoning path-based approaches~\citep{luo2023reasoning}, as it is difficult to retrieve faithful knowledge reasoning paths solely from the user's interaction items.
+Next, we compare K-RagRec with various prompt-tuning approaches augmented by retrieval, including Prompt Tuning with KG-Text (PT w/ KG-Text), GraphToken~\citep{perozzi2024let} with retrieval (GraphToken w/ RAG) as well as G-retriever~\citep{he2024g}. Additionally, we evaluate our method against Lora Fine-tuning with retrieval (Lora w/ KG-Text)~\citep{hu2021lora}.
+
+
+
+\subsubsection{\textbf{Evaluation Metrics}}
+To evaluate the effectiveness of our K-RagRec framework, we employ two widely used evaluation metrics: Accuracy (ACC), and Recall@$k$ ~\citep{he2020lightgcn}. We present results for $k$ equal to 3, and 5. Inspired by recent studies~\citep{zhang2024agentcf,hou2022towards}, we adopt the \textit{leave-one-out strategy} for
+evaluation. Specifically, for each user, we select the last item that the user interacted with as the target item and the 10 interaction items prior to the target item as the historical interactions. Then, we leverage LLM to predict the user's preferred item from a pool of 20 candidate items ($M = 20$), which contains one target item with nineteen randomly sampled items. For trained models (including prompt tuning and fine-tuning), we compute Recall@$k$ by extracting the probability assigned to each item and evaluating the model's ability to rank the target item within the top-$k$ predictions. In addition, we also conduct comparison experiments with 10 candidate items ($M = 10$) as shown in Appendix~\ref{appendix:10samples}.
+
+
+
+
+\input{tables/main_results}
+
+
+
+\subsubsection{Parameter Settings}
+We implement the framework on the basis of PyTorch and conduct the experiments on 2 NVIDIA A6000-48GB GPUs. We adopt the SentenceBert to encode entities, relations, and query attributes. 
+We use the 3 layers Graph Transformer as the $\text{GNN}^{\text{Indexing}}$ and $\text{GNN}^{\text{Encoding}}$ for MovieLens-1M and 4 layers for MovieLens-20M and Amazon Book. The layer dimension is set to 1024, and the head number is set to 4. 
+The popularity selective retrieval policy threshold $p$ is set to 50\%.
+For each item that needs to be retrieved, we retrieve the top-3 most similar sub-graphs. The re-ranking knowledge sub-graph number $N$ is set to 5. More experiment details are shown in Appendix~\ref{appendix:hyper}. We also present
+several prompt examples in Appendix~\ref{appendix:prompt}.
+
+
+
+
+
+\subsection{\textbf{Overall Performance Comparison}}
+We compare the recommendation performance of K-RagRec with various baselines on three open-source backbone LLMs: LLama-2-7b~\citep{touvron2023llama}, LLama-3-8b~\citep{dubey2024llama}, and QWEN2-7b~\citep{yang2024qwen2}. We present the results in Table~\ref{tab:results}. From the comparison, we have the following main observations:
+\vspace{-0.1in}
+ \begin{itemize} [leftmargin=*] 
+\setlength{\itemsep}{0pt}
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{0pt}
+\item Naively retrieve KG and augment LLM with text methods (i.e., KG-Text and KAPING),  have limited recommendation accuracy on the MovieLens-1M and MovieLens-20M and Amazon Book datasets.
+
+\item Compared to other prompt tuning RAG methods, K-RagRec with LLama-2-7B as the backbone LLM leads to an average of 41.6\% improvement over the sub-optimal baseline across all datasets. With LLama-3-8B and QWEN2-7B as the backbone LLM, K-RagRec also brought an average of 13\% to 32\% improvement, highlighting the effectiveness of our proposed method in augmenting LLMs' recommendation performance.
+
+\item Compared to the LoRA fine-tuning with the naive RAG approach, K-RagRec with prompt tuning achieves close to or better performance in most settings. Notably, K-RagRec achieves the best performance when fine-tuned with LoRA.
+\end{itemize}
+
+
+
+% \vskip -0.13in
+
+
+\begin{figure}[t]
+\vskip -0.1in
+\centering
+\subfigure[ML1M ACC]{\includegraphics[width=0.32\columnwidth]{figures/ablation/ml1m-acc.pdf}}
+\subfigure[ML1M R@3]{\includegraphics[width=0.32\columnwidth]{figures/ablation/ml1m-recall3.pdf}}
+\subfigure[ML1M R@5]{\includegraphics[width=0.32\columnwidth]{figures/ablation/ml1m-recall5.pdf}}
+\subfigure[BOOK ACC]{\includegraphics[width=0.32\columnwidth]{figures/ablation/books-acc.pdf}}
+\subfigure[BOOK R@3]{\includegraphics[width=0.32\columnwidth]{figures/ablation/books-recall3.pdf}}
+\subfigure[BOOK R@5]{\includegraphics[width=0.32\columnwidth]{figures/ablation/books-recall5.pdf}}
+% \vskip -0.13in
+\caption{Comparison among K-RagRec and its four ablated variants on MovieLens-1M and Amazon Book datasets and LLama-2-7b across metrics Accuracy, Recall@3 and Recall@5.}\label{fig:ablation}
+% \vskip -0.25in
+\end{figure}
+
+\subsection{\textbf{Ablation Study}}
+To evaluate the impact of each component in our proposed framework, we conduct the ablation study to compare the K-RagRec with four ablated variants on MovieLens and Amazon Book datasets, using LLama-2-7B as the backbone LLM. Details of each ablation variant are provided in Appendix~\ref{appendix:Abla}. The results are illustrated in Figure~\ref{fig:ablation}.
+Observing the experiment results, we find that eliminating any component of the framework leads to a decrease in the overall performance of the recommendations, demonstrating the effectiveness of each module. Secondly, removing the GNN Encoder leads to a 37\% decrease and a 45.9\% decrease in the accuracy of the model on MovieLens and Amazon Book datasets, respectively, highlighting the significance of employing GNN to encode the structure of knowledge sub-graphs. Refer to Appendix~\ref{appendix:Abla} for more details.
+
+
+
+
+\input{tables/inference_time}
+
+
+
+
+
+
+
+\subsection{\textbf{Efficiency Evaluation}}
+In this sub-section, we evaluate the inference efficiency of our proposed K-RagRec framework compared with baselines on the MovieLens-1M dataset and LLama-2-7b.
+We record the time cost for one inference utilizing two NVIDIA A6000-48G GPUs. The time cost for a single inference is reported in Table~\ref{tab:time}.
+By observing the experimental results, we notice that various KG RAG approaches significantly increase the inference time, which is due to the large scale of the KG. In contrast, K-RagRec achieves the best computational efficiency compared to various KG RAG methods and is only about 0.1s slower than direct inference without retrieval.
+These findings highlight the efficiency of K-RagRec and validate the effectiveness of our popularity selective retrieval policy.
+
+
+
+
+
+\subsection{\textbf{Parameter Analysis}}
+In this section, we evaluate the impact of three main hyper parameters of K-RagRec, namely popularity selective retrieval policy threshold $p$, retrieved knowledge sub-graph numbers $K$,
+and re-ranking knowledge sub-graph numbers $N$.
+In addition, we analyze the impact of various GNN encoder variants and different GNN layer numbers for the proposed framework in Appendix~\ref{appendix:gnn encoder} and ~\ref{appendix:gnn layer}.
+
+\textbf{1) Impact of popularity selective retrieval policy threshold $p$}:
+To understand how the popularity selective retrieval policy threshold $p$ affects K-RagRec, we conduct experiments on MovieLens-1M and LLama-2-7b across two metrics. Results are shown in Figure~\ref{fig:para1}.
+As the threshold $p$ increases, the recommendation performance initially improves and then decreases. When the threshold $p$ is set to a small value, only a few items are augmented. This leads to insufficient retrieval and poor recommendation accuracy. When $p$ is set to a larger value, more items are retrieved for augmentation. However, due to the re-ranking sub-graph numbers $N$ being fixed, some retrieved cold-start item knowledge sub-graphs are discarded or ranked at the back of the list, resulting in sub-optimal recommendation performance. 
+On the other hand, as observed in Figure~\ref{fig:para1} (c), the inference time increases almost linearly with threshold $p$. Therefore, selecting an appropriate threshold $p$ is crucial to balance the performance and inference time.
+
+\textbf{2) Impact of retrieved knowledge sub-graph numbers $K$ and re-ranking sub-graph numbers $N$}:
+In this part, we analyze the impact of two key hyper parameters, which are retrieved knowledge sub-graph numbers $K$ and re-ranking sub-graph numbers $N$. First, to measure the impact of $K$, we perform experiments on the MovieLens dataset and fix $p=50\%, \ N=5$. As shown in Figure~\ref{fig:parak}, some relevant knowledge sub-graphs may be overlooked when $K=1$. On the other hand, larger values of $K$ can introduce irrelevant information. Therefore, we set $K$ equal to 3 in our experiments. Next, we evaluate the effect of $N$ by fixing $p=50\%$ and $ \ K=3$, and present the results in Figure~\ref{fig:paraK}. We observe that setting $N$ to between 5 and 7 results in improved performance on the Amazon Book dataset.
+In general, it is important to carefully choose $K$ and $N$ based on the scale of the dataset and the KG.

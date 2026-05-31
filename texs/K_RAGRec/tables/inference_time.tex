@@ -1,0 +1,29 @@
+\begin{table}[t]
+  % \vskip -0.05in
+  \centering
+  \caption{ 
+   Comparison of the inference efficiency on the MovieLens-1M dataset and LLama-2-7b in seconds (s). ACC denote Accuracy.}
+  \vskip -0.05in
+    \scalebox{0.72}
+{
+  % \begin{adjustbox}{}
+    \begin{tabular}{c|c|c}
+    \toprule
+    \toprule
+    \multirow{1}{*}{Methods}  & \multirow{1}{*}{ACC} & \multirow{1}{*}{Time (s)}  \\
+    \midrule
+    w/o RAG & - & 0.92 \\
+    KG-Text  & 0.076 & 2.19 \\
+    KAPING & 0.079 & 6.47 \\
+    GraphToken w/ RAG & 0.268 & 3.14 \\
+    G-retriever & 0.274 & 5.86 \\
+    \midrule
+    K-RagRec & 0.429 & 1.06 \\
+    \bottomrule
+    \bottomrule
+    \end{tabular}%
+    %\end{adjustbox}
+}
+  \label{tab:time}%
+  \vskip -0.18in
+\end{table}%

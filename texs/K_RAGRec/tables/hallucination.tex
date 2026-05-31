@@ -1,0 +1,25 @@
+\begin{table}[t]
+  % \vskip -0.05in
+  \centering
+  \caption{Quantitative comparison of hallucination on the MovieLens-1M dataset. $\Delta$ denotes the reduction in hallucinations for K-RagRec compared to Direct Inference.}
+  % \vskip -0.05in
+    \scalebox{0.75}
+{
+  % \begin{adjustbox}{}
+    \begin{tabular}{c|c|c|c}
+    \toprule
+    \toprule
+    \multirow{1}{*}{Models}
+    & \multicolumn{1}{c|}{Direct Inference} & \multicolumn{1}{c|}{K-RagRec} & \multicolumn{1}{c}{$\Delta$}\\
+    \midrule
+    LLama-2 &39.1\%  &2.7\% &93.1\% \\
+    \midrule
+ QWEN2 &4.7\% &0.9\% & 80.9\% \\
+    \bottomrule
+    \bottomrule
+    \end{tabular}%
+    %\end{adjustbox}
+}
+  \label{tab:hallucination}%
+  % \vskip -0.06in
+\end{table}%

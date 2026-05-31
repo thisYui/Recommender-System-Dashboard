@@ -1,0 +1,13 @@
+\section{Related Work} 
+
+Recently, RAG has emerged as one of the most representative technologies in the field of generative AI, combining the strengths of retrieval systems and language models (LM) to produce coherent and informative text.
+Early methods, such as REALM~\citep{guu2020retrieval},  RETRO~\citep{borgeaud2022improving}, and DPR~\citep{karpukhin2020dense}, typically involve retrieving relevant fragments from a large corpus to guide the LM generation. 
+However, standard RAG methods often struggle to accurately retrieve all relevant textual chunks, due to unnecessary noise and even harmful disturbance in the documents.
+To address these limitations,  recent studies~\citep{baek2023knowledge,wu2023retrieve,he2024g,luo2023reasoning,wang2023knowledge,sen2023knowledge,sun2023think} focus on retrieving structured and faithful knowledge from graphs for enhancing generations. For example, Retrieve-Rewrite-Answer~\citep{wu2023retrieve} retrieves relevant sub-graphs from KG and converts retrieved sub-graphs into text for the generation.
+G-Retriever~\citep{he2024g} explores retrieving sub-graphs from various types of graphs to alleviate the hallucinations of LLM.
+
+With the explosion of LLMs in recommendations, a few works~\citep{di2023retrieval,wu2024coral,ang2024tsgassist} make initial explorations in RAG for recommendations.
+For instance, the work~\citep{di2023retrieval} proposes
+leveraging knowledge from movie or book datasets to enhance recommendations. 
+Nevertheless, retrieving faithful structured knowledge from the KGs for recommendations is under-explored and shows great potential.
+To fill this gap, we propose to retrieve knowledge sub-graphs from KGs to enhance the recommendation performance of LLM. We provide more comprehensive related work on Appendix~\ref{appendix:related_work}.

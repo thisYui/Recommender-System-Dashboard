@@ -1,0 +1,264 @@
+\begin{thebibliography}{52}
+\providecommand{\natexlab}[1]{#1}
+
+\bibitem[{Abdollahpouri et~al.(2017)Abdollahpouri, Burke, and Mobasher}]{abdollahpouri2017controlling}
+Himan Abdollahpouri, Robin Burke, and Bamshad Mobasher. 2017.
+\newblock Controlling popularity bias in learning-to-rank recommendation.
+\newblock In \emph{Proceedings of the eleventh ACM conference on recommender systems}, pages 42--46.
+
+\bibitem[{Achiam et~al.(2023)Achiam, Adler, Agarwal, Ahmad, Akkaya, Aleman, Almeida, Altenschmidt, Altman, Anadkat et~al.}]{achiam2023gpt}
+Josh Achiam, Steven Adler, Sandhini Agarwal, Lama Ahmad, Ilge Akkaya, Florencia~Leoni Aleman, Diogo Almeida, Janko Altenschmidt, Sam Altman, Shyamal Anadkat, et~al. 2023.
+\newblock Gpt-4 technical report.
+\newblock \emph{arXiv preprint arXiv:2303.08774}.
+
+\bibitem[{Ang et~al.(2024)Ang, Bao, Huang, Tung, and Huang}]{ang2024tsgassist}
+Yihao Ang, Yifan Bao, Qiang Huang, Anthony~KH Tung, and Zhiyong Huang. 2024.
+\newblock Tsgassist: An interactive assistant harnessing llms and rag for time series generation recommendations and benchmarking.
+\newblock \emph{Proceedings of the VLDB Endowment}, 17(12):4309--4312.
+
+\bibitem[{Asai et~al.(2023)Asai, Wu, Wang, Sil, and Hajishirzi}]{asai2023self}
+Akari Asai, Zeqiu Wu, Yizhong Wang, Avirup Sil, and Hannaneh Hajishirzi. 2023.
+\newblock Self-rag: Learning to retrieve, generate, and critique through self-reflection.
+\newblock \emph{arXiv preprint arXiv:2310.11511}.
+
+\bibitem[{Baek et~al.(2023)Baek, Aji, and Saffari}]{baek2023knowledge}
+Jinheon Baek, Alham~Fikri Aji, and Amir Saffari. 2023.
+\newblock Knowledge-augmented language model prompting for zero-shot knowledge graph question answering.
+\newblock \emph{arXiv preprint arXiv:2306.04136}.
+
+\bibitem[{Bao et~al.(2023)Bao, Zhang, Zhang, Wang, Feng, and He}]{bao2023tallrec}
+Keqin Bao, Jizhi Zhang, Yang Zhang, Wenjie Wang, Fuli Feng, and Xiangnan He. 2023.
+\newblock Tallrec: An effective and efficient tuning framework to align large language model with recommendation.
+\newblock In \emph{Proceedings of the 17th ACM Conference on Recommender Systems}, pages 1007--1014.
+
+\bibitem[{Borgeaud et~al.(2022)Borgeaud, Mensch, Hoffmann, Cai, Rutherford, Millican, Van Den~Driessche, Lespiau, Damoc, Clark et~al.}]{borgeaud2022improving}
+Sebastian Borgeaud, Arthur Mensch, Jordan Hoffmann, Trevor Cai, Eliza Rutherford, Katie Millican, George~Bm Van Den~Driessche, Jean-Baptiste Lespiau, Bogdan Damoc, Aidan Clark, et~al. 2022.
+\newblock Improving language models by retrieving from trillions of tokens.
+\newblock In \emph{International conference on machine learning}, pages 2206--2240. PMLR.
+
+\bibitem[{Celma and Herrera(2008)}]{celma2008new}
+{\`O}scar Celma and Perfecto Herrera. 2008.
+\newblock A new approach to evaluating novel recommendations.
+\newblock In \emph{Proceedings of the 2008 ACM conference on Recommender systems}, pages 179--186.
+
+\bibitem[{Di~Palma(2023)}]{di2023retrieval}
+Dario Di~Palma. 2023.
+\newblock Retrieval-augmented recommender system: Enhancing recommender systems with large language models.
+\newblock In \emph{Proceedings of the 17th ACM Conference on Recommender Systems}, pages 1369--1373.
+
+\bibitem[{Dubey et~al.(2024)Dubey, Jauhri, Pandey, Kadian, Al-Dahle, Letman, Mathur, Schelten, Yang, Fan et~al.}]{dubey2024llama}
+Abhimanyu Dubey, Abhinav Jauhri, Abhinav Pandey, Abhishek Kadian, Ahmad Al-Dahle, Aiesha Letman, Akhil Mathur, Alan Schelten, Amy Yang, Angela Fan, et~al. 2024.
+\newblock The llama 3 herd of models.
+\newblock \emph{arXiv preprint arXiv:2407.21783}.
+
+\bibitem[{Fan et~al.(2024{\natexlab{a}})Fan, Ding, Ning, Wang, Li, Yin, Chua, and Li}]{fan2024survey}
+Wenqi Fan, Yujuan Ding, Liangbo Ning, Shijie Wang, Hengyun Li, Dawei Yin, Tat-Seng Chua, and Qing Li. 2024{\natexlab{a}}.
+\newblock A survey on rag meeting llms: Towards retrieval-augmented large language models.
+\newblock In \emph{Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining}, pages 6491--6501.
+
+\bibitem[{Fan et~al.(2019)Fan, Ma, Li, He, Zhao, Tang, and Yin}]{fan2019graph}
+Wenqi Fan, Yao Ma, Qing Li, Yuan He, Eric Zhao, Jiliang Tang, and Dawei Yin. 2019.
+\newblock Graph neural networks for social recommendation.
+\newblock In \emph{The world wide web conference}, pages 417--426.
+
+\bibitem[{Fan et~al.(2024{\natexlab{b}})Fan, Wang, Huang, Chen, Song, Tang, Mao, Liu, Liu, Yin et~al.}]{fan2024graph}
+Wenqi Fan, Shijie Wang, Jiani Huang, Zhikai Chen, Yu~Song, Wenzhuo Tang, Haitao Mao, Hui Liu, Xiaorui Liu, Dawei Yin, et~al. 2024{\natexlab{b}}.
+\newblock Graph machine learning in the era of large language models (llms).
+\newblock \emph{arXiv preprint arXiv:2404.14928}.
+
+\bibitem[{Fatemi et~al.(2023)Fatemi, Halcrow, and Perozzi}]{fatemi2023talk}
+Bahare Fatemi, Jonathan Halcrow, and Bryan Perozzi. 2023.
+\newblock Talk like a graph: Encoding graphs for large language models.
+\newblock \emph{arXiv preprint arXiv:2310.04560}.
+
+\bibitem[{Gao et~al.(2023)Gao, Xiong, Gao, Jia, Pan, Bi, Dai, Sun, and Wang}]{gao2023retrieval}
+Yunfan Gao, Yun Xiong, Xinyu Gao, Kangxiang Jia, Jinliu Pan, Yuxi Bi, Yi~Dai, Jiawei Sun, and Haofen Wang. 2023.
+\newblock Retrieval-augmented generation for large language models: A survey.
+\newblock \emph{arXiv preprint arXiv:2312.10997}.
+
+\bibitem[{Geng et~al.(2022)Geng, Liu, Fu, Ge, and Zhang}]{geng2022recommendation}
+Shijie Geng, Shuchang Liu, Zuohui Fu, Yingqiang Ge, and Yongfeng Zhang. 2022.
+\newblock Recommendation as language processing (rlp): A unified pretrain, personalized prompt \& predict paradigm (p5).
+\newblock In \emph{Proceedings of the 16th ACM Conference on Recommender Systems}, pages 299--315.
+
+\bibitem[{Guu et~al.(2020)Guu, Lee, Tung, Pasupat, and Chang}]{guu2020retrieval}
+Kelvin Guu, Kenton Lee, Zora Tung, Panupong Pasupat, and Mingwei Chang. 2020.
+\newblock Retrieval augmented language model pre-training.
+\newblock In \emph{International conference on machine learning}, pages 3929--3938. PMLR.
+
+\bibitem[{Hamilton et~al.(2017)Hamilton, Ying, and Leskovec}]{hamilton2017inductive}
+Will Hamilton, Zhitao Ying, and Jure Leskovec. 2017.
+\newblock Inductive representation learning on large graphs.
+\newblock \emph{Advances in neural information processing systems}, 30.
+
+\bibitem[{He et~al.(2020)He, Deng, Wang, Li, Zhang, and Wang}]{he2020lightgcn}
+Xiangnan He, Kuan Deng, Xiang Wang, Yan Li, Yongdong Zhang, and Meng Wang. 2020.
+\newblock Lightgcn: Simplifying and powering graph convolution network for recommendation.
+\newblock In \emph{Proceedings of the 43rd International ACM SIGIR conference on research and development in Information Retrieval}, pages 639--648.
+
+\bibitem[{He et~al.(2024)He, Tian, Sun, Chawla, Laurent, LeCun, Bresson, and Hooi}]{he2024g}
+Xiaoxin He, Yijun Tian, Yifei Sun, Nitesh~V Chawla, Thomas Laurent, Yann LeCun, Xavier Bresson, and Bryan Hooi. 2024.
+\newblock G-retriever: Retrieval-augmented generation for textual graph understanding and question answering.
+\newblock \emph{arXiv preprint arXiv:2402.07630}.
+
+\bibitem[{Hou et~al.(2022)Hou, Mu, Zhao, Li, Ding, and Wen}]{hou2022towards}
+Yupeng Hou, Shanlei Mu, Wayne~Xin Zhao, Yaliang Li, Bolin Ding, and Ji-Rong Wen. 2022.
+\newblock Towards universal sequence representation learning for recommender systems.
+\newblock In \emph{Proceedings of the 28th ACM SIGKDD Conference on Knowledge Discovery and Data Mining}, pages 585--593.
+
+\bibitem[{Hu et~al.(2021)Hu, Shen, Wallis, Allen-Zhu, Li, Wang, Wang, and Chen}]{hu2021lora}
+Edward~J Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu~Wang, and Weizhu Chen. 2021.
+\newblock Lora: Low-rank adaptation of large language models.
+\newblock \emph{arXiv preprint arXiv:2106.09685}.
+
+\bibitem[{Jiang et~al.(2023)Jiang, Xu, Gao, Sun, Liu, Dwivedi-Yu, Yang, Callan, and Neubig}]{jiang2023active}
+Zhengbao Jiang, Frank~F Xu, Luyu Gao, Zhiqing Sun, Qian Liu, Jane Dwivedi-Yu, Yiming Yang, Jamie Callan, and Graham Neubig. 2023.
+\newblock Active retrieval augmented generation.
+\newblock \emph{arXiv preprint arXiv:2305.06983}.
+
+\bibitem[{Karpukhin et~al.(2020)Karpukhin, O{\u{g}}uz, Min, Lewis, Wu, Edunov, Chen, and Yih}]{karpukhin2020dense}
+Vladimir Karpukhin, Barlas O{\u{g}}uz, Sewon Min, Patrick Lewis, Ledell Wu, Sergey Edunov, Danqi Chen, and Wen-tau Yih. 2020.
+\newblock Dense passage retrieval for open-domain question answering.
+\newblock \emph{arXiv preprint arXiv:2004.04906}.
+
+\bibitem[{Kenthapadi et~al.(2017)Kenthapadi, Le, and Venkataraman}]{kenthapadi2017personalized}
+Krishnaram Kenthapadi, Benjamin Le, and Ganesh Venkataraman. 2017.
+\newblock Personalized job recommendation system at linkedin: Practical challenges and lessons learned.
+\newblock In \emph{Proceedings of the eleventh ACM conference on recommender systems}, pages 346--347.
+
+\bibitem[{Khandelwal et~al.(2019)Khandelwal, Levy, Jurafsky, Zettlemoyer, and Lewis}]{khandelwal2019generalization}
+Urvashi Khandelwal, Omer Levy, Dan Jurafsky, Luke Zettlemoyer, and Mike Lewis. 2019.
+\newblock Generalization through memorization: Nearest neighbor language models.
+\newblock \emph{arXiv preprint arXiv:1911.00172}.
+
+\bibitem[{Kipf and Welling(2016)}]{kipf2016semi}
+Thomas~N Kipf and Max Welling. 2016.
+\newblock Semi-supervised classification with graph convolutional networks.
+\newblock \emph{arXiv preprint arXiv:1609.02907}.
+
+\bibitem[{Labruna et~al.(2024)Labruna, Campos, and Azkune}]{labruna2024retrieve}
+Tiziano Labruna, Jon~Ander Campos, and Gorka Azkune. 2024.
+\newblock When to retrieve: Teaching llms to utilize information retrieval effectively.
+\newblock \emph{arXiv preprint arXiv:2404.19705}.
+
+\bibitem[{Li et~al.(2024)Li, Liu, Fan, Wei, Liu, Tang, and Li}]{li2024empowering}
+Jiatong Li, Yunqing Liu, Wenqi Fan, Xiao-Yong Wei, Hui Liu, Jiliang Tang, and Qing Li. 2024.
+\newblock Empowering molecule discovery for molecule-caption translation with large language models: A chatgpt perspective.
+\newblock \emph{IEEE Transactions on Knowledge and Data Engineering}.
+
+\bibitem[{Luo et~al.(2023)Luo, Li, Haffari, and Pan}]{luo2023reasoning}
+Linhao Luo, Yuan-Fang Li, Gholamreza Haffari, and Shirui Pan. 2023.
+\newblock Reasoning on graphs: Faithful and interpretable large language model reasoning.
+\newblock \emph{arXiv preprint arXiv:2310.01061}.
+
+\bibitem[{Mavromatis and Karypis(2024)}]{mavromatis2024gnn}
+Costas Mavromatis and George Karypis. 2024.
+\newblock Gnn-rag: Graph neural retrieval for large language model reasoning.
+\newblock \emph{arXiv preprint arXiv:2405.20139}.
+
+\bibitem[{Min et~al.(2020)Min, Michael, Hajishirzi, and Zettlemoyer}]{min2020ambigqa}
+Sewon Min, Julian Michael, Hannaneh Hajishirzi, and Luke Zettlemoyer. 2020.
+\newblock Ambigqa: Answering ambiguous open-domain questions.
+\newblock \emph{arXiv preprint arXiv:2004.10645}.
+
+\bibitem[{Perozzi et~al.(2024)Perozzi, Fatemi, Zelle, Tsitsulin, Kazemi, Al-Rfou, and Halcrow}]{perozzi2024let}
+Bryan Perozzi, Bahare Fatemi, Dustin Zelle, Anton Tsitsulin, Mehran Kazemi, Rami Al-Rfou, and Jonathan Halcrow. 2024.
+\newblock Let your graph do the talking: Encoding structured data for llms.
+\newblock \emph{arXiv preprint arXiv:2402.05862}.
+
+\bibitem[{Qu et~al.(2024)Qu, Fan, Zhao, and Li}]{qu2024tokenrec}
+Haohao Qu, Wenqi Fan, Zihuai Zhao, and Qing Li. 2024.
+\newblock Tokenrec: Learning to tokenize id for llm-based generative recommendation.
+\newblock \emph{arXiv preprint arXiv:2406.10450}.
+
+\bibitem[{Ram et~al.(2023)Ram, Levine, Dalmedigos, Muhlgay, Shashua, Leyton-Brown, and Shoham}]{ram2023context}
+Ori Ram, Yoav Levine, Itay Dalmedigos, Dor Muhlgay, Amnon Shashua, Kevin Leyton-Brown, and Yoav Shoham. 2023.
+\newblock In-context retrieval-augmented language models.
+\newblock \emph{Transactions of the Association for Computational Linguistics}, 11:1316--1331.
+
+\bibitem[{Reimers(2019)}]{reimers2019sentence}
+N~Reimers. 2019.
+\newblock Sentence-bert: Sentence embeddings using siamese bert-networks.
+\newblock \emph{arXiv preprint arXiv:1908.10084}.
+
+\bibitem[{Sen et~al.(2023)Sen, Mavadia, and Saffari}]{sen2023knowledge}
+Priyanka Sen, Sandeep Mavadia, and Amir Saffari. 2023.
+\newblock Knowledge graph-augmented language models for complex question answering.
+\newblock In \emph{Proceedings of the 1st Workshop on Natural Language Reasoning and Structured Explanations (NLRSE)}, pages 1--8.
+
+\bibitem[{Shi et~al.(2020)Shi, Huang, Feng, Zhong, Wang, and Sun}]{shi2020masked}
+Yunsheng Shi, Zhengjie Huang, Shikun Feng, Hui Zhong, Wenjin Wang, and Yu~Sun. 2020.
+\newblock Masked label prediction: Unified message passing model for semi-supervised classification.
+\newblock \emph{arXiv preprint arXiv:2009.03509}.
+
+\bibitem[{Sun et~al.(2023)Sun, Xu, Tang, Wang, Lin, Gong, Shum, and Guo}]{sun2023think}
+Jiashuo Sun, Chengjin Xu, Lumingyuan Tang, Saizhuo Wang, Chen Lin, Yeyun Gong, Heung-Yeung Shum, and Jian Guo. 2023.
+\newblock Think-on-graph: Deep and responsible reasoning of large language model with knowledge graph.
+\newblock \emph{arXiv preprint arXiv:2307.07697}.
+
+\bibitem[{Touvron et~al.(2023)Touvron, Lavril, Izacard, Martinet, Lachaux, Lacroix, Rozi{\`e}re, Goyal, Hambro, Azhar et~al.}]{touvron2023llama}
+Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne Lachaux, Timoth{\'e}e Lacroix, Baptiste Rozi{\`e}re, Naman Goyal, Eric Hambro, Faisal Azhar, et~al. 2023.
+\newblock Llama: Open and efficient foundation language models.
+\newblock \emph{arXiv preprint arXiv:2302.13971}.
+
+\bibitem[{Velickovic et~al.(2017)Velickovic, Cucurull, Casanova, Romero, Lio, Bengio et~al.}]{velickovic2017graph}
+Petar Velickovic, Guillem Cucurull, Arantxa Casanova, Adriana Romero, Pietro Lio, Yoshua Bengio, et~al. 2017.
+\newblock Graph attention networks.
+\newblock \emph{stat}, 1050(20):10--48550.
+
+\bibitem[{Wang et~al.(2023)Wang, Duan, Wang, Li, Xian, Yin, Rong, and Xiong}]{wang2023knowledge}
+Keheng Wang, Feiyu Duan, Sirui Wang, Peiguang Li, Yunsen Xian, Chuantao Yin, Wenge Rong, and Zhang Xiong. 2023.
+\newblock Knowledge-driven cot: Exploring faithful reasoning in llms for knowledge-intensive question answering.
+\newblock \emph{arXiv preprint arXiv:2308.13259}.
+
+\bibitem[{Wei et~al.(2024)Wei, Ren, Tang, Wang, Su, Cheng, Wang, Yin, and Huang}]{wei2024llmrec}
+Wei Wei, Xubin Ren, Jiabin Tang, Qinyong Wang, Lixin Su, Suqi Cheng, Junfeng Wang, Dawei Yin, and Chao Huang. 2024.
+\newblock Llmrec: Large language models with graph augmentation for recommendation.
+\newblock In \emph{Proceedings of the 17th ACM International Conference on Web Search and Data Mining}, pages 806--815.
+
+\bibitem[{Wu et~al.(2024)Wu, Chang, Yu, He, Wang, Hou, and McAuley}]{wu2024coral}
+Junda Wu, Cheng-Chun Chang, Tong Yu, Zhankui He, Jianing Wang, Yupeng Hou, and Julian McAuley. 2024.
+\newblock Coral: Collaborative retrieval-augmented large language models improve long-tail recommendation.
+\newblock In \emph{Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining}, pages 3391--3401.
+
+\bibitem[{Wu et~al.(2023{\natexlab{a}})Wu, Fei, Qu, Ji, and Chua}]{wu2023next}
+Shengqiong Wu, Hao Fei, Leigang Qu, Wei Ji, and Tat-Seng Chua. 2023{\natexlab{a}}.
+\newblock Next-gpt: Any-to-any multimodal llm.
+\newblock \emph{arXiv preprint arXiv:2309.05519}.
+
+\bibitem[{Wu et~al.(2023{\natexlab{b}})Wu, Hu, Bi, Qi, Ren, Xie, and Song}]{wu2023retrieve}
+Yike Wu, Nan Hu, Sheng Bi, Guilin Qi, Jie Ren, Anhuan Xie, and Wei Song. 2023{\natexlab{b}}.
+\newblock Retrieve-rewrite-answer: A kg-to-text enhanced llms framework for knowledge graph question answering.
+\newblock \emph{arXiv preprint arXiv:2309.11206}.
+
+\bibitem[{Yan et~al.(2024)Yan, Gu, Zhu, and Ling}]{yan2024corrective}
+Shi-Qi Yan, Jia-Chen Gu, Yun Zhu, and Zhen-Hua Ling. 2024.
+\newblock Corrective retrieval augmented generation.
+\newblock \emph{arXiv preprint arXiv:2401.15884}.
+
+\bibitem[{Yang et~al.(2024)Yang, Yang, Hui, Zheng, Yu, Zhou, Li, Li, Liu, Huang et~al.}]{yang2024qwen2}
+An~Yang, Baosong Yang, Binyuan Hui, Bo~Zheng, Bowen Yu, Chang Zhou, Chengpeng Li, Chengyuan Li, Dayiheng Liu, Fei Huang, et~al. 2024.
+\newblock Qwen2 technical report.
+\newblock \emph{arXiv preprint arXiv:2407.10671}.
+
+\bibitem[{Zhang et~al.(2024)Zhang, Hou, Xie, Sun, McAuley, Zhao, Lin, and Wen}]{zhang2024agentcf}
+Junjie Zhang, Yupeng Hou, Ruobing Xie, Wenqi Sun, Julian McAuley, Wayne~Xin Zhao, Leyu Lin, and Ji-Rong Wen. 2024.
+\newblock Agentcf: Collaborative learning with autonomous language agents for recommender systems.
+\newblock In \emph{Proceedings of the ACM on Web Conference 2024}, pages 3679--3689.
+
+\bibitem[{Zhang et~al.(2023)Zhang, Feng, Zhang, Bao, Wang, and He}]{zhang2023collm}
+Yang Zhang, Fuli Feng, Jizhi Zhang, Keqin Bao, Qifan Wang, and Xiangnan He. 2023.
+\newblock Collm: Integrating collaborative embeddings into large language models for recommendation.
+\newblock \emph{arXiv preprint arXiv:2310.19488}.
+
+\bibitem[{Zhao et~al.(2023)Zhao, Wang, Lin, Qu, Zhang, and Chua}]{zhao2023popularity}
+Jujia Zhao, Wenjie Wang, Xinyu Lin, Leigang Qu, Jizhi Zhang, and Tat-Seng Chua. 2023.
+\newblock Popularity-aware distributionally robust optimization for recommendation system.
+\newblock In \emph{Proceedings of the 32nd ACM International Conference on Information and Knowledge Management}, pages 4967--4973.
+
+\bibitem[{Zhao et~al.(2024)Zhao, Fan, Li, Liu, Mei, Wang, Wen, Wang, Zhao, Tang et~al.}]{zhao2024recommender}
+Zihuai Zhao, Wenqi Fan, Jiatong Li, Yunqing Liu, Xiaowei Mei, Yiqi Wang, Zhen Wen, Fei Wang, Xiangyu Zhao, Jiliang Tang, et~al. 2024.
+\newblock Recommender systems in the era of large language models (llms).
+\newblock \emph{IEEE Transactions on Knowledge and Data Engineering}.
+
+\end{thebibliography}

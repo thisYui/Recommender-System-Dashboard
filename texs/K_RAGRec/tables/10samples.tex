@@ -1,0 +1,31 @@
+\begin{table}[t]
+  % \vskip -0.05in
+  \centering
+  \caption{ Performance comparison of different KG RAG-enhanced LLM recommendations with candidate item numbers $M=10$ on the MovieLens and Amazon Book dataset and LLama-2-7b across
+two metrics. The best performances are labeled in bold. ACC and R@3 denote Accuracy and Recall@3, respectively. }
+  % \vskip -0.05in
+    \scalebox{0.65}
+{
+  % \begin{adjustbox}{}
+    \begin{tabular}{c|c|c|c|c}
+    \toprule
+    \toprule
+    \multirow{2}{*}{Methods} & \multicolumn{2}{c|}{MovieLens-1M} & \multicolumn{2}{c}{Amazon Book} \\
+    \cmidrule{2-5}
+    & \multicolumn{1}{c|}{ACC} & \multicolumn{1}{c|}{R@3} & \multicolumn{1}{c|}{ACC} & \multicolumn{1}{c}{R@3}  \\
+    \midrule
+    KG-Text &0.185  &- &0.142  &-  \\
+    KAPING &0.165  &- & 0.119 &-  \\
+    PT w/ KG-Text &0.159  &0.493 &0.123  &0.384  \\
+    GraphToken w/ RAG &0.512  &0.753 &0.444  & 0.682 \\
+    G-retriever &0.469  &0.721 &0.367  &0.610  \\
+    \midrule
+ K-RagRec &\textbf{0.568}  &\textbf{0.779} &\textbf{0.606}  &\textbf{0.770}  \\
+    \bottomrule
+    \bottomrule
+    \end{tabular}%
+    %\end{adjustbox}
+}
+  \label{tab:10samples}%
+  % \vskip -0.06in
+\end{table}%

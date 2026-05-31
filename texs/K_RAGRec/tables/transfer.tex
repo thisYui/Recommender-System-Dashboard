@@ -1,0 +1,32 @@
+\begin{table}[t]
+  % \vskip -0.05in
+  \centering
+  \caption{ The generalization results for our K-RagRec model in a zero-shot setting. In this setting, our models are trained on MovieLens-1M dataset and evaluated on MovieLens-20M and Amazon Book datasets.  ACC and R@$k$ denote Accuracy
+and Recall@$k$, respectively.}
+  \vskip -0.05in
+    \scalebox{0.57}
+{
+  % \begin{adjustbox}{}
+    \begin{tabular}{c|c|c|c|c|c|c|c}
+    \toprule
+    \toprule
+    \multirow{2}{*}{Models}  & \multirow{2}{*}{Methods} & \multicolumn{3}{c|}{MovieLens-20M} & \multicolumn{3}{c}{Amazon Book} \\
+    \cmidrule{3-8}
+    & & \multicolumn{1}{c|}{ACC} & \multicolumn{1}{c|}{R@3} & \multicolumn{1}{c|}{R@5} & \multicolumn{1}{c|}{ACC} & \multicolumn{1}{c|}{R@3} & \multicolumn{1}{c}{R@5} \\
+    \midrule
+ \multirow{2}{*}{LLama2} & K-RagRec &0.539  &0.740 &0.795 &0.390  &0.581 &0.671    \\
+  & Lora w/K-RagRec &0.539  &0.783 &0.863 &0.405 &0.580 &0.796   \\
+  \midrule
+\multirow{2}{*}{LLama3} &K-RagRec  &0.597 &0.797 &0.839 &0.428 &0.628 &0.706 \\
+ & Lora w/K-RagRec  &0.611  &0.775 &0.814 &0.424 &0.622 &0.732  \\
+ \midrule
+\multirow{2}{*}{QWEN} &K-RagRec  &0.507 &0.769 &0.861 &0.418 &0.612  &0.687\\
+ & Lora w/K-RagRec &0.545  &0.814 &0.897 &0.441 &0.623 &0.706   \\
+    \bottomrule
+    \bottomrule
+    \end{tabular}%
+    %\end{adjustbox}
+}
+  \label{tab:transferability}%
+  \vskip -0.06in
+\end{table}%

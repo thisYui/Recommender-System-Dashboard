@@ -1,0 +1,27 @@
+\begin{table}[t]
+  % \vskip -0.05in
+  \centering
+  \caption{ Performance comparison of different KG RAG-enhanced LLM recommendation methods on the cold-start dataset and QWEN2 across three metrics. The best performances are labeled in bold. ACC and R@$k$ denote Accuracy and Recall@$k$, respectively. }
+  % \vskip -0.05in
+    \scalebox{0.85}
+{
+  % \begin{adjustbox}{}
+    \begin{tabular}{c|c|c|c}
+    \toprule
+    \toprule
+    \multirow{1}{*}{Methods}
+    & \multicolumn{1}{c|}{ACC} & \multicolumn{1}{c|}{R@3} & \multicolumn{1}{c}{R@5} \\
+    \midrule
+    PT w/ KG-Text &0.106  &0.239 &0.395  \\
+    GraphToken w/ RAG &0.258  &0.473 &0.620 \\
+    G-retriever &0.185  &0.384 &0.488  \\
+    \midrule
+ K-RagRec &\textbf{0.406}  &\textbf{0.705} &\textbf{0.834}  \\
+    \bottomrule
+    \bottomrule
+    \end{tabular}%
+    %\end{adjustbox}
+}
+  \label{tab:cold_start}%
+  % \vskip -0.06in
+\end{table}%

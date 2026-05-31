@@ -1,0 +1,42 @@
+\begin{table}[htbp]
+  % \vskip -0.05in
+  \centering
+  \caption{Statistics of Hyper Parameters.}
+  % \vskip -0.05in
+    \scalebox{0.8}
+{
+  % \begin{adjustbox}{}
+    \begin{tabular}{c|c}
+    \toprule
+    \toprule
+    \multirow{1}{*}{Item}  & \multirow{1}{*}{Value}  \\
+    \midrule
+    batch size & 5  \\
+    epochs  & 3  \\
+    grad steps & 2 \\
+    learning rate & 1e-5 \\
+    \midrule
+    Indexing layer numbers & 4  \\
+    Indexing hidden dimension & 1024  \\
+    Encoding layer numbers & 4  \\
+    Encoding hidden dimension & 1024  \\
+    Encoding head numbers & 4  \\
+    \midrule
+    lora\_r & 8 \\
+    lora\_alpha & 16 \\
+    lora\_dropout & 0.1 \\
+    int8 & True \\
+    fp16 & True \\
+    \midrule
+    candidate item numbers & 20\\
+    threshold $p$ & 50\% \\
+    top-$K$ & 3 \\
+    top-$N$ & 5 \\
+    \bottomrule
+    \bottomrule
+    \end{tabular}%
+    %\end{adjustbox}
+}
+  \label{tab:hyper}%
+  % \vskip -0.06in
+\end{table}%

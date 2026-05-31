@@ -1,0 +1,26 @@
+\begin{table}[t]
+  % \vskip -0.05in
+  \centering
+  \caption{ 
+   Comparison of different GNN Encoders on the MovieLens-1M dataset and LLama-2-7b across three metrics. We use bold fonts to label the best performance. ACC and R@k denote Accuracy and Recall@k, respectively.}
+  \vskip -0.05in
+    \scalebox{0.75}
+{
+  % \begin{adjustbox}{}
+    \begin{tabular}{c|c|c|c}
+    \toprule
+    \toprule
+    \multirow{1}{*}{GNN Types}  & \multirow{1}{*}{ACC} & \multirow{1}{*}{R@3} &\multirow{1}{*}{R@5}  \\
+    \midrule
+    GCN~\citep{kipf2016semi} & 0.397 & 0.704 & 0.809 \\
+    GAT~\citep{velickovic2017graph}  & 0.420 & 0.693 & 0.804 \\
+    Graph Transformer~\citep{shi2020masked} & \textbf{0.429} & \textbf{0.711} &0.779 \\
+    GraphSAGE~\citep{hamilton2017inductive} &0.418  &0.699  &\textbf{0.823} \\
+    \bottomrule
+    \bottomrule
+    \end{tabular}%
+    %\end{adjustbox}
+}
+  \label{tab:gnn}%
+  \vskip -0.06in
+\end{table}%

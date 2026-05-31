@@ -1,0 +1,146 @@
+ \pdfoutput=1
+
+\documentclass[11pt]{article}
+\usepackage[final]{acl}
+\usepackage{adjustbox}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+% the typewriter font.
+\usepackage{inconsolata}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{bibentry}
+\usepackage{amsfonts}
+\usepackage{subfigure}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{color}
+\usepackage{epstopdf}
+\usepackage{rotating}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{multicol}
+\usepackage{amssymb}
+\setcounter{tocdepth}{3}
+\usepackage{graphicx}
+\usepackage{bbding}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{balance}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{booktabs} % for professional tables
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amsmath, bm}
+\usepackage{tabularx}
+\usepackage[T1]{fontenc}
+
+
+\usepackage{mathtools}
+\usepackage{etoolbox}
+\usepackage{cases}
+\usepackage{enumitem}
+% \usepackage[subnum]{cases}
+\usepackage{xcolor}
+% \usepackage{subfig}
+\usepackage{subfigure}
+\usepackage{xcolor}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+\usepackage{color}
+\newcommand{\red}[1]{\textcolor{red}{#1}}% Prof.*** uses red text to state the revision or revision note.
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}% The others uses blue text to state their revision or revision note.
+\newcommand{\green}[1]{\textcolor{green}{#1}}% The others uses blue text to state their revision or revision note.
+\definecolor{brown}{RGB}{139,64,0}
+\newcommand{\tyler}[1]{\textcolor{brown}{#1}}% The others uses blue text to state their revision or revision note.
+
+\usepackage{amssymb}
+
+\usepackage{cases}
+
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{color, colortbl}
+
+\definecolor{backred}{RGB}{255, 190, 190}
+\definecolor{backblue}{RGB}{210, 230, 250}
+\definecolor{verylightgray}{gray}{0.95}
+
+\newcommand{\jt}[1]{{\color{red}(#1)}} % comments
+\newcommand{\wq}[1]{{\color{blue}#1}} % comments
+\newcommand{\xr}[1]{{\{\color{blue}#1\}}} % comments
+\newcommand{\wei}[1]{{\{\color{orange}#1\}}} % comments
+\newcommand{\sj}[1]{{\color{purple}#1}} % comments
+\newcommand{\gray}[1]{{\color{gray}~#1 }}
+% If
+
+\title{Knowledge Graph Retrieval-Augmented Generation for
+LLM-based Recommendation}
+
+% \author{First Author \\
+%   Affiliation / Address line 1 \\
+%   Affiliation / Address line 2 \\
+%   Affiliation / Address line 3 \\
+%   \texttt{email@domain} \\\And
+%   Second Author \\
+%   Affiliation / Address line 1 \\
+%   Affiliation / Address line 2 \\
+%   Affiliation / Address line 3 \\
+%   \texttt{email@domain} \\}
+
+\author{
+ \textbf{Shijie Wang\textsuperscript{1}},
+ \textbf{Wenqi Fan\textsuperscript{1}}\thanks{Corresponding authors},
+ \textbf{Yue Feng\textsuperscript{2}}\footnotemark[1],
+ \textbf{Shanru Lin\textsuperscript{3}},
+\\
+ \textbf{Xinyu Ma\textsuperscript{4}},
+ \textbf{Shuaiqiang Wang\textsuperscript{4}},
+ \textbf{Dawei Yin\textsuperscript{4}},
+\\
+ \textsuperscript{1}The Hong Kong Polytechnic University,
+ \textsuperscript{2}University of Birmingham,\\
+ \textsuperscript{3}City University of Hong Kong,
+ \textsuperscript{4}Baidu Inc,
+\\
+ \small{
+  shijie.wang@connect.polyu.hk; wenqifan03@gmail.com; y.feng.6@bham.ac.uk; lllam32316@gmail.com; }
+   \\
+   \small{
+  xinyuma2016@gmail.com; shqiang.wang@gmail.com; yindawei@acm.org
+ }
+}
+
+\begin{document}
+\maketitle
+\input{sections/abs}
+
+\input{sections/introduction-V2}
+\input{sections/relatedwork}
+% \input{sections/preliminary-V2}
+\input{sections/model-V2}
+\input{sections/experiments-V2}
+\input{sections/conclusion}
+
+
+\bibliography{acl_latex}
+% \bibliographystyle{acl_natbib}
+
+
+
+\appendix
+
+\input{sections/appendix}
+
+\end{document}

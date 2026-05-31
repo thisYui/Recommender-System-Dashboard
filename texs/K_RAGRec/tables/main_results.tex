@@ -1,0 +1,76 @@
+
+\begin{table*}[t]
+\centering
+\vskip -0.150in
+  \caption{Performance comparison of different KG RAG-enhanced LLM recommendations. 
+  The \colorbox{backred!50}{best performance} and the \colorbox{backblue!75}{second-best performance} are marked in red and blue, respectively. ACC and R@$k$ denote
+Accuracy and Recall@$k$, respectively.}
+  \vskip -0.05in
+    \scalebox{0.6}
+{
+  \begin{adjustbox}{}
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c}
+ %   \toprule
+    \toprule
+    \toprule
+    \multirow{2}{*}{Models}  & \multicolumn{2}{c|}{\multirow{2}{*}{Methods}} & \multicolumn{3}{c|}{MovieLens-1M}  & \multicolumn{3}{c|}{MovieLens-20M} & \multicolumn{3}{c}{Amazon Book} \\
+    \cmidrule{4-12}
+    & \multicolumn{2}{c|}{} & \multicolumn{1}{c|}{ACC} & \multicolumn{1}{c|}{R@3} & \multicolumn{1}{c|}{R@5}& \multicolumn{1}{c|}{ACC} & \multicolumn{1}{c|}{R@3} & \multicolumn{1}{c|}{R@5} & \multicolumn{1}{c|}{ACC} & \multicolumn{1}{c|}{R@3} & \multicolumn{1}{c}{R@5} \\
+\midrule
+    \multirow{10}{*}{\textbf{LLama-2}}&   \multirow{2}{*}{\textbf{Inference-only}} 
+    & KG-Text~\citep{wu2023retrieve}& 0.076  & - & -  & 0.052 &  - &  -  &  0.058  &  -  &  -   \\
+    & &KAPING~\citep{baek2023knowledge} & 0.079  & -  & - & 0.069 &  - &  -  & 0.063  &   - &   -  \\
+    \cmidrule{2-12}
+    &\multirow{5}{*}{\textbf{Frozen LLM w/ PT}} &PT w/ KG-Text& 0.078  & 0.191  & 0.308 &0.051  &0.152 &0.250   &0.074   &0.165   &0.245   \\
+    & &GraphToken w/ RAG~\citep{perozzi2024let} & 0.268  &  0.421 & 0.466 & 0.186 &0.433 &0.576   &0.326   & 0.515  & 0.624   \\
+    & &G-retriever~\citep{he2024g} &  0.274 & 0.532  & 0.650 & 0.342 &0.619  &0.739   &0.275   &0.487   &0.612 \\
+     & & K-RagRec & \colorbox{backblue!75}{0.435}  &  \colorbox{backblue!75}{0.725} & 0.831 &0.600  & \colorbox{backblue!75}{0.850} & \colorbox{backblue!75}{0.913}  &  \colorbox{backblue!75}{0.508}  & \colorbox{backblue!75}{0.690}  &  \colorbox{backblue!75}{0.780} \\
+    \cmidrule{3-12}
+    && \cellcolor{verylightgray} \textbf{Improvement} & \cellcolor{verylightgray}58.6\%  & \cellcolor{verylightgray}33.0\% & \cellcolor{verylightgray}27.8\%  & \cellcolor{verylightgray}75.4\% &  \cellcolor{verylightgray}37.3\% &  \cellcolor{verylightgray}23.5\%  &  \cellcolor{verylightgray}55.8\%  & \cellcolor{verylightgray}34.0\%   &  \cellcolor{verylightgray}25.0 \%  \\
+    \cmidrule{2-12}
+    &\multirow{3}{*}{\textbf{Fine-tuning}} &Lora w/ KG-Text&    0.402 & 0.718 & \colorbox{backblue!75}{0.833} &\colorbox{backblue!75}{0.609} &0.848   &0.905   &0.446   &0.648  &0.758 \\
+    % \cmidrule{2-11}
+     & & Lora w/ K-RagRec &  \colorbox{backred!50} {0.466} & \colorbox{backred!50} {0.770}  & \colorbox{backred!50} {0.863} & \colorbox{backred!50} {0.637}  & \colorbox{backred!50} {0.872} & \colorbox{backred!50} {0.927}  & \colorbox{backred!50} {0.516}   & \colorbox{backred!50} {0.720}   & \colorbox{backred!50} {0.799} \\
+     \cmidrule{3-12}
+    && \cellcolor{verylightgray} \textbf{Improvement} &  \cellcolor{verylightgray}15.9\%  & \cellcolor{verylightgray}7.2\% & \cellcolor{verylightgray}3.6\%  & \cellcolor{verylightgray}4.5\% &  \cellcolor{verylightgray}2.7\% &  \cellcolor{verylightgray}2.4\%  &  \cellcolor{verylightgray}15.7\%  & \cellcolor{verylightgray}11.1\%   &   \cellcolor{verylightgray}5.4\%    \\
+   \midrule
+    \multirow{10}{*}{\textbf{LLama-3}}&   \multirow{2}{*}{\textbf{Inference-only}} & KG-Text~\citep{wu2023retrieve}& 0.095  & - & -  & 0.060 &  - &  -  &  0.054  &  -  &  - \\
+    & &KAPING~\citep{baek2023knowledge}& 0.084  & - & -  & 0.069 &  - &  -  & 0.062   &  -  &  - \\
+    \cmidrule{2-12}
+    &\multirow{5}{*}{\textbf{Frozen LLM w/ PT}} &PT w/ KG-Text& 0.134  & 0.294  & 0.433 &0.094  &0.205 &0.296   &0.083   &0.207   &0.314   \\
+    & &GraphToken w/ RAG~\citep{perozzi2024let} & 0.355  & 0.622  & 0.737 & 0.473 &0.719 & 0.805  &0.428   &0.567   &0.661    \\
+    & &G-retriever~\citep{he2024g} & 0.352  & 0.632  & 0.746 & 0.502 &0.736 & 0.796  &0.417   & 0.584  &0.682 \\
+     & & K-RagRec & \colorbox{backblue!75}{0.472}  & \colorbox{backblue!75}{0.704}  & \colorbox{backblue!75}{0.765} &0.634  &\colorbox{backblue!75}{0.779} &\colorbox{backblue!75}{0.818}    & \colorbox{backblue!75}{0.514}  & \colorbox{backblue!75}{0.662}  & \colorbox{backblue!75}{0.723} \\
+  \cmidrule{3-12}
+    && \cellcolor{verylightgray} \textbf{Improvement} &  \cellcolor{verylightgray}32.9\%  & \cellcolor{verylightgray}11.4\% & \cellcolor{verylightgray}2.5\%  & \cellcolor{verylightgray}26.3\% &  \cellcolor{verylightgray}5.8\% &  \cellcolor{verylightgray}1.6\%  &  \cellcolor{verylightgray}20.0\%  & \cellcolor{verylightgray}13.4\%   &   \cellcolor{verylightgray}6.0\%     \\
+    \cmidrule{2-12}
+    &\multirow{3}{*}{\textbf{Fine-tuning}} &Lora w/ KG-Text& 0.449  & 0.694  &0.750 &\colorbox{backblue!75}{0.648}  &0.757 &0.790   &0.490   &0.638   & 0.698 \\
+    % \cmidrule{2-11}
+     & & Lora w/ K-RagRec &  \colorbox{backred!50} {0.498} & \colorbox{backred!50} {0.712}  & \colorbox{backred!50} {0.771} & \colorbox{backred!50} {0.674}  & \colorbox{backred!50} {0.786} & \colorbox{backred!50} {0.817}  & \colorbox{backred!50} {0.546}   & \colorbox{backred!50} {0.672}   & \colorbox{backred!50} {0.733}  \\
+    \cmidrule{3-12}
+    && \cellcolor{verylightgray} \textbf{Improvement} &   \cellcolor{verylightgray}10.9\%  & \cellcolor{verylightgray}2.6\% & \cellcolor{verylightgray}2.8\%  & \cellcolor{verylightgray}4.0\% &  \cellcolor{verylightgray}3.8\% &  \cellcolor{verylightgray}3.4\%  &  \cellcolor{verylightgray}11.4\%  & \cellcolor{verylightgray}5.3\%   &   \cellcolor{verylightgray}5.0\%      \\
+   \midrule
+    \multirow{10}{*}{\textbf{QWEN2}}&   \multirow{2}{*}{\textbf{Inference-only}} & KG-Text~\citep{wu2023retrieve}&0.160   & - & -  & 0.174 &  - &  -  &  0.194  &  -  &  - \\
+    & &KAPING~\citep{baek2023knowledge}& 0.196  & - & -  & 0.208 &  - &  -  &  0.220  &  -  &  - \\
+    \cmidrule{2-12}
+    &\multirow{5}{*}{\textbf{Frozen LLM w/ PT}} &PT w/ KG-Text& 0.190 &  0.371 & 0.499 &0.259  &0.397 &0.494   &0.303   &0.451   &0.553   \\
+    & &GraphToken w/ RAG~\citep{perozzi2024let} & 0.259	& 0.487	& 0.608  & 0.370 &0.550 &0.632   & 0.365  &0.568   &  0.658  \\
+    & &G-retriever~\citep{he2024g} & 0.304	&0.551	&0.644  &0.389  &0.606 &0.685   &0.355   &0.552   &0.658 \\
+     & & K-RagRec &   \colorbox{backblue!75}{0.416}	&\colorbox{backblue!75}{0.712}	&\colorbox{backblue!75}{0.829}  &0.586  &\colorbox{backblue!75}{0.842}  &0.904   & \colorbox{backblue!75}{0.502}  & \colorbox{backblue!75}{0.686} &  \colorbox{backblue!75}{0.767} \\
+         \cmidrule{3-12}
+    && \cellcolor{verylightgray} \textbf{Improvement} &   \cellcolor{verylightgray}36.8\%  & \cellcolor{verylightgray}29.2\% & \cellcolor{verylightgray}28.4\%  & \cellcolor{verylightgray}50.6\% &  \cellcolor{verylightgray}38.9\% &  \cellcolor{verylightgray}32.0\%  &  \cellcolor{verylightgray}37.5\%  & \cellcolor{verylightgray}20.8\%   &  \cellcolor{verylightgray}16.6 \%      \\
+    \cmidrule{2-12}
+    &\multirow{3}{*}{\textbf{Fine-tuning}} &Lora w/ KG-Text&   0.400	&0.701	&0.815  &\colorbox{backblue!75}{0.601}  &\colorbox{backblue!75}{0.842} & \colorbox{backblue!75}{0.906}  &0.478   &0.667   &0.751 \\
+    % \cmidrule{2-11}
+     & & Lora w/ K-RagRec &   \colorbox{backred!50} {0.466}	& \colorbox{backred!50} {0.763}	&\colorbox{backred!50} {0.860}  & \colorbox{backred!50} {0.631}  & \colorbox{backred!50} {0.868}  & \colorbox{backred!50} {0.928}   & \colorbox{backred!50} {0.510}  & \colorbox{backred!50} {0.704}  & \colorbox{backred!50} {0.780} \\
+    \cmidrule{3-12}
+    && \cellcolor{verylightgray} \textbf{Improvement} &   \cellcolor{verylightgray}16.5\%  & \cellcolor{verylightgray}8.8\% & \cellcolor{verylightgray}5.5\%  & \cellcolor{verylightgray}5.0\% & \cellcolor{verylightgray}3.1 \% &  \cellcolor{verylightgray}2.4\%  &  \cellcolor{verylightgray}6.7\%  & \cellcolor{verylightgray}5.5\%   &   \cellcolor{verylightgray}3.9\%      \\
+    \bottomrule
+    \bottomrule
+    %\bottomrule
+    \end{tabular}%
+    \end{adjustbox}
+}
+  \label{tab:results}%
+  % \vskip -0.16in
+\end{table*}%

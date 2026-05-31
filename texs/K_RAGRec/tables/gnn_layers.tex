@@ -1,0 +1,25 @@
+\begin{table}[t]
+  % \vskip -0.05in
+  \centering
+  \caption{ 
+   Comparison of different GNN layers on the Amazon Book dataset and LLama-2-7b across three metrics. ACC and R@k denote Accuracy and Recall@k, respectively.}
+  % \vskip -0.05in
+    \scalebox{0.75}
+{
+  % \begin{adjustbox}{}
+    \begin{tabular}{c|c|c|c}
+    \toprule
+    \toprule
+    \multirow{1}{*}{GNN Layers}  & \multirow{1}{*}{ACC} & \multirow{1}{*}{R@3} &\multirow{1}{*}{R@5}  \\
+    \midrule
+    3 layers&  0.496 & 0.653 & 0.736 \\
+    4 layers& 0.506 & 0.690 & 0.780 \\
+    5 layers& 0.498 &0.656 &0.729 \\
+    \bottomrule
+    \bottomrule
+    \end{tabular}%
+    %\end{adjustbox}
+}
+  \label{tab:gnn_layer}%
+  % \vskip -0.06in
+\end{table}%
