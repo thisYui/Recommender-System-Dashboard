@@ -570,24 +570,36 @@
             <mxPoint x="508" y="775" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-89" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" value="Bias" vertex="1">
-          <mxGeometry height="26" width="41" x="89" y="216.75" as="geometry" />
-        </mxCell>
-        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-90" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" value="Fairness" vertex="1">
-          <mxGeometry height="26" width="64" x="66" y="285.75" as="geometry" />
-        </mxCell>
-        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-91" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" value="&lt;div&gt;Cold-start&lt;/div&gt;" vertex="1">
-          <mxGeometry height="26" width="70" x="60" y="353.75" as="geometry" />
-        </mxCell>
-        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-92" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" value="Filter Bubble" vertex="1">
-          <mxGeometry height="26" width="85" x="45" y="319.75" as="geometry" />
-        </mxCell>
-        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-93" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" value="Security" vertex="1">
-          <mxGeometry height="26" width="62" x="68" y="182.75" as="geometry" />
-        </mxCell>
-        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-94" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" value="Privacy" vertex="1">
-          <mxGeometry height="26" width="57" x="73" y="250.75" as="geometry" />
-        </mxCell>
+        <UserObject label="Bias" tooltip="là thiên lệch trong dữ liệu hoặc trong mô hình khiến recommendation không phản ánh công bằng sở thích hoặc nhu cầu thực. Bias có thể đến từ dữ liệu lịch sử, cách thu thập feedback, hoặc mục tiêu tối ưu quá thiên về một loại tương tác nào đó, nên rất khó loại bỏ hoàn toàn." id="EOgTCbZ0sA1uzU6uYuZY-89">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="41" x="89" y="216.75" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Fairness" tooltip="là việc đảm bảo hệ thống phân phối cơ hội, nội dung hoặc mức độ hiển thị một cách công bằng giữa các nhóm user và item. Nếu không kiểm soát tốt, mô hình có thể củng cố thiên lệch sẵn có trong dữ liệu hoặc làm bất lợi cho một số nhóm nhất định." id="EOgTCbZ0sA1uzU6uYuZY-90">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="64" x="66" y="285.75" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="&lt;div&gt;Cold-start&lt;/div&gt;" tooltip="là tình huống hệ thống thiếu dữ liệu về user mới hoặc item mới nên khó đưa ra gợi ý chính xác. Đây là một trong những thách thức kinh điển nhất của recommender systems vì các mô hình dựa nhiều vào lịch sử tương tác thường hoạt động kém khi dữ liệu ban đầu quá ít." id="EOgTCbZ0sA1uzU6uYuZY-91">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="70" x="60" y="353.75" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Filter Bubble" tooltip="à hiện tượng hệ thống chỉ liên tục gợi ý những nội dung giống với sở thích cũ của người dùng, khiến người dùng ít tiếp xúc với lựa chọn mới hoặc góc nhìn khác. Vấn đề này làm recommendation kém đa dạng, giảm serendipity và có thể tạo cảm giác “bị nhốt” trong một vùng sở thích hẹp." id="EOgTCbZ0sA1uzU6uYuZY-92">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="85" x="45" y="319.75" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Security" tooltip="là khả năng hệ thống chống lại tấn công, thao túng dữ liệu và truy cập trái phép. Trong RS, security đặc biệt quan trọng vì kẻ tấn công có thể tạo feedback giả, làm sai lệch ranking hoặc lợi dụng hệ thống để đẩy nội dung không mong muốn lên top." id="EOgTCbZ0sA1uzU6uYuZY-93">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="62" x="68" y="182.75" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Privacy" tooltip="liên quan đến việc bảo vệ dữ liệu cá nhân và hành vi người dùng trong quá trình thu thập, huấn luyện và triển khai recommender system. Đây là vấn đề rất quan trọng vì hệ gợi ý thường dựa trên lịch sử truy cập, click, rating, vị trí hoặc thông tin nhạy cảm khác." id="EOgTCbZ0sA1uzU6uYuZY-94">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="57" x="73" y="250.75" as="geometry" />
+          </mxCell>
+        </UserObject>
         <mxCell id="EOgTCbZ0sA1uzU6uYuZY-96" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-93" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-8" value="">
           <mxGeometry height="50" relative="1" width="50" as="geometry">
             <mxPoint x="192" y="409" as="sourcePoint" />
