@@ -1,0 +1,843 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="jYLry-uvw6IOslID2mHI">
+    <mxGraphModel grid="0" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1169" pageHeight="827" background="#FFFFFF" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-11" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=1;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-12" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=1;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="715" y="364" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-13" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=1;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-14" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=1;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <UserObject label="&lt;div&gt;Recomender System&lt;/div&gt;" tooltip="Content-Based Filtering Content-based filtering (CBF) is a recommendation strategy that&#xa;suggests items to a user based on the attributes of the items and a profile of the user’s preferences,&#xa;typically utilizing similarity measures to match user preferences with item attributes [83]. In CBF,&#xa;the recommendation ˆrui is based on the features of items ϕ(i) and a profile of the user’s preferences&#xa;θ(u):" id="gTTxGs-TXJTYOzbL5BLj-2">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#4D4D4D,#6A6A6A);gradientColor=none;fillStyle=solid;fontColor=#FFFFFF;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="130" x="445" y="359" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" value="Data" vertex="1">
+          <mxGeometry height="26" width="43" x="479" y="231" as="geometry" />
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;flipH=1;fontFamily=Garamond;" value="&lt;div&gt;Challenges&lt;/div&gt;" vertex="1">
+          <mxGeometry height="26" width="78" x="219" y="268.25" as="geometry" />
+        </mxCell>
+        <UserObject label="&lt;div&gt;Evaluation&lt;/div&gt;" tooltip="quá trình kiểm tra một recommender system hoạt động tốt đến mức nào, không chỉ về độ chính xác mà còn về chất lượng trải nghiệm và khả năng vận hành thực tế. " id="gTTxGs-TXJTYOzbL5BLj-9">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="80" x="247" y="526.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" value="&lt;div&gt;Model&lt;/div&gt;" vertex="1">
+          <mxGeometry height="26" width="51" x="697" y="416" as="geometry" />
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-17" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" value="Item" vertex="1">
+          <mxGeometry height="26" width="41" x="540" y="116.5" as="geometry" />
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-18" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" value="User" vertex="1">
+          <mxGeometry height="26" width="43" x="459" y="116.5" as="geometry" />
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-21" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" value="&lt;div&gt;Feedback&lt;/div&gt;" vertex="1">
+          <mxGeometry height="26" width="70" x="487" y="73.5" as="geometry" />
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-26" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" value="&lt;div&gt;Implicit&lt;/div&gt;" vertex="1">
+          <mxGeometry height="26" width="55" x="440" y="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-27" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" value="Explicit" vertex="1">
+          <mxGeometry height="26" width="56" x="548" y="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-32" parent="1" style="whiteSpace=wrap;html=1;dashed=1;fontFamily=Garamond;" value="&lt;div&gt;Click, watch, buy, bookmark,..&lt;/div&gt;" vertex="1">
+          <mxGeometry height="35" width="104" x="413" y="-36.5" as="geometry" />
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-34" parent="1" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;fontFamily=Garamond;" value="Rating&lt;br&gt;(1~5)" vertex="1">
+          <mxGeometry height="31" width="58" x="550" y="-36.5" as="geometry" />
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-35" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" value="Additional Information" vertex="1">
+          <mxGeometry height="26" width="134" x="206" y="119.5" as="geometry" />
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-36" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" value="User Info" vertex="1">
+          <mxGeometry height="26" width="67" x="110" y="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-37" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" value="Item Info" vertex="1">
+          <mxGeometry height="26" width="64" x="219" y="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-38" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" value="&lt;div&gt;Context Info&lt;/div&gt;" vertex="1">
+          <mxGeometry height="26" width="82" x="319" y="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-40" parent="1" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;fontFamily=Garamond;" value="Age, gender,.." vertex="1">
+          <mxGeometry height="26" width="92" x="77" y="-36.5" as="geometry" />
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-41" parent="1" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;fontFamily=Garamond;" value="Title, image, category, tags,.." vertex="1">
+          <mxGeometry height="36" width="104" x="185" y="-36.5" as="geometry" />
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-42" parent="1" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;fontFamily=Garamond;" value="Time, location,.." vertex="1">
+          <mxGeometry height="33" width="77" x="313" y="-36.5" as="geometry" />
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-44" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-38">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-45" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-35" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;fontFamily=Garamond;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="gTTxGs-TXJTYOzbL5BLj-36" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="254" y="130.5" as="sourcePoint" />
+            <mxPoint x="304" y="80.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-46" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-35" style="endArrow=none;html=1;rounded=0;entryX=0.577;entryY=0.975;entryDx=0;entryDy=0;entryPerimeter=0;fontFamily=Garamond;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" target="gTTxGs-TXJTYOzbL5BLj-37" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="281" y="112.5" as="sourcePoint" />
+            <mxPoint x="322" y="58.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-47" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-35" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-38" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="439" y="211.5" as="sourcePoint" />
+            <mxPoint x="489" y="161.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-48" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-38" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-42" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="439" y="211.5" as="sourcePoint" />
+            <mxPoint x="489" y="161.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-49" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-37" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontFamily=Garamond;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" target="gTTxGs-TXJTYOzbL5BLj-41" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="164" y="168.5" as="sourcePoint" />
+            <mxPoint x="214" y="118.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-50" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-36" style="endArrow=none;html=1;rounded=0;fontFamily=Garamond;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="gTTxGs-TXJTYOzbL5BLj-40" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="167" y="147.5" as="sourcePoint" />
+            <mxPoint x="217" y="97.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-52" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" value="Sequence/Session Info" vertex="1">
+          <mxGeometry height="32" width="90" x="-10" y="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-53" parent="1" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;fontFamily=Garamond;" value="Buy item A-&amp;gt;B-&amp;gt;C" vertex="1">
+          <mxGeometry height="26" width="114" x="-48" y="-36.5" as="geometry" />
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-54" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-52" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-35" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="241" y="180.5" as="sourcePoint" />
+            <mxPoint x="291" y="130.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-55" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-52" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;fontFamily=Garamond;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="gTTxGs-TXJTYOzbL5BLj-53" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="83" y="141.5" as="sourcePoint" />
+            <mxPoint x="133" y="91.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-56" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-17" style="endArrow=none;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-18" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="460" y="199.5" as="sourcePoint" />
+            <mxPoint x="510" y="149.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-61" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-21" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="519" y="129.5" as="sourcePoint" />
+            <mxPoint x="532" y="172.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-62" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-21" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-26" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="431" y="101.5" as="sourcePoint" />
+            <mxPoint x="481" y="51.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-63" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-21" style="endArrow=none;html=1;rounded=0;entryX=0.494;entryY=0.9;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-27" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="613" y="139.5" as="sourcePoint" />
+            <mxPoint x="663" y="89.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-64" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-26" style="endArrow=none;html=1;rounded=0;fontFamily=Garamond;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" target="gTTxGs-TXJTYOzbL5BLj-32" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="447" y="82.5" as="sourcePoint" />
+            <mxPoint x="497" y="32.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gTTxGs-TXJTYOzbL5BLj-65" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-27" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontFamily=Garamond;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" target="gTTxGs-TXJTYOzbL5BLj-34" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="536" y="111.5" as="sourcePoint" />
+            <mxPoint x="586" y="61.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-1" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-7" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-35" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="409" y="296" as="sourcePoint" />
+            <mxPoint x="459" y="246" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-2" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-7" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-17" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="567" y="306" as="sourcePoint" />
+            <mxPoint x="617" y="256" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-3" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-7" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-18" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="589" y="310" as="sourcePoint" />
+            <mxPoint x="639" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" value="&lt;div&gt;Foundation&lt;/div&gt;" vertex="1">
+          <mxGeometry height="26" width="78" x="792" y="81" as="geometry" />
+        </mxCell>
+        <UserObject label="Collaborative Filtering&lt;br&gt;(CF)" tooltip="Phương pháp này học từ lịch sử tương tác user-item để dự đoán user sẽ thích gì tiếp theo. Điểm yếu chính là dữ liệu thưa, khó với user/item mới và chi phí mở rộng lớn" id="EOgTCbZ0sA1uzU6uYuZY-5">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="37" width="133" x="951" y="109" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Content-based Filtering (CBF)" tooltip="Phương pháp gợi ý dựa trên đặc trưng của item và sở thích của user. Hệ thống đề xuất các item có nội dung tương tự với những gì user đã thích trước đó" id="EOgTCbZ0sA1uzU6uYuZY-6">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="34" width="103" x="951" y="-17" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Hybrid RS" tooltip="Hệ thống gợi ý kết hợp nhiều phương pháp, thường là Collaborative Filtering và Content-based Filtering, để bù điểm yếu cho nhau. Ví dụ: một app phim có thể vừa xem bạn đã thích thể loại nào, vừa xem những người giống bạn đang xem gì." id="EOgTCbZ0sA1uzU6uYuZY-7">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="72" x="975" y="55" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Deep learning" tooltip="Nhóm mô hình dùng mạng nơ-ron để học các quan hệ ẩn trong dữ liệu. So với các cách truyền thống, deep learning thường bắt được nhiều kiểu quan hệ hơn giữa user và item, nên phù hợp khi dữ liệu lớn và tương tác khá phức tạp" id="EOgTCbZ0sA1uzU6uYuZY-8">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="93" x="792" y="305.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Advanced" tooltip="Nhóm các mô hình gợi ý tiên tiến, kết hợp những kỹ thuật mới nhất của AI để giải quyết các bài toán khó mà phương pháp truyền thống hay deep learning cơ bản chưa làm tốt. " id="EOgTCbZ0sA1uzU6uYuZY-9">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="71" x="808" y="565" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Specialized" tooltip="Specialized Recommender Systems là nhóm hệ gợi ý được thiết kế cho những nhu cầu rất cụ thể, nơi dữ liệu hoặc mục tiêu không còn chỉ là user-item interaction thông thường mà còn bao gồm context, review, aspect, tính giải thích, độ tin cậy và fairness." id="EOgTCbZ0sA1uzU6uYuZY-10">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="79" x="683" y="565" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Vector-space model" tooltip="Biểu diễn item và sở thích của user dưới dạng vector đặc trưng, sau đó tính độ tương đồng, thường bằng cosine similarity. " id="EOgTCbZ0sA1uzU6uYuZY-12">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="123" x="1147" y="-21.5" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Probability model" tooltip="Dùng xác suất để đo xem một item có phù hợp với user hay không. " id="EOgTCbZ0sA1uzU6uYuZY-13">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="110" x="1147" y="-62.5" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Desision tree model" tooltip="Sử dụng cây quyết định để phân loại hoặc dự đoán item nào phù hợp với user dựa trên các thuộc tính của item." id="EOgTCbZ0sA1uzU6uYuZY-14">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="124" x="1147" y="-108" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-15" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-10" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-4" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="647" y="441" as="sourcePoint" />
+            <mxPoint x="697" y="391" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-16" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-10" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-8" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="667" y="393" as="sourcePoint" />
+            <mxPoint x="695" y="426" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-17" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-9" style="endArrow=none;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-10" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="664" y="503" as="sourcePoint" />
+            <mxPoint x="655" y="434" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-18" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-10" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-10" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="621" y="541" as="sourcePoint" />
+            <mxPoint x="671" y="491" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-20" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-6" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-12" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1085" y="0.2500000000001137" as="sourcePoint" />
+            <mxPoint x="1129" y="-12.75" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-21" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-6" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-13" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1085" y="0.2500000000001137" as="sourcePoint" />
+            <mxPoint x="1058" y="-7.75" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-22" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-6" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-14" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1085" y="0.2500000000001137" as="sourcePoint" />
+            <mxPoint x="1115" y="7.25" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-23" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-4" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-6" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="958" y="132" as="sourcePoint" />
+            <mxPoint x="1008" y="82" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject label="&lt;div&gt;Memory-based&lt;/div&gt;" tooltip="Tạo gợi ý trực tiếp từ độ tương tự giữa user-user hoặc item-item trong dữ liệu rating/tương tác. Cách này đơn giản, dễ hiểu, nhưng dễ gặp sparsity và khó mở rộng khi số user và item lớn." id="EOgTCbZ0sA1uzU6uYuZY-24">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="98" x="1147" y="64.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Model-based" tooltip="Học một mô hình ẩn từ ma trận tương tác để rút ra latent factors của user và item. Cách này thường mạnh hơn memory-based về khả năng khái quát hóa, nhưng phức tạp hơn và khó giải thích hơn." id="EOgTCbZ0sA1uzU6uYuZY-25">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="87" x="1147" y="175.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-26" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-4" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-5" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="977" y="160" as="sourcePoint" />
+            <mxPoint x="1027" y="110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject label="User-based" tooltip="Dự đoán user sẽ thích item nào bằng cách tìm các user có lịch sử sở thích giống họ. Ý tưởng cốt lõi là “người giống bạn thường thích những thứ tương tự bạn”." id="EOgTCbZ0sA1uzU6uYuZY-27">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="79" x="1300" y="34" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Item-based" tooltip="Dự đoán bằng cách tìm các item giống với những item user đã thích trước đó. Cách này thường ổn định hơn user-based khi số user thay đổi lớn." id="EOgTCbZ0sA1uzU6uYuZY-28">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="78" x="1300" y="86" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Matrix factorization" tooltip="Phân rã ma trận user-item thành các vector ẩn cho user và item để dự đoán tương tác chưa quan sát. " id="EOgTCbZ0sA1uzU6uYuZY-29">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="27" width="118" x="1300" y="136" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Factorization machine" tooltip="Mô hình hóa các tương tác giữa nhiều đặc trưng khác nhau, không chỉ riêng user và item. FM linh hoạt hơn MF vì có thể đưa thêm feature phụ vào" id="EOgTCbZ0sA1uzU6uYuZY-30">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="134" x="1300" y="189" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Neural CF" tooltip="Thay vì chỉ đo similarity hoặc phân rã ma trận theo cách tuyến tính, NCF dùng mạng nơ-ron để học sâu hơn về cách user tương tác với item" id="EOgTCbZ0sA1uzU6uYuZY-32">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="73" x="1300" y="241" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-33" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-24" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-27" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1310" y="83" as="sourcePoint" />
+            <mxPoint x="1360" y="33" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-34" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-24" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-28" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1294" y="207" as="sourcePoint" />
+            <mxPoint x="1344" y="157" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-35" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-25" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-29" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1296" y="285" as="sourcePoint" />
+            <mxPoint x="1346" y="235" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-36" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-25" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-30" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1266" y="288" as="sourcePoint" />
+            <mxPoint x="1316" y="238" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-37" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-25" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-32" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1256" y="298" as="sourcePoint" />
+            <mxPoint x="1306" y="248" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-38" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-5" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-24" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1125" y="131.7500000000001" as="sourcePoint" />
+            <mxPoint x="1254" y="192.25" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-39" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-5" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-25" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1125" y="131.7500000000001" as="sourcePoint" />
+            <mxPoint x="1209" y="227.25" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-40" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-7" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-6" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1043" y="212" as="sourcePoint" />
+            <mxPoint x="1093" y="162" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-41" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-5" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-7" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1097" y="249" as="sourcePoint" />
+            <mxPoint x="1147" y="199" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject label="Multi-Layer Perceptrons" tooltip="Mạng nơ-ron nhiều lớp, thường dùng để học quan hệ phi tuyến giữa user và item. Ví dụ, thay vì chỉ cộng trừ điểm giống nhau, MLP cố học sâu hơn kiểu “user này thường thích loại item nào trong những ngữ cảnh khác nhau”." id="EOgTCbZ0sA1uzU6uYuZY-43">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="144" x="951" y="201.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Autoencoders" tooltip="Mô hình học cách nén rồi khôi phục dữ liệu, nhờ đó rút ra biểu diễn ngắn gọn nhưng vẫn giữ được thông tin quan trọng. Giúp xử lý dữ liệu thưa và học được các tương tác ẩn." id="EOgTCbZ0sA1uzU6uYuZY-48">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="92" x="951" y="283.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="CNN" tooltip="Thường dùng để bắt các mẫu cục bộ trong dữ liệu, như đoạn văn, hình ảnh, hoặc chuỗi hành vi ngắn. Trong gợi ý, CNN hữu ích khi muốn học đặc trưng từ nội dung item hoặc từ các pattern gần nhau trong chuỗi tương tác." id="EOgTCbZ0sA1uzU6uYuZY-51">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="44" x="951" y="364.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Self-supervised learning" tooltip="Tận dụng chính dữ liệu tương tác sẵn có để tạo thêm tín hiệu học mà không cần nhãn thủ công. Mô hình có thể tự tạo ra nhiệm vụ đoán item bị che đi hoặc so sánh hai biến thể của cùng một lịch sử người dùng." id="EOgTCbZ0sA1uzU6uYuZY-53">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="147" x="951" y="242.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="RNN / Sequential" tooltip="xử lý dữ liệu theo thứ tự thời gian để dự đoán item kế tiếp hoặc sở thích tiếp theo của user. Ví dụ, người dùng vừa xem điện thoại, rồi xem ốp lưng, rồi xem tai nghe thì mô hình có thể đoán item tiếp theo dựa trên chuỗi hành vi đó." id="EOgTCbZ0sA1uzU6uYuZY-55">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="111" x="951" y="323.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="GNN" tooltip="biểu diễn dữ liệu dưới dạng đồ thị rồi truyền và tổng hợp thông tin từ các node lân cận để học quan hệ bậc cao giữa user, item và entity. Nói đơn giản, nó nhìn vào mạng lưới kết nối để hiểu user giống ai, item liên quan đến item nào, rồi gợi ý dựa trên cấu trúc đó" id="EOgTCbZ0sA1uzU6uYuZY-56">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="45" x="951" y="405.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-57" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-8" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-43" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="960" y="313.25" as="sourcePoint" />
+            <mxPoint x="987" y="332.25" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-58" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-8" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-53" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="960" y="313.25" as="sourcePoint" />
+            <mxPoint x="950" y="326.25" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-59" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-8" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-48" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="960" y="313.25" as="sourcePoint" />
+            <mxPoint x="997" y="343.25" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-60" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-8" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-51" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="960" y="313.25" as="sourcePoint" />
+            <mxPoint x="1013" y="401.25" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-61" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-8" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-55" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="960" y="313.25" as="sourcePoint" />
+            <mxPoint x="993" y="410.25" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-62" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-8" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-56" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="960" y="313.25" as="sourcePoint" />
+            <mxPoint x="939" y="515.25" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject label="Graph-based RS" tooltip="Graph-based RS biểu diễn hệ gợi ý dưới dạng đồ thị, trong đó node thường là user hoặc item, còn edge là các tương tác hay quan hệ giữa chúng. Mô hình học bằng cách truyền và tổng hợp thông tin từ các node lân cận qua nhiều lớp message passing, nhờ đó khai thác được quan hệ bậc cao và cấu trúc kết nối phức tạp trong dữ liệu; thách thức chính là độ phức tạp tính toán, nguy cơ oversmoothing khi truyền quá nhiều lớp, cùng yêu cầu về độ tin cậy, công bằng và khả năng giải thích" id="EOgTCbZ0sA1uzU6uYuZY-64">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="108" x="951" y="546.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Sequential &amp;amp; Session-based RS&amp;nbsp;" tooltip="Sequential RS xem lịch sử tương tác của user như một chuỗi theo thời gian để dự đoán hành động kế tiếp hoặc sở thích tương lai, còn Session-based RS tập trung vào tín hiệu ngắn hạn trong phiên hiện tại để gợi ý theo thời gian thực. Các mô hình này thường dùng RNN, self-attention, Transformer hoặc GNN để học phụ thuộc ngắn hạn và dài hạn trong chuỗi hành vi; thách thức chính là dữ liệu hành vi thay đổi nhanh, độ dài chuỗi lớn làm tăng chi phí tính toán, và việc cân bằng giữa sở thích ngắn hạn của phiên hiện tại với sở thích dài hạn của user." id="EOgTCbZ0sA1uzU6uYuZY-65">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="192" x="951" y="685.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Knowledge-based RS" tooltip="Hệ gợi ý này dùng tri thức ngoài dữ liệu tương tác, thường là knowledge graph hoặc knowledge base, để hiểu sâu hơn về item và mối quan hệ giữa các thực thể. Ví dụ, nếu một bộ phim nối với đạo diễn, thể loại và diễn viên trong knowledge graph, hệ thống có thể gợi ý phim tương tự ngay cả khi dữ liệu click hay rating còn ít. Cách làm phổ biến gồm học embedding cho entity và relation, khai thác đường đi trong graph, hoặc lan truyền thông tin nhiều bước qua các quan hệ tri thức; thách thức chính là xây dựng tri thức đủ tốt, giữ được ý nghĩa của quan hệ, và tránh mô hình quá phức tạp khi đồ thị lớn." id="EOgTCbZ0sA1uzU6uYuZY-67">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="134" x="951" y="593.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Reinforment learning-based RS" tooltip="RL-based RS xem hệ gợi ý như một agent liên tục chọn action, tức là chọn item hay danh sách item để đề xuất, rồi nhận reward từ phản hồi của user như click, dwell time hay purchase. Thay vì chỉ tối ưu một dự đoán tĩnh, mô hình học chính sách để cân bằng giữa lợi ích ngắn hạn và dài hạn, thách thức lớn là thiết kế reward hợp lý, xử lý trade-off giữa exploration và exploitation, độ bất ổn khi huấn luyện và khó đánh giá chính xác khi môi trường user luôn thay đổi" id="EOgTCbZ0sA1uzU6uYuZY-68">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="186" x="951" y="500.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="LLM-based RS" tooltip="LLM-based RS đưa các mô hình ngôn ngữ lớn vào bài toán gợi ý để khai thác hiểu biết ngữ nghĩa, khả năng xử lý ngôn ngữ tự nhiên và thích nghi theo prompt hoặc in-context learning. Chúng có thể dùng để biểu diễn user/item từ văn bản, hỗ trợ conversational recommendation, re-ranking hoặc zero-shot recommendation; tuy nhiên, các mô hình này đòi hỏi tài nguyên lớn, bị ràng buộc bởi context window, có thể khuếch đại popularity bias hoặc vấn đề đạo đức, và thường khó kiểm soát tính ổn định khi sinh đầu ra." id="EOgTCbZ0sA1uzU6uYuZY-69">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="98" x="951" y="454.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Multimodal RS" tooltip="Multimodal RS kết hợp nhiều loại dữ liệu như văn bản, hình ảnh, âm thanh, video hoặc metadata để mô tả user và item đầy đủ hơn. Mô hình thường có các encoder riêng cho từng modality rồi hợp nhất chúng bằng cơ chế fusion, attention hoặc contrastive learning để tạo representation chung; thách thức nằm ở việc các modality có chất lượng không đồng đều, khó căn chỉnh ngữ nghĩa giữa các nguồn dữ liệu, tốn tài nguyên tính toán và dễ bị phụ thuộc quá mức vào modality mạnh hơn." id="EOgTCbZ0sA1uzU6uYuZY-70">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="96" x="951" y="639.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-72" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-9" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-69" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="918" y="612.25" as="sourcePoint" />
+            <mxPoint x="968" y="562.25" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-73" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-9" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-68" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="896" y="566.25" as="sourcePoint" />
+            <mxPoint x="955" y="517.25" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-74" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-9" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-64" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="930" y="582.25" as="sourcePoint" />
+            <mxPoint x="989" y="533.25" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-75" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-9" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-67" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="882" y="642.25" as="sourcePoint" />
+            <mxPoint x="941" y="593.25" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-76" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-9" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-70" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="885" y="640.25" as="sourcePoint" />
+            <mxPoint x="944" y="591.25" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-77" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-9" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-65" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="889" y="665.25" as="sourcePoint" />
+            <mxPoint x="948" y="616.25" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject label="Context-aware RS" tooltip="Context-aware RS đưa thêm thông tin ngữ cảnh như thời gian, vị trí, thiết bị, tình huống sử dụng hoặc trạng thái hiện tại của người dùng vào quá trình gợi ý. Thay vì chỉ hỏi “user này thích item nào”, mô hình hỏi thêm “user này thích gì trong hoàn cảnh nào”, nên đặc biệt hữu ích cho bài toán như gợi ý nhà hàng theo thời điểm, địa điểm hoặc lịch trình. Thách thức chính là context thường thay đổi nhanh, nhiều chiều, khó thu thập đầy đủ và nếu tích hợp không tốt thì mô hình dễ phức tạp hơn nhưng chưa chắc cải thiện rõ chất lượng gợi ý." id="EOgTCbZ0sA1uzU6uYuZY-79">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="114" x="519" y="595.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Review-based RS" tooltip="khai thác văn bản review và rating để hiểu sâu hơn sở thích người dùng và đặc tính của item. Cách tiếp cận này không chỉ nhìn vào việc user có thích hay không, mà còn cố gắng hiểu vì sao user thích hoặc không thích thông qua nội dung phản hồi, ví dụ như chê chất lượng, khen giá rẻ hoặc thích dịch vụ. Khó khăn lớn là review thường dài, nhiễu, không đồng nhất, có thể chứa spam hoặc ý kiến mâu thuẫn, nên việc trích xuất tín hiệu hữu ích và ổn định từ văn bản không hề đơn giản" id="EOgTCbZ0sA1uzU6uYuZY-80">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="113" x="520" y="480.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Aspect-based RS" tooltip=" tách các khía cạnh cụ thể của item, chẳng hạn giá, pin, màn hình, vị trí, vệ sinh hay thái độ phục vụ. Hệ thống không chỉ biết người dùng thích hay không thích một sản phẩm nói chung, mà còn biết họ thích chính xác khía cạnh nào, từ đó tạo ra recommendation tinh chỉnh hơn theo nhu cầu thực tế. Thách thức nằm ở việc trích xuất đúng aspect, xác định sentiment cho từng aspect trong đúng ngữ cảnh, và xử lý trường hợp cùng một review chứa nhiều ý kiến trái chiều về các thuộc tính khác nhau." id="EOgTCbZ0sA1uzU6uYuZY-81">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="111" x="522" y="652.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Explainable and Trustworthy RS" tooltip="hướng tới việc không chỉ đưa ra gợi ý, mà còn giải thích được lý do và đảm bảo hệ thống vận hành đáng tin cậy. Một hệ tốt trong nhóm này thường cố gắng trả lời những câu như “vì sao mục này được đề xuất”, “dựa trên tín hiệu nào”, và “liệu recommendation có ổn định, an toàn, công bằng và tôn trọng riêng tư hay không”. Điểm khó là giữa accuracy, explainability, fairness, robustness và privacy thường có trade-off, nên càng tăng tính minh bạch và tin cậy thì thiết kế hệ thống càng phức tạp" id="EOgTCbZ0sA1uzU6uYuZY-82">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="188" x="445" y="537.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="FATE / Fairness-aware Rs" tooltip="fairness, accountability, transparency và ethics trong recommendation. Các hệ này cố gắng giảm thiên lệch với nhóm người dùng hoặc nhóm item, kiểm soát cách recommendation được tạo ra, và đảm bảo quyết định của hệ thống không vô tình gây bất lợi cho một nhóm nhất định. Thách thức là fairness không có một định nghĩa duy nhất, thường phải đánh đổi với accuracy hoặc revenue, và rất khó xử lý triệt để nếu dữ liệu gốc đã chứa bias hoặc thiếu thông tin về thuộc tính nhạy cảm." id="EOgTCbZ0sA1uzU6uYuZY-83">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="156" x="477" y="710.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-84" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-10" style="endArrow=none;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-80" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="510" y="692" as="sourcePoint" />
+            <mxPoint x="560" y="642" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-85" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-10" style="endArrow=none;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-82" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="572" y="735" as="sourcePoint" />
+            <mxPoint x="517" y="646" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-86" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-10" style="endArrow=none;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-79" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="565" y="835" as="sourcePoint" />
+            <mxPoint x="510" y="746" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-87" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-10" style="endArrow=none;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-81" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="542" y="849" as="sourcePoint" />
+            <mxPoint x="487" y="760" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-88" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-10" style="endArrow=none;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-83" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="563" y="864" as="sourcePoint" />
+            <mxPoint x="508" y="775" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject label="Bias" tooltip="là thiên lệch trong dữ liệu hoặc trong mô hình khiến recommendation không phản ánh công bằng sở thích hoặc nhu cầu thực. Bias có thể đến từ dữ liệu lịch sử, cách thu thập feedback, hoặc mục tiêu tối ưu quá thiên về một loại tương tác nào đó, nên rất khó loại bỏ hoàn toàn." id="EOgTCbZ0sA1uzU6uYuZY-89">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="41" x="89" y="216.75" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Fairness" tooltip="là việc đảm bảo hệ thống phân phối cơ hội, nội dung hoặc mức độ hiển thị một cách công bằng giữa các nhóm user và item. Nếu không kiểm soát tốt, mô hình có thể củng cố thiên lệch sẵn có trong dữ liệu hoặc làm bất lợi cho một số nhóm nhất định." id="EOgTCbZ0sA1uzU6uYuZY-90">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="64" x="66" y="285.75" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="&lt;div&gt;Cold-start&lt;/div&gt;" tooltip="là tình huống hệ thống thiếu dữ liệu về user mới hoặc item mới nên khó đưa ra gợi ý chính xác. Đây là một trong những thách thức kinh điển nhất của recommender systems vì các mô hình dựa nhiều vào lịch sử tương tác thường hoạt động kém khi dữ liệu ban đầu quá ít." id="EOgTCbZ0sA1uzU6uYuZY-91">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="70" x="60" y="353.75" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Filter Bubble" tooltip="à hiện tượng hệ thống chỉ liên tục gợi ý những nội dung giống với sở thích cũ của người dùng, khiến người dùng ít tiếp xúc với lựa chọn mới hoặc góc nhìn khác. Vấn đề này làm recommendation kém đa dạng, giảm serendipity và có thể tạo cảm giác “bị nhốt” trong một vùng sở thích hẹp." id="EOgTCbZ0sA1uzU6uYuZY-92">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="85" x="45" y="319.75" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Security" tooltip="là khả năng hệ thống chống lại tấn công, thao túng dữ liệu và truy cập trái phép. Trong RS, security đặc biệt quan trọng vì kẻ tấn công có thể tạo feedback giả, làm sai lệch ranking hoặc lợi dụng hệ thống để đẩy nội dung không mong muốn lên top." id="EOgTCbZ0sA1uzU6uYuZY-93">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="62" x="68" y="182.75" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Privacy" tooltip="liên quan đến việc bảo vệ dữ liệu cá nhân và hành vi người dùng trong quá trình thu thập, huấn luyện và triển khai recommender system. Đây là vấn đề rất quan trọng vì hệ gợi ý thường dựa trên lịch sử truy cập, click, rating, vị trí hoặc thông tin nhạy cảm khác." id="EOgTCbZ0sA1uzU6uYuZY-94">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="57" x="73" y="250.75" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-96" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-93" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-8" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="192" y="409" as="sourcePoint" />
+            <mxPoint x="242" y="359" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-97" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-89" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-8" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="181" y="365" as="sourcePoint" />
+            <mxPoint x="276" y="456" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-98" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-94" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-8" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="166" y="413" as="sourcePoint" />
+            <mxPoint x="261" y="504" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-99" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-90" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-8" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="154" y="404" as="sourcePoint" />
+            <mxPoint x="249" y="495" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-100" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-92" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-8" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="157" y="415" as="sourcePoint" />
+            <mxPoint x="252" y="506" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-101" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-91" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-8" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="141" y="452" as="sourcePoint" />
+            <mxPoint x="236" y="543" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-124" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-102" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-106">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <UserObject label="Online&lt;br&gt;Evaluation" tooltip="Online Evaluation đánh giá hệ gợi ý trong môi trường thực tế khi người dùng đang tương tác trực tiếp với hệ thống." id="EOgTCbZ0sA1uzU6uYuZY-102">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="41" width="73" x="115" y="473" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Offine&lt;br&gt;Evaluation" tooltip="đánh giá recommender trên dữ liệu lịch sử mà không cần triển khai trực tiếp cho người dùng thật. Cách này nhanh, rẻ, dễ lặp lại và rất phù hợp để so sánh mô hình ở giai đoạn nghiên cứu, nhưng có hạn chế là kết quả offline không phải lúc nào cũng phản ánh đúng hiệu quả thật khi đưa vào sản phẩm" id="EOgTCbZ0sA1uzU6uYuZY-103">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="41" width="73" x="115" y="557" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Measure" tooltip="nhóm tiêu chí dùng để định lượng chất lượng của recommender system sau khi đánh giá. " id="EOgTCbZ0sA1uzU6uYuZY-104">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="64" x="254.5" y="616" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="A/B Test" tooltip="là hình thức online evaluation phổ biến, trong đó hai hoặc nhiều phiên bản recommender được chạy song song trên các nhóm người dùng khác nhau để so sánh hiệu quả. Mục tiêu là xem phiên bản nào tạo ra kết quả kinh doanh hoặc trải nghiệm người dùng tốt hơn," id="EOgTCbZ0sA1uzU6uYuZY-106">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="63" x="11" y="480.25" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="K-Fold Cross&lt;br&gt;Validation" tooltip="là kỹ thuật chia dữ liệu thành nhiều phần, lần lượt dùng một phần để kiểm tra và các phần còn lại để huấn luyện, rồi lấy kết quả trung bình. " id="EOgTCbZ0sA1uzU6uYuZY-107">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="41" width="87" x="-8.5" y="557" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Accuracy" tooltip="phản ánh mức độ hệ thống dự đoán hoặc xếp hạng đúng so với dữ liệu quan sát được. " id="EOgTCbZ0sA1uzU6uYuZY-108">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="67" x="169.5" y="695" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Diversity" tooltip="phản ánh mức độ đa dạng giữa các item trong danh sách gợi ý, tức là recommendation không quá giống nhau. " id="EOgTCbZ0sA1uzU6uYuZY-109">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="64" x="332" y="695" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Coverage" tooltip="đo mức độ hệ thống có thể gợi ý được cho bao nhiêu user hoặc bao nhiêu item trong toàn bộ không gian dữ liệu." id="EOgTCbZ0sA1uzU6uYuZY-110">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="69" x="167.5" y="742.75" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Robustness" tooltip="thể hiện khả năng recommender vẫn hoạt động ổn định khi dữ liệu nhiễu, thiếu, bị thao túng hoặc thay đổi bất thường. Chỉ số này ngày càng quan trọng vì hệ thực tế thường phải đối mặt với spam, feedback lệch, dữ liệu không hoàn hảo và môi trường thay đổi liên tục." id="EOgTCbZ0sA1uzU6uYuZY-111">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="81" x="332" y="742.75" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Novelty" tooltip="đo xem hệ thống có gợi ý những item mới hoặc ít hiển nhiên đối với người dùng hay không. Đây là yếu tố quan trọng để giúp user khám phá nội dung mới, dù việc tăng novelty thường phải cân bằng với accuracy và mức độ quen thuộc." id="EOgTCbZ0sA1uzU6uYuZY-112">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="58" x="178.5" y="789.75" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Stability" tooltip="đo mức độ kết quả recommendation có giữ được tính nhất quán khi dữ liệu hoặc quá trình huấn luyện thay đổi nhẹ. Một hệ quá thiếu stability có thể cho ra gợi ý dao động mạnh giữa các lần chạy, làm giảm độ tin cậy trong vận hành thực tế." id="EOgTCbZ0sA1uzU6uYuZY-113">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="60" x="332" y="789.75" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Serendipity" tooltip="nói đến khả năng gợi ý những item vừa bất ngờ vừa hữu ích, tức là không chỉ mới mà còn đúng nhu cầu. Đây là một mục tiêu khó vì recommendation phải tránh cả hai cực: quá quen thuộc thì không thú vị, quá xa sở thích thì không còn hữu ích." id="EOgTCbZ0sA1uzU6uYuZY-114">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="78" x="158.5" y="837.75" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Scalability" tooltip="phản ánh khả năng hệ thống duy trì hiệu năng khi số user, số item và khối lượng tương tác tăng lên." id="EOgTCbZ0sA1uzU6uYuZY-115">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="72" x="332" y="837.75" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Rating&lt;br&gt;Prediction" tooltip="là dạng đánh giá xem mô hình dự đoán điểm số hoặc mức độ yêu thích của người dùng với item chính xác đến đâu. " id="EOgTCbZ0sA1uzU6uYuZY-116">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="41" width="71" x="74" y="658" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Item&lt;br&gt;Ranking" tooltip="đánh giá khả năng sắp xếp item đúng thứ tự ưu tiên để các item phù hợp nhất xuất hiện ở vị trí cao" id="EOgTCbZ0sA1uzU6uYuZY-117">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="41" width="62" x="74" y="749.5" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-119" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" value="MAE" vertex="1">
+          <mxGeometry height="26" width="44" x="7" y="680" as="geometry" />
+        </mxCell>
+        <UserObject label="MAP" tooltip="đo chất lượng ranking bằng cách xem các item liên quan xuất hiện sớm và đều trong danh sách gợi ý đến mức nào. Chỉ số này phù hợp khi quan tâm đến toàn bộ thứ tự của nhiều item đúng" id="EOgTCbZ0sA1uzU6uYuZY-120">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="44" x="7" y="719" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="NDCG" tooltip="đo chất lượng ranking bằng cách thưởng cao hơn cho các item phù hợp xuất hiện ở vị trí đầu danh sách." id="EOgTCbZ0sA1uzU6uYuZY-121">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="53" x="-2" y="757" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="MRR" tooltip="tập trung vào vị trí của item đúng đầu tiên trong danh sách recommendation. Chỉ số này hữu ích khi chỉ cần biết hệ thống có đưa ra một gợi ý tốt rất sớm hay không, nhưng nó không phản ánh đầy đủ chất lượng của cả danh sách dài hơn." id="EOgTCbZ0sA1uzU6uYuZY-122">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" vertex="1">
+            <mxGeometry height="26" width="45" x="6" y="795" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-125" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-9" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-102">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="268" y="523" as="sourcePoint" />
+            <mxPoint x="210" y="521" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-126" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-103" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Garamond;" target="gTTxGs-TXJTYOzbL5BLj-9">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="290" y="567" as="sourcePoint" />
+            <mxPoint x="232" y="565" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-127" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-103" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-107">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="200" y="601" as="sourcePoint" />
+            <mxPoint x="142" y="599" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-128" edge="1" parent="1" source="gTTxGs-TXJTYOzbL5BLj-9" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-104">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="222" y="624" as="sourcePoint" />
+            <mxPoint x="164" y="622" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-129" edge="1" parent="1" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontFamily=Garamond;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="286.71" y="639.25" as="sourcePoint" />
+            <mxPoint x="287" y="852" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-130" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-109" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-108">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="327.5" y="695.75" as="sourcePoint" />
+            <mxPoint x="271.5" y="691.75" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-131" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-111" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-110">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="339.5" y="814.75" as="sourcePoint" />
+            <mxPoint x="261.5" y="760.75" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-132" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-113" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-112">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="350.5" y="847.75" as="sourcePoint" />
+            <mxPoint x="292.5" y="845.75" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-133" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-115" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-114">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="383.5" y="906.75" as="sourcePoint" />
+            <mxPoint x="325.5" y="904.75" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-135" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-117" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-108">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="193" y="743" as="sourcePoint" />
+            <mxPoint x="135" y="741" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-136" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-116" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-118">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-65" y="729" as="sourcePoint" />
+            <mxPoint x="-123" y="727" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-137" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-116" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-119">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-60" y="721" as="sourcePoint" />
+            <mxPoint x="-118" y="719" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-138" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-117" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-120">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-79" y="801" as="sourcePoint" />
+            <mxPoint x="-137" y="799" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-139" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-117" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-121">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="28" y="892" as="sourcePoint" />
+            <mxPoint x="-30" y="890" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-140" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-117" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-122">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="89" y="913" as="sourcePoint" />
+            <mxPoint x="31" y="911" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-141" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-116" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-108">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="123" y="774" as="sourcePoint" />
+            <mxPoint x="227" y="684" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-142" edge="1" parent="1" source="EOgTCbZ0sA1uzU6uYuZY-116" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Garamond;" target="EOgTCbZ0sA1uzU6uYuZY-118" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="36" y="679" as="sourcePoint" />
+            <mxPoint x="-53" y="715" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EOgTCbZ0sA1uzU6uYuZY-118" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Garamond;" value="RMSE" vertex="1">
+          <mxGeometry height="26" width="53" x="-2" y="642" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
