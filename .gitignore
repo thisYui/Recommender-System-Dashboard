@@ -30,6 +30,7 @@ ENV/
 
 # data/synthetic/*
 # !data/synthetic/.gitkeep
+data/
 
 # ===============================
 # IDE / Editor
