@@ -1,8 +1,8 @@
 # Paper 2: Time-Sensitive Recommendation From Recurrent User Activities
 
-## Mục đích đọc paper
+## Mục đích paper
 
-Paper *Time-Sensitive Recommendation From Recurrent User Activities* là paper nền tảng rất sát với hướng **predict next time**. Nó không chỉ làm item recommendation, mà còn đánh giá trực tiếp bài toán **returning-time prediction**, tức là dự đoán thời điểm user quay lại hoặc event tiếp theo xảy ra. Vì vậy, nếu project hiện tại xây dựng target `delta_t_seconds = next_timestamp - current_timestamp`, đây là một trong những paper quan trọng nhất để làm cơ sở lý thuyết và thực nghiệm.
+Paper *Time-Sensitive Recommendation From Recurrent User Activities* là paper nền tảng rất sát với hướng **predict next time**. Nó không chỉ làm item recommendation, mà còn đánh giá trực tiếp bài toán **returning-time prediction**, tức là dự đoán thời điểm user quay lại hoặc event tiếp theo xảy ra.
 
 ## Bài toán paper giải quyết
 

@@ -1,8 +1,8 @@
 # Paper 1: Point Process Based Time Sensitive Personalised Recommendation
 
-## Mục đích đọc paper
+## Mục đích paper
 
-Paper này phù hợp với hướng nghiên cứu mới về **next-time prediction** vì nó đặt recommendation trong bối cảnh thời gian. Thay vì chỉ hỏi “user sẽ thích item nào”, paper đặt thêm câu hỏi “khi nào user có khả năng quay lại hoặc tương tác lại”. Đây là điểm gần với target `delta_t_seconds = next_timestamp - current_timestamp` trong notebook hiện tại. Tuy nhiên, cần lưu ý rằng phần thực nghiệm của paper chủ yếu đánh giá chất lượng **ranking recommendation** bằng NDCG, còn phần dự đoán returning time được mô tả trong framework nhưng không được báo cáo sâu bằng MAE/RMSE.
+Paper này phù hợp với hướng nghiên cứu mới về **next-time prediction** vì nó đặt recommendation trong bối cảnh thời gian. Thay vì chỉ hỏi “user sẽ thích item nào”, paper đặt thêm câu hỏi “khi nào user có khả năng quay lại hoặc tương tác lại”. Tuy nhiên, cần lưu ý rằng phần thực nghiệm của paper chủ yếu đánh giá chất lượng **ranking recommendation** bằng NDCG, còn phần dự đoán returning time được mô tả trong framework nhưng không được báo cáo sâu bằng MAE/RMSE.
 
 ## Bài toán paper giải quyết
 

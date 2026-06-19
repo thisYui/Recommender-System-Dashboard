@@ -1,6 +1,6 @@
 # Paper 3: When and What to Recommend: Joint Modeling of Timing and Content for Active Sequential Recommendation
 
-## Mục đích đọc paper
+## Mục đích paper
 
 Paper này đại diện cho hướng hiện đại hơn của time-aware recommendation. Thay vì chỉ dự đoán item tiếp theo hoặc chỉ dự đoán thời gian tiếp theo, paper đặt bài toán **active sequential recommendation**, trong đó hệ thống phải quyết định cả **khi nào nên recommend** và **nên recommend item nào**. Đây là hướng rất gần với mục tiêu dài hạn của project nếu muốn đi từ next-time prediction sang joint time-item recommendation.
 
