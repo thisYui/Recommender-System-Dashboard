@@ -1,0 +1,26 @@
+\begin{table*}[t]
+\small
+\caption{Performance Comparison.}
+\Description[The table reports the performance of all models on all four datasets]{The table reports the Recall@5, Recall@10, NDCG@5, NDCG@10 performance of all models on all datasets. It also shows the relative improvement of our model compared to the strongest baselines. Of all the models BERT is usually the strongest baseline. MEANTIME always performs better than any other baseline.}
+\label{tab:results}
+\begin{tabular}{@{}llrrrrrr@{}}
+\toprule
+Datasets & Metrics   & MARANK & SAS    & TISAS        & BERT         & MEANTIME        & Improvement \\ \midrule
+ML-1M    & Recall@5  & 0.4427 & 0.5708 & \underline{0.5869} & 0.5862       & \textbf{0.6415} & 9.31\%      \\
+         & Recall@10 & 0.5993 & 0.6966 & \underline{0.7102} & 0.6987       & \textbf{0.7412} & 4.36\%      \\
+         & NDCG@5    & 0.3042 & 0.4142 & 0.4307       & \underline{0.4420} & \textbf{0.4932} & 11.58\%     \\
+         & NDCG@10   & 0.3548 & 0.4550 & 0.4708       & \underline{0.4786} & \textbf{0.5255} & 9.81\%      \\
+ML-20M   & Recall@5  & 0.3938 & 0.5274 & 0.5412       & \underline{0.5910} & \textbf{0.6225} & 5.34\%      \\
+         & Recall@10 & 0.5503 & 0.6887 & 0.7021       & \underline{0.7176} & \textbf{0.7491} & 4.39\%      \\
+         & NDCG@5    & 0.2665 & 0.3700 & 0.3814       & \underline{0.4469} & \textbf{0.4739} & 6.04\%      \\
+         & NDCG@10   & 0.3170 & 0.4223 & 0.4336       & \underline{0.4879} & \textbf{0.5150} & 5.55\%      \\
+Beauty   & Recall@5  & 0.1577 & 0.2011 & 0.2081       & \underline{0.2271} & \textbf{0.2470} & 8.78\%      \\
+         & Recall@10 & 0.2302 & 0.2714 & 0.2805       & \underline{0.3095} & \textbf{0.3330} & 7.58\%      \\
+         & NDCG@5    & 0.1085 & 0.1464 & 0.1512       & \underline{0.1633} & \textbf{0.1764} & 8.05\%      \\
+         & NDCG@10   & 0.1318 & 0.1689 & 0.1745       & \underline{0.1898} & \textbf{0.2041} & 7.52\%      \\
+Game     & Recall@5  & 0.2846 & 0.3925 & 0.3857       & \underline{0.4211} & \textbf{0.4752} & 12.85\%     \\
+         & Recall@10 & 0.4217 & 0.5201 & 0.5085       & \underline{0.5590} & \textbf{0.6100} & 9.12\%      \\
+         & NDCG@5    & 0.1893 & 0.2735 & 0.2735       & \underline{0.2970} & \textbf{0.3446} & 16.03\%     \\
+         & NDCG@10   & 0.2334 & 0.3147 & 0.3133       & \underline{0.3415} & \textbf{0.3882} & 13.67\%     \\ \bottomrule
+\end{tabular}
+\end{table*}

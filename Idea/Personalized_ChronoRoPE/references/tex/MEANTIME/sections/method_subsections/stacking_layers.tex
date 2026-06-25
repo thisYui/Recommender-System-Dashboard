@@ -1,0 +1,12 @@
+After self-attention, MEANTIME operates similar to~\cite{BERT, BERT4Rec}. We apply Position-wise Feed Forward Network (FFN) to the result of self-attention to complete a single layer:
+\begin{equation}
+    \text{FFN}(x) = \text{GELU}(xW^1 + b^1)W^2 + b^2
+\end{equation}
+where $W^1 \in \mathbb{R}^{h \times 4h}, b^1 \in \mathbb{R}^{4h}, W^2 \in \mathbb{R}^{4h \times h}$ and $b^2 \in \mathbb{R}^{h}$ are learnable parameters. Then we stack $L$ such layers. As in previous works~\cite{TRANSFORMER, SASRec, BERT4Rec}, we apply a residual connection for each sublayer to facilitate training:
+\begin{equation}
+\begin{split}
+  y &= x + \text{Dropout}(\text{Attention}(\text{LayerNorm}(x)))\\
+  z &= y + \text{Dropout}(\text{FFN}(\text{LayerNorm}(y)))
+\end{split}
+\end{equation}
+Note that while some works~\cite{TRANSFORMER, BERT4Rec} apply LayerNorm at the very end, we empirically chose to apply LayerNorm in the front. This is also in accordance with the recent report on the order of layer normalization in Transformers~\cite{LNORDER}.

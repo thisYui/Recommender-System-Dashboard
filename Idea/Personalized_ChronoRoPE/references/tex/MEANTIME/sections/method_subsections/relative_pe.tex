@@ -1,0 +1,51 @@
+Given $s$ and $t$, any relative position embedding layer should return a matrix of the form $\mathbf{E}^r \in \mathbb{R}^{N \times N \times h}$: where each $r_{ij} \in \mathbb{R}^h$ represents the relationship between $i^{th}$ and $j^{th}$ positions. First, we create a matrix of differences between timestamps:
+\begin{displaymath}
+  \mathbf{D} = \begin{bmatrix}
+                    d_{11} & d_{12} & ... & d_{1n}\\
+                    d_{21} & d_{22} & ... & d_{2n}\\
+                    ... & ... & ... & ...\\
+                    d_{n1} & d_{n2} & ... & d_{nn}
+                    \end{bmatrix}
+\end{displaymath}
+where $d_{ij} = \frac{t_i - t_j}{\tau}$ and $\tau$ is an adjustable parameter.
+
+Next, we apply unique encoding functions to create three relative position embeddings:
+
+\begin{displaymath}
+\mathbf{E}^{sinusoid} = \begin{bmatrix}
+                    \theta_{11} & \theta_{12} & ... & \theta_{1n}\\
+                    \theta_{21} & \theta_{22} & ... & \theta_{2n}\\
+                    ... & ... & ... & ...\\
+                    \theta_{n1} & \theta_{n2} & ... & \theta_{nn}
+                    \end{bmatrix}\\
+ ,\mathbf{E}^{exp} = \begin{bmatrix}
+                    e_{11} & e_{12} & ... & e_{1n}\\
+                    e_{21} & e_{22} & ... & e_{2n}\\
+                    ... & ... & ... & ...\\
+                    e_{n1} & e_{n2} & ... & e_{nn}
+                    \end{bmatrix}\\
+  , \mathbf{E}^{log1p} = \begin{bmatrix}
+                        l_{11} & l_{12} & ... & l_{1n}\\
+                        l_{21} & l_{22} & ... & l_{2n}\\
+                        ... & ... & ... & ...\\
+                        l_{n1} & l_{n2} & ... & l_{nn}
+                        \end{bmatrix}\\
+\end{displaymath}
+
+In \textbf{Sinusoid}-embedding, we convert each $d_{ij}$ into a vector $\theta_{ij} \in \mathbb{R}^{h}$, by applying the following transformation:
+\begin{displaymath}
+  \theta_{ij, 2k} = sin(\frac{d_{ij}}{freq^{\frac{2k}{h}}})\\
+  , \theta_{ij, 2k+1} = cos(\frac{d_{ij}}{freq^{\frac{2k}{h}}})
+\end{displaymath}
+where $\theta_{ij, k}$ is the $k^{th}$ value of the vector $\theta_{ij}$ and $freq$ is an adjustable parameter.
+
+For \textbf{Exp} and \textbf{Log1p} embeddings, we apply the following transformations:
+\begin{displaymath}
+  e_{ij, k} = exp(\frac{-|d_{ij}|}{freq^{\frac{k}{h}}})\\
+  , l_{ij, k} = log(1 + \frac{|d_{ij}|}{freq^{\frac{k}{h}}})
+\end{displaymath}
+
+Each embedding offers a distinctive view on time intervals. For example, larger gaps between time will quickly decay to zero in $\mathbf{E}^{exp}$, while in $\mathbf{E}^{log1p}$ they will slowly increase to a value that is still manageable in neural networks. These distinctive views enable our self-attention blocks to attend to different parts of the sequence.
+
+
+Although we intended to explore the vast possibility of encoding functions by devising some of them on our own, we acknowledge that the choice of these functions might seem too improvised. To compensate, we provide a study of a more general form of encoding function with Fourier series in Appendix-\ref{app:fourier}.

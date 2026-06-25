@@ -1,0 +1,24 @@
+The embedding layers convert $\mathbf{v}$ and $\mathbf{t}$ to hidden features that are provided to the attention module. In the case of item array $\mathbf{v}$, each element has an item index. This array is embedded as $E^{item} \in \mathbb{R}^ {N\times h}$ using the conventional look-up operation with a learnable item embedding table $M^I\in \mathbb{R}^{(|V|+1)\times h}$, where h is the hidden feature size. $M^I$ holds embeddings for $|V|$ items and [MASK] token.
+
+In the case of $\mathbf{t}$, each element has a timestamp value.
+%While previous studies~\cite{SASRec, BERT4Rec} use them only to impose an order on the sequence, these values actually hold a lot of information. For instance, temporal difference between two interactions is highly related to the influence they have on each other.
+In previous studies, these values were embedded in a single embedding scheme, if they were used at all. However, given that user's behaviors are mixed with various patterns, a single embedding might not suffice. Moreover, using different encoding functions (instead of plain learnable values) for each embedding is beneficial since we can train each of them to learn a unique pattern. With these in mind, we propose six methods to embed $\mathbf{t}$: three absolute methods (Figure \ref{fig:model}(a)), and three relative methods (Figure \ref{fig:model}(b)).
+
+Absolute embeddings encode each position in the sequence as $E^{Day}, E^{Pos}\text{, or } E^{Con} \in \mathbb{R}^{N \times h}$. The first is $\textbf{Day}$-embedding which converts the day of each timestamp into an embedding vector to get $E^{Day}$. We keep a learnable embedding matrix $M^D\in R^{|D|\times h}$ where $|D|$ is the number of possible days in the span of the dataset. In our analysis, $\textbf{Day}$ is a reasonable choice of time length considering the trade-off between matrix size and the effectiveness. $\textbf{Pos}$-embedding is analogous to the learnable positional embedding used in~\cite{BERT, BERT4Rec}, where each position has a corresponding embedding in $M^P\in R^{N\times h}$. We convert each position to get $E^{Pos}$. Note that in this case, the embeddings depend only on the indices of time array and not on the timestamp values. \textbf{Con}-embedding is similar to \textbf{Pos}-embedding, except that all position vectors are shared ($M^C\in R^{1\times h}$) to remove positional bias. Hence, $E^{Con}$ is a stack of repeated vectors.
+
+Relative embeddings encode the relationship between each interaction pair in the sequence as $E^{Sin}, E^{Exp}\text{, or } E^{Log} \in \mathbb{R}^{N \times N \times h}$ by utilizing the temporal difference information. First, we define a matrix of temporal differences $\mathbf{D} \in \mathbb{R}^{N \times N}$ whose element is defined as $d_{ab} = (\mathbf{t}_a-\mathbf{t}_b)/\tau$, where $\tau$ is an adjustable unit time difference. We introduce three encoding functions for \textbf{D}.
+%that capture different characteristics of these time intervals.
+First, $\textbf{Sin}$ encoder converts the difference $d_{ab}$ to a hidden vector $\vec{\theta}_{ab} \in \mathbb{R}^{1 \times h}$, by the following equation:
+\begin{equation}
+    \vec{\theta}_{ab, 2c} = sin(\frac{d_{ab}}{freq^{\frac{2c}{h}}})\qquad\vec{\theta}_{ab, 2c+1} = cos(\frac{d_{ab}}{freq^{\frac{2c}{h}}})
+\end{equation}
+where $\vec{\theta}_{ab, c}$ is the $c^{th}$ value of the vector $\vec{\theta}_{ab}$ and $freq$ is an adjustable parameter.
+%By applying the encoder function to $\mathbf{D}$, we get $E^{sinusoid} \in R^{N \times N \times h}$ as output.
+Likewise, $\textbf{Exp}$ encoder and $\textbf{Log}$ encoder converts $d_{ab}$ to $\vec{e}_{ab}$ and $\vec{l}_{ab}$ respectively by applying the following equations:
+\begin{equation}
+  \vec{e}_{ab, c} = exp(\frac{-|d_{ab}|}{freq^{\frac{c}{h}}}) \qquad
+  \vec{l}_{ab, c} = log(1 + \frac{|d_{ab}|}{freq^{\frac{c}{h}}})
+\end{equation}
+Stacking these vectors gives us $E^{Sin}, E^{Exp}$ and $E^{Log}$ respectively.
+
+Each embedding offers a distinctive view on temporal data. For example, $\textbf{Sin}$ captures periodic occurrences. Larger time gap is either quickly decayed to zero in $\textbf{Exp}$ or manageably increased in $\textbf{Log}$. $\textbf{Day}$ can confine the attention scope within the same (or similar) day. $\textbf{Pos}$ can pick up the patterns learnt by the previous models. Finally, $\textbf{Con}$ removes positional bias altogether so that the attention can focus only on the relationship between items. These distinctive views enable our self-attention heads (Figure \ref{fig:model}(c)) to attend to different characteristics of the sequence.

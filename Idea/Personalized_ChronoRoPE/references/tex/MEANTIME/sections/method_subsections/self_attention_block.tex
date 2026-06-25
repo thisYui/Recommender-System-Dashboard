@@ -1,0 +1,110 @@
+Multi-head self-attention proposed in Transformer~\cite{TRANSFORMER} shows excellent performance in recommendation tasks~\cite{BERT4Rec}. MEANTIME is also based on this structure. Traditionally, self-attention based models~\cite{SASRec, BERT, BERT4Rec} employ a simple absolute positional encoding by feeding the sum of $E^{Item}$ and $E^{Pos}$ as input as shown in Figure \ref{fig:attntypes}(a). Advanced transformers~\cite{TRANSFORMER-XL, XLNET} enhanced this as shown in Figure \ref{fig:attntypes}(b). $E^{Pos}$ is replaced by the relative positional embedding $E^R$ that only depends on the difference between the positional indices of the array, and positional information is no longer used at key and value encoder. Parameters $b_I$ and $b_R$ serve as global content/positional bias respectively. For absolute embedding, we also adopt the previous structure. In addition, we propose separating the item and positional embedding for absolute attention as shown in Figure \ref{fig:attntypes}(c).
+%We also exploit this structure for our relative attention, but use the proposed $E^{Sin},E^{Exp},E^{Log}$ instead of $E^R$. For absolute attention, we separate the query and key embeddings for the item and temporal information as shown in Figure (c). 
+
+As explained in section \ref{section:inputembedding}, we can diversify the positional information that is fed to the attention module. MEANTIME utilizes 3 absolute embeddings and 3 relative embeddings. When fed a relative embedding, the head will operate as in Figure \ref{fig:attntypes}(b) with either $E^{Sin},E^{Exp}\text{ or }E^{Log}$ as input to $K_R$. When fed an absolute embedding, the head will operate as in Figure \ref{fig:attntypes}(c) with either $E^{Day},E^{Pos}\text{ or }E^{Con}$ as input to $Q_A\text{ and } K_A$.
+%In total, MEANTIME utilizes $n$ positional embeddings and $n$ attention heads.
+As in previous works, the dimension of each head is $\frac{h}{n}$. The choice of $n$ and embedding types are adjustable with regards to the characteristics of the dataset.
+
+
+%Given a stack of queries, keys, and values as $Q, K$, and $V$, Transformer \cite{TRANSFORMER} applies the following multi-headed attention:
+%\begin{equation}
+%\label{eq:attn}
+%\begin{split}
+%    \text{MultiHead}(Q, K, V) &= \text{Concat}(\text{head}_1, ..., \text{head}_n)W^O
+%    \\
+%    \text{where } \text{head}_i &= \text{Attention}(QW^Q_i, KW^K_i, VW^V_i)
+%    \\
+%    \text{and } \text{Attention}(Q, K, V) &= \text{softmax}(\frac{QK^T}{\sqrt{d_k}})V
+%\end{split}
+%\end{equation}
+%where $W^Q_i \in \mathbb{R}^{h \times d_q}, W^K_i \in \mathbb{R}^{h \times d_k}, W^V_i \in \mathbb{R}^{h \times d_v}, W^O \in \mathbb{R}^{nd_v \times h}$ are linear projection matrices, $n$ is the number of heads, and $d_q, d_v, d_k$ are the query, key, value dimensions. Usually $d_q = d_v = d_k = \frac{h}{n}$.
+
+
+
+
+
+
+
+
+
+
+
+
+%Traditional self-attention based models \cite{SASRec, BERT, BERT4Rec} employ a simple positional encoding where $X + P \in \mathbb{R}^{N \times h}$ is fed to the first transformer layer as in Figure-\ref{fig:attntypes}-(a). $X$ represents \textit{content} (embedding of each word/item) and $P$ represents \textit{position} (absolute embedding of each position).
+%More recent transformers \cite{TRANSFORMER-XL, XLNET} enhanced the above by separating content and position, and relying on relative positional information as in Figure-\ref{fig:attntypes}-(b). Notice that positional information is no longer a part of the value $V$. Moreover, absolute positional embedding $P$ is replaced by relative positional embedding $R$ which applies sinusoid encoding to the distance between two positions. Also, separate linear layers $W^{Q_X}_i, W^{K_X}_i, W^{K_X}_i$ are applied to content and positional information. $u$ and $v$ serve as global content/positional bias respectively.
+
+%We observe that in both cases, the same type of positional embedding is used for each head. However, in the case of sequential recommendation, we can diversify the positional embeddings as we showed in \ref{section:inputembedding}. MEANTIME utilizes $n$ positional embeddings and $n$ attention heads. Each head will be fed a different positional embedding. When fed a relative embedding, the head will operate as in Figure-\ref{fig:attntypes}-(b). When fed an absolute embedding, the head will operate as in Figure-\ref{fig:attntypes}-(c), which is a slight variation of Figure-\ref{fig:attntypes}-(a) that adopts recent improvements. The choice of $n$ and embedding types are adjustable with regards to the characteristics of the dataset.
+
+
+%We make three observations here. First, since $X$ and $P$ are given as a mixed input, they have to share the same linear layers. Furthermore, $P$ is also included in values, which could be undesirable because output should only be about content. Second, since content and positional information is mixed even more in the attention, there is no way to inject positional biases after the first Transformer layer. Third, the above uses the same type of positional embedding for every head. However, we can diversify the positional embedding so that each head gets a different positional bias. This is even more so in the case of sequential recommendation where we can also use time information to create a more well-informed positional embedding.
+
+% To address the above isseus, we devise a different attention operation for our model as follows:
+% \begin{equation}
+% \text{Attention}(Q, K, V, P) = \text{softmax}\left(\frac{(XW^{Q_X}_i + PW^{Q_P}_i)(XW^{K_X}_i + PW^{K_P}_i)^T}{\sqrt{d_k}}\right)(XW^{V_X}_i)
+% \end{equation}
+
+% Notice that our attention takes $P$ as an additional input. This enables our multi-head attention to feed different positional biases for each head, e.g. $E^{Day}, E^{Pos}, E^{Const}$.
+
+% Given an input sequence $\mathbf{X} \in \mathbb{R}^{N \times h}$, a single attention head $\mathbf{B}$ produces an output sequence $\mathbf{Z} \in \mathbb{R}^{N \times h}$. Together with $\mathbf{X}$, the block is given an embedding matrix $\mathbf{E}$ that encodes positional information. $\mathbf{E}$ can either be an absolute position embedding (in which case $\mathbf{E} \in \mathbb{R}^{N \times h}$) or relative position embedding (in which case $\mathbf{E} \in \mathbb{R}^{N \times N \times h}$). The block is called \textbf{Absolute Self-Attention Block} in the former case, and \textbf{Relative Self-Attention Block} in the latter case. We explain both cases in parallel since most operations overlap.
+
+% To compute $\mathbf{Z}$, we define two operations. The first operation is \textbf{MH} (Multi-Headed Self-Attention). We first define \textbf{Self-Attention} as follows:
+% \begin{equation}
+%   \textbf{Self-Attention}(X, E) = \sum_{j=1}^{n}{attn_{ij} X_j W_{content}^V}
+% \end{equation}
+% where $W_{content}^V \in \mathbb{R}^{h \times d_v}$ is a learnable linear projection matrix for content values, $d_v$ is the dimension of values, and $attn_{ij} \in \mathbb{R}$ is an attention score. Note that unlike previous works \cite{SASRec, TISASRec, BERT, BERT4Rec}, we are able to exclude any positional information and only consider content information when computing values. We prove that such prevention of information mix-up is beneficial for performance in the ablation study below.
+
+% We compute $attn_{ij}$ as:
+% \begin{equation}
+%   attn_{ij} = \frac{\exp{\alpha_{ij}}}{\sum_{k=1}^{n}{\exp{\alpha_{ik}}}}
+% \end{equation}
+% The computation of $\alpha_{ij}$ differs between \textbf{Absolute Self-Attention Block} and \textbf{Relative Self-Attention Block}.
+
+% In the first case,
+% \begin{equation}
+%   \alpha_{ij} = \frac{ (X_i W_{content}^Q + E_i W_{position}^Q)  (X_j W_{content}^K + E_j W_{position}^K)  }{\sqrt{d_k}}
+% \end{equation}
+% where $W_{content}^Q \in \mathbb{R}^{h \times d_q}, W_{content}^K \in \mathbb{R}^{h \times d_k}$ are learnable linear projection matrices for content queries and keys, and $W_{position}^Q \in \mathbb{R}^{h \times d_q}, W_{position}^K \in \mathbb{R}^{h \times d_k}$ are learnable linear projection matrices for position queries and keys. $d_q, d_k$ are dimensions of queries and keys. Usually, $d_q = d_k = d_v$ in self-attention. To prevent gradient vanishing or exploding, we scale the score with $\sqrt{d_k}$.
+
+% In the case of \textbf{Relative Self-Attention Block}, $\alpha_{ij}$ is computed as follows:
+% \begin{equation}
+%   \alpha_{ij} = \frac{ X_i W_{content}^Q  (X_j W_{content}^K + E_{ij} W_{position}^K) +
+%                       B_{content} X_j W_{content}^K +
+%                       B_{position} E_{ij} W_{position}^K }{\sqrt{d_k}}
+% \end{equation}
+% where $B_{content}, B_{position} \in \mathbb{R}^{d_q}$ are learnable biases for content and position respectively, and the rest hold the same meaning as above. The reason for injecting biases in this case is to compensate for the lack of position queries. 
+
+% In order to construct \textbf{Multi-Headed Self-Attention}, we first compute $heads = [head_1, ..., head_{|heads|}]$:
+% \begin{equation}
+% \begin{aligned}
+%   &head_{i} = \textbf{Self-Attention}(X, E)
+%   & (d_q = d_k = d_v = \frac{h}{|heads|})
+% \end{aligned}
+% \end{equation}
+% and then project the concatenated heads:
+% \begin{equation}
+%   \textbf{MH}(X, E) = [head_1; ...; head_{|heads|}] W_{content}^{O}
+% \end{equation}
+% where $W_{content}^{O} \in \mathbb{R}^{h \times h}$ is the final projection matrix.
+
+
+% The second operation we define is \textbf{PFF} (Point-wise Feed-Forward):
+% \begin{equation}
+% \begin{split}
+%   \textbf{PFF}(X) &= [\textbf{FF}(X_1), ..., \textbf{FF}(X_N)] \\
+%   \textbf{FF}(X) &= \textbf{GELU}(XW_1 + b_1)W_2+b_2
+% \end{split}
+% \end{equation}
+% where $W_1 \in \mathbb{R}^{h \times 4h}, b_1 \in \mathbb{R}^{4h}, W_2 \in \mathbb{R}^{4h \times h}, b_2 \in \mathbb{R}^{h}$ are learnable parameters and \textbf{GELU} is a Gaussian Error Unit. This operation is identical for both \textbf{Absolute Self-Attention Block} and \textbf{Relative Self-Attention Block}.\\
+% We combine the two operations to get $\mathbf{Z}$:
+% \begin{equation}
+% \begin{aligned}
+% \mathbf{Z} &= \mathbf{Y} + \text{Dropout}(\textbf{PFF}(\text{LN}(\mathbf{Y}))) \\
+% \mathbf{Y} &= \mathbf{X} + \text{Dropout}(\textbf{MH}(\text{LN}(\mathbf{X}), \mathbf{E}))
+% \end{aligned}
+% \end{equation}
+% where \textbf{Dropout} is dropout operation, and \textbf{LN} is layer normalization\cite{LAYERNORM}. This kind of residual connection was employed in many previous works\cite{SASRec, TISASRec, BERT4Rec} to enable deeper networks, and we follow suit. Note that the order of applying dropout and layer normalization might differ from other works. We ran extensive experiments with different orders, and concluded that this particular order gave best performance. This also agrees with the result of recent research\cite{LNORDER} on the order of layer normalization in transformers.
+
+% The whole operation above can be summarized as:
+% \begin{equation}
+%     \mathbf{B}(\mathbf{X}, \mathbf{E}) = \mathbf{Z}
+% \end{equation}

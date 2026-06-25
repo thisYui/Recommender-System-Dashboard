@@ -1,0 +1,24 @@
+%To validate the effectiveness of our method, we compared its performance with the following baseline models:
+%\begin{itemize}
+%\item {\textbf{MARank}}~\cite{MARANK}: A model that applies multi-order attention to the user's most recently interacted items to capture their individual and union-level dependencies.
+%\item {\textbf{SASRec}}~\cite{SASRec}: One of the earlier models that applies uni-directional self-attention mechanism to capture the dynamic item dependencies in the user's item sequence.
+%\item {\textbf{TiSASRec}}~\cite{TISASRec}: A model that improves the performance of SASRec~\cite{SASRec} by inserting the time interval information between items into attention operation.
+%\item {\textbf{BERT4Rec}}~\cite{BERT4Rec}: A model that applies bi-directional transformer architecture (BERT~\cite{BERT}) and Cloze task to improve the sequential prediction capability.
+%\end{itemize}
+%We omitted some of the older models (e.g. BPR~\cite{BPR}, NCF~\cite{NCF}, FPMC~\cite{rendle2010factorizing}, TransRec~\cite{TRANSREC}, GRU4Rec+~\cite{hidasi2018recurrent}, CASER~\cite{CASER}, ...) that have already been outperformed by the models presented here. For all baseline models, we translated the code \footnote{https://github.com/voladorlu/MARank} \footnote{https://github.com/kang205/SASRec} 
+%\footnote{https://github.com/JiachengLi1995/TiSASRec}
+%\footnote{https://github.com/FeiSun/BERT4Rec}
+%provided by the corresponding authors into \verb|PyTorch| to ensure a coherent comparison under the same framework. 
+In order to validate the effectiveness of our method, we compare it with the state-of-the-art baselines: MARank~\cite{MARANK}, SASRec~\cite{SASRec}, TiSASRec~\cite{TISASRec}, and BERT4Rec~\cite{BERT4Rec}. These models are evaluated based on the code provided by the authors.
+%We performed an extensive grid-search over the hyperparameters to ensure fairness.
+We implemented MEANTIME\footnote{Our code is available at https://github.com/SungMinCho/MEANTIME} with \verb|PyTorch|.
+%We report the optimal result for each baseline
+%hidden dimension size $h \in \{16, 32, 64, 128\}$, head number $n \in \{2, 4\}$, dropout ratio $\in \{0.2, 0.5\}$, and weight decay $wd \in \{0, 0.00001\}$. For TiSASRec, we also performed a grid-search over the max time intervals $\in \{256, 512, 2048\}$, including the authors' suggestions. Other settings such as parameter initialization or model-specific parameters followed the suggestions of the authors. We report the optimal result for each baseline.
+All models are fully tuned through an extensive grid-search on hyperparameters: hidden dimension $h \in \{16, 32, 64, 128\}$, number of heads $n \in \{2, 4\}$, dropout ratio $\in \{0.2, 0.5\}$, and weight decay $wd \in \{0, 0.00001\}$. We used the same maximum sequence length ($N=200$ for MovieLens, $N=50$ for Amazon) and the number of layers ($L = 2$) for all transformer-based models to ensure fairness. We train all models until their validation accuracy doesn't improve for 20 epochs, and then report with the test set. We report the optimal result for each model.
+%All models are optimized with Adam with learning rate of 0.001, and batch size of 256. We clip the gradients whose $l_2$ norm is greater than 5.
+%Since all self-attention models (SASRec, TiSASRec, BERT4Rec, MEANTIME) share a somewhat similar architecture, we use the same number of layers $L = 2$, heads $n = 2$, and 
+%We used mask probability $\rho = 0.2$ for ML-1M and ML-20M, and $\rho = 0.6$ for Amazon Beauty and Game, for both BERT4Rec and MEANTIME. 
+%Other parameters for MEANTIME were chosen empirically: $h = 128$ and $wd = 0$ for ML-1M and ML-20M, $h=16$ and $wd = 0.00001$ for Amazon Beauty, $h=64$ and $wd = 0.00001$ for Amazon Game, and dropout ratio $= 0.2$, $freq = 10^4$, $\tau = 1$ for all datasets. We use all 6 block types for experimentation. We train all models until their validation performance doesn't improve for 20 epochs, and then report with the test set.
+%Other parameters for MEANTIME were chosen empirically: $h = 128$ for ML-1M and ML-20M, $h=32$ for Amazon Beauty, $h=64$ for Amazon Game, and dropout ratio $= 0.2$, $freq = 10^4$,\text{ and } $\tau = 1$ for all datasets.
+%We use all 6 block types for experimentation.
+As for embedding types in MEANTIME, we used the best combination of embedding types among all possible combinations with $n=2, 4$: \textbf{Day+Pos+Sin+Log} for MovieLens 1M and 20M, \textbf{Day+Sin+Exp+Log} for Amazon Beauty, and \textbf{Day+Pos+Sin+Exp} for Amazon Game. 

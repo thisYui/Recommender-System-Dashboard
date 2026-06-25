@@ -1,0 +1,37 @@
+We evaluate our model on four real-word datasets with various domains and sparsity: MovieLens 1M~\cite{movielens}, MovieLens 20M~\cite{movielens}, Amazon Beauty~\cite{amazondataset} and Amazon Game~\cite{amazondataset}. We follow the common data preprocessing procedure from~\cite{TRANSREC, SASRec, TISASRec, BERT4Rec}. We convert each dataset into an implicit dataset by treating each numerical rating or review as a presence of a user-item interaction. We group the interactions by user ids and then sort them by timestamps to form a sequence for each user. Following the custom practice~\cite{TRANSREC, SASRec, TISASRec, BERT4Rec},  we discard users and items with less than five interactions to ensure the quality of the dataset.
+
+% We evaluate our model on four real-world datasets with various domains and sparsity. We provide their statistics next to their names as <the number of users, the number of items, the number of interactions>.
+% \begin{itemize}
+
+% \item {\textbf{MovieLens 1m} <6K, 3.4K, 1M>} %<6040, 3416, 1 M>}
+% %\footnote{http://files.grouplens.org/datasets/movielens/ml-1m.zip}
+% : A popular and traditional benchmark dataset from MovieLens~\cite{movielens}.
+
+% \item {\textbf{MovieLens 20m} <138K, 18K, 20M>}% <138493, 18345, 20 M>}
+% %\footnote{http://files.grouplens.org/datasets/movielens/ml-20m.zip}
+% : A larger dataset from MovieLens~\cite{movielens}. 
+
+% \item {\textbf{Amazon Beauty} <40K, 55K, 0.35M>} %<40226, 54542, 0.35 M>}
+% %\footnote{http://snap.stanford.edu/data/amazon/productGraph/categoryFiles/ratings\_Beauty.csv}
+% : Product reviews from Amazon~\cite{amazondataset} where the top category is "Beauty".
+
+% \item {\textbf{Amazon Game} <29K, 23K, 0.28M>} %<29341, 23464, 0.28 M>}
+% %\footnote{http://snap.stanford.edu/data/amazon/productGraph/categoryFiles/ratings\_Video\_Games.csv}
+% : Product reviews from Amazon~\cite{amazondataset} where the top category is "Game".
+% \end{itemize}
+
+% We follow the common data preprocessing procedure from~\cite{TRANSREC, SASRec, TISASRec, BERT4Rec}. We convert each dataset into an implicit dataset by treating each numerical rating or review as a presence of a user-item interaction. We group the interactions by user ids and then sort them by timestamps to form a sequence for each user. Following the custom practice~\cite{TRANSREC, SASRec, TISASRec, BERT4Rec}, we discard users and items with less than five interactions to ensure the quality of the dataset. % The statistics of the processed datasets are summarized in Table-\ref{tab:datastats}.
+
+%\begin{table}
+%    \caption{Statistics of datasets.}
+%    \label{tab:datastats}
+%    \begin{tabular}{@{}lllrll@{}}
+%    \toprule
+%    Datasets & \#Users & \#Items & \#Actions & Density & Span(Days) \\ \midrule
+%    ML-1m    & 6040    & 3416    & 1M   & 4.84\% & 1040 \\
+%    ML-20m   & 138493  & 18345   & 20M  & 0.79\% & 7387 \\
+%    Beauty   & 40226   & 54542   & 0.35M & 0.02\% & 4965 \\
+%    Game     & 29341   & 23464   & 0.28M & 0.04\% & 5510 \\
+%    \bottomrule
+%    \end{tabular}
+%\end{table}

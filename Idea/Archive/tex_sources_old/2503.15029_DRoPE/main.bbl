@@ -1,0 +1,92 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{#1}
+\csname url@rmstyle\endcsname
+\providecommand{\newblock}{\relax}
+\providecommand{\bibinfo}[2]{#2}
+\providecommand\BIBentrySTDinterwordspacing{\spaceskip=0pt\relax}
+\providecommand\BIBentryALTinterwordstretchfactor{4}
+\providecommand\BIBentryALTinterwordspacing{\spaceskip=\fontdimen2\font plus
+\BIBentryALTinterwordstretchfactor\fontdimen3\font minus \fontdimen4\font\relax}
+\providecommand\BIBforeignlanguage[2]{{%
+\expandafter\ifx\csname l@#1\endcsname\relax
+\typeout{** WARNING: IEEEtran.bst: No hyphenation pattern has been}%
+\typeout{** loaded for the language `#1'. Using the pattern for}%
+\typeout{** the default language instead.}%
+\else
+\language=\csname l@#1\endcsname
+\fi
+#2}}
+
+\bibitem{chen2023categorical}
+Y.~Chen, S.~Tonkens, and M.~Pavone, ``Categorical traffic transformer: Interpretable and diverse behavior prediction with tokenized latent,'' \emph{arXiv preprint arXiv:2311.18307}, 2023.
+
+\bibitem{feng2023macformer}
+C.~Feng, H.~Zhou, H.~Lin, Z.~Zhang, Z.~Xu, C.~Zhang, B.~Zhou, and S.~Shen, ``Macformer: Map-agent coupled transformer for real-time and robust trajectory prediction,'' \emph{{IEEE} Robot. Autom. Lett.}, 2023.
+
+\bibitem{hu2024solving}
+Y.~Hu, S.~Chai, Z.~Yang, J.~Qian, K.~Li, W.~Shao, H.~Zhang, W.~Xu, and Q.~Liu, ``Solving motion planning tasks with a scalable generative model,'' \emph{Proc. Eur. Conf. Comput. Vis. ({ECCV})}, 2024.
+
+\bibitem{huang2024versatile}
+Z.~Huang, Z.~Zhang, A.~Vaidya, Y.~Chen, C.~Lv, and J.~F. Fisac, ``Versatile scene-consistent traffic scenario generation as optimization with diffusion,'' \emph{arXiv preprint arXiv:2404.02524}, 2024.
+
+\bibitem{jia2024bench2drive}
+X.~Jia, Z.~Yang, Q.~Li, Z.~Zhang, and J.~Yan, ``Bench2drive: Towards multi-ability benchmarking of closed-loop end-to-end autonomous driving,'' \emph{arXiv preprint arXiv:2406.03877}, 2024.
+
+\bibitem{jia2025drivetransformer}
+X.~Jia, J.~You, Z.~Zhang, and J.~Yan, ``Drivetransformer: Unified transformer for scalable end-to-end autonomous driving,'' \emph{arXiv preprint arXiv:2503.07656}, 2025.
+
+\bibitem{lin2025revisit}
+L.~Lin, X.~Lin, K.~Xu, H.~Lu, L.~Huang, R.~Xiong, and Y.~Wang, ``Revisit mixture models for multi-agent simulation: Experimental study within a unified framework,'' \emph{arXiv preprint arXiv:2501.17015}, 2025.
+
+\bibitem{ren2021deep}
+X.~Ren, X.~Li, K.~Ren, J.~Song, Z.~Xu, K.~Deng, and X.~Wang, ``Deep learning-based weather prediction: a survey,'' \emph{Big Data Res.}, vol.~23, p. 100178, 2021.
+
+\bibitem{shi2025motion}
+J.~Shi, J.~Chen, Y.~Wang, L.~Sun, C.~Liu, W.~Xiong, and T.~Wo, ``Motion forecasting for autonomous vehicles: A survey,'' \emph{arXiv preprint arXiv:2502.08664}, 2025.
+
+\bibitem{su2024roformer}
+J.~Su, M.~Ahmed, Y.~Lu, S.~Pan, W.~Bo, and Y.~Liu, ``Roformer: Enhanced transformer with rotary position embedding,'' \emph{Neurocomput.}, vol. 568, p. 127063, 2024.
+
+\bibitem{sun2020scalability}
+P.~Sun, H.~Kretzschmar, X.~Dotiwalla, A.~Chouard, V.~Patnaik, P.~Tsui, J.~Guo, Y.~Zhou, Y.~Chai, B.~Caine, \emph{et~al.}, ``Scalability in perception for autonomous driving: Waymo open dataset,'' in \emph{Proc. {IEEE}/{CVF} Conf. Comput. Vis. Pattern Recognit.}, 2020, pp. 2446--2454.
+
+\bibitem{tampuu2020survey}
+A.~Tampuu, T.~Matiisen, M.~Semikin, D.~Fishman, and N.~Muhammad, ``A survey of end-to-end driving: Architectures and training methods,'' \emph{IEEE Trans. Neural Networks Learn. Syst.}, vol.~33, no.~4, pp. 1364--1384, 2020.
+
+\bibitem{vaswani2017attention}
+A.~Vaswani, N.~Shazeer, N.~Parmar, J.~Uszkoreit, L.~Jones, A.~N. Gomez, {\L}.~Kaiser, and I.~Polosukhin, ``Attention is all you need,'' \emph{Adv. Neural Inf. Process. Syst.}, vol.~30, 2017.
+
+\bibitem{wang2023multiverse}
+Y.~Wang, T.~Zhao, and F.~Yi, ``{Multiverse Transformer}: 1st place solution for waymo open sim agents challenge 2023,'' \emph{arXiv preprint arXiv:2306.11868}, 2023.
+
+\bibitem{wu2024smart}
+W.~Wu, X.~Feng, Z.~Gao, and Y.~Kan, ``{SMART}: Scalable multi-agent real-time simulation via next-token prediction,'' \emph{Adv. Neural Inf. Process. Syst.}, 2024.
+
+\bibitem{xie2024adan}
+X.~Xie, P.~Zhou, H.~Li, Z.~Lin, and S.~Yan, ``Adan: Adaptive nesterov momentum algorithm for faster optimizing deep models,'' \emph{IEEE Trans. Pattern Anal. Mach. Intell.}, 2024.
+
+\bibitem{xu2023context}
+P.~Xu, J.-B. Hayet, and I.~Karamouzas, ``Context-aware timewise vaes for real-time vehicle trajectory prediction,'' \emph{{IEEE} Robot. Autom. Lett.}, 2023.
+
+\bibitem{10629039}
+Z.~Xu, Y.~Zhang, E.~Xie, Z.~Zhao, Y.~Guo, K.-Y.~K. Wong, Z.~Li, and H.~Zhao, ``Drivegpt4: Interpretable end-to-end autonomous driving via large language model,'' \emph{{IEEE} Robot. Autom. Lett.}, vol.~9, no.~10, pp. 8186--8193, 2024.
+
+\bibitem{zhang2025closed}
+Z.~Zhang, P.~Karkus, M.~Igl, W.~Ding, Y.~Chen, B.~Ivanovic, and M.~Pavone, ``Closed-loop supervised fine-tuning of tokenized traffic models,'' in \emph{Proc. {IEEE}/{CVF} Conf. Comput. Vis. Pattern Recognit.}, 2025.
+
+\bibitem{zhang2024trafficbots}
+Z.~Zhang, C.~Sakaridis, and L.~Van~Gool, ``{TrafficBots V1.5}: Traffic simulation via conditional vaes and transformers with relative pose encoding,'' \emph{arXiv preprint arXiv:2406.10898}, 2024.
+
+\bibitem{10803038}
+J.~Zhao, J.~Zhuang, Q.~Zhou, T.~Ban, Z.~Xu, H.~Zhou, J.~Wang, G.~Wang, Z.~Li, and B.~Li, ``Kigras: Kinematic-driven generative model for realistic agent simulation,'' \emph{{IEEE} Robot. Autom. Lett.}, vol.~10, no.~2, pp. 1082--1089, 2025.
+
+\bibitem{zhou2024behaviorgpt}
+Z.~Zhou, H.~Hu, X.~Chen, J.~Wang, N.~Guan, K.~Wu, Y.-H. Li, Y.-K. Huang, and C.~J. Xue, ``{BehaviorGPT}: Smart agent simulation for autonomous driving with next-patch prediction,'' \emph{Adv. Neural Inf. Process. Syst.}, 2024.
+
+\bibitem{zhou2023query}
+Z.~Zhou, J.~Wang, Y.-H. Li, and Y.-K. Huang, ``Query-centric trajectory prediction,'' in \emph{Proc. Int. Conf. Comput. Vis. ({ICCV})}, 2023.
+
+\bibitem{zhou2023qcnext}
+Z.~Zhou, Z.~Wen, J.~Wang, Y.-H. Li, and Y.-K. Huang, ``Qcnext: A next-generation framework for joint multi-agent trajectory prediction,'' \emph{arXiv preprint arXiv:2306.10508}, 2023.
+
+\end{thebibliography}

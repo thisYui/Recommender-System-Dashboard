@@ -1,0 +1,1381 @@
+\begin{thebibliography}{100}
+
+\bibitem{SASRec}
+Kang W~C, McAuley J.
+\newblock Self-attentive sequential recommendation.
+\newblock In: Proceedings of the 18th IEEE International Conference on Data
+  Mining.
+\newblock 2018,  197--206
+
+\bibitem{TransRec_t}
+He~R, Kang W~C, McAuley J.
+\newblock Translation-based recommendation.
+\newblock In: Proceedings of the 11th ACM Conference on Recommender Systems.
+\newblock 2017,  161--169
+
+\bibitem{ICAI-SR}
+Yuan X, Duan D, Tong L, Shi L, Zhang C.
+\newblock {ICAT-SR}: Item categorical attribute integrated sequential
+  recommendation.
+\newblock In: Proceedings of the 44th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2021,  1687--1691
+
+\bibitem{NOVA}
+Liu C, Li~X, Cai G, Dong Z, Zhu H, Shang L.
+\newblock Noninvasive self-attention for side information fusion in sequential
+  recommendation.
+\newblock In: Proceedings of the AAAI conference on artificial intelligence.
+\newblock 2021,  4249--4256
+
+\bibitem{BERT}
+Kenton J~D~M~W~C, Toutanova L~K.
+\newblock {BERT}: Pre-training of deep bidirectional {Transformer}s for
+  language understanding.
+\newblock In: Proceedings of Proceedings of the 17-th Conference of the North
+  American Chapter of the Association for Computational Linguistics: Human
+  Language Technologies.
+\newblock 2019,  4171--4186
+
+\bibitem{ResNet}
+He~K, Zhang X, Ren S, Sun J.
+\newblock Deep residual learning for image recognition.
+\newblock In: Proceedings of the IEEE Conference on Computer Vision and Pattern
+  Recognition.
+\newblock 2016,  770--778
+
+\bibitem{MoRec}
+Yuan Z, Yuan F, Song Y, Li~Y, Fu~J, Yang F, Pan Y, Ni~Y.
+\newblock Where to go next for recommender systems? {ID}-vs. modality-based
+  recommender models revisited.
+\newblock In: Proceedings of the 46th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2023,  2639--2649
+
+\bibitem{UniSRec}
+Hou Y, Mu~S, Zhao W~X, Li~Y, Ding B, Wen J~R.
+\newblock Towards universal sequence representation learning for recommender
+  systems.
+\newblock In: Proceedings of the 28th ACM SIGKDD Conference on Knowledge
+  Discovery and Data Mining.
+\newblock 2022,  585--593
+
+\bibitem{GenRec}
+Ji~J, Li~Z, Xu~S, Hua W, Ge~Y, Tan J, Zhang Y.
+\newblock {GenRec}: Large language model for generative recommendation.
+\newblock In: Proceedings of the 46th European Conference on Information
+  Retrieval.
+\newblock 2024,  494--502
+
+\bibitem{LLMs_based_SR}
+Boz A, Zorgdrager W, Kotti Z, Harte J, Louridas P, Jannach D, Fragkoulis M.
+\newblock Improving sequential recommendations with {LLMs}.
+\newblock ACM Transactions on Recommender Systems, 2024
+
+\bibitem{SIM}
+Pi~Q, Zhou G, Zhang Y, Wang Z, Ren L, Fan Y, Zhu X, Gai K.
+\newblock Search-based user interest modeling with lifelong sequential behavior
+  data for click-through rate prediction.
+\newblock In: Proceedings of the 29th ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2020,  2685--2692
+
+\bibitem{CL4SRec}
+Xie X, Sun F, Liu Z, Wu~S, Gao J, Zhang J, Ding B, Cui B.
+\newblock Contrastive learning for sequential recommendation.
+\newblock In: Proceedings of the 38th International Conference on Data
+  Engineering.
+\newblock 2022,  1259--1273
+
+\bibitem{Wang.al.}
+Wang S, Cao L, Wang Y, Sheng Q~Z, Orgun M~A, Lian D.
+\newblock A survey on session-based recommender systems.
+\newblock ACM Computing Surveys, 2021, 54(7): 1--38
+
+\bibitem{li.al.}
+Li~Z, Yang C, Chen Y, Wang X, Chen H, Xu~G, Yao L, Sheng M.
+\newblock Graph and sequential neural networks in session-based recommendation:
+  {A} survey.
+\newblock ACM Computing Surveys, 2024, 57(2): 1--37
+
+\bibitem{quadrana.al.}
+Quadrana M, Cremonesi P, Jannach D.
+\newblock Sequence-aware recommender systems.
+\newblock ACM Computing Surveys, 2018, 51(4): 1--36
+
+\bibitem{nasir.al.}
+Nasir M, Ezeife C~I.
+\newblock A survey and taxonomy of sequential recommender systems for
+  e-commerce product recommendation.
+\newblock SN Computer Science, 2023, 4(6): 708
+
+\bibitem{fang.al.}
+Fang H, Zhang D, Shu Y, Guo G.
+\newblock Deep learning for sequential recommendation: {A}lgorithms,
+  influential factors, and evaluations.
+\newblock ACM Transactions on Information Systems, 2020, 39(1): 1--42
+
+\bibitem{Boka.al.}
+Boka T~F, Niu Z, Neupane R~B.
+\newblock A survey of sequential recommendation systems: Techniques,
+  evaluation, and future directions.
+\newblock Information Systems, 2024,  102427
+
+\bibitem{chen.al.}
+Chen X, Li~Z, Pan W, Ming Z.
+\newblock A survey on multi-behavior sequential recommendation.
+\newblock arXiv preprint arXiv:2308.15701, 2023
+
+\bibitem{chen_shu.al.}
+Chen S, Xu~Z, Pan W, Yang Q, Ming Z.
+\newblock A survey on cross-domain sequential recommendation.
+\newblock In: Proceedings of the 33th International Joint Conference on
+  Artificial Intelligence.
+\newblock 2024,  7989--7998
+
+\bibitem{jing.al.}
+Jing M, Zhu Y, Zang T, Wang K.
+\newblock Contrastive self-supervised learning in recommender systems: A
+  survey.
+\newblock ACM Transactions on Information Systems, 2023, 42(2): 1--39
+
+\bibitem{lai.al.}
+Lai R, Chen L, Chen R, Zhang C.
+\newblock A survey on data-centric recommender systems.
+\newblock arXiv preprint arXiv:2401.17878, 2024
+
+\bibitem{zhang.al.1}
+Zhang X, Xu~B, Li~C, Zhou Y, Li~L, Lin H.
+\newblock Side information-driven session-based recommendation: A survey.
+\newblock arXiv preprint arXiv:2402.17129, 2024
+
+\bibitem{GRU4Rec}
+Hidasi B, Karatzoglou A, Baltrunas L, Tikk D.
+\newblock Session-based recommendations with recurrent neural networks.
+\newblock In: Proceedings of the 4th International Conference on Learning
+  Representations.
+\newblock 2015
+
+\bibitem{DIF-SR}
+Xie Y, Zhou P, Kim S.
+\newblock Decoupled side information fusion for sequential recommendation.
+\newblock In: Proceedings of the 45th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2022,  1611--1621
+
+\bibitem{STEN}
+Li~Y, Ding Y, Chen B, Xin X, Wang Y, Shi Y, Tang R, Wang D.
+\newblock Extracting attentive social temporal excitation for sequential
+  recommendation.
+\newblock In: Proceedings of the 30th ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2021,  998–1007
+
+\bibitem{VQ-Rec}
+Hou Y, He~Z, McAuley J, Zhao W~X.
+\newblock Learning vector-quantized item representation for transferable
+  sequential recommenders.
+\newblock In: Proceedings of the ACM Web Conference 2023.
+\newblock 2023,  1162--1171
+
+\bibitem{CSP}
+Mobasher B, Dai H, Luo T, Nakagawa M.
+\newblock Using sequential and non-sequential patterns in predictive web usage
+  mining tasks.
+\newblock In: Proceedings of the 2th IEEE International Conference on Data
+  Mining.
+\newblock 2002,  669--672
+
+\bibitem{FPMC}
+Rendle S, Freudenthaler C, Schmidt-Thieme L.
+\newblock Factorizing personalized {Markov} chains for next-basket
+  recommendation.
+\newblock In: Proceedings of the ACM Web Conference 2010.
+\newblock 2010,  811--820
+
+\bibitem{GRU4Rec+}
+Hidasi B, Karatzoglou A.
+\newblock Recurrent neural networks with top-k gains for session-based
+  recommendations.
+\newblock In: Proceedings of the 27th ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2018,  843--852
+
+\bibitem{KrNN-P}
+Lin X, Niu S, Wang Y, Li~Y.
+\newblock K-plet recurrent neural networks for sequential recommendation.
+\newblock In: Proceedings of the 41st International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2018,  1057--1060
+
+\bibitem{MrRNN}
+Niu S, Zhang R.
+\newblock Collaborative sequence prediction for sequential recommender.
+\newblock In: Proceedings of the 2017 ACM on Conference on Information and
+  Knowledge Management.
+\newblock 2017,  2239--2242
+
+\bibitem{DACNN}
+Chen Q, Li~G, Zhou Q, Shi S, Zou D.
+\newblock Double attention convolutional neural network for sequential
+  recommendation.
+\newblock ACM Transactions on the Web, 2022, 16(4): 1--23
+
+\bibitem{Caser}
+Tang J, Wang K.
+\newblock Personalized top-{N} sequential recommendation via convolutional
+  sequence embedding.
+\newblock In: Proceedings of the 11th ACM International Conference on Web
+  Search and Data Mining.
+\newblock 2018,  565--573
+
+\bibitem{CosRec}
+Yan A, Cheng S, Kang W~C, Wan M, McAuley J.
+\newblock {CosRec}: {2D} convolutional neural networks for sequential
+  recommendation.
+\newblock In: Proceedings of the 28th ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2019,  2173--2176
+
+\bibitem{BERT4Rec}
+Sun F, Liu J, Wu~J, Pei C, Lin X, Ou~W, Jiang P.
+\newblock {BERT4Rec}: Sequential recommendation with bidirectional encoder
+  representations from {Transformer}.
+\newblock In: Proceedings of the 28th ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2019,  1441--1450
+
+\bibitem{ALBERT4Rec_DeBERTa4Rec}
+Petrov A, Macdonald C.
+\newblock A systematic review and replicability study of bert4rec for
+  sequential recommendation.
+\newblock In: Proceedings of the 16th ACM Conference on Recommender Systems.
+\newblock 2022,  436--447
+
+\bibitem{ADT}
+Zhang Y, Wang X, Chen H, Zhu W.
+\newblock Adaptive disentangled {Transformer} for sequential recommendation.
+\newblock In: Proceedings of the 29th ACM SIGKDD Conference on Knowledge
+  Discovery and Data Mining.
+\newblock 2023,  3434--3445
+
+\bibitem{AC-TSR}
+Zhou P, Ye~Q, Xie Y, Gao J, Wang S, Kim J~B, You C, Kim S.
+\newblock Attention calibration for {Transformer}-based sequential
+  recommendation.
+\newblock In: Proceedings of the 32nd ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2023,  3595--3605
+
+\bibitem{DT4IER}
+Liu Z, Liu S, Zhang Z, Cai Q, Zhao X, Zhao K, Hu~L, Jiang P, Gai K.
+\newblock Sequential recommendation for optimizing both immediate feedback and
+  long-term retention.
+\newblock In: Proceedings of the 47th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2024,  1872--1882
+
+\bibitem{STOSA}
+Fan Z, Liu Z, Wang Y, Wang A, Nazari Z, Zheng L, Peng H, Yu~P~S.
+\newblock Sequential recommendation via stochastic self-attention.
+\newblock In: Proceedings of the ACM Web Conference 2022.
+\newblock 2022,  2036--2047
+
+\bibitem{MFGAN}
+Ren R, Liu Z, Li~Y, Zhao W~X, Wang H, Ding B, Wen J~R.
+\newblock Sequential recommendation with self-attentive multi-adversarial
+  network.
+\newblock In: Proceedings of the 43rd International ACM SIGIR conference on
+  Research and Development in Information Retrieval.
+\newblock 2020,  89--98
+
+\bibitem{SSE-PT}
+Wu~L, Li~S, Hsieh C~J, Sharpnack J.
+\newblock {SSE-PT}: Sequential recommendation via personalized {Transformer}.
+\newblock In: Proceedings of the 14th ACM conference on recommender systems.
+\newblock 2020,  328--337
+
+\bibitem{STRec}
+Li~C, Wang Y, Liu Q, Zhao X, Wang W, Wang Y, Zou L, Fan W, Li~Q.
+\newblock {STRec}: Sparse {Transformer} for sequential recommendations.
+\newblock In: Proceedings of the 17th ACM Conference on Recommender Systems.
+\newblock 2023,  101--111
+
+\bibitem{MoSeR}
+Cui Z, Cai Y, Wu~S, Ma~X, Wang L.
+\newblock Motif-aware sequential recommendation.
+\newblock In: Proceedings of the 44th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2021,  1738--1742
+
+\bibitem{PHGR}
+Guo N, Liu X, Li~S, Ma~Q, Gao K, Han B, Zheng L, Guo S, Guo X.
+\newblock Poincar{\'e} heterogeneous graph neural networks for sequential
+  recommendation.
+\newblock ACM Transactions on Information Systems, 2023, 41(3): 1--26
+
+\bibitem{CBiT}
+Du~H, Shi H, Zhao P, Wang D, Sheng V~S, Liu Y, Liu G, Zhao L.
+\newblock Contrastive learning with bidirectional {Transformer}s for sequential
+  recommendation.
+\newblock In: Proceedings of the 31st ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2022,  396--405
+
+\bibitem{DCRec}
+Yang Y, Huang C, Xia L, Huang C, Luo D, Lin K.
+\newblock Debiased contrastive learning for sequential recommendation.
+\newblock In: Proceedings of the ACM Web Conference 2023.
+\newblock 2023
+
+\bibitem{DFAR}
+Lin G, Gao C, Zheng Y, Chang J, Niu Y, Song Y, Li~Z, Jin D, Li~Y.
+\newblock Dual-interest factorization-heads attention for sequential
+  recommendation.
+\newblock In: Proceedings of the ACM Web Conference 2023.
+\newblock 2023,  917--927
+
+\bibitem{DEPS}
+Xu~C, Xu~J, Chen X, Dong Z, Wen J~R.
+\newblock Dually enhanced propensity score estimation in sequential
+  recommendation.
+\newblock In: Proceedings of the 31st ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2022,  2260--2269
+
+\bibitem{MrTransformer}
+Ma~M, Ren P, Chen Z, Ren Z, Liang H, Ma~J, De~Rijke M.
+\newblock Improving {Transformer}-based sequential recommenders through
+  preference editing.
+\newblock ACM Transactions on Information Systems, 2023, 41(3): 1--24
+
+\bibitem{CRR-Transformer}
+Xi~X, Zhao Y, Liu Q, Ouyang L, Wu~Y.
+\newblock Integrating offline reinforcement learning with {Transformer}s for
+  sequential recommendation.
+\newblock In: Proceedings of the 17th ACM Conference on Recommender Systems.
+\newblock 2023,  1--1
+
+\bibitem{DT4SR}
+Fan Z, Liu Z, Wang S, Zheng L, Yu~P~S.
+\newblock Modeling sequences as distributions with uncertainty for sequential
+  recommendation.
+\newblock In: Proceedings of the 30th ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2021,  3019--3023
+
+\bibitem{Transformers4rec}
+Souza Pereira~Moreira d~G, Rabhi S, Lee J~M, Ak~R, Oldridge E.
+\newblock {Transformers4Rec}: Bridging the gap between nlp and
+  sequential/session-based recommendation.
+\newblock In: Proceedings of the 15th ACM Conference on Recommender Systems.
+\newblock 2021,  143--153
+
+\bibitem{PAUP}
+Zhu Y, Huang B, Jiang S, Yang M, Yang Y, Zhong W.
+\newblock Progressive self-attention network with unsymmetrical positional
+  encoding for sequential recommendation.
+\newblock In: Proceedings of the 45th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2022,  2029--2033
+
+\bibitem{SAMRec}
+Lai V, Chen H, Yeh C~C~M, Xu~M, Cai Y, Yang H.
+\newblock Enhancing {Transformer}s without self-supervised learning: A loss
+  landscape perspective in sequential recommendation.
+\newblock In: Proceedings of the 17th ACM Conference on Recommender Systems.
+\newblock 2023,  791--797
+
+\bibitem{DiffuASR}
+Liu Q, Yan F, Zhao X, Du~Z, Guo H, Tang R, Tian F.
+\newblock Diffusion augmentation for sequential recommendation.
+\newblock In: Proceedings of the 32nd ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2023,  1576--1586
+
+\bibitem{DiffuRec}
+Li~Z, Sun A, Li~C.
+\newblock {DiffuRec}: A diffusion model for sequential recommendation.
+\newblock ACM Transactions on Information Systems, 2023, 42(3): 1--28
+
+\bibitem{Diff4Rec}
+Wu~Z, Wang X, Chen H, Li~K, Han Y, Sun L, Zhu W.
+\newblock {Diff4Rec}: Sequential recommendation with curriculum-scheduled
+  diffusion augmentation.
+\newblock In: Proceedings of the 31st ACM International Conference on
+  Multimedia.
+\newblock 2023,  9329--9335
+
+\bibitem{AutoSeqRec}
+Liu S, Liu J, Gu~H, Li~D, Lu~T, Zhang P, Gu~N.
+\newblock {AutoSeqRec}: Autoencoder for efficient sequential recommendation.
+\newblock In: Proceedings of the 32nd ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2023,  1493--1502
+
+\bibitem{CD-GES-SASRec}
+Chen X, Li~Q.
+\newblock Causality-driven user modeling for sequential recommendations over
+  time.
+\newblock In: Companion Proceedings of the ACM on Web Conference 2024.
+\newblock 2024,  1400--1406
+
+\bibitem{DGSR}
+Ding Y, Ma~Y, Wong W~K, Chua T~S.
+\newblock Leveraging two types of global graph for sequential fashion
+  recommendation.
+\newblock In: Proceedings of the 2021 International Conference on Multimedia
+  Retrieval.
+\newblock 2021,  73--81
+
+\bibitem{MSSG}
+Peng B, Chen Z, Parthasarathy S, Ning X.
+\newblock Modeling sequences as star graphs to address over-smoothing in
+  self-attentive sequential recommendation.
+\newblock ACM Transactions on Knowledge Discovery from Data, 2023
+
+\bibitem{FMLP-Rec}
+Zhou K, Yu~H, Zhao W~X, Wen J~R.
+\newblock Filter-enhanced {MLP} is all you need for sequential recommendation.
+\newblock In: Proceedings of the ACM Web Conference 2022.
+\newblock 2022,  2388--2399
+
+\bibitem{TRIMLP}
+Jiang Y, Xu~Y, Yang Y, Yang F, Wang P, Li~C, Zhuang F, Xiong H.
+\newblock {TriMLP}: A foundational {MLP}-like architecture for sequential
+  recommendation.
+\newblock ACM Transactions on Information Systems, 2024, 42(6)
+
+\bibitem{MLM4Rec}
+Long C, Yuan H, Fang J, Xian X, Liu G, Sheng V~S, Zhao P.
+\newblock Learning global and multi-granularity local representation with {MLP}
+  for sequential recommendation.
+\newblock ACM Transactions on Knowledge Discovery from Data, 2024, 18(4): 1--15
+
+\bibitem{SVAE}
+Sachdeva N, Manco G, Ritacco E, Pudi V.
+\newblock Sequential variational autoencoders for collaborative filtering.
+\newblock In: Proceedings of the 12th ACM International Conference on Web
+  Search and Data Mining.
+\newblock 2019,  600--608
+
+\bibitem{HierTCN}
+You J, Wang Y, Pal A, Eksombatchai P, Rosenburg C, Leskovec J.
+\newblock Hierarchical temporal convolutional networks for dynamic recommender
+  systems.
+\newblock In: Proceedings of the ACM Web Conference 2019.
+\newblock 2019,  2236--2246
+
+\bibitem{GAC}
+Zhang Q, Wu~B, Sun Z, Ye~Y.
+\newblock Gating augmented capsule network for sequential recommendation.
+\newblock Knowledge-Based Systems, 2022, 247: 108817
+
+\bibitem{TAMIC}
+Wang Z, Shen Y.
+\newblock Time-aware multi-interest capsule network for sequential
+  recommendation.
+\newblock In: Proceedings of the 2022 SIAM International Conference on Data
+  Mining.
+\newblock 2022,  558--566
+
+\bibitem{LIRD}
+Zhao X, Zhang L, Xia L, Ding Z, Yin D, Tang J.
+\newblock Deep reinforcement learning for list-wise recommendations.
+\newblock arXiv preprint arXiv:1801.00209, 2017
+
+\bibitem{SAR}
+Antaris S, Rafailidis D.
+\newblock Sequence adaptation via reinforcement learning in recommender
+  systems.
+\newblock In: Proceedings of the 15th ACM Conference on Recommender Systems.
+\newblock 2021,  714--718
+
+\bibitem{AdaMCT}
+Jiang J, Zhang P, Luo Y, Li~C, Kim J~B, Zhang K, Wang S, Xie X, Kim S.
+\newblock {AdaMCT}: Adaptive mixture of {CNN}-{Transformer} for sequential
+  recommendation.
+\newblock In: Proceedings of the 32nd ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2023,  976--986
+
+\bibitem{CASFE}
+Wang J, Liu Q, Liu Z, Wu~S.
+\newblock Towards accurate and interpretable sequential prediction: A {CNN} \&
+  attention-based feature extractor.
+\newblock In: Proceedings of the 28th ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2019,  1703--1712
+
+\bibitem{metaCSR}
+Huang X, Sang J, Yu~J, Xu~C.
+\newblock Learning to learn a cold-start sequential recommender.
+\newblock ACM Transactions on Information Systems, 2022, 40(2): 1--25
+
+\bibitem{GL-GraphFormers}
+Chen H, Huang B, Wang X, Zhou Y, Zhu W.
+\newblock Global-local graphformer: Towards better understanding of user
+  intentions in sequential recommendation.
+\newblock In: Proceedings of the 5th ACM International Conference on Multimedia
+  in Asia.
+\newblock 2023,  1--7
+
+\bibitem{MAERec}
+Ye~Y, Xia L, Huang C.
+\newblock Graph masked autoencoder for sequential recommendation.
+\newblock In: Proceedings of the 46th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2023,  321--330
+
+\bibitem{SCR-SPRe}
+Zhang W, Chen Z, Zha H, Wang J.
+\newblock Learning from substitutable and complementary relations for
+  graph-based sequential product recommendation.
+\newblock ACM Transactions on Information Systems, 2021, 40(2): 1--28
+
+\bibitem{APGL4SR}
+Yin M, Wang H, Xu~X, Wu~L, Zhao S, Guo W, Liu Y, Tang R, Lian D, Chen E.
+\newblock {APGL4SR}: A generic framework with adaptive and personalized global
+  collaborative information in sequential recommendation.
+\newblock In: Proceedings of the 32nd ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2023,  3009--3019
+
+\bibitem{MRGSRec}
+Baikalov V, Frolov E.
+\newblock End-to-end graph-sequential representation learning for accurate
+  recommendations.
+\newblock In: Companion Proceedings of the ACM on Web Conference 2024.
+\newblock 2024,  501--504
+
+\bibitem{RANN}
+Tan L, Xu~J, Gong D, Liu F.
+\newblock Recurrent attentive neural networks for sequential recommendation.
+\newblock In: Proceedings of the 2023 International Conference on Communication
+  Network and Machine Learning.
+\newblock 2023,  356--360
+
+\bibitem{RCNN}
+Xu~C, Zhao P, Liu Y, Xu~J, S.~Sheng V~S~S, Cui Z, Zhou X, Xiong H.
+\newblock Recurrent convolutional neural network for sequential recommendation.
+\newblock In: Proceedings of the ACM Web Conference 2019.
+\newblock 2019,  3398--3404
+
+\bibitem{NISRec}
+Yu~M, Zhu K, Zhao M, Yu~J, Xu~T, Jin D, Li~X, Yu~R.
+\newblock Learning neighbor user intention on user--item interaction graphs for
+  better sequential recommendation.
+\newblock ACM Transactions on the Web, 2024, 18(2): 1--28
+
+\bibitem{M3}
+Tang J, Belletti F, Jain S, Chen M, Beutel A, Xu~C, H.~Chi E.
+\newblock Towards neural mixture recommender for long range dependent user
+  sequences.
+\newblock In: Proceedings of the ACM Web Conference 2019.
+\newblock 2019,  1782--1793
+
+\bibitem{CD-SASRec}
+Alharbi N, Caragea D.
+\newblock Cross-domain self-attentive sequential recommendations.
+\newblock In: Proceedings of the 3rd International Conference on Data Science
+  and Applications.
+\newblock 2022,  601--614
+
+\bibitem{Tri-CDR}
+Ma~H, Xie R, Meng L, Chen X, Zhang X, Lin L, Zhou J.
+\newblock Triple sequence learning for cross-domain recommendation.
+\newblock ACM Transactions on Information Systems, 2024, 42(4): 1--29
+
+\bibitem{C2DSR}
+Cao J, Cong X, Sheng J, Liu T, Wang B.
+\newblock Contrastive cross-domain sequential recommendation.
+\newblock In: Proceedings of the 31st ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2022,  138--147
+
+\bibitem{TiSASRec}
+Li~J, Wang Y, McAuley J.
+\newblock Time interval aware self-attention for sequential recommendation.
+\newblock In: Proceedings of the 13th ACM International Conference on Web
+  Search and Data Mining.
+\newblock 2020,  322--330
+
+\bibitem{TimelyRec}
+Cho J, Hyun D, Kang S, Yu~H.
+\newblock Learning heterogeneous temporal patterns of user preference for
+  timely recommendation.
+\newblock In: Proceedings of the ACM Web Conference 2021.
+\newblock 2021,  1274--1283
+
+\bibitem{MB-STR}
+Yuan E, Guo W, He~Z, Guo H, Liu C, Tang R.
+\newblock Multi-behavior sequential {Transformer} recommender.
+\newblock In: Proceedings of the 45th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2022,  1642--1652
+
+\bibitem{PBAT}
+Su~J, Chen C, Lin Z, Li~X, Liu W, Zheng X.
+\newblock Personalized behavior-aware {Transformer} for multi-behavior
+  sequential recommendation.
+\newblock In: Proceedings of the 31st ACM International Conference on
+  Multimedia.
+\newblock 2023,  6321--6331
+
+\bibitem{GHTID}
+Li~X, Chen H, Yu~J, Zhao M, Xu~T, Zhang W, Yu~M.
+\newblock Global heterogeneous graph and target interest denoising for
+  multi-behavior sequential recommendation.
+\newblock In: Proceedings of the 17th ACM International Conference on Web
+  Search and Data Mining.
+\newblock 2024,  387--395
+
+\bibitem{DRL-SRe}
+Chen Z, Zhang W, Yan J, Wang G, Wang J.
+\newblock Learning dual dynamic representations on time-sliced user-item
+  interaction graphs for sequential recommendation.
+\newblock In: Proceedings of the 30th ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2021,  231--240
+
+\bibitem{MOJITO}
+Tran V~A, Salha-Galvan G, Sguerra B, Hennequin R.
+\newblock Attention mixtures for time-aware sequential recommendation.
+\newblock In: Proceedings of the 46th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2023,  1821--1826
+
+\bibitem{TGSRec}
+Fan Z, Liu Z, Zhang J, Xiong Y, Zheng L, Yu~P~S.
+\newblock Continuous-time sequential recommendation with temporal graph
+  collaborative {Transformer}.
+\newblock In: Proceedings of the 30th ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2021,  433--442
+
+\bibitem{TIGSA}
+Chen Z, Wang W.
+\newblock Time interval-aware graph with self-attention for sequential
+  recommendation.
+\newblock In: Proceedings of the 2022 5th International Conference on
+  Algorithms, Computing and Artificial Intelligence.
+\newblock 2023,  1--9
+
+\bibitem{TMGN}
+Du~X, Li~X.
+\newblock Moving forward together: A multi-user pattern extraction neural model
+  for sequential recommendations.
+\newblock In: Proceedings of the 6th International Conference on Artificial
+  Intelligence and Pattern Recognition.
+\newblock 2023,  1355--1361
+
+\bibitem{HyperRec}
+Wang J, Ding K, Hong L, Liu H, Caverlee J.
+\newblock Next-item recommendation with sequential hypergraphs.
+\newblock In: Proceedings of the 43rd International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2020,  1101--1110
+
+\bibitem{PTGCN}
+Huang L, Ma~Y, Liu Y, Danny~Du B, Wang S, Li~D.
+\newblock Position-enhanced and time-aware graph convolutional network for
+  sequential recommendations.
+\newblock ACM Transactions on Information Systems, 2023, 41(1): 1--32
+
+\bibitem{HierTrans}
+Zhang Y, He~Y, Wang J, Caverlee J.
+\newblock Adaptive hierarchical translation-based sequential recommendation.
+\newblock In: Proceedings of the Web Conference 2020.
+\newblock 2020,  2984--2990
+
+\bibitem{HPM}
+Huang C, Wang S, Wang X, Yao L.
+\newblock Dual contrastive {Transformer} for hierarchical preference modeling
+  in sequential recommendation.
+\newblock In: Proceedings of the 46th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2023,  99--109
+
+\bibitem{AutoMLP}
+Li~M, Zhang Z, Zhao X, Wang W, Zhao M, Wu~R, Guo R.
+\newblock {AutoMLP}: Automated {MLP} for sequential recommendations.
+\newblock In: Proceedings of the ACM Web Conference 2023.
+\newblock 2023,  1190--1198
+
+\bibitem{MGCL}
+Xu~Z, Pan W, Ming Z.
+\newblock A multi-view graph contrastive learning framework for cross-domain
+  sequential recommendation.
+\newblock In: Proceedings of the 17th ACM Conference on Recommender Systems.
+\newblock 2023,  491--501
+
+\bibitem{DDGHM}
+Zheng X, Su~J, Liu W, Chen C.
+\newblock {DDGHM}: Dual dynamic graph with hybrid metric training for
+  cross-domain sequential recommendation.
+\newblock In: Proceedings of the 30th ACM International Conference on
+  Multimedia.
+\newblock 2022,  471--481
+
+\bibitem{TRA-SR}
+Li~Y, Li~Q, Meng S, Hou J.
+\newblock {Transformer}-based rating-aware sequential recommendation.
+\newblock In: Proceedings of the 21th International Conference on Algorithms
+  and Architectures for Parallel Processing.
+\newblock 2021,  759--774
+
+\bibitem{CoHHN}
+Zhang X, Xu~B, Yang L, Li~C, Ma~F, Liu H, Lin H.
+\newblock Price does matter! modeling price and interest preferences in
+  session-based recommendation.
+\newblock In: Proceedings of the 45th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2022,  1684--1693
+
+\bibitem{EIUM}
+Huang X, Fang Q, Qian S, Sang J, Li~Y, Xu~C.
+\newblock Explainable interaction-driven user modeling over knowledge graph for
+  sequential recommendation.
+\newblock In: Proceedings of the 27th ACM International Conference on
+  Multimedia.
+\newblock 2019,  548--556
+
+\bibitem{KV-MN}
+Huang J, Zhao W~X, Dou H, Wen J~R, Chang E~Y.
+\newblock Improving sequential recommendation with knowledge-enhanced memory
+  networks.
+\newblock In: The 41st International ACM SIGIR Conference on Research and
+  Development in Information Retrieval.
+\newblock 2018,  505--514
+
+\bibitem{KP4SR}
+Zhai J, Zheng X, Wang C~D, Li~H, Tian Y.
+\newblock Knowledge prompt-tuning for sequential recommendation.
+\newblock In: Proceedings of the 31st ACM International Conference on
+  Multimedia.
+\newblock 2023,  6451--6461
+
+\bibitem{KERL}
+Wang P, Fan Y, Xia L, Zhao W~X, Niu S, Huang J.
+\newblock {KERL}: A knowledge-guided reinforcement learning model for
+  sequential recommendation.
+\newblock In: Proceedings of the 43rd International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2020,  209--218
+
+\bibitem{TKG-SRec}
+Hu~H, Guo W, Liu X, Liu Y, Tang R, Zhang R, Kan M~Y.
+\newblock User behavior enriched temporal knowledge graphs for sequential
+  recommendation.
+\newblock In: Proceedings of the 17th ACM International Conference on Web
+  Search and Data Mining.
+\newblock 2024,  266--275
+
+\bibitem{Satori}
+Chen J, Cao Y, Zhang F, Sun P, Wei K.
+\newblock Sequential intention-aware recommender based on user interaction
+  graph.
+\newblock In: Proceedings of the 2022 International Conference on Multimedia
+  Retrieval.
+\newblock 2022,  118--126
+
+\bibitem{SERec}
+Chen T, Wong R~C~W.
+\newblock An efficient and effective framework for session-based social
+  recommendation.
+\newblock In: Proceedings of the 14th ACM International Conference on Web
+  Search and Data Mining.
+\newblock 2021,  400--408
+
+\bibitem{RNS}
+Li~C, Niu X, Luo X, Chen Z, Quan C.
+\newblock A review-driven neural model for sequential recommendation.
+\newblock In: Proceedings of the 28th International Joint Conference on
+  Artificial Intelligence.
+\newblock 2019,  2866–2872
+
+\bibitem{PIRSP}
+Zhang J, Mu~X, Zhao P, Kang K, Ma~C.
+\newblock Improving current interest with item and review sequential patterns
+  for sequential recommendation.
+\newblock Engineering Applications of Artificial Intelligence, 2021, 104:
+  104348
+
+\bibitem{CCA}
+Huang B, Luo J, Du~W, Pan W, Ming Z.
+\newblock Cascaded cross attention for review-based sequential recommendation.
+\newblock In: Proceedings of the 23th IEEE International Conference on Data
+  Mining.
+\newblock 2023,  170--179
+
+\bibitem{MLP4Rec}
+Li~M, Zhao X, Lyu C, Zhao M, Wu~R, Guo R.
+\newblock {MLP4Rec}: A pure {MLP} architecture for sequential recommendations.
+\newblock In: Proceedings of the 31th International Joint Conference on
+  Artificial Intelligence, IJCAI '22.
+\newblock 2022
+
+\bibitem{SMLP4Rec}
+Gao J, Zhao X, Li~M, Zhao M, Wu~R, Guo R, Liu Y, Yin D.
+\newblock {SMLP4Rec}: An efficient all-{MLP} architecture for sequential
+  recommendations.
+\newblock ACM Transactions on Information Systems, 2024, 42(3): 1--23
+
+\bibitem{RetaGNN}
+Hsu C, Li~C~T.
+\newblock {RetaGNN}: Relational temporal attentive graph neural networks for
+  holistic sequential recommendation.
+\newblock In: Proceedings of The Web Conference 2021.
+\newblock 2021,  2968--2979
+
+\bibitem{S3-Rec}
+Zhou K, Wang H, Zhao W~X, Zhu Y, Wang S, Zhang F, Wang Z, Wen J~R.
+\newblock {S3-Rec}: Self-supervised learning for sequential recommendation with
+  mutual information maximization.
+\newblock In: Proceedings of the 29th ACM international Conference on
+  Information and Knowledge Management.
+\newblock 2020,  1893--1902
+
+\bibitem{FDSA}
+Zhang T, Zhao P, Liu Y, Sheng V~S, Xu~J, Wang D, Liu G, Zhou X.
+\newblock Feature-level deeper self-attention network for sequential
+  recommendation.
+\newblock In: Proceedings of the 28th International Joint Conference on
+  Artificial Intelligence.
+\newblock 2019,  4320--4326
+
+\bibitem{MMSR}
+Hu~H, Guo W, Liu Y, Kan M~Y.
+\newblock Adaptive multi-modalities fusion in sequential recommendation
+  systems.
+\newblock In: Proceedings of the 32nd ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2023,  843--853
+
+\bibitem{ASIF}
+Wang S, Shen B, Min X, He~Y, Zhang X, Zhang L, Zhou J, Mo~L.
+\newblock Aligned side information fusion method for sequential recommendation.
+\newblock In: Companion Proceedings of the ACM on Web Conference 2024.
+\newblock 2024,  112--120
+
+\bibitem{Bi-CASER}
+Zhou X, Lumbantoruan R, Ren Y, Chen L, Yang X, Shao J.
+\newblock Dynamic bi-layer graph learning for context-aware sequential
+  recommendation.
+\newblock ACM Transactions on Recommender Systems, 2024, 2(2): 1--23
+
+\bibitem{CRNNs}
+Smirnova E, Vasile F.
+\newblock Contextual sequence modeling for recommendation with recurrent neural
+  networks.
+\newblock In: Proceedings of the 2nd Workshop on Deep Learning for Recommender
+  Systems.
+\newblock 2017,  2--9
+
+\bibitem{STAR}
+Rakkappan L, Rajan V.
+\newblock Context-aware sequential recommendations withstacked recurrent neural
+  networks.
+\newblock In: Proceedings of the ACM Web Conference 2019.
+\newblock 2019,  3172--3178
+
+\bibitem{STEM}
+Zhang J, Lin F, Yang C, Jiang W.
+\newblock A new sequential prediction framework with spatial-temporal
+  embedding.
+\newblock In: Proceedings of the 45th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2022,  2282--2286
+
+\bibitem{DUVRec}
+Xue L, Yang D, Zhai S, Li~Y, Xiao Y.
+\newblock Learning dual-view user representations for enhanced sequential
+  recommendation.
+\newblock ACM Transactions on Information Systems, 2023, 41(4): 1--26
+
+\bibitem{STARec}
+Zheng L, Chai H, Chen X, Jin J, Zhang W, Yu~Y, Guo X, Ge~C, Feng Z.
+\newblock Search-based time-aware graph-enhanced recommendation with sequential
+  behavior data.
+\newblock ACM Transactions on Recommender Systems, 2024, 2(4): 1--29
+
+\bibitem{SGCross}
+Li~H, Yu~L, Niu X, Leng Y, Du~Q.
+\newblock Sequential and graphical cross-domain recommendations with a
+  multi-view hierarchical transfer gate.
+\newblock ACM Transactions on Knowledge Discovery from Data, 2023, 18(1): 1--28
+
+\bibitem{ODMT}
+Ji~W, Liu X, Zhang A, Wei Y, Ni~Y, Wang X.
+\newblock Online distillation-enhanced multi-modal {Transformer} for sequential
+  recommendation.
+\newblock In: Proceedings of the 31st ACM International Conference on
+  Multimedia.
+\newblock 2023,  955--965
+
+\bibitem{TransRec_n}
+Zhang J, Cheng Y, Ni~Y, Pan Y, Yuan Z, Fu~J, Li~Y, Wang J, Yuan F.
+\newblock Ninerec: A benchmark dataset suite for evaluating transferable
+  recommendation.
+\newblock IEEE Transactions on Pattern Analysis and Machine Intelligence, 2024
+
+\bibitem{IDA-SR}
+Mu~S, Hou Y, Zhao W~X, Li~Y, Ding B.
+\newblock Id-agnostic user behavior pre-training for sequential recommendation.
+\newblock In: Proceedings of the 28th China Conference on Information
+  Retrieval.
+\newblock 2022,  16--27
+
+\bibitem{SASRecV}
+Ni~Y, Cheng Y, Liu X, Fu~J, Li~Y, He~X, Zhang Y, Yuan F.
+\newblock A content-driven micro-video recommendation dataset at scale.
+\newblock arXiv preprint arXiv:2309.15379, 2023
+
+\bibitem{RECFORMER2}
+Qu~Z, Xie R, Xiao C, Sun X, Kang Z.
+\newblock The elephant in the room: Rethinking the usage of pre-trained
+  language model in sequential recommendation.
+\newblock In: Proceedings of the 18th ACM Conference on Recommender Systems,
+  RecSys '24.
+\newblock 2024,  53--62
+
+\bibitem{SRT-1K}
+Zivic P, Vazquez H, S{\'a}nchez J.
+\newblock Scaling sequential recommendation models with {Transformer}s.
+\newblock In: Proceedings of the 47th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2024,  1567--1577
+
+\bibitem{RECFORMER}
+Li~J, Wang M, Li~J, Fu~J, Shen X, Shang J, McAuley J.
+\newblock Text is all you need: Learning language representations for
+  sequential recommendation.
+\newblock In: Proceedings of the 29th ACM SIGKDD Conference on Knowledge
+  Discovery and Data Mining.
+\newblock 2023,  1258--1267
+
+\bibitem{MISSRec}
+Wang J, Zeng Z, Wang Y, Wang Y, Lu~X, Li~T, Yuan J, Zhang R, Zheng H~T, Xia
+  S~T.
+\newblock {MISSRec}: Pre-training and transferring multi-modal interest-aware
+  sequence representation for recommendation.
+\newblock In: Proceedings of the 31st ACM International Conference on
+  Multimedia.
+\newblock 2023,  6548--6557
+
+\bibitem{MMMLP}
+Liang J, Zhao X, Li~M, Zhang Z, Wang W, Liu H, Liu Z.
+\newblock {Mmmlp}: Multi-modal multilayer perceptron for sequential
+  recommendations.
+\newblock In: Proceedings of the ACM Web Conference 2023.
+\newblock 2023,  1109--1117
+
+\bibitem{p-RNN}
+Hidasi B, Quadrana M, Karatzoglou A, Tikk D.
+\newblock Parallel recurrent neural network architectures for feature-rich
+  session-based recommendations.
+\newblock In: Proceedings of the 10th ACM Conference on Recommender Systems.
+\newblock 2016,  241--248
+
+\bibitem{TIGER}
+Rajput S, Mehta N, Singh A, Hulikal~Keshavan R, Vu~T, Heldt L, Hong L, Tay Y,
+  Tran V, Samost J, {others}\unskip .
+\newblock Recommender systems with generative retrieval.
+\newblock Advances in Neural Information Processing Systems, 2024, 36
+
+\bibitem{MBGen}
+Liu Z, Hou Y, McAuley J.
+\newblock Multi-behavior generative recommendation.
+\newblock In: Proceedings of the 33rd ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2024,  1575--1585
+
+\bibitem{LETTER}
+Wang W, Bao H, Lin X, Zhang J, Li~Y, Feng F, Ng~S~K, Chua T~S.
+\newblock Learnable item tokenization for generative recommendation.
+\newblock In: Proceedings of the 33rd ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2024,  2400--2409
+
+\bibitem{EAGER}
+Wang Y, Xun J, Hong M, Zhu J, Jin T, Lin W, Li~H, Li~L, Xia Y, Zhao Z, others .
+\newblock {EAGER}: Two-stream generative recommender with behavior-semantic
+  collaboration.
+\newblock In: Proceedings of the 30th ACM SIGKDD Conference on Knowledge
+  Discovery and Data Mining.
+\newblock 2024,  3245--3254
+
+\bibitem{CoST}
+Zhu J, Jin M, Liu Q, Qiu Z, Dong Z, Li~X.
+\newblock {CoST}: Contrastive quantization based semantic tokenization for
+  generative recommendation.
+\newblock In: Proceedings of the 18th ACM Conference on Recommender Systems.
+\newblock 2024,  969--974
+
+\bibitem{MMGRec}
+Liu H, Wei Y, Song X, Guan W, Li~Y~F, Nie L.
+\newblock {MMGRec}: Multimodal generative recommendation with {Transformer}
+  model.
+\newblock arXiv preprint arXiv:2404.16555, 2024
+
+\bibitem{SpecGR}
+Ding Y, Hou Y, Li~J, McAuley J.
+\newblock Inductive generative recommendation via retrieval-based speculation.
+\newblock arXiv preprint arXiv:2410.02939, 2024
+
+\bibitem{P5}
+Geng S, Liu S, Fu~Z, Ge~Y, Zhang Y.
+\newblock Recommendation as language processing (rlp): A unified pretrain,
+  personalized prompt \& predict paradigm ({P5}).
+\newblock In: Proceedings of the 16th ACM Conference on Recommender Systems.
+\newblock 2022,  299--315
+
+\bibitem{Lite-LLM4Rec}
+Wang H, Liu X, Fan W, Zhao X, Kini V, Yadav D, Wang F, Wen Z, Tang J, Liu H.
+\newblock Rethinking large language model architectures for sequential
+  recommendations.
+\newblock arXiv preprint arXiv:2402.09543, 2024
+
+\bibitem{POD}
+Li~L, Zhang Y, Chen L.
+\newblock Prompt distillation for efficient llm-based recommendation.
+\newblock In: Proceedings of the 32nd ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2023,  1348--1357
+
+\bibitem{SLIM}
+Wang Y, Tian C, Hu~B, Yu~Y, Liu Z, Zhang Z, Zhou J, Pang L, Wang X.
+\newblock Can small language models be good reasoners for sequential
+  recommendation?
+\newblock In: Proceedings of the ACM on Web Conference 2024.
+\newblock 2024,  3876--3887
+
+\bibitem{LLM-TRSR}
+Zheng Z, Chao W, Qiu Z, Zhu H, Xiong H.
+\newblock Harnessing large language models for text-rich sequential
+  recommendation.
+\newblock In: Proceedings of the ACM on Web Conference 2024.
+\newblock 2024,  3207--3216
+
+\bibitem{RecInterpreter}
+Yang Z, Wu~J, Luo Y, Zhang J, Yuan Y, Zhang A, Wang X, He~X.
+\newblock Large language model can interpret latent space of sequential
+  recommender.
+\newblock arXiv preprint arXiv:2310.20487, 2023
+
+\bibitem{TALLRec}
+Bao K, Zhang J, Zhang Y, Wang W, Feng F, He~X.
+\newblock {TALLRec}: An effective and efficient tuning framework to align large
+  language model with recommendation.
+\newblock In: Proceedings of the 17th ACM Conference on Recommender Systems.
+\newblock 2023,  1007--1014
+
+\bibitem{DLLM2Rec}
+Cui Y, Liu F, Wang P, Wang B, Tang H, Wan Y, Wang J, Chen J.
+\newblock Distillation matters: Empowering sequential recommenders to match the
+  performance of large language model.
+\newblock In: Proceedings of the 18th ACM Conference on Recommender Systems.
+\newblock 2024,  507--517
+
+\bibitem{E4SRec}
+Li~X, Chen C, Zhao X, Zhang Y, Xing C.
+\newblock {E4SRec}: An elegant effective efficient extensible solution of large
+  language models for sequential recommendation.
+\newblock arXiv preprint arXiv:2312.02443, 2023
+
+\bibitem{URLLM}
+Shen T, Wang H, Zhang J, Zhao S, Li~L, Chen Z, Lian D, Chen E.
+\newblock Exploring user retrieval integration towards large language models
+  for cross-domain sequential recommendation.
+\newblock arXiv preprint arXiv:2406.03085, 2024
+
+\bibitem{SeRALM}
+Ren Y, Chen Z, Yang X, Li~L, Jiang C, Cheng L, Zhang B, Mo~L, Zhou J.
+\newblock Enhancing sequential recommenders with augmented knowledge from
+  aligned large language models.
+\newblock In: Proceedings of the 47th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2024,  345--354
+
+\bibitem{SAID}
+Hu~J, Xia W, Zhang X, Fu~C, Wu~W, Huan Z, Li~A, Tang Z, Zhou J.
+\newblock Enhancing sequential recommendation via {LLM}-based semantic
+  embedding learning.
+\newblock In: Companion Proceedings of the ACM on Web Conference 2024.
+\newblock 2024,  103--111
+
+\bibitem{LLM4DSR}
+Wang B, Liu F, Chen J, Wu~Y, Lou X, Wang J, Feng Y, Chen C, Wang C.
+\newblock {LLM4DSR}: {Leveraing} large language model for denoising sequential
+  recommendation.
+\newblock arXiv preprint arXiv:2408.08208, 2024
+
+\bibitem{SLMRec}
+Xu~W, Wu~Q, Liang Z, Han J, Ning X, Shi Y, Lin W, Zhang Y.
+\newblock {SLMRec}: Distilling large language models into small for sequential
+  recommendation.
+\newblock arXiv preprint arXiv:2405.17890, 2024
+
+\bibitem{LLMEmb}
+Liu Q, Wu~X, Wang W, Wang Y, Zhu Y, Zhao X, Tian F, Zheng Y.
+\newblock {LLMEmb}: Large language model can be a good embedding generator for
+  sequential recommendation.
+\newblock arXiv preprint arXiv:2409.19925, 2024
+
+\bibitem{LSVCR}
+Zheng B, Lin Z, Liu E, Yang C, Bai E, Ling C, Zhao W~X, Wen J~R.
+\newblock A large language model enhanced sequential recommender for joint
+  video and comment recommendation.
+\newblock arXiv preprint arXiv:2403.13574, 2024
+
+\bibitem{LLM-ESR}
+Liu Q, Wu~X, Zhao X, Wang Y, Zhang Z, Tian F, Zheng Y.
+\newblock Large language models enhanced sequential recommendation for
+  long-tail user and item.
+\newblock arXiv preprint arXiv:2405.20646, 2024
+
+\bibitem{FineRec}
+Zhang X, Xu~B, Wu~Y, Zhong Y, Lin H, Ma~F.
+\newblock {FineRec}: Exploring fine-grained sequential recommendation.
+\newblock In: Proceedings of the 47th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2024,  1599--1608
+
+\bibitem{LRD}
+Yang S, Ma~W, Sun P, Ai~Q, Liu Y, Cai M, Zhang M.
+\newblock Sequential recommendation with latent relations based on large
+  language model.
+\newblock In: Proceedings of the 47th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2024,  335--344
+
+\bibitem{ReLLa}
+Lin J, Shan R, Zhu C, Du~K, Chen B, Quan S, Tang R, Yu~Y, Zhang W.
+\newblock {Rella}: Retrieval-enhanced large language models for lifelong
+  sequential behavior comprehension in recommendation.
+\newblock In: Proceedings of the ACM on Web Conference 2024.
+\newblock 2024,  3497--3508
+
+\bibitem{RecLoRA}
+Zhu J, Lin J, Dai X, Chen B, Shan R, Zhu J, Tang R, Yu~Y, Zhang W.
+\newblock Lifelong personalized low-rank adaptation of large language models
+  for recommendation.
+\newblock arXiv preprint arXiv:2408.03533, 2024
+
+\bibitem{BAHE}
+Geng B, Huan Z, Zhang X, He~Y, Zhang L, Yuan F, Zhou J, Mo~L.
+\newblock Breaking the length barrier: {LLM}-enhanced {CTR} prediction in long
+  textual user behaviors.
+\newblock In: Proceedings of the 47th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2024,  2311--2315
+
+\bibitem{LLMCDSR}
+Xin H, Sun Y, Wang C, Xiong H.
+\newblock {LLMCDSR}: Enhancing cross-domain sequential recommendation with
+  large language models.
+\newblock ACM Transactions on Information Systems, 2025
+
+\bibitem{UBR4CTR}
+Qin J, Zhang W, Wu~X, Jin J, Fang Y, Yu~Y.
+\newblock User behavior retrieval for click-through rate prediction.
+\newblock In: Proceedings of the 43rd International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2020,  2347--2356
+
+\bibitem{ETA-Net}
+Chen Q, Xu~Y, Pei C, Lv~S, Zhuang T, Ge~J.
+\newblock Efficient long sequential user data modeling for click-through rate
+  prediction.
+\newblock arXiv preprint arXiv:2209.12212, 2022
+
+\bibitem{HNUM}
+Dong J, Sun F, Wu~T, Wu~X, Zhang W, Wang S.
+\newblock A hierarchical network with user memory matrix for long sequence
+  recommendation.
+\newblock Wireless Communications and Mobile Computing, 2022, 2022(1): 5457044
+
+\bibitem{TWIN}
+Chang J, Zhang C, Fu~Z, Zang X, Guan L, Lu~J, Hui Y, Leng D, Niu Y, Song Y,
+  {others}\unskip .
+\newblock {TWIN}: Two-stage interest network for lifelong user behavior
+  modeling in {CTR} prediction at {KuaiShou}.
+\newblock In: Proceedings of the 29th ACM SIGKDD Conference on Knowledge
+  Discovery and Data Mining.
+\newblock 2023,  3785--3794
+
+\bibitem{TWIN-V2}
+Si~Z, Guan L, Sun Z, Zang X, Lu~J, Hui Y, Cao X, Yang Z, Zheng Y, Leng D,
+  {others}\unskip .
+\newblock {TWIN V2}: Scaling ultra-long user behavior sequence modeling for
+  enhanced {CTR} prediction at {KuaiShou}.
+\newblock In: Proceedings of the 33rd ACM International Conference on
+  Information and Knowledge Management, CIKM '24.
+\newblock 2024,  4890--4897
+
+\bibitem{R-RNN}
+Gan M, Xiao K.
+\newblock {R-RNN}: Extracting user recent behavior sequence for click-through
+  rate prediction.
+\newblock IEEE Access, 2019, 7: 111767--111777
+
+\bibitem{SAM}
+Lin Q, Zhou W~J, Wang Y, Da~Q, Chen Q~G, Wang B.
+\newblock Sparse attentive memory network for click-through rate prediction
+  with long sequences.
+\newblock In: Proceedings of the 31st ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2022,  3312--3321
+
+\bibitem{MIMN}
+Pi~Q, Bian W, Zhou G, Zhu X, Gai K.
+\newblock Practice on long sequential user behavior modeling for click-through
+  rate prediction.
+\newblock In: Proceedings of the 25th ACM SIGKDD International Conference on
+  Knowledge Discovery and Data Mining.
+\newblock 2019,  2671--2679
+
+\bibitem{UBCS}
+Zhang Y, Chen E, Jin B, Wang H, Hou M, Huang W, Yu~R.
+\newblock Clustering based behavior sampling with long sequential data for
+  {CTR} prediction.
+\newblock In: Proceedings of the 45th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2022,  2195--2200
+
+\bibitem{CoFARS}
+Feng Z, Xie J, Li~K, Qin Y, Wang P, Li~Q, Yin B, Li~X, Lin W, Wang S.
+\newblock Context-based fast recommendation strategy for long user behavior
+  sequence in meituan waimai.
+\newblock In: Companion Proceedings of the ACM on Web Conference 2024.
+\newblock 2024,  355--363
+
+\bibitem{LCN}
+Hou R, Yang Z, Ming Y, Lu~H, Zheng Z, Chen Y, Zeng Q, Chen M.
+\newblock Cross-domain lifelong sequential modeling for online click-through
+  rate prediction.
+\newblock In: Proceedings of the 30th ACM SIGKDD Conference on Knowledge
+  Discovery and Data Mining.
+\newblock 2024,  5116--5125
+
+\bibitem{LRURec}
+Yue Z, Wang Y, He~Z, Zeng H, McAuley J, Wang D.
+\newblock Linear recurrent units for sequential recommendation.
+\newblock In: Proceedings of the 17th ACM International Conference on Web
+  Search and Data Mining.
+\newblock 2024,  930--938
+
+\bibitem{LinRec}
+Liu L, Cai L, Zhang C, Zhao X, Gao J, Wang W, Lv~Y, Fan W, Wang Y, He~M,
+  {others}\unskip .
+\newblock {LinRec}: Linear attention mechanism for long-term sequential
+  recommender systems.
+\newblock In: Proceedings of the 46th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2023,  289--299
+
+\bibitem{QIN}
+Guo T, Li~X, Yang H, Liang X, Yuan Y, Hou J, Ke~B, Zhang C, He~J, Zhang S,
+  {others}\unskip .
+\newblock Query-dominant user interest network for large-scale search ranking.
+\newblock In: Proceedings of the 32nd ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2023,  629--638
+
+\bibitem{SDIM}
+Cao Y, Zhou X, Feng J, Huang P, Xiao Y, Chen D, Chen S.
+\newblock Sampling is all you need on modeling long-term user behaviors for
+  {CTR} prediction.
+\newblock In: Proceedings of the 31st ACM International Conference on
+  Information and Knowledge Management.
+\newblock 2022,  2974--2983
+
+\bibitem{SEMINAR}
+Shen K, Ding X, Zheng Z, Gong Y, Li~Q, Liu Z, Zhang G.
+\newblock {SEMINAR}: Search enhanced multi-modal interest network and
+  approximate retrieval for lifelong sequential recommendation.
+\newblock arXiv preprint arXiv:2407.10714, 2024
+
+\bibitem{HPMN}
+Ren K, Qin J, Fang Y, Zhang W, Zheng L, Bian W, Zhou G, Xu~J, Yu~Y, Zhu X,
+  {others}\unskip .
+\newblock Lifelong sequential modeling with personalized memorization for user
+  response prediction.
+\newblock In: Proceedings of the 42nd International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2019,  565--574
+
+\bibitem{TiCoSeRec}
+Dang Y, Yang E, Guo G, Jiang L, Wang X, Xu~X, Sun Q, Liu H.
+\newblock Uniform sequence better: Time interval aware data augmentation for
+  sequential recommendation.
+\newblock In: Proceedings of the AAAI Conference on Artificial Intelligence.
+\newblock 2023,  4225--4232
+
+\bibitem{TGCL4SR}
+Zhang S, Chen L, Wang C, Li~S, Xiong H.
+\newblock Temporal graph contrastive learning for sequential recommendation.
+\newblock In: Proceedings of the AAAI Conference on Artificial Intelligence.
+\newblock 2024,  9359--9367
+
+\bibitem{DR4SR+}
+Yin M, Wang H, Guo W, Liu Y, Zhang S, Zhao S, Lian D, Chen E.
+\newblock Dataset regeneration for sequential recommendation.
+\newblock In: Proceedings of the 30th ACM SIGKDD Conference on Knowledge
+  Discovery and Data Mining.
+\newblock 2024,  3954--3965
+
+\bibitem{MStein}
+Fan Z, Liu Z, Peng H, Yu~P~S.
+\newblock Mutual {Wasserstein} discrepancy minimization for sequential
+  recommendation.
+\newblock In: Proceedings of the ACM Web Conference 2023.
+\newblock 2023,  1375--1385
+
+\bibitem{MBASR}
+Xiao J, Pan W, Ming Z.
+\newblock A generic behavior-aware data augmentation framework for sequential
+  recommendation.
+\newblock In: Proceedings of the 47th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2024,  1578--1588
+
+\bibitem{DuoRec}
+Qiu R, Huang Z, Yin H, Wang Z.
+\newblock Contrastive learning for representation degeneration problem in
+  sequential recommendation.
+\newblock In: Proceedings of the 15th ACM International Conference on Web
+  Search and Data Mining.
+\newblock 2022,  813--823
+
+\bibitem{END4Rec}
+Han Y, Wang H, Wang K, Wu~L, Li~Z, Guo W, Liu Y, Lian D, Chen E.
+\newblock Efficient noise-decoupling for multi-behavior sequential
+  recommendation.
+\newblock In: Proceedings of the ACM on Web Conference 2024.
+\newblock 2024,  3297--3306
+
+\bibitem{ASReP}
+Liu Z, Fan Z, Wang Y, Yu~P~S.
+\newblock Augmenting sequential recommendation with pseudo-prior items via
+  reversely pre-training {Transformer}.
+\newblock In: Proceedings of the 44th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval.
+\newblock 2021,  1608--1612
+
+\bibitem{sequential_structure}
+Klenitskiy A, Volodkevich A, Pembek A, Vasilev A.
+\newblock Does it look sequential? an analysis of datasets for evaluation of
+  sequential recommendations.
+\newblock In: Proceedings of the 18th ACM Conference on Recommender Systems,
+  RecSys '24.
+\newblock 2024,  1067--1072
+
+\bibitem{split_by_timestamp}
+Sun A.
+\newblock On challenges of evaluating recommender systems in an offline
+  setting.
+\newblock In: Proceedings of the 17th ACM Conference on Recommender Systems.
+\newblock 2023,  1284--1285
+
+\end{thebibliography}

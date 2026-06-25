@@ -1,0 +1,5 @@
+Given the outputs $[{o}^1, ..., o^N] \in \mathbb{R}^{N \times h}$ from the last layer, we obtain the item score distribution for each position by:
+\begin{equation}
+    P\left(V | \mathbf{v}, \mathbf{t}\right) = \text{softmax}(\text{GELU}(o^{i}W^P + b^p) E^T + b^O)
+\end{equation}
+where $W^P \in \mathbb{R}^{h \times h}, b^P \in \mathbb{R}^{h}$, and $b^O \in \mathbb{R}^{|V|}$ are learnable parameters and $E^T \in \mathbb{R}^{h \times |V|}$ is an item embedding table. Note that we use shared item embeddings for both input and output prediction. $P\left(v_i = v | \mathbf{v}, \mathbf{t}\right)$ represents the probability that an item at position $i$ is item $v$.

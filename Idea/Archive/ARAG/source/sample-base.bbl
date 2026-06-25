@@ -1,0 +1,176 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{18}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{} and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showURL}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showURL #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[Chen et~al\mbox{.}(2024)]%
+        {chen2024magicore}
+\bibfield{author}{\bibinfo{person}{Justin Chih-Yao Chen}, \bibinfo{person}{Archiki Prasad}, \bibinfo{person}{Swarnadeep Saha}, \bibinfo{person}{Elias Stengel-Eskin}, {and} \bibinfo{person}{Mohit Bansal}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{MAgICoRe: Multi-Agent, Iterative, Coarse-to-Fine Refinement for Reasoning}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2409.12147}} (\bibinfo{year}{2024}).
+\newblock
+
+
+\bibitem[Cui et~al\mbox{.}(2024)]%
+        {cui2024context}
+\bibfield{author}{\bibinfo{person}{Ziqiang Cui}, \bibinfo{person}{Haolun Wu}, \bibinfo{person}{Bowei He}, \bibinfo{person}{Ji Cheng}, {and} \bibinfo{person}{Chen Ma}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Context Matters: Enhancing Sequential Recommendation with Context-aware Diffusion-based Contrastive Learning}. In \bibinfo{booktitle}{\emph{Proceedings of the 33rd ACM International Conference on Information and Knowledge Management}}. \bibinfo{pages}{404--414}.
+\newblock
+
+
+\bibitem[Deldjoo et~al\mbox{.}(2024)]%
+        {deldjoo2024review}
+\bibfield{author}{\bibinfo{person}{Yashar Deldjoo}, \bibinfo{person}{Zhankui He}, \bibinfo{person}{Julian McAuley}, \bibinfo{person}{Anton Korikov}, \bibinfo{person}{Scott Sanner}, \bibinfo{person}{Arnau Ramisa}, \bibinfo{person}{Ren{\'e} Vidal}, \bibinfo{person}{Maheswaran Sathiamoorthy}, \bibinfo{person}{Atoosa Kasirzadeh}, {and} \bibinfo{person}{Silvia Milano}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{A review of modern recommender systems using generative models (gen-recsys)}. In \bibinfo{booktitle}{\emph{Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining}}. \bibinfo{pages}{6448--6458}.
+\newblock
+
+
+\bibitem[Di~Palma(2023)]%
+        {di2023retrieval}
+\bibfield{author}{\bibinfo{person}{Dario Di~Palma}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Retrieval-augmented recommender system: Enhancing recommender systems with large language models}. In \bibinfo{booktitle}{\emph{Proceedings of the 17th ACM Conference on Recommender Systems}}. \bibinfo{pages}{1369--1373}.
+\newblock
+
+
+\bibitem[Gunathilaka et~al\mbox{.}(2025)]%
+        {gunathilaka2025addressing}
+\bibfield{author}{\bibinfo{person}{Thennakoon Mudiyanselage Anupama~Udayangani Gunathilaka}, \bibinfo{person}{Prabhashrini~Dhanushika Manage}, \bibinfo{person}{Jinglan Zhang}, \bibinfo{person}{Yuefeng Li}, {and} \bibinfo{person}{Wayne Kelly}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Addressing sparse data challenges in recommendation systems: A Systematic review of rating estimation using sparse rating data and profile enrichment techniques}.
+\newblock \bibinfo{journal}{\emph{Intelligent Systems with Applications}} (\bibinfo{year}{2025}), \bibinfo{pages}{200474}.
+\newblock
+
+
+\bibitem[Hong et~al\mbox{.}(2023)]%
+        {hong2023metagpt}
+\bibfield{author}{\bibinfo{person}{Sirui Hong}, \bibinfo{person}{Xiawu Zheng}, \bibinfo{person}{Jonathan Chen}, \bibinfo{person}{Yuheng Cheng}, \bibinfo{person}{Jinlin Wang}, \bibinfo{person}{Ceyao Zhang}, \bibinfo{person}{Zili Wang}, \bibinfo{person}{Steven Ka~Shing Yau}, \bibinfo{person}{Zijuan Lin}, \bibinfo{person}{Liyang Zhou}, {et~al\mbox{.}}} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Metagpt: Meta programming for multi-agent collaborative framework}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2308.00352}} \bibinfo{volume}{3}, \bibinfo{number}{4} (\bibinfo{year}{2023}), \bibinfo{pages}{6}.
+\newblock
+
+
+\bibitem[Ke et~al\mbox{.}(2024)]%
+        {ke2024bridging}
+\bibfield{author}{\bibinfo{person}{Zixuan Ke}, \bibinfo{person}{Weize Kong}, \bibinfo{person}{Cheng Li}, \bibinfo{person}{Mingyang Zhang}, \bibinfo{person}{Qiaozhu Mei}, {and} \bibinfo{person}{Michael Bendersky}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Bridging the preference gap between retrievers and llms}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2401.06954}} (\bibinfo{year}{2024}).
+\newblock
+
+
+\bibitem[Li et~al\mbox{.}(2025)]%
+        {li2025g}
+\bibfield{author}{\bibinfo{person}{Yuhan Li}, \bibinfo{person}{Xinni Zhang}, \bibinfo{person}{Linhao Luo}, \bibinfo{person}{Heng Chang}, \bibinfo{person}{Yuxiang Ren}, \bibinfo{person}{Irwin King}, {and} \bibinfo{person}{Jia Li}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{G-Refer: Graph Retrieval-Augmented Large Language Model for Explainable Recommendation}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2502.12586}} (\bibinfo{year}{2025}).
+\newblock
+
+
+\bibitem[Maragheh et~al\mbox{.}(2022)]%
+        {maragheh2022prospect}
+\bibfield{author}{\bibinfo{person}{Reza~Yousefi Maragheh}, \bibinfo{person}{Ramin Giahi}, \bibinfo{person}{Jianpeng Xu}, \bibinfo{person}{Lalitesh Morishetti}, \bibinfo{person}{Shanu Vashishtha}, \bibinfo{person}{Kaushiki Nag}, \bibinfo{person}{Jason Cho}, \bibinfo{person}{Evren Korpeoglu}, \bibinfo{person}{Sushant Kumar}, {and} \bibinfo{person}{Kannan Achan}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Prospect-net: Top-k retrieval problem using prospect theory}. In \bibinfo{booktitle}{\emph{2022 IEEE International Conference on Big Data (Big Data)}}. IEEE, \bibinfo{pages}{3945--3951}.
+\newblock
+
+
+\bibitem[Mortaheb et~al\mbox{.}(2025)]%
+        {mortaheb2025re}
+\bibfield{author}{\bibinfo{person}{Matin Mortaheb}, \bibinfo{person}{Mohammad A~Amir Khojastepour}, \bibinfo{person}{Srimat~T Chakradhar}, {and} \bibinfo{person}{Sennur Ulukus}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Re-ranking the Context for Multimodal Retrieval Augmented Generation}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2501.04695}} (\bibinfo{year}{2025}).
+\newblock
+
+
+\bibitem[Nii(1986)]%
+        {nii1986blackboard}
+\bibfield{author}{\bibinfo{person}{H~Penny Nii}.} \bibinfo{year}{1986}\natexlab{}.
+\newblock \showarticletitle{The blackboard model of problem solving and the evolution of blackboard architectures}.
+\newblock \bibinfo{journal}{\emph{AI magazine}} \bibinfo{volume}{7}, \bibinfo{number}{2} (\bibinfo{year}{1986}), \bibinfo{pages}{38--38}.
+\newblock
+
+
+\bibitem[Rakkappan and Rajan(2019)]%
+        {rakkappan2019context}
+\bibfield{author}{\bibinfo{person}{Lakshmanan Rakkappan} {and} \bibinfo{person}{Vaibhav Rajan}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Context-aware sequential recommendations withstacked recurrent neural networks}. In \bibinfo{booktitle}{\emph{The world wide web conference}}. \bibinfo{pages}{3172--3178}.
+\newblock
+
+
+\bibitem[Rossi et~al\mbox{.}(2024)]%
+        {rossi2024relevance}
+\bibfield{author}{\bibinfo{person}{Nicholas Rossi}, \bibinfo{person}{Juexin Lin}, \bibinfo{person}{Feng Liu}, \bibinfo{person}{Zhen Yang}, \bibinfo{person}{Tony Lee}, \bibinfo{person}{Alessandro Magnani}, {and} \bibinfo{person}{Ciya Liao}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Relevance filtering for embedding-based retrieval}. In \bibinfo{booktitle}{\emph{Proceedings of the 33rd ACM International Conference on Information and Knowledge Management}}. \bibinfo{pages}{4828--4835}.
+\newblock
+
+
+\bibitem[Su et~al\mbox{.}(2024)]%
+        {su2024dragin}
+\bibfield{author}{\bibinfo{person}{Weihang Su}, \bibinfo{person}{Yichen Tang}, \bibinfo{person}{Qingyao Ai}, \bibinfo{person}{Zhijing Wu}, {and} \bibinfo{person}{Yiqun Liu}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{DRAGIN: Dynamic Retrieval Augmented Generation based on the Information Needs of Large Language Models}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2403.10081}} (\bibinfo{year}{2024}).
+\newblock
+
+
+\bibitem[Wu et~al\mbox{.}(2024)]%
+        {wu2024coral}
+\bibfield{author}{\bibinfo{person}{Junda Wu}, \bibinfo{person}{Cheng-Chun Chang}, \bibinfo{person}{Tong Yu}, \bibinfo{person}{Zhankui He}, \bibinfo{person}{Jianing Wang}, \bibinfo{person}{Yupeng Hou}, {and} \bibinfo{person}{Julian McAuley}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Coral: Collaborative retrieval-augmented large language models improve long-tail recommendation}. In \bibinfo{booktitle}{\emph{Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining}}. \bibinfo{pages}{3391--3401}.
+\newblock
+
+
+\bibitem[Ye et~al\mbox{.}(2023)]%
+        {ye2023seller}
+\bibfield{author}{\bibinfo{person}{Zikun Ye}, \bibinfo{person}{Reza~Yousefi Maragheh}, \bibinfo{person}{Lalitesh Morishetti}, \bibinfo{person}{Shanu Vashishtha}, \bibinfo{person}{Jason Cho}, \bibinfo{person}{Kaushiki Nag}, \bibinfo{person}{Sushant Kumar}, {and} \bibinfo{person}{Kannan Achan}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Seller-side Outcome Fairness in Online Marketplaces}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2312.03253}} (\bibinfo{year}{2023}).
+\newblock
+
+
+\bibitem[Yousefi~Maragheh et~al\mbox{.}(2020)]%
+        {yousefi2020choice}
+\bibfield{author}{\bibinfo{person}{Reza Yousefi~Maragheh}, \bibinfo{person}{Xin Chen}, \bibinfo{person}{James Davis}, \bibinfo{person}{Jason Cho}, \bibinfo{person}{Sushant Kumar}, {and} \bibinfo{person}{Kannan Achan}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Choice modeling and assortment optimization in the presence of context effects}.
+\newblock \bibinfo{journal}{\emph{Available at SSRN 3747354}} (\bibinfo{year}{2020}).
+\newblock
+
+
+\bibitem[Yu et~al\mbox{.}(2024)]%
+        {yu2024rankrag}
+\bibfield{author}{\bibinfo{person}{Yue Yu}, \bibinfo{person}{Wei Ping}, \bibinfo{person}{Zihan Liu}, \bibinfo{person}{Boxin Wang}, \bibinfo{person}{Jiaxuan You}, \bibinfo{person}{Chao Zhang}, \bibinfo{person}{Mohammad Shoeybi}, {and} \bibinfo{person}{Bryan Catanzaro}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Rankrag: Unifying context ranking with retrieval-augmented generation in llms}.
+\newblock \bibinfo{journal}{\emph{Advances in Neural Information Processing Systems}}  \bibinfo{volume}{37} (\bibinfo{year}{2024}), \bibinfo{pages}{121156--121184}.
+\newblock
+
+
+\end{thebibliography}

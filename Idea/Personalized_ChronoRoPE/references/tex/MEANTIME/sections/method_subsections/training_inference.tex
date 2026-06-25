@@ -1,0 +1,8 @@
+To train our model, we adopt the existing technique~\cite{BERT4Rec}. 
+% EH: 방법 이름이 있으면 적어주면 좋을듯
+We sample a subarray of items $\mathbf{v} = [v^u_k, ..., v^u_{k+N-1}]$ and timestamps $\mathbf{t} = [t^u_k, ..., t^u_{k+N-1}]$ from $(V^u, T^u)$, and convert $\mathbf{v}$ to $\mathbf{v'}$ by randomly masking a portion of it with [MASK] by some probability $\rho$. Then we feed $\mathbf{v'}$ and $\mathbf{t}$ to our model to get
+%the score distribution over the item set
+$P(V | \mathbf{v'}, \mathbf{t})$. Next, we calculate the loss as follows:
+\begin{equation}
+    L = -\sum_{\mathbf{v'}_i \text{ is masked}}{\log{P(v_i = \mathbf{v}_i | \mathbf{v'}, \mathbf{t})}}
+\end{equation}

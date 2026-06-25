@@ -1,0 +1,392 @@
+\begin{thebibliography}{10}
+
+\bibitem{ansari2023neural}
+Abdul~Fatir Ansari, Alvin Heng, Andre Lim, and Harold Soh.
+\newblock Neural continuous-discrete state space models for irregularly-sampled
+  time series.
+\newblock {\em arXiv preprint arXiv:2301.11308}, 2023.
+
+\bibitem{arribas2018derivatives}
+Imanol~Perez Arribas.
+\newblock Derivatives pricing using signature payoffs.
+\newblock {\em arXiv preprint arXiv:1809.09466}, 2018.
+
+\bibitem{bagnall2018uea}
+Anthony Bagnall, Hoang~Anh Dau, Jason Lines, Michael Flynn, James Large, Aaron
+  Bostrom, Paul Southam, and Eamonn Keogh.
+\newblock The uea multivariate time series classification archive, 2018.
+\newblock {\em arXiv preprint arXiv:1811.00075}, 2018.
+
+\bibitem{bauer2016arrow}
+Stefan Bauer, Bernhard Sch{\"o}lkopf, and Jonas Peters.
+\newblock The arrow of time in multivariate time series.
+\newblock In {\em International Conference on Machine Learning}, pages
+  2043--2051. PMLR, 2016.
+
+\bibitem{boutaib2013dimension}
+Youness Boutaib, Lajos~Gergely Gyurk{\'o}, Terry Lyons, and Danyu Yang.
+\newblock Dimension-free euler estimates of rough differential equations.
+\newblock {\em arXiv preprint arXiv:1307.4708}, 2013.
+
+\bibitem{che2018recurrent}
+Zhengping Che, Sanjay Purushotham, Kyunghyun Cho, David Sontag, and Yan Liu.
+\newblock Recurrent neural networks for multivariate time series with missing
+  values.
+\newblock {\em Scientific reports}, 8(1):6085, 2018.
+
+\bibitem{chen2021learning}
+Chao Chen, Haoyu Geng, Nianzu Yang, Junchi Yan, Daiyue Xue, Jianping Yu, and
+  Xiaokang Yang.
+\newblock Learning self-modulating attention in continuous time space with
+  applications to sequential recommendation.
+\newblock In {\em International Conference on Machine Learning}, pages
+  1606--1616. PMLR, 2021.
+
+\bibitem{chen2021neuralstpp}
+Ricky T.~Q. Chen, Brandon Amos, and Maximilian Nickel.
+\newblock Neural spatio-temporal point processes.
+\newblock In {\em International Conference on Learning Representations}, 2021.
+
+\bibitem{chen2018neural}
+Ricky~TQ Chen, Yulia Rubanova, Jesse Bettencourt, and David~K Duvenaud.
+\newblock Neural ordinary differential equations.
+\newblock {\em Advances in neural information processing systems}, 31, 2018.
+
+\bibitem{chien2021continuous}
+Jen-Tzung Chien and Yi-Hsiang Chen.
+\newblock Continuous-time self-attention in neural differential equation.
+\newblock In {\em ICASSP 2021-2021 IEEE International Conference on Acoustics,
+  Speech and Signal Processing (ICASSP)}, pages 3290--3294. IEEE, 2021.
+
+\bibitem{chien2022learning}
+Jen-Tzung Chien and Yi-Hsiang Chen.
+\newblock Learning continuous-time dynamics with attention.
+\newblock {\em IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  2022.
+
+\bibitem{cho2014properties}
+Kyunghyun Cho, Bart Van~Merri{\"e}nboer, Dzmitry Bahdanau, and Yoshua Bengio.
+\newblock On the properties of neural machine translation: Encoder-decoder
+  approaches.
+\newblock {\em arXiv preprint arXiv:1409.1259}, 2014.
+
+\bibitem{choi2018mime}
+Edward Choi, Cao Xiao, Walter Stewart, and Jimeng Sun.
+\newblock Mime: Multilevel medical embedding of electronic health records for
+  predictive healthcare.
+\newblock {\em Advances in neural information processing systems}, 31, 2018.
+
+\bibitem{chung2014empirical}
+Junyoung Chung, Caglar Gulcehre, KyungHyun Cho, and Yoshua Bengio.
+\newblock Empirical evaluation of gated recurrent neural networks on sequence
+  modeling.
+\newblock {\em arXiv preprint arXiv:1412.3555}, 2014.
+
+\bibitem{devlin2018bert}
+Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova.
+\newblock Bert: Pre-training of deep bidirectional transformers for language
+  understanding.
+\newblock {\em arXiv preprint arXiv:1810.04805}, 2018.
+
+\bibitem{du2016recurrent}
+Nan Du, Hanjun Dai, Rakshit Trivedi, Utkarsh Upadhyay, Manuel Gomez-Rodriguez,
+  and Le~Song.
+\newblock Recurrent marked temporal point processes: Embedding event history to
+  vector.
+\newblock In {\em Proceedings of the 22nd ACM SIGKDD international conference
+  on knowledge discovery and data mining}, pages 1555--1564, 2016.
+
+\bibitem{fang2023learning}
+Yuchen Fang, Kan Ren, Caihua Shan, Yifei Shen, You Li, Weinan Zhang, Yong Yu,
+  and Dongsheng Li.
+\newblock Learning decomposed spatial relations for multi-variate time-series
+  modeling.
+\newblock In {\em Proceedings of the AAAI Conference on Artificial
+  Intelligence}, 2023.
+
+\bibitem{gu2022parameterization}
+Albert Gu, Karan Goel, Ankit Gupta, and Christopher R{\'e}.
+\newblock On the parameterization and initialization of diagonal state space
+  models.
+\newblock {\em Advances in Neural Information Processing Systems},
+  35:35971--35983, 2022.
+
+\bibitem{gu2021efficiently}
+Albert Gu, Karan Goel, and Christopher R{\'e}.
+\newblock Efficiently modeling long sequences with structured state spaces.
+\newblock {\em arXiv preprint arXiv:2111.00396}, 2021.
+
+\bibitem{guo2022cmt}
+Jianyuan Guo, Kai Han, Han Wu, Yehui Tang, Xinghao Chen, Yunhe Wang, and Chang
+  Xu.
+\newblock Cmt: Convolutional neural networks meet vision transformers.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition}, pages 12175--12185, 2022.
+
+\bibitem{gupta2022proactive}
+Vinayak Gupta and Srikanta Bedathur.
+\newblock Proactive: Self-attentive temporal point process flows for activity
+  sequences.
+\newblock In {\em Proceedings of the 28th ACM SIGKDD Conference on Knowledge
+  Discovery and Data Mining}, pages 496--504, 2022.
+
+\bibitem{hawkes1971spectra}
+Alan~G Hawkes.
+\newblock Spectra of some self-exciting and mutually exciting point processes.
+\newblock {\em Biometrika}, 58(1):83--90, 1971.
+
+\bibitem{he2016deep}
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
+\newblock Deep residual learning for image recognition.
+\newblock In {\em Proceedings of the IEEE conference on computer vision and
+  pattern recognition}, pages 770--778, 2016.
+
+\bibitem{hochreiter1997long}
+Sepp Hochreiter and J{\"u}rgen Schmidhuber.
+\newblock Long short-term memory.
+\newblock {\em Neural computation}, 9(8):1735--1780, 1997.
+
+\bibitem{hopfield1982neural}
+John~J Hopfield.
+\newblock Neural networks and physical systems with emergent collective
+  computational abilities.
+\newblock {\em Proceedings of the national academy of sciences},
+  79(8):2554--2558, 1982.
+
+\bibitem{jhin2023attentive}
+Sheo~Yon Jhin, Heejoo Shin, Sujie Kim, Seoyoung Hong, Minju Jo, Solhee Park,
+  Noseong Park, Seungbeom Lee, Hwiyoung Maeng, and Seungmin Jeon.
+\newblock Attentive neural controlled differential equations for time-series
+  classification and forecasting.
+\newblock {\em Knowledge and Information Systems}, pages 1--31, 2023.
+
+\bibitem{jia2019neural}
+Junteng Jia and Austin~R Benson.
+\newblock Neural jump stochastic differential equations.
+\newblock {\em Advances in Neural Information Processing Systems}, 32, 2019.
+
+\bibitem{kidger2022neural}
+Patrick Kidger.
+\newblock On neural differential equations.
+\newblock {\em arXiv preprint arXiv:2202.02435}, 2022.
+
+\bibitem{kidger2019deep}
+Patrick Kidger, Patric Bonnier, Imanol Perez~Arribas, Cristopher Salvi, and
+  Terry Lyons.
+\newblock Deep signature transforms.
+\newblock {\em Advances in Neural Information Processing Systems}, 32, 2019.
+
+\bibitem{kidger2020neural}
+Patrick Kidger, James Morrill, James Foster, and Terry Lyons.
+\newblock Neural controlled differential equations for irregular time series.
+\newblock {\em Advances in Neural Information Processing Systems},
+  33:6696--6707, 2020.
+
+\bibitem{kitaev2020reformer}
+Nikita Kitaev, {\L}ukasz Kaiser, and Anselm Levskaya.
+\newblock Reformer: The efficient transformer.
+\newblock {\em arXiv preprint arXiv:2001.04451}, 2020.
+
+\bibitem{lai2018modeling}
+Guokun Lai, Wei-Cheng Chang, Yiming Yang, and Hanxiao Liu.
+\newblock Modeling long-and short-term temporal patterns with deep neural
+  networks.
+\newblock In {\em The 41st international ACM SIGIR conference on research \&
+  development in information retrieval}, pages 95--104, 2018.
+
+\bibitem{leskovec2014snap}
+Jure Leskovec and Andrej Krevl.
+\newblock Snap datasets: Stanford large network dataset collection, 2014.
+
+\bibitem{li2020time}
+Jiacheng Li, Yujie Wang, and Julian McAuley.
+\newblock Time interval aware self-attention for sequential recommendation.
+\newblock In {\em Proceedings of the 13th international conference on web
+  search and data mining}, pages 322--330, 2020.
+
+\bibitem{li2023towards}
+Yan Li, Xinjiang Lu, Haoyi Xiong, Jian Tang, Jiantao Su, Bo~Jin, and Dejing
+  Dou.
+\newblock Towards long-term time-series forecasting: Feature, pattern, and
+  distribution.
+\newblock {\em arXiv preprint arXiv:2301.02068}, 2023.
+
+\bibitem{lipton2016directly}
+Zachary~C Lipton, David Kale, and Randall Wetzel.
+\newblock Directly modeling missing data in sequences with rnns: Improved
+  classification of clinical time series.
+\newblock In {\em Machine learning for healthcare conference}, pages 253--270.
+  PMLR, 2016.
+
+\bibitem{liu2019roberta}
+Yinhan Liu, Myle Ott, Naman Goyal, Jingfei Du, Mandar Joshi, Danqi Chen, Omer
+  Levy, Mike Lewis, Luke Zettlemoyer, and Veselin Stoyanov.
+\newblock Roberta: A robustly optimized bert pretraining approach.
+\newblock {\em arXiv preprint arXiv:1907.11692}, 2019.
+
+\bibitem{ma2022non}
+Yu~Ma, Zhining Liu, Chenyi Zhuang, Yize Tan, Yi~Dong, Wenliang Zhong, and
+  Jinjie Gu.
+\newblock Non-stationary time-aware kernelized attention for temporal event
+  prediction.
+\newblock In {\em Proceedings of the 28th ACM SIGKDD Conference on Knowledge
+  Discovery and Data Mining}, pages 1224--1232, 2022.
+
+\bibitem{mei2017neural}
+Hongyuan Mei and Jason~M Eisner.
+\newblock The neural hawkes process: A neurally self-modulating multivariate
+  point process.
+\newblock {\em Advances in neural information processing systems}, 30, 2017.
+
+\bibitem{morrill2021neural}
+James Morrill, Cristopher Salvi, Patrick Kidger, and James Foster.
+\newblock Neural rough differential equations for long time series.
+\newblock In {\em International Conference on Machine Learning}, pages
+  7829--7838. PMLR, 2021.
+
+\bibitem{mozer2017discrete}
+Michael~C Mozer, Denis Kazakov, and Robert~V Lindsey.
+\newblock Discrete event, continuous time rnns.
+\newblock {\em arXiv preprint arXiv:1710.04110}, 2017.
+
+\bibitem{park2022neural}
+Sung~Woo Park, Kyungjae Lee, and Junseok Kwon.
+\newblock Neural markov controlled sde: Stochastic optimization for
+  continuous-time data.
+\newblock In {\em International Conference on Learning Representations}, 2022.
+
+\bibitem{rubanova2019latent}
+Yulia Rubanova, Ricky~TQ Chen, and David~K Duvenaud.
+\newblock Latent ordinary differential equations for irregularly-sampled time
+  series.
+\newblock {\em Advances in neural information processing systems}, 32, 2019.
+
+\bibitem{runge1895numerische}
+Carl Runge.
+\newblock {\"U}ber die numerische aufl{\"o}sung von differentialgleichungen.
+\newblock {\em Mathematische Annalen}, 46(2):167--178, 1895.
+
+\bibitem{schirmer2022modeling}
+Mona Schirmer, Mazin Eltayeb, Stefan Lessmann, and Maja Rudolph.
+\newblock Modeling irregular time series with continuous recurrent units.
+\newblock In {\em International Conference on Machine Learning}, pages
+  19388--19405. PMLR, 2022.
+
+\bibitem{shchur2019intensity}
+Oleksandr Shchur, Marin Bilo{\v{s}}, and Stephan G{\"u}nnemann.
+\newblock Intensity-free learning of temporal point processes.
+\newblock {\em arXiv preprint arXiv:1909.12127}, 2019.
+
+\bibitem{shchur2020fast}
+Oleksandr Shchur, Nicholas Gao, Marin Bilo{\v{s}}, and Stephan G{\"u}nnemann.
+\newblock Fast and flexible temporal point processes with triangular maps.
+\newblock {\em Advances in Neural Information Processing Systems}, 33:73--84,
+  2020.
+
+\bibitem{shukla2021multi}
+Satya~Narayan Shukla and Benjamin Marlin.
+\newblock Multi-time attention networks for irregularly sampled time series.
+\newblock In {\em International Conference on Learning Representations}, 2021.
+
+\bibitem{smith2022simplified}
+Jimmy~TH Smith, Andrew Warrington, and Scott~W Linderman.
+\newblock Simplified state space layers for sequence modeling.
+\newblock {\em arXiv preprint arXiv:2208.04933}, 2022.
+
+\bibitem{stevenson2019dataset}
+Nathan~J Stevenson, Karoliina Tapani, Leena Lauronen, and Sampsa Vanhatalo.
+\newblock A dataset of neonatal eeg recordings with seizure annotations.
+\newblock {\em Scientific data}, 6(1):1--8, 2019.
+
+\bibitem{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N Gomez, {\L}ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock {\em Advances in neural information processing systems}, 30, 2017.
+
+\bibitem{wu2022timesnet}
+Haixu Wu, Tengge Hu, Yong Liu, Hang Zhou, Jianmin Wang, and Mingsheng Long.
+\newblock Timesnet: Temporal 2d-variation modeling for general time series
+  analysis.
+\newblock {\em arXiv preprint arXiv:2210.02186}, 2022.
+
+\bibitem{wu2021autoformer}
+Haixu Wu, Jiehui Xu, Jianmin Wang, and Mingsheng Long.
+\newblock Autoformer: Decomposition transformers with auto-correlation for
+  long-term series forecasting.
+\newblock {\em Advances in Neural Information Processing Systems},
+  34:22419--22430, 2021.
+
+\bibitem{xu2019self}
+Da~Xu, Chuanwei Ruan, Evren Korpeoglu, Sushant Kumar, and Kannan Achan.
+\newblock Self-attention with functional time representation learning.
+\newblock {\em Advances in neural information processing systems}, 32, 2019.
+
+\bibitem{yue2022ts2vec}
+Zhihan Yue, Yujing Wang, Juanyong Duan, Tianmeng Yang, Congrui Huang, Yunhai
+  Tong, and Bixiong Xu.
+\newblock Ts2vec: Towards universal representation of time series.
+\newblock In {\em Proceedings of the AAAI Conference on Artificial
+  Intelligence}, volume~36, pages 8980--8987, 2022.
+
+\bibitem{zeng2023transformers}
+Ailing Zeng, Muxi Chen, Lei Zhang, and Qiang Xu.
+\newblock Are transformers effective for time series forecasting?
+\newblock In {\em Proceedings of the AAAI conference on artificial
+  intelligence}, volume~37, pages 11121--11128, 2023.
+
+\bibitem{zerveas2021transformer}
+George Zerveas, Srideepika Jayaraman, Dhaval Patel, Anuradha Bhamidipaty, and
+  Carsten Eickhoff.
+\newblock A transformer-based framework for multivariate time series
+  representation learning.
+\newblock In {\em Proceedings of the 27th ACM SIGKDD Conference on Knowledge
+  Discovery \& Data Mining}, pages 2114--2124, 2021.
+
+\bibitem{zhang2021continuous}
+Jing Zhang, Peng Zhang, Baiwen Kong, Junqiu Wei, and Xin Jiang.
+\newblock Continuous self-attention models with neural ode networks.
+\newblock In {\em Proceedings of the AAAI Conference on Artificial
+  Intelligence}, volume~35, pages 14393--14401, 2021.
+
+\bibitem{zhang2020self}
+Qiang Zhang, Aldo Lipani, Omer Kirnap, and Emine Yilmaz.
+\newblock Self-attentive hawkes process.
+\newblock In {\em International conference on machine learning}, pages
+  11183--11193. PMLR, 2020.
+
+\bibitem{zhang2019attain}
+Yuan Zhang.
+\newblock Attain: Attention-based time-aware lstm networks for disease
+  progression modeling.
+\newblock In {\em In Proceedings of the 28th International Joint Conference on
+  Artificial Intelligence (IJCAI-2019), pp. 4369-4375, Macao, China.}, 2019.
+
+\bibitem{zhou2021informer}
+Haoyi Zhou, Shanghang Zhang, Jieqi Peng, Shuai Zhang, Jianxin Li, Hui Xiong,
+  and Wancai Zhang.
+\newblock Informer: Beyond efficient transformer for long sequence time-series
+  forecasting.
+\newblock In {\em Proceedings of the AAAI conference on artificial
+  intelligence}, volume~35, pages 11106--11115, 2021.
+
+\bibitem{zhou2022fedformer}
+Tian Zhou, Ziqing Ma, Qingsong Wen, Xue Wang, Liang Sun, and Rong Jin.
+\newblock Fedformer: Frequency enhanced decomposed transformer for long-term
+  series forecasting.
+\newblock In {\em International Conference on Machine Learning}, pages
+  27268--27286. PMLR, 2022.
+
+\bibitem{zhu2020deformable}
+Xizhou Zhu, Weijie Su, Lewei Lu, Bin Li, Xiaogang Wang, and Jifeng Dai.
+\newblock Deformable detr: Deformable transformers for end-to-end object
+  detection.
+\newblock {\em arXiv preprint arXiv:2010.04159}, 2020.
+
+\bibitem{zuo2020transformer}
+Simiao Zuo, Haoming Jiang, Zichong Li, Tuo Zhao, and Hongyuan Zha.
+\newblock Transformer hawkes process.
+\newblock In {\em International conference on machine learning}, pages
+  11692--11702. PMLR, 2020.
+
+\end{thebibliography}

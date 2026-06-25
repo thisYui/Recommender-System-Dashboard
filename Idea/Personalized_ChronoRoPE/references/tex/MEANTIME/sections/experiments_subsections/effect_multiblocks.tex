@@ -1,0 +1,16 @@
+Although we let all transformer-based models have the same number of layers and heads in our experiments, MEANTIME has more parameters than SASRec, TiSASRec, and BERT4Rec since it employs 6 self-attention blocks per layer in contrast to 1. This might seem unfair since the performance gain could have come from the larger parameter size, or from the multi-path self-attention. To prove that this is not the case, we also experimented with the adjusted baseline models where they also have 6 self-attention blocks per layer. We call them \textbf{buffed} models. 
+
+\begin{table}[h]
+\caption{Performance Comparison with Buffed Baselines.}
+\label{tab:buff_results}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+{Metrics} & {SASRec-Buffed}& {TiSASRec-Buffed} & {BERT4Rec-Buffed} & {MEANTIME}      \\ \midrule
+{Recall@5}  & {0.5512} & {0.5528} & {0.5916} & {\textbf{0.6154}} \\
+{Recall@10}  & {0.6853} & {0.6856} & {0.6987} & {\textbf{0.7268}} \\
+{NDCG@5}   & {0.3955} & {0.3962}  & {0.4437} & {\textbf{0.4690}} \\
+{NDCG@10}  & {0.4390} & {0.4393}  & {0.4785} & {\textbf{0.5052}} \\ \bottomrule
+\end{tabular}
+\end{table}
+
+Table-\ref{tab:buff_results} shows the comparison results. All experiments were done with ML-1M dataset, hidden dimension size $h=64$, dropout ratio 0.2 and weight decay 0. The result clearly shows that the strong performance of MEANTIME does not merely come from large parameter size nor multi-path self-attention.

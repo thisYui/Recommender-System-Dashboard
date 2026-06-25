@@ -1,0 +1,9 @@
+We keep a learnable embedding matrix $\mathbf{M}^I \in \mathbb{R}^{(|I|+1) \times h}$ for items and a special token \verb|[MASK]|, where $h$ is the dimension of the model. Given $s$, the embedding look-up operation gives us $\mathbf{E}^{token} \in \mathbb{R}^{N \times h}$ :
+\begin{displaymath}
+  \mathbf{E}^{token} = \begin{bmatrix}
+                    m_{s_1}\\
+                    m_{s_2}\\
+                    ...\\
+                    m_{s_n}\\
+                    \end{bmatrix}
+\end{displaymath}

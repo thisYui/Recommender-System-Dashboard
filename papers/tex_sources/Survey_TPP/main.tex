@@ -1,0 +1,1368 @@
+\documentclass[10pt]{article} % For LaTeX2e
+% \usepackage{tmlr}
+% If accepted, instead use the following line for the camera-ready submission:
+\usepackage[accepted]{tmlr}
+% To de-anonymize and remove mentions to TMLR (for example for posting to preprint servers), instead use the following:
+%\usepackage[preprint]{tmlr}
+
+% Optional math commands from https://github.com/goodfeli/dlbook_notation.
+\input{math_commands.tex}
+
+\usepackage{amsmath,amsfonts}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{array}
+\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\usepackage{textcomp}
+\usepackage{stfloats}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{comment}
+\usepackage{epsfig}
+\usepackage{verbatim}
+\usepackage{colortbl}
+\usepackage{pifont}
+\usepackage{tablefootnote}
+% \DeclareMathOperator*{\argmax}{arg\,max}
+% \DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage{xcolor}
+\usepackage{bm} 
+% \usepackage{cellspace}  
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage[edges]{forest}
+\usepackage{soul}
+\usepackage[inkscapelatex=false]{svg}
+
+\definecolor{hidden-draw}{RGB}{20,68,106}
+\definecolor{hidden-pink}{RGB}{255,245,247}
+
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage{url}
+
+\usepackage[capitalize,noabbrev]{cleveref}
+
+
+
+
+\title{Advances in Temporal Point Processes: Bayesian, Neural, and LLM Approaches}
+
+% Authors must not appear in the submitted version. They should be hidden
+% as long as the tmlr package is used without the [accepted] or [preprint] options.
+% Non-anonymous submissions will be rejected without review.
+
+
+\author{\name Feng Zhou$^1$ \email feng.zhou@ruc.edu.cn\\
+      \AND
+      \name Quyu Kong$^2$ \email kongquyu@gmail.com\\
+      \AND
+      \name Jie Qiao$^3$ \email qiaojie.chn@gmail.com\\
+      \AND
+      \name Cheng Wan$^1$ \email wancheng0256@ruc.edu.cn\\
+      \AND
+      \name Yixuan Zhang$^{4}$ \email zh1xuan@hotmail.com\\
+      \AND
+      \name Ruichu Cai$^3$ \email cairuichu@gmail.com\\
+      \addr $^1$Center for Applied Statistics and School of Statistics, Renmin University of China, Beijing, China\\
+  $^2$Independent Researcher\\
+  $^3$School of Computer Science, Guangdong University of Technology, Guangzhou, China \\
+  $^4$School of Statistics and Data Science, Southeast University, Nanjing, China \\
+}
+
+
+% The \author macro works with any number of authors. Use \AND 
+% to separate the names and addresses of multiple authors.
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\def\month{06}  % Insert correct month for camera-ready version
+\def\year{2026} % Insert correct year for camera-ready version
+\def\openreview{\url{https://openreview.net/forum?id=SXgGKkShhT}} % Insert correct link to OpenReview for camera-ready version
+
+
+\begin{document}
+
+
+\maketitle
+
+
+\begin{abstract}
+Temporal point processes (TPPs) are stochastic process models used to characterize event sequences occurring in continuous time. Traditional statistical TPPs have a long-standing history, with numerous models proposed and successfully applied across diverse domains. In recent years, advances in deep learning have spurred the development of neural TPPs, enabling greater flexibility and expressiveness in capturing complex temporal dynamics. The emergence of large language models (LLMs) has further sparked excitement, offering new possibilities for modeling and analyzing event sequences by leveraging their rich contextual understanding. 
+This survey presents a comprehensive review of recent research on TPPs from three perspectives: Bayesian, deep learning, and LLM approaches. We begin with a review of the fundamental concepts of TPPs, followed by an in-depth discussion of model design and parameter estimation techniques in these three frameworks. We also revisit classic application areas of TPPs to highlight their practical relevance. Finally, we outline challenges and promising directions for future research. 
+\end{abstract}
+
+
+
+
+\section{Introduction}
+Many application scenarios generate time-stamped event sequences, which can be effectively modeled using temporal point processes (TPPs)~\citep{daley2007introduction}. Examples include neural spike train data in neuroscience~\citep{linderman2015scalable}, ask and bid orders in high-frequency financial trading~\citep{bacry2014hawkes}, as well as tweets and retweets on social media~\citep{kong2023interval}. These event sequences, composed of asynchronous events, often influence one another and exhibit complex dynamics, making them more challenging to analyze compared to traditional synchronous time series problems. Investigating the underlying dynamic processes of such event sequences not only facilitates the prediction of future events but also helps uncover causal relationships. 
+
+
+In the statistics community, TPPs have a long-standing history of research, with numerous statistical TPP models proposed over the years. Examples include the classic Poisson process~\citep{kingman1992poisson}, Hawkes process~\citep{hawkes1971spectra}, and self-correcting process~\citep{isham1979self}, among others. Each of these models is particularly well-suited to specific applications. For instance, the Poisson process was used to model telephone call arrivals, while the Hawkes process, due to its ability to capture self-exciting characteristics, has been widely applied to model earthquakes and aftershocks.
+
+Early TPP models are primarily parametric, requiring explicit specification of the parametric form of the model. However, this imposes limitations on their expressive power. 
+To address these limitations, various nonparametric TPPs have been proposed within the statistics community, including approaches from both the frequentist and Bayesian frameworks, enabling more flexible modeling without the constraints of fixed parametric forms. 
+In recent years, driven by rapid advancements in deep learning, the machine learning community has introduced approaches that combine neural network architectures with TPPs, referred to as neural TPPs. These models further enhance expressive power and are often more intuitive, simpler, and easier to train compared to statistical nonparametric TPPs. Over the past several years, the emergence of large language models (LLMs) has brought transformative changes to the field of artificial intelligence. With their rich contextual understanding and ability to process multimodal data, LLMs offer new possibilities for modeling event sequences. 
+This paper reviews recent advances in TPPs based on Bayesian methods, deep learning, and LLMs, with a focus on model design and parameter estimation. Due to space limitations, we do not aim to cover every method in detail but instead emphasize fundamental principles and core ideas. We also revisit classic applications of TPPs and discuss key challenges and future research directions in the field. 
+This taxonomy of recent advances in TPPs is illustrated in \cref{fig:taxonomy}. This survey is expected to give comprehensive background knowledge, research trends and technical insights for TPPs. 
+
+
+
+\paragraph{Comparison with Existing TPP Surveys} Several surveys on TPPs in machine learning already exist, such as \citet{yan2019recent} and \citet{shchur2021neural}. The former summarizes advances in statistical and neural TPPs, while the latter provides a more detailed overview of neural TPPs. Additionally, surveys in other domains, such as finance, include \citet{hawkes2018hawkes}.
+Compared with these works, this paper provides a comprehensive update. In the domain of statistical TPPs, we emphasize recent progress in Bayesian nonparametric TPPs, which has been largely overlooked, as most prior reviews (e.g., \citet{yan2019recent}) primarily focus on frequentist approaches. For neural TPPs, \citet{shchur2021neural} covers works up to 2020, whereas this survey reviews advances from 2020 to 2025. Furthermore, we include a systematic review of the emerging area of LLM-based TPPs, which has gained significant attention in recent years but has not yet been comprehensively surveyed. A detailed comparison with existing surveys is provided in \cref{table1}. 
+
+\paragraph{Survey Methodology.}
+To construct this survey, we conducted a structured literature review covering major venues in machine learning, statistics, and related application domains. Specifically, we collected papers from top conferences and journals such as NeurIPS, ICML, ICLR, AISTATS, KDD, AAAI, JMLR, and IEEE/ACM Transactions, as well as relevant statistical journals. Our primary focus is on works published between 2020 and 2025, while also including earlier foundational studies for completeness. 
+We include papers based on the following criteria: (i) the work proposes a novel TPP model or inference method, (ii) it introduces new training or estimation techniques applicable to TPPs, or (iii) it demonstrates significant applications or extensions (e.g., multimodal or LLM-based TPPs). The collected literature is then organized into three main categories—Bayesian, neural, and LLM-based approaches—based on modeling paradigms. 
+Due to space constraints, this survey does not aim to be exhaustive, but instead focuses on representative and influential works that highlight key methodological developments and research trends. 
+
+
+\begin{table}[!htbp]
+    \caption{Survey comparison.}
+    \label{table1}
+    \centering
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{lccccccc}
+        \toprule
+        Survey  & Years Covered & Frequentist TPP & Bayesian TPP & Neural TPP & LLM-based TPP & Training Methods & Applications \\
+        \midrule
+        \citet{yan2019recent}  & $\leq2019$ & \ding{52} & \ding{55} & \ding{52} & \ding{55} & Limited & \ding{52} \\
+        \citet{shchur2021neural}  & $\leq2021$ & \ding{52} & \ding{55} & \ding{52} & \ding{55} & Limited & \ding{52} \\
+        \citet{hawkes2018hawkes}  & $\leq2018$ & \ding{52} & \ding{55} & \ding{55} & \ding{55} &  Limited & Finance\\
+        This survey & $\leq2025$ & \ding{52} & \ding{52} & \ding{52} & \ding{52} & \ding{52} & \ding{52} \\
+        \bottomrule
+    \end{tabular}}
+\end{table}
+
+
+\input{framework.tex}
+% \newpage
+
+
+\section{Background of TPPs}
+\label{sec2}
+
+We first briefly review some of the core concepts of TPPs. For readers unfamiliar with TPPs, we recommend \citet{rasmussen2018lecture} for a comprehensive introduction. 
+
+\subsection{Unmarked TPP}
+
+A TPP is a stochastic process that models the occurrence of events over a time window \([0, T]\). A trajectory from a TPP can be represented as an ordered sequence $\mathcal{T} = (t_1, \ldots, t_{N})$, $N(t) = \max\{n : t_n \leq t, t \in [0, T]\}$ represents the associated counting process. Here, \(N\) denotes the random number of events within the interval \([0, T]\). TPPs can be defined using different parameterizations. One approach is to specify the distribution of the time intervals between consecutive events. We denote the $f(t_{n+1} \mid \mathcal{H}_{t_n})$ to be the conditional density function of $t_{n+1}$ given the history of previous events $t_1, \ldots, t_n$. In this work, $\mathcal{H}_{t^-}$ denotes the history of events up to but excluding time $t$, while $\mathcal{H}_{t}$ includes whether an event occurs at time $t$. 
+The conditional density function sequentially specifies the distribution of all timestamps. Consequently, the joint distribution of all events can be factorized as: 
+\begin{equation}
+    f(t_1, \ldots, t_{N})=\prod_{n=1}^{N} f(t_n\mid \mathcal{H}_{t_{n-1}}). 
+\label{unmark_likelihood}
+\end{equation}
+A TPP can be defined by specifying the distribution of time intervals. For example, a renewal process assumes that the time intervals are independent and identically distributed (i.i.d.), i.e., $f(t_n | \mathcal{H}_{t_{n-1}}) = g(t_n - t_{n-1})$, where \( g \) is a probability density function defined on \((0, \infty)\). If we further specify \( g(t_n - t_{n-1}) \) to follow an exponential distribution, we obtain a homogeneous Poisson process, where each event occurs independently of the past. 
+
+The above approach can directly define some classic point process models. However, in general cases, event occurrences may depend on the entire history, making it less convenient to specify the model using the probability density function of time intervals. Instead, the conditional intensity function provides a more convenient way to describe how the occurrence of an event depends on its history. The conditional intensity function is defined as: 
+\begin{equation}
+\begin{aligned}
+    \lambda^*(t)dt&=\frac{f(t \mid \mathcal{H}_{t_n})dt}{1-F(t \mid \mathcal{H}_{t_n})}=\frac{P(t_{n+1}\in [t,t+dt]\mid \mathcal{H}_{t_n})}{P(t_{n+1}\notin (t_n,t)\mid \mathcal{H}_{t_n})}=P(t_{n+1}\in [t,t+dt]\mid t_{n+1}\notin (t_n,t),\mathcal{H}_{t_n})\\
+    &=P(t_{n+1}\in [t,t+dt]\mid \mathcal{H}_{t^-})=\mathbb{E}[N([t,t+dt])\mid \mathcal{H}_{t^-}], 
+\end{aligned}
+\label{intensity}
+\end{equation}
+where \( F(t \mid \mathcal{H}_{t_n}) = \int_{t_n}^t f(\tau \mid \mathcal{H}_{t_n}) d\tau \) denotes the cumulative distribution function. Following tradition, we use * to indicate that the conditional intensity function is based on the history. 
+The conditional intensity function has an intuitive interpretation: it specifies the average number of events in a time interval, conditional on the history up to but not including $t$. 
+It is worth noting that the history \(\mathcal{H}_{t_n}\) in the conditional density function differs from the history \(\mathcal{H}_{t^-}\) in the conditional intensity function. This subtle distinction is often overlooked in many TPP works. 
+
+The conditional intensity function and the conditional density function are one-to-one\footnote{The conditional intensity function must satisfy certain conditions.}. This can be easily proven by inverting \cref{intensity} to express the conditional density function in terms of the conditional intensity function: 
+\begin{equation}
+\begin{aligned}
+    F(t \mid \mathcal{H}_{t_n})&=1-\exp\left(-\int_{t_n}^t \lambda^*(\tau)d\tau\right),\\
+    f(t \mid \mathcal{H}_{t_n})&=\lambda^*(t)\exp\left(-\int_{t_n}^t \lambda^*(\tau)d\tau\right).
+\end{aligned}
+\label{con_density}
+\end{equation}
+
+This means we can define new TPP models by directly specifying a particular form of the conditional intensity function. For example, specifying a constant intensity defines a homogeneous Poisson process, while specifying a time-varying intensity function $\lambda^*(t)=\lambda(t)$ defines an inhomogeneous Poisson process. 
+We can also define a Hawkes process by specifying a conditional intensity function: 
+\begin{equation}
+    \lambda^*(t) = \mu + \sum_{t_n < t} \phi(t - t_n), 
+\label{hawkes}
+\end{equation}
+where \(\mu > 0\) is the baseline intensity, and \(\phi(\cdot): \mathbb{R}^+ \to \mathbb{R}^+\) is the triggering function\footnote{It requires \(\int_0^\infty \phi(t) \, dt < 1\) to ensure the Hawkes process does not explode.}. The summation of influences from past events increases the likelihood of future events, making it suitable for modeling self-exciting effects. 
+While many other forms of TPPs exist, we primarily focus on the Poisson process (history-independent) and the Hawkes process (history-dependent) in the following due to their widespread use. 
+An illustration of the unmarked temporal point process, along with its conditional density function and conditional intensity function, is shown in \cref{tpp_scheme}. 
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.75\linewidth]{TPP_scheme}
+    \caption{Illustration of the conditional density function and conditional intensity function in TPPs. (a) The conditional density function of the $(n{+}1)$-th event given the history $\{t_1,\ldots,t_n\}$; (b) the intensity function of an inhomogeneous Poisson process; (c) the conditional intensity function of a Hawkes process.} 
+    \label{tpp_scheme}
+\end{figure}
+
+
+\subsection{Marked TPPs}
+
+The above discussion focuses on the unmarked TPP, also known as the univariate TPP. 
+However, TPPs can be extended to the marked case, represented as a time-ordered marked sequence \(\mathcal{T} = ((t_1, k_1), \ldots, (t_{N}, k_{N}))\) over a time window \([0, T]\), where \(k_n\) is the mark of the \(n\)-th event.  
+The mark space can be continuous or discrete. In practice, discrete marks are more common, often referred to as multivariate TPPs. Similar to the unmarked case, marked TPPs can also be described using the conditional density function: 
+\begin{equation}
+f((t_1, k_1), \ldots, (t_{N}, k_{N})) = \prod_{n=1}^{N} f(t_n, k_n \mid \mathcal{H}_{t_{n-1}}),
+\end{equation}
+where \(f(t, k \mid \mathcal{H}_{t_n})\) is the joint density of time and mark, conditional on history. The history \(\mathcal{H}_{t_n}\) now includes information about both the times and marks of past events. 
+
+Similarly, when event occurrences depend on the entire history, specifying the model using the probability density function becomes less convenient. In such cases, the conditional intensity function offers a more practical and expressive way to capture the dependence of events on historical information. The conditional intensity function is defined as: 
+\begin{equation*}
+    \lambda^*(t, k) dtdk = \frac{f(t, k \mid \mathcal{H}_{t_n}) dtdk}{1 - F(t \mid \mathcal{H}_{t_n})}=\mathbb{E}[N(dt\times dk)\mid \mathcal{H}_{t^-}], 
+\end{equation*}
+where \(F(t\mid\mathcal{H}_{t_n}) = \int_{t_n}^t \int_k f(\tau,k\mid\mathcal{H}_{t_n}) dk d\tau\) is the conditional cumulative distribution function and the mark is marginalized out. 
+The conditional intensity function specifies the average number of events with a mark \(k\) in a time interval, conditional on the history up to but not including \(t\). 
+
+We can also define a marked TPP by specifying a particular conditional intensity function. 
+A classic example is the multivariate Hawkes processes, where the mark \(k \in \{1, \ldots, K\}\) represents the event type. 
+The conditional intensity function of multivariate Hawkes processes is given by: 
+\begin{equation}
+    \lambda^*(t, k) = \mu_k + \sum_{t_n < t} \phi_{k, k_n}(t - t_n), 
+    \label{mhp}
+\end{equation}
+where \(\mu_k\) represents the baseline intensity for event type \(k\), and \(\phi_{k, k^\prime}\) captures the triggering effects from events of type \(k^\prime\) on type \(k\). 
+A comparison of commonly used classical TPP models is provided in \cref{table2}.
+
+\begin{table}[!htbp]
+    \caption{Comparison of classic TPP models.}
+    \label{table2}
+    \centering
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{lcccc}
+        \toprule
+        Model  & History dependence & Marks & Intensity form & Typical use\\
+        \midrule
+        Poisson     &   No   & No & $\lambda$ & Independent arrivals  \\
+        inhomogeneous Poisson    & No & No & $\lambda(t)$  & Time-varying rate  \\
+        Hawkes  & Yes    &  No & $\mu + \sum_{t_n < t} \phi(t - t_n)$ & Self-excitation \\
+        Multivariate Hawkes &   Yes   &  Yes  & $\mu_k + \sum_{t_n < t} \phi_{k, k_n}(t - t_n)$ & Type interaction \\
+        \bottomrule
+    \end{tabular}}
+\end{table}
+
+
+\subsection{Inference}
+\label{chapter_inference}
+
+There are various methods for estimating the parameters of TPPs. The most common method is maximum likelihood estimation (MLE). 
+In this section, we introduce MLE and Bayesian inference for parametric TPPs. 
+Assume we observe a trajectory of a marked TPP \(\mathcal{T} = ((t_1, k_1), \ldots, (t_{N}, k_{N}))\) over the time window \([0, T]\). The unmarked case corresponds to the situation where there is only a single mark. 
+Assume the marked TPP is specified by a parametric conditional intensity function \(\lambda_\theta^*(t, k)\). Then, the likelihood function is given by: 
+\begin{equation}
+\begin{aligned}
+    f(\mathcal{T};\theta)=\prod_{n=1}^{N}\lambda_\theta^*(t_n,k_n)\exp\left(-\int_0^T \lambda_\theta^*(t)dt\right), 
+\end{aligned}
+\label{mark_likelihood}
+\end{equation}
+where $\lambda_\theta^*(t)=\int\lambda_\theta^*(t, k)dk$ is the ground intensity. 
+The proof of \cref{mark_likelihood} is straightforward. Simply substitute \cref{con_density} into \cref{unmark_likelihood} to verify it for the unmarked case. The proof for the marked case follows a similar procedure. 
+We can use numerical methods to maximize the log-likelihood to obtain parameter estimates. 
+
+MLE is a widely used parameter estimation method in the frequentist framework. It offers several advantages, such as consistency, asymptotic normality, and asymptotic efficiency. However, as a point estimation method, MLE cannot capture model uncertainty, which limits its applicability in high-stakes domains where understanding uncertainty is crucial. 
+To address this issue, the Bayesian framework has been incorporated into TPPs~\citep{raftery1986bayesian}. 
+In Bayesian TPPs, we impose suitable priors on the model parameters and then compute their corresponding posterior distribution, equipping the model with the ability to quantify uncertainty. Specifically, a Bayesian TPP is formally expressed as: 
+\begin{equation}
+    f(\theta\mid \mathcal{T})=\frac{f(\mathcal{T}\mid \theta)f(\theta)}{\int f(\mathcal{T}\mid \theta)f(\theta)d\theta},
+\end{equation}
+where \( f(\mathcal{T}\mid \theta) \) is the likelihood in \cref{mark_likelihood}, \( f(\theta) \) is the prior on model parameters, the denominator is the marginal likelihood, and \( f(\theta\mid \mathcal{T}) \) is the posterior distribution of model parameters. 
+In general, the inference for Bayesian TPPs is more challenging than for frequentist TPPs because the TPP likelihood is not conjugate to any prior. This means that the posterior does not have an analytical expression and can only be obtained through approximation methods, such as Markov chain Monte Carlo (MCMC)~\citep{deutsch2022bayesian,rasmussen2013bayesian}, variational inference~\citep{lloyd2015variational,zammit2012variational}, and Laplace approximation~\citep{hossain2009approximate,illian2013fitting}, among others. 
+
+
+
+
+
+\section{Bayesian Nonparametric TPPs}
+
+\label{bayedian_nonp_tpp}
+
+Early work on TPPs was limited to parametric models, whether in the frequentist or Bayesian framework. These methods rely heavily on model assumptions, making them inflexible and often performing poorly on complex datasets. To address this limitation, many studies have proposed nonparametric methods. 
+\citet{yan2019recent} provides a comprehensive description of frequentist nonparametric methods, while this paper focuses on Bayesian nonparametric TPPs, which not only enhance model flexibility but also incorporate the ability to quantify model uncertainty.  
+
+\subsection{Bayesian Nonparametric Poisson Process}
+\label{bayesian_poisson}
+Bayesian nonparametric TPPs do not parameterize the intensity function into a fixed form. Instead, they treat the intensity function itself as a model parameter with infinite dimensions and impose suitable prior on it.  
+For instance, in the case of an inhomogeneous Poisson process, the intensity function \(\lambda(t)\) is treated as the parameter, and a prior \(f(\lambda(t))\) is placed on it. The goal is then to compute the posterior distribution. This prior, being a distribution over functions, is commonly modeled using a Gaussian process (GP). 
+Consequently, the Bayesian nonparametric framework is formulated as follows: 
+\begin{equation}
+    f(g(t) \mid \mathcal{T})=\frac{f(\mathcal{T}\mid \lambda(t)=l \circ g(t))\mathcal{GP}(g(t))}{\int f(\mathcal{T}\mid \lambda(t)=l \circ g(t))\mathcal{GP}(g(t))dg}, 
+\label{inference}
+\end{equation}
+where \( l(\cdot): \mathbb{R} \to \mathbb{R}^+ \) is a link function ensuring the intensity function is non-negative, e.g., exponential (log Gaussian Cox process~\citep{moller1998log}), scaled sigmoid (sigmoidal Gaussian Cox process~\citep{adams2009tractable}), square (permanental process~\citep{mccullagh2006permanental}), etc. 
+It is worth noting that computing \cref{inference} is highly challenging, as the posterior is doubly intractable due to an intractable integral over \(t\) in the numerator and another over \(g\) in the denominator. 
+This is a well-known problem in the field of Bayesian nonparametric TPPs~\citep{murray2006mcmc}. 
+
+Many methods have been proposed to solve \cref{inference}.  
+Some studies focus on utilizing MCMC methods. 
+\citet{adams2009tractable} proposed an MCMC inference method for a Poisson process with a sigmoidal GP prior. The core idea is to incorporate latent thinned points to make the posterior tractable. However, this method scales cubically with the number of data and thinned points. 
+\citet{gunter2014efficient} extended this approach to multiple dependent Cox processes using multi-output Gaussian processes, and also derived an MCMC sampler for performing inference. 
+Later, \citet{samo2015scalable} leveraged inducing points, a common technique in GP for reducing time complexity~\citep{titsias2009variational}, to derive an MCMC sampler that reduces the computational cost to linear w.r.t. the number of data points. 
+
+Some studies focus on methods based on the Laplace approximation. 
+% \citet{cunningham2008fast} proposed a Maximum A Posteriori method that utilizes GP on a fixed grid to estimate the intensity function. However, strictly speaking, grid-based approaches are no longer fully nonparametric.  
+\citet{flaxman2015fast} combined Kronecker methods with the Laplace approximation to enable scalable inference. 
+\citet{walder2017fast} proposed a fast Laplace approximation relying on the Mercer decomposition of the GP kernel. However, its tractability is limited to standard kernels such as the squared exponential kernel. 
+To address this limitation, \citet{sellier2023sparse} introduced an alternative fast Laplace approximation leveraging the spectral representation of kernels. This approach retains tractability while accommodating a broader range of stationary kernels. 
+Furthermore, \citet{sunnonstationary} extended this method to non-stationary kernels by leveraging sparse spectral representations to overcome the limitations of stationary kernels. This approach provides a low-rank approximation of the kernel, effectively reducing computational complexity from cubic to linear. 
+
+Another common approach is variational inference. 
+\citet{lloyd2015variational} introduced the first fully variational inference scheme for permanental processes. However, similar to \citet{walder2017fast}, its tractability is limited to certain standard types of kernels. 
+\citet{lian2015multitask} further extended the method in \citet{lloyd2015variational} to a multitask point process model, leveraging information from all tasks via a hierarchical GP. 
+\citet{john2018large} expanded the approach in \citet{lloyd2015variational} to utilize the Fourier representation of the GP, enabling the use of more general stationary kernels. 
+\citet{aglietti2019structured} presented a novel tractable representation of the likelihood through augmentation with a superposition of Poisson processes. This perspective enabled a structured variational approximation that captured dependencies across variables in the model. The method avoided discretization of the domain, did not require numerical integration over the input space, and was not limited to GPs with squared exponential kernels. 
+
+
+
+
+It is worth noting that, \citet{donner2018efficient} introduced the data augmentation technique based on P\'{o}lya-Gamma variables to the field of Bayesian nonparametric TPPs. This technique is an improvement and extension of the method proposed by \citet{adams2009tractable}. 
+The method augments not only thinned points but also P\'{o}lya-Gamma latent variables for all data and thinned points in the likelihood. This enables the augmented likelihood to be conditionally conjugate to the GP prior. By leveraging the conditionally conjugacy, we can derive fully analytical Gibbs sampler, EM algorithm, and mean-field variational inference method. 
+This method was later extended to jointly model multiple heterogeneous and correlated tasks—such as classification, regression, and point processes—using multi-output GPs. This extension facilitated information sharing across heterogeneous tasks while enabling nonparametric estimation~\citep{zhou2023heterogeneous}. 
+
+
+The works discussed above primarily use GP as prior. However, other forms of Bayesian nonparametric priors are also possible. For example, \citet{kottas2006dirichlet,kottas2007bayesian} used a Dirichlet process mixture of Beta densities as a prior for the normalized intensity function of a Poisson process. 
+Bayesian nonparametric TPPs based on Dirichlet process mixtures and those based on GPs represent two orthogonal modeling paradigms, both capable of achieving Bayesian nonparametric inference. Inference for Dirichlet process mixture-based TPPs typically relies on specialized MCMC or variational inference techniques developed within the Dirichlet process framework. A detailed discussion of these methods is beyond the scope of this paper. 
+
+
+
+
+\subsection{Bayesian Nonparametric Hawkes Process}
+\label{bayesian_hawkes}
+
+For the Hawkes process, as shown in \cref{hawkes}, the conditional intensity function consists of the baseline intensity \(\mu(\cdot)\)\footnote{Some studies treat the baseline intensity as a constant, but here we consider it as a more general function.} and the triggering function \(\phi(\cdot)\). Therefore, the Bayesian nonparametric Hawkes process typically places GP priors on both \(\mu(\cdot)\) and \(\phi(\cdot)\) (we take the unmarked case as an example): 
+\begin{equation}
+\begin{aligned}
+    &f(g(t),h(\tau) \mid \mathcal{T}) \propto f(\mathcal{T}\mid \mu(t)=l \circ g(t),\phi(\tau)=l \circ h(\tau))\mathcal{GP}(g(t))\mathcal{GP}(h(\tau)), 
+\end{aligned}
+\label{hawkes_inference}
+\end{equation}
+where \( l(\cdot)\) is a link function ensuring $\mu(t)$ and $\phi(\tau)$ are non-negative, similar to \cref{inference}. 
+Computing \cref{hawkes_inference} is more challenging than \cref{inference} because in the likelihood of Hawkes process, \(\mu(t)\) and \(\phi(\tau)\) are coupled together, which significantly complicates the inference process. 
+
+To address this issue, a common approach is to augment a branching latent variable into the Hawkes likelihood to indicate whether each event is triggered by itself via the baseline intensity or by a previous event via the triggering function~\citep{marsan2008extending}. 
+The branching variable \(\mathbf{X}\) is a lower triangular matrix with Bernoulli entries, where \(x_{nm}\) indicates whether the \(n\)-th event is triggered by itself or a previous event \(m\): 
+\begin{equation*}
+    \begin{split}
+    &x_{nn}=\left\{
+                        \begin{aligned}
+                        &1 \ \ \text{if event $n$ is a background event},\\
+                        &0 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \text{otherwise},\\
+                        \end{aligned}
+                    \right.\\
+    &x_{nm}=\left\{
+                        \begin{aligned}
+                        &1 \ \ \text{if event $n$ is caused by event $m$},\\
+                        &0 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \text{otherwise}.\\
+                        \end{aligned}
+                    \right.
+    \end{split}
+\end{equation*}
+After augmenting the branching latent variable, the joint likelihood is expressed as: 
+\begin{equation}
+\begin{aligned}
+&f(\mathcal{T},\mathbf{X} \mid \mu(t),\phi(\tau))=\underbrace{\prod_{n=1}^{N}\mu(t_n)^{x_{nn}}\exp{\left(-\int_0^T\mu(t)dt\right)}}_{\text{baseline intensity part}}\cdot\underbrace{\prod_{n=2}^{N}\prod_{m=1}^{n-1}\phi(t_n-t_m)^{x_{nm}}\prod_{n=1}^{N}\exp{\left(-\int_0^{T_\phi}\phi(\tau)d\tau\right)}}_{\text{triggering function part}}, 
+\end{aligned}
+\end{equation}
+where the support of triggering function is assumed to be $[0,T_\phi]$. If the branching variable $\mathbf{X}$ is marginalized out, we obtain the original likelihood. 
+
+It is clear that, after introducing the branching variable, the joint likelihood factorizes into two independent components: one corresponding to the baseline intensity and the other to the triggering function. These two components are linked through the branching variable $\mathbf{X}$. To the best of our knowledge, \citet{marsan2008extending} was the first to identify this structure and subsequently proposed an EM algorithm that leverages it: the E-step computes the posterior distribution of the branching variable, while the M-step estimates the parameters of both the baseline intensity and the triggering function. 
+Later, \citet{lewis2011nonparametric} extended this approach to the frequentist nonparametric setting by treating the baseline intensity and the triggering function as two flexible, unconstrained functions. They imposed Good’s roughness penalty~\citep{goodd1971nonparametric} on both functions and derived the solutions using the Euler–Lagrange equation. 
+\citet{zhou2013learning} further extended the method in \citet{lewis2011nonparametric} to multivariate Hawkes processes by assuming that the triggering functions in the multivariate setting are linear combinations of a set of basis functions. Each basis function was then estimated using the Euler–Lagrange equation. 
+There also exist frequentist nonparametric approaches that do not rely on the branching variable. For example, \citet{bacry2016first} proposed an estimation method based on solving a Wiener–Hopf equation that relates the triggering function to the second-order statistics. Additionally, \citet{eichler2017graphical,reynaud2010adaptive} attempted to estimate the triggering function by minimizing a quadratic contrast function using a grid-based representation of the triggering function. 
+\citet{bonnet2024nonparametric} extended the approach of \citet{flaxman2017poisson}, which formulated Poisson process intensity estimation within a reproducing kernel Hilbert space (RKHS) framework, to the more complex setting of Hawkes processes. 
+
+
+In the Bayesian nonparametric Hawkes process setting, a similar strategy can be adopted. By introducing the branching variable, the Hawkes likelihood factorizes into two independent components, each of which can be viewed as an independent Poisson process. Since we place independent GP priors on these two components, we can directly apply the methods discussed in \cref{bayesian_poisson} to compute the posteriors of $\mu(t)$ and $\phi(\tau)$. This naturally leads to an iterative algorithm where, at each iteration, the posterior of $\mathbf{X}$ is used to update the posteriors of $\mu(t)$ and $\phi(\tau)$, which are then used to update the posterior of $\mathbf{X}$ in turn. 
+
+In recent years, many GP-based Bayesian nonparametric Hawkes process studies have adopted this iterative framework. 
+\citet{zhang2019efficient} derived a Gibbs sampler and a maximum a posteriori (MAP) EM algorithm to estimate a nonparametric triggering function.  
+\citet{zhang2020variational} extended the variational inference method from \citet{lloyd2015variational} to the Hawkes process for estimating a nonparametric triggering function.  
+Further, \citet{zhou2021em} applied variational inference to simultaneously estimate the nonparametric baseline intensity and triggering function. 
+\citet{zhou2020auxiliary,malem2022variational} extended the data augmentation method based on P\'{o}lya-Gamma variables from \citet{donner2018efficient} to the Hawkes process. This work derived fully analytical Gibbs sampler, EM algorithm, and mean-field variational inference method. 
+This approach was subsequently extended to nonlinear Hawkes processes to account for excitation and inhibition effects between interacting variables~\citep{zhou2022efficient}. 
+\citet{sulem2024bayesian} analyzed the theoretical properties of this approach; specifically, it provided concentration rates for the posterior distribution of the parameters under mild assumptions on both the prior and the model, and established consistency guarantees for the inferred Granger causal graph. 
+
+
+The works discussed above primarily use GP as prior. However, other forms of Bayesian nonparametric priors are also possible. 
+For instance, \citet{markwick2020bayesian, yin2022bayesian, jiang2025semiparametric} extended the Hawkes process to the Bayesian nonparametric setting using Dirichlet process mixture priors. Building on this line of research, \citet{worrall2024online} proposed an online inference method using sequential Monte Carlo techniques. Additionally, \citet{donnet2020nonparametric} introduced priors based on piecewise constant functions with either regular or random partitions, as well as priors defined via mixtures of Beta distributions. A comprehensive discussion of alternative approaches lies beyond the scope of this paper. 
+A complete, though not exhaustive, comparison of Bayesian nonparametric Poisson and Hawkes models is provided in \cref{table3}. 
+
+\begin{table}[t]
+    \caption{Comparison of Bayesian nonparametric Poisson and Hawkes models.}
+    \label{table3}
+    \centering
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{lcccccc}
+        \toprule
+        Work  & Model & Prior & Link Function & Inference & Complexity & Kernel Support\\
+        \midrule
+        \citet{adams2009tractable} & Poisson & GP  & sigmoid & MCMC &  \(\mathcal{O}(N^3)\) & Any \\
+        \citet{gunter2014efficient} & Poisson & Multi-output GP & sigmoid &  MCMC & \(\mathcal{O}(N^3)\) & Any \\ 
+        \citet{samo2015scalable} & Poisson &  Sparse GP & exponential & MCMC &  \(\mathcal{O}(N)\) & Any \\
+        \citet{flaxman2015fast} & Poisson &  GP + Kronecker & exponential & Laplace & near \(\mathcal{O}(N)\) & Any \\
+        \citet{walder2017fast} & Poisson & Mercer GP & square & Laplace & \(\mathcal{O}(N)\) & squared exponential \\
+        \citet{sellier2023sparse} & Poisson & Spectral GP & square & Laplace & \(\mathcal{O}(N)\) & stationary \\
+        \citet{lloyd2015variational} & Poisson & GP & square & Variational & \(\mathcal{O}(N)\) & squared exponential \\
+        \citet{aglietti2019efficient} & Poisson & Multi-output GP & exponential & Variational & \(\mathcal{O}(N)\) & Any \\
+        \citet{donner2018efficient} & Poisson & GP + P\'{o}lya-Gamma & sigmoid & Variational/MCMC/EM & \(\mathcal{O}(N)\) & Any \\
+        \citet{kottas2007bayesian} & Poisson & DP mixture & -- & MCMC & not specified & -- \\
+        \citet{zhang2019efficient} & Linear Hawkes & GP for $\phi(\tau)$ only & square & MCMC & \(\mathcal{O}(N)\) & Any \\
+        \citet{zhang2020variational} & Linear Hawkes & GP for $\phi(\tau)$ only & square & Variational & \(\mathcal{O}(N)\) & squared exponential  \\
+        \citet{zhou2021em} & Linear Hawkes & GP & square & Variational & \(\mathcal{O}(N)\) & squared exponential  \\
+        \citet{zhou2020auxiliary} & Linear Hawkes & GP + P\'{o}lya-Gamma & sigmoid & Variational/MCMC/EM & \(\mathcal{O}(N)\) & Any \\
+        \citet{malem2022variational} & Nonlinear Hawkes &  GP + P\'{o}lya-Gamma & sigmoid & Variational & \(\mathcal{O}(N)\) & Any \\
+        \citet{zhou2022efficient} & Nonlinear Hawkes &  GP + P\'{o}lya-Gamma & sigmoid & Variational/MCMC/EM & \(\mathcal{O}(N)\) & Any \\
+        % \citet{sulem2024bayesian} & Nonlinear Hawkes & proper prior & ReLU/exp/sigmoid/softplus & consistency analysis &  not specified & -- \\
+        \citet{jiang2025semiparametric} & Linear Hawkes & DP mixture & -- & MCMC & \(\mathcal{O}(N)\) & -- \\
+        \bottomrule
+    \end{tabular}}
+\end{table}
+
+
+
+
+
+
+\section{Neural TPPs}
+\label{neural_tpp}
+
+Benefiting from the rapid development of deep learning, another way to enhance the flexibility of TPPs is by using deep models to model TPPs. Compared to frequentist/Bayesian nonparametric TPPs, neural TPPs offer more intuitive and straightforward modeling and parameter estimation. 
+\citet{shchur2021neural} provided a comprehensive review of neural TPPs, but it focuses on work prior to 2020. 
+This paper focuses more on the latest advancements from 2020 to 2024. 
+In the following, we categorize neural TPPs into three major types and introduce each in detail. A schematic illustration of these models is shown in \cref{fig_neural_tpp}. 
+
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.97\linewidth]{neural_tpp}
+    \caption{Illustration of neural TPPs. (a) Recurrent neural TPPs, where the hidden state is updated recurrently using the current event and then used to model the conditional intensity function; (b) Autoregressive neural TPPs, where the hidden state is computed by summarizing all previous events and then used to model the conditional intensity function; (c) Differential equation-based neural TPPs, where the hidden state evolves continuously when no events occur and undergoes a jump at event times, and is then used to model the conditional intensity function.} 
+    \label{fig_neural_tpp}
+\end{figure*}
+
+\subsection{Recurrent Neural TPPs}
+\label{recurrent}
+The earliest work on neural TPPs can be traced back to \citet{du2016recurrent}, which was the first to use a recurrent neural network (RNN) to model TPPs.  
+In that work, each event in $\{(t_n, k_n)\}_{n=1}^N$ is passed through an embedding layer to obtain a compact representation $\mathbf{y}_n$. 
+At each event location, a history embedding $\mathbf{h}_n$ is designed to capture historical information. 
+When a new event occurs, the history embedding is updated based on the feature of the current event:
+\begin{equation}
+    \mathbf{h}_n = \text{Update}(\mathbf{h}_{n-1}, \mathbf{y}_n).
+\end{equation} 
+Finally, the history embedding \(\mathbf{h}_n\) is used to parameterize the conditional distribution of the next event. In \citet{du2016recurrent}, \(\mathbf{h}_n\) is used to represent the conditional intensity function after $t_n$: 
+\begin{equation}
+\lambda^*(t, k) = \exp{\left(\mathbf{v}_k^\top\mathbf{h}_n + w_k(t - t_n) + b_k\right)},
+\label{rnn_intensity}
+\end{equation}
+where $\mathbf{v}_k$, $w_k$, and $b_k$ are learnable parameters for $k$-th mark. The first term captures the influence of past events through the history embedding, the second term is an extrapolation component that models the intensity at time $t$, and the third term is a bias. The exponential function ensures that the conditional intensity function remains positive. 
+As discussed in \cref{sec2}, although the conditional intensity function is a common parameterization, other formulations for characterizing the conditional distribution of the next event are also feasible. 
+
+Due to the gradient vanishing or exploding problems of traditional RNNs, \citet{du2016recurrent} was unable to model long-range dependencies. 
+To address this issue, \citet{mei2017neural} proposed a long short-term memory~\citep{hochreiter1997long} (LSTM)-based TPP model, which mitigates the shortcomings of traditional RNNs and achieves improved performance. 
+\citet{xiao2017modeling} introduced a dual-LSTM framework, where one LSTM models the TPP and the other models a time-series covariate. The history embeddings from both networks are then fused to predict the next event. 
+By leveraging the additional information from covariates, TPPs can achieve improved prediction performance. 
+\citet{yang2018recurrent} further extended the LSTM-based point process model to the spatio-temporal domain. 
+\citet{omi2019fully} used RNNs to encode history, but modeled the cumulative conditional intensity instead of the conditional intensity itself to avoid costly numerical integration during MLE. This enables efficient training via differentiation rather than integration, as discussed in \cref{parametrization}. 
+\citet{soen2021unipoint} proposed UniPoint, an RNN-based model that serves as a universal approximator for point process intensity functions. They theoretically proved that RNNs can approximate any valid intensity by leveraging the Stone-Weierstrass theorem. 
+\citet{gupta2021learning} addressed missing events by using two RNNs to model the generative processes of observed and missing events, with the latter treated as latent variables. They proposed an unsupervised training method based on variational inference to jointly learn both models. 
+\citet{chen2024non} established excess risk bounds for RNN-based TPPs under various TPP settings. They showed that a four-layer RNN-TPP can achieve vanishing generalization error. 
+
+% The main advantage of recurrent models is their computational efficiency: during the prediction phase, the time complexity of predicting the next event is \(O(1)\), while during training, the time complexity is \(O(N)\) since the history embedding \(\mathbf{h}_n\) is iteratively updated. 
+% The primary drawback of recurrent models is that they cannot be trained in parallel due to the inherently sequential nature of RNNs, leading to inefficient training, and they are unable to capture long-range dependencies, which can degrade performance. 
+
+The main advantage of recurrent models lies in their computational efficiency. During the prediction phase, once the history embedding $\mathbf{h}_n$ is obtained, the model can predict the next event with constant time complexity $O(1)$, regardless of the sequence length. This makes recurrent models particularly suitable for online or streaming settings where fast real-time prediction is essential. Moreover, during training, the time complexity scales linearly with the number of events, i.e., $O(N)$, since the history embedding is updated in an iterative, step-by-step manner along the event sequence. 
+However, recurrent models also suffer from several notable limitations. First, due to their inherently sequential architecture, they cannot be efficiently parallelized during training, which significantly slows down the training process, especially for long event sequences. Second, traditional RNN-based models struggle to capture long-range dependencies due to issues such as vanishing or exploding gradients, which can degrade the model’s ability to learn complex temporal dynamics over extended horizons. Although architectures such as LSTMs and GRUs~\citep{chung2014empirical} partially mitigate these issues, they do not fundamentally resolve them. These limitations have motivated the development of alternative architectures, such as attention-based and Transformer-style models, which offer better support for parallelism and more effective modeling of long-range dependencies. 
+% In \cref{table1}, we summarize the advantages and disadvantages of recurrent models and autoregressive models for comparison. 
+
+
+
+It is worth noting that in recent years, several powerful recurrent architectures have been proposed in the field of sequential models, such as the Receptance Weighted Key Value (RWKV)~\citep{peng2023rwkv}, the Structured State Space Sequence (S4)~\citep{guefficiently}, and Mamba~\citep{gu2023mamba}. 
+These works aim to design efficient recurrent architectures to replace Transformers, as Transformers have a high time complexity of \(O(N^2)\) in training and \(O(N)\) in prediction. 
+All these models are recurrent architectures, so they share the same advantages as RNNs, such as \(O(1)\) time complexity for prediction and \(O(N)\) time complexity for training. However, their key distinction from RNN lies in their ability to support parallelized training and capture long-range dependencies. 
+Integrating these novel and efficient recurrent architectures with TPPs is an important future research direction. This integration could significantly enhance the scalability of neural TPPs for training and prediction on large-scale datasets. 
+Currently, works in this area are limited. \citet{gao2024mamba} and \citet{chang2024deep} explored the idea of combining Mamba or deep state space models with TPPs, offering a promising path forward for scalable TPP modeling. 
+
+
+
+\subsection{Autoregressive Neural TPPs}
+\label{autoregressive}
+
+As stated in \cref{recurrent}, due to the limitations of RNNs, such as the inability to support parallel training and capture long-range dependencies, a large number of studies since 2020 have explored using Transformer architectures to model TPPs. 
+The earliest works include \citet{simiao2020transformer} and \citet{zhang2020self}, which share similar ideas but differ slightly in certain details. 
+Each event in the sequence \(\{(t_n, k_n)\}_{n=1}^N\) is encoded as a feature vector \(\mathbf{y}_n \in \mathbb{R}^M\), combining both temporal and mark information.
+We adopt sinusoidal positional encodings for the temporal component, defined as:
+\[
+z_j(t_n) =
+\begin{cases}
+\cos\left(t_n / 10000^{\frac{j-1}{M}} \right), & \text{if } j \text{ is odd},\\
+\sin\left(t_n / 10000^{\frac{j}{M}} \right), & \text{if } j \text{ is even},
+\end{cases}
+\]
+where \(z_j(t_n)\) denotes the \(j\)-th entry of the time embedding vector \(\mathbf{z}(t_n) \in \mathbb{R}^M\), and \(j = 0, \ldots, M-1\). The complete time embedding matrix is denoted by:
+\[
+\mathbf{Z} = [\mathbf{z}(t_1), \ldots, \mathbf{z}(t_N)]^\top \in \mathbb{R}^{N \times M}.
+\]
+Let \(\mathbf{U} \in \mathbb{R}^{M \times K}\) be a learnable mark embedding matrix, where \(K\) is the total number of event types. The mark \(k_n\) is first converted into a one-hot vector \(\mathbf{k}_n \in \mathbb{R}^K\), and its embedding is given by:
+\[
+\mathbf{e}(k_n) = \mathbf{U} \mathbf{k}_n \in \mathbb{R}^M.
+\]
+Collecting all event mark embeddings yields:
+\[
+\mathbf{E} = [\mathbf{e}(k_1), \ldots, \mathbf{e}(k_N)]^\top \in \mathbb{R}^{N \times M}.
+\]
+The final embedding for each event is obtained by summing its temporal and mark embeddings:
+\[
+\mathbf{Y} = \mathbf{Z} + \mathbf{E} \in \mathbb{R}^{N \times M},
+\]
+where each row \(\mathbf{y}_n\) in \(\mathbf{Y}\) represents the complete embedding of the \(n\)-th event in the sequence. 
+The matrix $\mathbf{Y}$ is then multiplied by corresponding weight matrices to compute the query, key, and value matrices: 
+$
+\mathbf{Q} = \mathbf{Y}\mathbf{W}_Q\in\mathbb{R}^{N\times M_K}, \quad \mathbf{K} = \mathbf{Y}\mathbf{W}_K\in\mathbb{R}^{N\times M_K}, \quad \mathbf{V} = \mathbf{Y}\mathbf{W}_V\in\mathbb{R}^{N\times M_V}. 
+$
+Finally, the attention score is computed as: 
+\begin{equation}
+    \mathbf{S}=\text{softmax}\left(\frac{\mathbf{Q}\mathbf{K}^\top}{\sqrt{M_K}}\right)\mathbf{V}. 
+    \label{attention}
+\end{equation}
+To ensure causality and prevent future events from affecting past events, it applies a mask to the upper triangular entries of \(\mathbf{Q}\mathbf{K}^\top\). 
+
+The attention score is then used to generate the history embedding \(\mathbf{h}_n\), which serves as the history representation for parameterizing the conditional distribution of the next event.
+In \citet{simiao2020transformer,zhang2020self}, \(\mathbf{h}_n\) is used to represent the conditional intensity function after \(t_n\): 
+\begin{equation}
+\lambda^*(t, k) = \text{softplus}\left(\mathbf{v}_k^\top \mathbf{h}_n + \frac{w_k(t - t_n)}{t_n} + b_k\right), 
+\label{attention_intensity}
+\end{equation}
+where $\mathbf{v}_k$, $w_k$, and $b_k$ are learnable parameters for $k$-th mark. 
+However, other parameterizations for characterizing the conditional distribution of the next event are also feasible.  
+For example, \citet{panosdecomposable} used the history embedding \(\mathbf{h}_n\) obtained from the Transformer to model the conditional density function of the next event \(f(t \mid \mathbf{h}_n)\). This approach makes sampling the next event more efficient.  
+
+
+The advantages and disadvantages of autoregressive models stand in contrast to those of recurrent models. A key strength of autoregressive models lies in their ability to support parallel training and effectively capture long-range dependencies via self-attention mechanisms. 
+However, these benefits come at the cost of computational efficiency. During training, the time and memory complexity scales quadratically with the sequence length, i.e., \(\mathcal{O}(N^2)\), due to the self-attention computation across all event pairs. During prediction, autoregressive models typically require all previous hidden states to compute the next event, resulting in a time complexity of \(\mathcal{O}(N)\). While key-value (KV) caching techniques can reduce the prediction time to constant time complexity \(\mathcal{O}(1)\) by storing intermediate representations, they incur significant memory overhead, which can become prohibitive for long sequences or memory-constrained environments. 
+In contrast, recurrent models maintain a hidden state that is updated incrementally, leading to linear time complexity \(\mathcal{O}(N)\) for training and constant time \(\mathcal{O}(1)\) for prediction, but at the cost of sequential processing and limited ability to model long-range dependencies. 
+% In \cref{table1}, we provide a comparison of the advantages and disadvantages of autoregressive and recurrent models. 
+
+
+
+
+% \begin{table}[t]
+%     \caption{The advantages and disadvantages of autoregressive models and recurrent models.}
+%     \label{table1}
+%     \centering
+%     \resizebox{\linewidth}{!}{
+%     \begin{tabular}{lcc}
+%         \toprule
+%         Property  & Recurrent Model & Autoregressive Model \\
+%         \midrule
+%         Parallel Training     &   \ding{55}   & \ding{52} \\
+%         Long-range Dependency     & \ding{55}     & \ding{52}  \\
+%         Time Complexity (training)  & \(O(N)\)     & \(O(N^2)\) \\
+%         Time Complexity (prediction) & \(O(1)\)     & \(O(N)\) \\
+%         \bottomrule
+%     \end{tabular}}
+% \end{table}
+
+
+
+
+Between 2020 and 2024, numerous studies have proposed improvements to Transformer TPP models.  
+For instance, \citet{zhu2021deep} modified the computation of the attention score in \cref{attention}, replacing the commonly used dot-product attention with a flexible non-linear attention score based on Fourier kernels, enabling the capture of more complex event similarities. 
+\citet{zhou2022neural} extended Transformer-based point process models to the spatio-temporal domain by first using a Transformer to encode the event history. The resulting history embedding is then mapped to a latent stochastic process, which is subsequently used to generate a set of temporal and spatial kernels. These kernels are linearly combined to construct the spatio-temporal conditional intensity function. 
+\citet{yang2022transformer} further improved the attention mechanism proposed in \citet{simiao2020transformer, zhang2020self} by introducing future-event-specific query vectors that incorporate continuous positional encodings of time \(t\). As \(t\) increases, the attention weights over past events vary smoothly, enabling a more adaptive and temporally aware modeling of historical influence. 
+\citet{mei2021transformer} proposed a Transformer-based model without setting the form of intensity for flexible modeling. 
+\citet{li2023sparse} proposed a sparse Transformer TPP model based on a sliding window mechanism to reduce the quadratic time and space complexity of Transformers.  
+\citet{meng2024interpretable} introduced improvements in the combination of time and mark embeddings, the computation of \(\mathbf{Q}\) and \(\mathbf{K}\) matrices, and the modeling of the conditional intensity function. These enhancements allowed the Transformer Hawkes process to perfectly align with statistical nonlinear Hawkes processes, thereby improving its interpretability. 
+\citet{wang2024federated} combined Transformer TPPs with federated learning, enabling collaborative learning from large amounts of distributed event sequence data. 
+
+
+
+
+
+
+\subsection{Differential Equation-based Neural TPPs}
+\label{differential}
+
+Recurrent and autoregressive neural TPPs share a fundamental limitation: as discrete-time models, they can only compute the history embedding $\mathbf{h}_n$ and the conditional intensity function $\lambda^*(t_n)$ at discrete event times. However, they cannot directly characterize the conditional intensity function over the continuous intervals between events. To address this issue, many studies introduce extrapolation terms to approximate the intensity function over such intervals. 
+For example, in \cref{rnn_intensity}, the term $w_k(t - t_n)$, and in \cref{attention_intensity}, the term $w_k(t - t_n)/t_n$, are both designed to serve as extrapolation mechanisms. However, these extrapolation components adopt fixed parametric forms, which limit the expressiveness of the conditional intensity function over event intervals. Specifically, the extrapolation behavior in \cref{attention_intensity} is approximately linear with respect to $t$, as the $\text{softplus}$ function closely resembles a ReLU. This limitation is visually demonstrated in \citet{meng2024interpretable}, where the authors plot the conditional intensity function over intervals to highlight this issue. 
+
+
+
+
+
+
+Differential equation-based TPPs represent another line of research. These models, being continuous-time, can model the conditional intensity function over continuous time, thus avoiding the above issue.  
+Specifically, these models utilize differential equations (often stochastic differential equations (SDEs)) to describe a history-dependent left-continuous hidden state \(\mathbf{h}^*(t)\) over \([0, T]\) with an initial state \(\mathbf{h}^*(0)\). For instance, in \citet{jia2019neural}, the SDE is defined as: 
+\begin{equation}
+    d\mathbf{h}^*(t)=\text{NN}_{\theta_1}(\mathbf{h}^*(t),t)dt+\text{NN}_{\theta_2}(\mathbf{h}^*(t),t)dN(t), 
+    \label{sde}
+\end{equation}
+where we take the unmarked case as an example. The functions \(\text{NN}_{\theta_1}\) and \(\text{NN}_{\theta_2}\) are two neural networks that govern the flow and jump of \(\mathbf{h}^*(t)\), respectively. \(N(t)\) is the counting process that records the number of events up to time \(t\). When no event occurs, \(\mathbf{h}^*(t)\) evolves smoothly according to \(\text{NN}_{\theta_1}\). When an event occurs, \(\mathbf{h}^*(t)\) undergoes a jump at the event's timestamp, governed by \(\text{NN}_{\theta_2}\). 
+Then, the history-dependent left-continuous hidden state \(\mathbf{h}^*(t)\) is used to define the conditional intensity function: 
+\begin{equation}
+\lambda^*(t) = \text{NN}_{\theta_3}(\mathbf{h}^*(t)), 
+\label{sde_intensity}
+\end{equation}
+where \(\text{NN}_{\theta_3}\) is another neural network ensuring a non-negative output. Finally, we use MLE to estimate the model parameters. 
+Clearly, since \(\mathbf{h}^*(t)\) can vary flexibly over the event intervals—being parameterized by \(\text{NN}_{\theta_1}\)—the resulting conditional intensity function \(\lambda^*(t)\) also exhibits flexible dynamics between events. This effectively overcomes the limited expressiveness of recurrent and autoregressive neural TPPs in modeling the conditional intensity function over event intervals. 
+
+
+
+The earliest work, to the best of our knowledge, that integrates differential equations with point processes is~\citet{chen2018neural}, which considered a simple inhomogeneous Poisson process whose intensity function evolves according to an ordinary differential equation (ODE). However, this model does not account for the discontinuities in the conditional intensity function caused by historical events. 
+To address this limitation, \citet{jia2019neural} proposed a method based on SDE, as shown in \cref{sde,sde_intensity}, to model the conditional intensity of history-dependent TPPs. This approach allows the conditional intensity function to exhibit jumps at the occurrence of events. 
+A contemporaneous work, \citet{rubanova2019latent}, combined ODEs with RNNs. In this framework, the hidden state $\mathbf{h}^*(t)$ evolves smoothly according to an ODE when no event occurs, and undergoes a jump at the event time, governed by the RNN update. This enables the model to capture jumps in the conditional intensity function at event times. 
+In fact, \citet{rubanova2019latent} shares strong similarities with \citet{mei2017neural}, but is more general. Specifically, \citet{mei2017neural} assumes that $\mathbf{h}^*(t)$ evolves across event intervals following an exponential law, whereas \citet{rubanova2019latent} allows $\mathbf{h}^*(t)$ to evolve flexibly over event intervals according to arbitrary ODEs. 
+The ODE-based approach was later extended to spatio-temporal TPPs by \citet{chenneural}. 
+\citet{wang2018stochastic} adopted a SDE-based approach to directly model the conditional intensity function of TPPs. Additionally, they used an SDE to model users’ opinions, enabling the incorporation of user feedback into the TPP framework. This results in a closed-loop model that jointly captures the dynamics of users’ opinions and event generation. More recently, \citet{zhang2024neural} proposed a novel SDE-based method for modeling TPPs. Instead of modeling a latent hidden state via an SDE and mapping it to the conditional intensity function, their approach directly models the conditional intensity function with an SDE, and further provides a theoretical analysis on the existence and uniqueness of its solution.
+
+Although differential equation-based neural TPPs offer greater flexibility than recurrent and autoregressive models in characterizing the conditional intensity function over event intervals, they suffer from significant computational inefficiencies during both training and sampling. During training, when using MLE, the model requires numerical integration to compute the integral of the conditional intensity function. This necessitates evaluating the intensity at multiple time points, which can only be obtained by solving the ODE or SDE defined in~\cref{sde} using a numerical solver. As a result, training is considerably slower compared to recurrent or autoregressive neural TPPs. Similarly, during the sampling phase—such as when applying the thinning algorithm—intensity values at various time points must also be computed via ODE or SDE solvers, further increasing the computational cost and slowing down the sampling process. 
+A comparison among the three mainstream neural TPP architectures is provided in \cref{table4}. 
+
+\begin{table}[!htbp]
+    \caption{Comparison of neural TPP architectures.}
+    \label{table4}
+    \centering
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{lccccccc}
+        \toprule
+        Model Type & Parallel Training & Long-range & Training Complexity & Prediction Complexity & Continuous-time & Strengths & Limitations \\
+        \midrule
+        Recurrent & \ding{55} & Limited & \(O(N)\) & \(O(1)\) & No & efficient prediction &  slow training \\
+        Transformer & \ding{52} & Strong & \(O(N^2)\) & \(O(N)/O(1)\)\tablefootnote{with KV cache.} & No & parallel training & high complexity \\
+        ODE/SDE-based & \ding{55} & Strong & depend on solver & depend on solver & Yes & continuous-time, expressive & slow training/prediction\\
+        \bottomrule
+    \end{tabular}}
+\end{table}
+
+
+\subsection{Diffusion-based TPPs}
+\label{diffusion_tpp}
+
+Recently, diffusion-based generative modeling has emerged as a promising new direction for TPPs. Diffusion models have achieved remarkable success in a wide range of generative tasks, including image generation, video synthesis, and tabular data modeling. In these models, data are generated by reversing a gradual noising process through iterative denoising steps \citep{song2020score}. 
+
+% To improve efficiency and scalability, many works perform diffusion in latent spaces rather than in the original data space. For example, latent diffusion models have enabled high-resolution text-to-image synthesis such as Stable Diffusion \citep{esser2024scaling}. 
+
+% In addition to latent-space diffusion, recent work has explored more flexible diffusion processes through asynchronous noise schedules. For example, groupwise diffusion models \citep{lee2023sequential} divide data into groups and diffuse them separately, enabling cascaded generation across different representation domains. Diffusion Forcing \citep{chen2024diffusionforcing} further generalizes diffusion processes by assigning each time step a randomly sampled noise level, allowing the model to learn denoising under arbitrary noise schedules. Such techniques have been successfully applied to sequential generation tasks including video synthesis, motion planning, and robotics, suggesting that diffusion models are particularly suitable for modeling complex temporal structures.
+
+Inspired by these advances, diffusion models have recently been introduced into temporal point process modeling. Unlike conventional neural TPPs that typically model the conditional intensity function or inter-event distribution in an autoregressive manner, diffusion-based approaches aim to learn the distribution of an entire event sequence through iterative denoising. This perspective enables non-autoregressive sequence generation and can mitigate the error accumulation problem that often arises in long-horizon prediction. 
+
+One of the first works in this direction is \citet{ludke2023add}, which develops a diffusion framework specifically tailored to temporal point processes. Instead of applying standard Gaussian diffusion directly, the method constructs a noising and denoising process through point addition and thinning operations, which are classical mechanisms in point-process simulation. The reverse diffusion process therefore naturally preserves the semantics of event sequences while learning the underlying intensity structure.
+Subsequent work has further extended diffusion modeling for event sequences. For instance, \citet{kerrigan2024eventflow} proposes a diffusion-based approach that predicts multiple future events within a prediction horizon through a single denoising trajectory, rather than repeatedly predicting the next event in an autoregressive fashion. This design allows the model to capture global dependencies among future events. Other studies have explored diffusion modeling for more complex point-process structures. For example, \citet{yuan2023spatio} introduce a diffusion-based framework for jointly modeling spatial and temporal point processes, enabling unified generation of spatiotemporal event patterns while addressing the conditional dependence between spatial and temporal dynamics. \citet{ludke2024unlocking} formulate point processes as unordered sets and apply point-cloud denoising techniques to enable permutation-invariant event generation and direct likelihood evaluation. 
+
+Compared with traditional intensity-based or autoregressive neural TPPs, diffusion-based approaches offer a complementary modeling paradigm. By generating entire event sequences through iterative denoising, they provide a more global view of future event trajectories and are potentially better suited for long-horizon forecasting and sequence simulation. 
+However, diffusion-based (non-autoregressive) generation also introduces several important limitations. 
+First, unlike autoregressive models that explicitly model the conditional distribution of the next event given history, diffusion models learn a global sequence distribution through iterative denoising. This makes it less straightforward to enforce temporal consistency and causal dependence across events, especially for long sequences. 
+Second, the multi-step denoising process significantly increases both training and inference cost, as generating a single sequence typically requires dozens or even hundreds of refinement steps. 
+Third, non-autoregressive generation lacks an explicit likelihood formulation in many cases, which makes model evaluation, calibration, and comparison with classical TPP methods more difficult. 
+Finally, diffusion models may struggle to accurately capture fine-grained temporal structures (e.g., inter-event time distributions or intensity dynamics), since temporal information is implicitly represented in the denoising trajectory rather than directly parameterized. 
+These limitations highlight a fundamental trade-off between global sequence modeling and efficient, interpretable conditional prediction in TPPs. 
+
+
+
+
+\subsection{Parametrization of Neural TPPs}
+\label{parametrization}
+Both recurrent and autoregressive neural TPPs extract a history embedding from past event information and use it to model the conditional distribution of the next event.  
+As discussed in \cref{sec2}, there are multiple ways to represent the conditional distribution of the next event, such as the conditional density function \(f(t \mid \mathcal{H}_{t_n})\) in \cref{unmark_likelihood}, the cumulative distribution function \(F(t \mid \mathcal{H}_{t_n})\) in \cref{intensity}, the conditional intensity function \(\lambda^*(t)\) in \cref{intensity}, and the cumulative intensity function \(\Lambda^*(t) = \int_0^t \lambda^*(\tau)d\tau\).  
+All of these parameterizations are equivalent and can be used to characterize the conditional distribution of the next event, since, as proved in~\cref{con_density}, the conditional intensity function and the conditional density function are in a one-to-one correspondence. 
+A schematic illustration of the four common parameterizations of TPPs is shown in \cref{fig_parametrization}. 
+
+\begin{figure*}[!htbp]
+    \centering
+    \includegraphics[width=0.9\linewidth]{parametrization}
+    \caption{Four common parameterizations of TPPs: (a) the probability density function (PDF) of the next event, (b) the cumulative distribution function (CDF) of the next event, (c) the conditional intensity function, and (d) the conditional cumulative intensity function.}
+    \label{fig_parametrization}
+\end{figure*}
+
+
+Most of the works discussed above adopt the conditional intensity function as the primary parameterization.  
+The main advantage of this approach lies in its conceptual and implementation simplicity---the model only needs to ensure that the output is non-negative, which can be easily achieved using functions like ReLU, softplus, or exponential mappings.  
+However, a notable drawback arises during MLE: the log-likelihood requires evaluating the integral of the conditional intensity function over the observation window. In most practical cases, this integral does not admit a closed-form solution and must be approximated using numerical integration techniques, such as Monte Carlo sampling or quadrature.  
+This introduces additional computational overhead and can compromise both the estimation accuracy and the overall training efficiency, especially for complex or high-dimensional models. 
+
+In recent years, several studies have explored alternative parameterizations for TPPs. 
+\citet{shchur2019intensity} and \citet{panosdecomposable} modeled the conditional density function \(f(t \mid \mathcal{H}_{t_n})\) directly as a mixture of log-normal distributions, using history embeddings as inputs. 
+The key difference between the two lies in how the history embeddings are extracted: \citet{shchur2019intensity} used a RNN, while \citet{panosdecomposable} employed a Transformer-based encoder. 
+One major advantage of modeling the conditional density directly is that it eliminates the need to compute the integral of the conditional intensity function during MLE, earning it the name “intensity-free” modeling.  
+Another benefit is efficient sampling: given the history, the next event can be sampled directly from a mixture of log-normal distributions, which admits a simple and tractable form. 
+\citet{taieb2022learning} modeled the inverse of the cumulative distribution function \(F^{-1}(t \mid \mathcal{H}_{t_n})\) using the history embedding with monotonic rational-quadratic splines. This method also avoids numerical integration and supports efficient sampling. 
+\citet{omi2019fully,oleksandr2020fast,liu2024cumulative} proposed modeling the cumulative intensity function \(\Lambda^*(t)\) conditioned on history using monotonic neural networks or splines. This enables a reformulation of the log-likelihood in \cref{mark_likelihood}, which, for the unmarked case, becomes: 
+\begin{equation}
+    \log f(\mathcal{T};\theta) = \sum_{n=1}^{N} \log\frac{d}{dt}\Lambda_{\theta}^*(t_n^-) - \Lambda_\theta^*(T), 
+\label{CCIF-likelihood}
+\end{equation}
+where \( t_n^- \) denotes the left-hand limit of the derivative at \( t_n \).  
+By modeling the cumulative intensity function directly, this parameterization transforms the integral in the log-likelihood into a derivative, allowing for efficient computation using automatic differentiation. Consequently, it eliminates the need for numerical integration during MLE training, improving both accuracy and efficiency. 
+The comparison of four parameterizations of TPPs is provided in \cref{table:parametrization_comparison}. 
+
+
+\begin{table}[!htbp]
+\caption{Comparison of neural TPP parameterizations.}
+\label{table:parametrization_comparison}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lccccc}
+\toprule
+Parameterization 
+& Numerical Integration 
+& Sampling Efficiency 
+& Training Efficiency 
+& Requirement
+& Representative Works \\
+\midrule
+Conditional Intensity Function $\lambda^*(t \mid \mathcal{H})$ 
+& Yes 
+& Low 
+& Low 
+& Nonnegative
+& \citep{du2016recurrent,mei2017neural,simiao2020transformer} \\
+Conditional Density Function $f(t \mid \mathcal{H})$ 
+& No 
+& High 
+& High 
+& Nonnegative, normalized
+& \citep{shchur2019intensity,panosdecomposable} \\
+Cumulative Distribution Function $F(t \mid \mathcal{H})$ 
+& No 
+& High 
+& High 
+& Monotonically increasing between $(0,1)$
+& \citep{taieb2022learning} \\
+Cumulative Intensity Function $\Lambda^*(t \mid \mathcal{H})$ 
+& No 
+& Low 
+& High 
+& Nonnegative, monotonically increasing
+& \citep{omi2019fully,oleksandr2020fast,liu2024cumulative} \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+
+
+
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.9\linewidth]{llm_tpp}
+    \caption{An overview of LLM-based TPPs. The event time $t$, type $k$, and associated multimodal data $m$ are first encoded into tokens via an encoder. These tokens are then fed into a LLM, which can be used to generate the next event or produce a textual description of the causal events. The encoder design varies across different works. For example, \citet{liu2024tpp} uses temporal positional encodings as in standard Transformers; \citet{shi2024language} treats event times as text and leverages the LLM's built-in tokenizer; and \citet{kong2025language} converts event times into floating numbers and encodes them as byte-level tokens.}
+    \label{llm_tpp}
+\end{figure}
+
+
+\section{LLM-based TPPs}
+LLM-based temporal point processes can be broadly categorized into two paradigms depending on the role played by large language models. One line of work uses LLM-inspired mechanisms to enhance conventional neural TPPs without replacing their temporal modeling backbone, while another line directly integrates LLMs as the core sequence model for representing and predicting event streams. Although both aim to leverage the representational power of LLMs, they differ fundamentally in architecture, training strategy, and how semantic and temporal information are encoded.
+More broadly, this line of research lies at the intersection of temporal point processes, sequential foundation models, multimodal event understanding, and retrieval-augmented reasoning. Unlike classical TPPs, which mainly focus on continuous-time likelihood modeling and prediction, LLM-based approaches naturally connect event streams with free text, external knowledge, and heterogeneous modalities. This makes them relevant not only to TPP modeling, but also to adjacent areas such as temporal representation learning, event-sequence retrieval, multimodal reasoning, and question answering over time-stamped observations. From this perspective, LLM-based TPPs should be understood not merely as a new model family, but as an expansion of the TPP research agenda toward semantically rich event understanding.
+A schematic illustration of LLM-based TPPs is shown in \cref{llm_tpp}.
+
+\subsection{LLM-inspired TPPs}
+
+\label{llm_inspired}
+
+LLM-inspired TPPs retain a neural temporal point process as the primary model of event dynamics but borrow ideas from LLMs—such as prompt learning or reasoning—to improve adaptation and interpretability. PromptTPP \citep{xue2023prompt} is a representative example that introduces prompt learning into neural TPPs to enable continual learning under distribution shifts. Instead of retraining the base TPP when new data arrive, PromptTPP prepends a small set of learnable temporal prompts to the event sequence. These prompts are retrieved from a continuously updated memory pool and optimized jointly with the TPP, allowing the model to adapt to new patterns without storing past data or introducing task-specific modules. This design is computationally efficient and particularly attractive in streaming or privacy-constrained scenarios. However, because the prompts only modulate an existing neural TPP, the approach does not introduce higher-level semantic or causal reasoning.
+
+A different LLM-inspired strategy is adopted in LAMP \citep{shi2024language}, which augments neural TPPs with abductive reasoning capabilities provided by an LLM. LAMP uses a multi-stage pipeline in which a base event sequence model first proposes candidate future events. A fine-tuned LLM then generates plausible causes for each proposed event, after which a retrieval module searches the historical sequence for events matching these causes. A scoring function evaluates whether the retrieved events can reasonably explain the proposed future events. In contrast to PromptTPP, which focuses on efficient adaptation via prompts, LAMP aims to improve prediction quality and interpretability through causal-style reasoning. However, this comes at the cost of increased complexity and reduced robustness, since prediction depends on multiple interacting components, while the temporal dynamics themselves are still modeled by a conventional TPP. 
+
+\subsection{Direct LLM-TPP Integration}
+
+\label{direct}
+
+In contrast, direct LLM–TPP integration methods use LLMs as the primary model for representing and predicting event sequences, embedding both semantic and temporal information into the LLM input space. TPP-LLM \citep{liu2024tpp} follows this paradigm by representing events through their textual descriptions rather than categorical marks, enabling pretrained LLMs to capture rich semantic relations between events. Temporal information is injected via positional-style temporal embeddings, and parameter-efficient fine-tuning methods such as LoRA are employed to adapt the LLM to temporal prediction tasks. The LLM produces contextualized representations of the event history, which are then passed to an intensity head for predicting the next event time and type. Compared to LLM-inspired approaches, TPP-LLM tightly couples semantic understanding with temporal modeling, but it still relies on external temporal embeddings to represent continuous time.
+
+Language-TPP \citep{kong2025language} proposes a more unified representation by encoding continuous time intervals directly as byte-level tokens that are processed by the LLM in the same way as natural language. This eliminates the need for positional or temporal embeddings and allows the LLM to model time and semantics in a single token sequence. As a result, Language-TPP supports standard TPP tasks such as event time and type prediction, while also enabling new capabilities such as generating natural-language event descriptions. Compared with TPP-LLM, this token-based temporal encoding provides a tighter integration of time and language but leads to longer sequences and higher computational cost.
+
+Overall, LLM-inspired TPPs such as PromptTPP and LAMP enhance existing neural TPPs with adaptation and reasoning mechanisms, whereas direct LLM–TPP approaches such as TPP-LLM and Language-TPP redefine TPP modeling by using LLMs as the core event sequence model. This distinction highlights different trade-offs in efficiency, expressiveness, interpretability, and scalability across the emerging landscape of LLM-based temporal point processes. 
+
+
+
+% \begin{table}[!htbp]
+% \caption{Comparison of LLM-based Temporal Point Process Models}
+% \label{table:llm_tpp_comparison}
+% \centering
+% \resizebox{\linewidth}{!}{
+% \begin{tabular}{lcccccc}
+% \toprule
+% Method 
+% & Category 
+% & Role of LLM 
+% & Temporal Encoding 
+% & Semantic Modeling 
+% & Reasoning Capability 
+% & Main Limitations \\
+% \midrule
+% PromptTPP~\citep{xue2023prompt}
+% & LLM-inspired 
+% & Prompt-style adaptation 
+% & Continuous time (TPP-based) 
+% & Limited 
+% & None 
+% & No explicit semantic or causal reasoning \\
+% \midrule
+% LAMP~\citep{shi2024language}
+% & LLM-inspired 
+% & External reasoning module 
+% & Continuous time (TPP-based) 
+% & Implicit (via LLM prompts) 
+% & Abductive reasoning 
+% & Multi-stage pipeline, higher complexity \\
+% \midrule
+% TPP-LLM~\citep{liu2024tpp}
+% & Direct integration 
+% & Core sequence model 
+% & Positional / temporal embeddings 
+% & Explicit (textual events) 
+% & Limited 
+% & Relies on handcrafted temporal embeddings \\
+% \midrule
+% Language-TPP~\citep{kong2025language}
+% & Direct integration 
+% & Core sequence model 
+% & Byte-level time tokens 
+% & Explicit (textual events) 
+% & Implicit (via language modeling) 
+% & Longer sequences, higher computational cost \\
+% \bottomrule
+% \end{tabular}}
+% \end{table}
+
+
+
+
+\subsection{Other Extensions}
+\label{retrieval}
+\citet{liu2025retrieval} introduced TPP-Embedding for temporal event sequence retrieval from textual descriptions, targeting applications in e-commerce behavior analysis, social media monitoring, and criminal incident tracking. The authors developed {TESRBench}, a comprehensive benchmark with diverse real-world datasets and synthesized textual descriptions. Their model leverages the TPP-LLM~\citep{liu2024tpp} framework to integrate LLMs with TPPs, encoding both event texts and temporal information through pooling representations and contrastive loss to align sequence-level embeddings with textual descriptions. This approach outperforms baseline models across TESRBench datasets and establishes foundations for retrieval-augmented generation in TPP domains.
+
+Extending beyond textual data, \citet{jiang2025danmakutppbench} introduced {DanmakuTPPBench}, a comprehensive multi-modal TPP benchmark addressing the gap in datasets with temporal, textual, and visual information. The benchmark comprises two components: {DanmakuTPP-Events}, derived from Bilibili's user-generated bullet comments (Danmaku) that form multi-modal events with timestamps, textual content, and video frames; and {DanmakuTPP-QA}, a question-answering dataset constructed via a multi-agent pipeline using state-of-the-art LLMs and multi-modal LLMs (MLLMs). Targeting temporal-textual-visual reasoning tasks requiring multi-modal event dynamics understanding, extensive evaluations of classical TPP models and recent MLLMs reveal significant performance gaps in modeling multi-modal event sequences. This work establishes baselines and opens research directions for integrating TPP modeling into the multi-modal language modeling landscape.
+An illustration of DanmakuTPPBench is shown in \cref{danmaku_dataset}. 
+
+\paragraph{On the boundary of the TPP framework.}
+Recent LLM-based extensions significantly broaden the scope of TPP research by introducing tasks such as event-sequence retrieval, question answering, and multimodal reasoning. While these tasks are highly valuable, they do not always fit neatly into the traditional definition of a temporal point process as a stochastic process over event times and marks. In classical TPPs, the central object is a probability law over event occurrences in continuous time, and core tasks focus on likelihood modeling, prediction, simulation, or causal structure discovery. By contrast, retrieval or QA tasks often require high-level semantic understanding, external knowledge integration, and cross-modal reasoning that go beyond the standard probabilistic objectives of TPPs.
+
+This observation does not diminish the importance of these new directions; rather, it highlights a conceptual shift. LLM-based TPP research is gradually moving from modeling event occurrence processes to understanding temporally indexed event data. As a result, future work may need to distinguish more clearly between tasks that are fundamentally point-process problems and tasks that use TPPs as one component within a broader temporal reasoning system. Clarifying this boundary would help the community better define evaluation protocols, modeling assumptions, and the scope of claimed contributions.
+
+
+
+Overall, this direction is rapidly evolving, with approaches ranging from LLM-inspired techniques to direct integration and multi-modal extensions. The field shows promise for exploration in areas such as retrieval-augmented TPPs, multi-modal event understanding, and more sophisticated temporal reasoning capabilities.
+
+
+
+
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.6\linewidth]{danmaku}
+    \caption{An illustration of DanmakuTPPBench~\citep{jiang2025danmakutppbench}, a multi-modal benchmark for TPPs. The dataset consists of time-stamped events with associated event types $k$ and multimodal information $m$, where $m$ includes both the textual content of user comments (danmaku) and the corresponding video frames. This benchmark establishes standard baselines and opens new research directions for integrating TPP modeling into the broader landscape of multimodal language modeling.}
+    \label{danmaku_dataset}
+\end{figure}
+
+
+\section{Datasets, Benchmarks, and Evaluation Protocols}
+\label{sec:benchmark}
+
+Besides model design, progress in TPPs also depends critically on datasets, benchmark protocols, and evaluation metrics. In practice, however, the empirical study of TPPs has long suffered from fragmented datasets, inconsistent preprocessing, different train/validation/test splits, and heterogeneous metric definitions. As a result, performance comparisons across papers are often not directly comparable. Recent efforts such as EasyTPP \citep{xueeasytpp} have started to address this issue by providing a unified benchmarking framework, standardized implementations, and common evaluation pipelines. In this section, we summarize representative datasets, typical evaluation tasks, and commonly used metrics.
+
+\paragraph{Representative datasets.}
+Existing TPP datasets cover a wide range of domains, including social interactions, e-commerce, finance, healthcare, and multimodal user behavior. Classical datasets frequently used in neural TPP studies include Retweet \citep{RETWEET}, StackOverflow \citep{du2016recurrent}, and Taxi \citep{whong2014foiking}, which are typically medium-scale and mostly focus on timestamp--type prediction. More recently, larger-scale datasets have become available. For example, Amazon review data \citep{ni2019justifying} provide large collections of user-item interactions with timestamps and rich semantic information, making them suitable for studying large-scale event modeling and language-enhanced TPPs. Taobao-based datasets \citep{tianchi-taobao-2018} further provide realistic industrial event streams with dense user behaviors and are particularly useful for evaluating long-horizon prediction and large-scale sequential decision settings. In addition, benchmark-oriented resources such as DanmakuTPPBench \citep{jiang2025danmakutppbench} extend the scope of TPP evaluation to text retrieval, question answering, and multimodal temporal reasoning, broadening the traditional view of event sequence modeling. 
+
+\paragraph{Benchmark standardization.}
+A major recent development is the emergence of unified benchmark toolkits. EasyTPP is one of the first systematic efforts toward open benchmarking for TPPs, providing standardized data preprocessing, model implementations, training pipelines, and evaluation scripts \citep{xueeasytpp}. Such a benchmark is valuable not only for fair comparison, but also for improving reproducibility and lowering the entry barrier for researchers new to the field. From the perspective of a survey paper, benchmark standardization is as important as new model classes, because it determines whether empirical conclusions can be trusted and accumulated across studies.
+
+\paragraph{Evaluation tasks.}
+Existing TPP evaluation protocols can be roughly divided into four categories. The first is \emph{next-event prediction}, where the goal is to predict the time and/or mark of the next event. This is the most common setting in the literature. The second is \emph{long-horizon prediction}, where the model predicts multiple future events over an extended time window rather than only the next one. This task is substantially more difficult because errors accumulate autoregressively and the model must capture longer-term uncertainty. HyPro \citep{xue2022hypro} explicitly highlights this setting and proposes a benchmark protocol for evaluating long-horizon event-sequence prediction. The third category is \emph{semantic or multimodal tasks}, such as sequence retrieval, question answering, and multimodal reasoning, which arise in recent LLM-based TPP benchmarks such as DanmakuTPPBench \citep{jiang2025danmakutppbench}.
+
+\paragraph{Evaluation metrics.}
+The choice of metrics depends on the task. For next-event prediction, common metrics include time prediction error (e.g., MAE or RMSE of the next-event time), and classification metrics such as accuracy or macro-F1 for mark prediction. For long-horizon prediction, one often needs sequence-level metrics that assess the quality of multi-step forecasts over a future window, rather than only one-step accuracy. In this case, both temporal and mark-distribution alignment become important. One may consider distributional metrics such as negative log-likelihood, Wasserstein-style discrepancies or statistics derived from inter-event times and event-type frequencies. For retrieval and QA benchmarks in LLM-based TPPs, information-retrieval metrics and task-specific accuracy measures are also needed. Therefore, a complete evaluation of TPP models should align the metric with the intended downstream use, rather than relying only on likelihood. 
+
+\paragraph{Empirical Insights.}
+Although existing benchmarks provide diverse evaluation settings, several consistent empirical patterns can be observed across prior studies. 
+First, neural TPPs, especially Transformer-based models, generally outperform classical parametric models (e.g., Hawkes processes) in next-event prediction tasks, particularly on large-scale and complex datasets. 
+Second, models that directly parameterize the conditional density or cumulative intensity function often achieve better training efficiency and comparable or superior predictive accuracy compared to intensity-based models, due to the avoidance of numerical integration. 
+Third, long-horizon prediction remains challenging for all model classes, with autoregressive methods suffering from error accumulation, while non-autoregressive approaches (e.g., diffusion-based models) may struggle to maintain temporal consistency. 
+Finally, recent LLM-based and multimodal TPP approaches demonstrate improved performance in tasks involving semantic understanding or heterogeneous data, but their advantages are less clear in purely temporal prediction benchmarks. 
+These observations suggest that model performance is highly task-dependent, and no single modeling paradigm consistently dominates across all evaluation settings.
+
+% \paragraph{Practical considerations and open issues.}
+% Although benchmark construction is improving, several challenges remain. First, datasets vary significantly in event sparsity, mark cardinality, sequence length, and observation window, which makes cross-dataset conclusions difficult. Second, many published results still use different filtering rules and preprocessing pipelines. Third, current benchmark practice is still dominated by one-step prediction, while long-horizon prediction, simulation quality, calibration, and robustness remain under-evaluated. For future progress, the community would benefit from benchmark suites that simultaneously report likelihood-based, prediction-based, generation-based, and task-specific semantic metrics under fixed data splits and transparent preprocessing protocols.
+
+
+% \begin{table}[ht]
+% \caption{Representative datasets and evaluation protocols for TPPs.}
+% \label{tab:benchmark_summary}
+% \centering
+% \resizebox{\linewidth}{!}{
+% \begin{tabular}{lllll}
+% \toprule
+% Dataset / Benchmark & Domain & Scale / Characteristics & Typical Tasks & Typical Metrics \\
+% \midrule
+% Retweet / social datasets & Social diffusion & Medium-scale, typed events & Next-event prediction & NLL, time MAE, mark accuracy \\
+% StackOverflow & Online behavior & Medium-scale user activities & Next-event prediction & NLL, RMSE, accuracy \\
+% Amazon & E-commerce / reviews & Large-scale, rich semantics & Next-event, semantic TPP modeling & NLL, time error, retrieval metrics \\
+% Taobao & Industrial user behavior & Large-scale, dense event streams & Long-horizon prediction & Sequence-level prediction metrics, calibration \\
+% EasyTPP benchmark & Multiple domains & Unified preprocessing and splits & Standardized benchmarking & NLL, time error, mark metrics \\
+% TESRBench & Text retrieval & Text--event alignment & Retrieval & Recall@K, MRR \\
+% DanmakuTPPBench & Multimodal events & Time + text + vision & QA, multimodal reasoning & QA accuracy, retrieval / generation metrics \\
+% \bottomrule
+% \end{tabular}}
+% \end{table}
+
+
+% \section{Model Training}
+
+% In this section, we focus on frequentist methods for estimating model parameters in neural TPPs and LLM-based TPPs. The training objective is to align the model distribution \(f_\theta(\mathcal{T})\) with the empirical data distribution \(f(\mathcal{T})\), where \(\mathcal{T}\) denotes an observed event sequence. This is typically formulated as a divergence minimization problem:
+% \begin{equation}
+%     \hat{\theta} = \argmin_\theta \text{D}(f(\mathcal{T}) \,\|\, f_\theta(\mathcal{T})),
+% \end{equation}
+% where \(\text{D}(\cdot \,\|\, \cdot)\) is a statistical distance or divergence measure. Different choices of \(\text{D}\) correspond to different estimation principles. Below we summarize four representative approaches.
+
+
+
+\section{Model Training}
+
+In this section, we focus on frequentist methods for estimating model parameters in neural TPPs and LLM-based TPPs. Let $\mathcal{T}=\{(t_n,k_n)\}_{n=1}^N$ denote an observed event sequence and let $f_\theta(\mathcal{T})$ be the model distribution. Parameter learning is commonly formulated as minimizing a discrepancy between the empirical data distribution and the model distribution:
+\begin{equation}
+    \hat{\theta} = \argmin_\theta \mathrm{D}(f(\mathcal{T})\,\|\,f_\theta(\mathcal{T})).
+\end{equation}
+Depending on the choice of $\mathrm{D}$, one obtains different estimators with distinct statistical and computational trade-offs. To make these differences explicit, we next summarize the objective functions and practical properties of four representative training principles.
+
+
+
+
+\subsection{KL Divergence}
+\label{kl}
+KL divergence is a commonly used training criterion. Minimizing the KL divergence \(\text{KL}(f(\mathcal{T}) \,\|\, f_\theta(\mathcal{T}))\) is equivalent to maximizing the log-likelihood: 
+\[
+\hat{\theta} = \argmax_\theta \log f_\theta(\mathcal{T}).
+\]
+For a marked TPP with conditional intensity $\lambda_\theta^*(t,k)$, the log-likelihood of an observed sequence over $[0,T]$ can be written as
+\begin{equation}
+    \log f_\theta(\mathcal{T}) = \sum_{n=1}^{N} \log \lambda_\theta^*(t_n,k_n) - \int_0^T \sum_{k=1}^{K} \lambda_\theta^*(\tau,k)\, d\tau.
+    \label{eq:mle_tpp}
+\end{equation}
+Therefore, minimizing the KL divergence is equivalent to maximizing \eqref{eq:mle_tpp}. The first term rewards high intensity at observed events, while the second term normalizes the process by penalizing excessive intensity mass over the observation window.
+
+This approach necessitates explicit evaluation of the conditional intensity function and its integral over time, which is typically intractable and must be approximated via numerical integration. Despite its computational burden, MLE remains asymptotically efficient and statistically optimal. Due to its solid theoretical foundation and general applicability, MLE has been adopted in the vast majority of TPP studies~\citep{ozaki1979maximum,paninski2004maximum}. 
+
+
+
+
+\subsection{Wasserstein Distance}
+\label{wasserstein}
+
+In Wasserstein-based training, the model is learned by minimizing a distributional distance between model and data distributions: 
+\begin{equation}
+    \hat{\theta} = \argmin_\theta W\big(f(\mathcal{T}), f_\theta(\mathcal{T})\big),
+\end{equation}
+where $W(\cdot,\cdot)$ denotes the Wasserstein distance. 
+Since the Wasserstein distance is generally difficult to compute directly, it is typically approximated using an adversarial framework with a critic network based on the Kantorovich–Rubinstein dual formulation. 
+For example, \citet{xiao2017wasserstein} proposed leveraging the Wasserstein distance within a Wasserstein GAN (WGAN) framework for TPPs. In this setup, the TPP model acts as a generator, and a critic network learns to distinguish between real and generated event sequences by minimizing the Wasserstein distance. 
+
+Compared with KL divergence, the Wasserstein distance avoids the numerical integration required in MLE, yields smoother gradients for optimization, and is generally more robust to mode collapse. However, the adversarial training procedure used in WGANs may introduce additional instability and increase training complexity. 
+To further improve upon this approach, \citet{xiao2018learning} introduced a likelihood-free training method based directly on the Wasserstein distance between point processes. Unlike the earlier WGAN-based framework, which primarily learns the aggregate intensity over a dataset, their method enables individual-level, in-sample forward prediction of event sequences conditioned on historical context. Moreover, Wasserstein distance captures the underlying geometric structure of event sequences more effectively than KL divergence, leading to more robust alignment between the generated and real sequences. 
+
+
+\subsection{Noise Contrastive Estimation}
+\label{noise_constrastive}
+Noise contrastive estimation (NCE) reframes parameter learning as a binary classification problem that distinguishes observed data from artificially generated noise samples, thereby bypassing direct likelihood computation and making it suitable for models with intractable likelihoods such as TPPs. A generic objective takes the form
+\begin{equation}
+\hat{\theta} = \argmax_\theta \mathbb{E}_{\mathcal{T}\sim f}\big[\log \sigma(s_\theta(\mathcal{T}))\big] +
+\mathbb{E}_{\widetilde{\mathcal{T}}\sim q}\big[\log (1-\sigma(s_\theta(\widetilde{\mathcal{T}})))\big],
+\end{equation}
+where $f$ denotes the observed TPP, $q$ a noise TPP, $s_\theta(\cdot)$ a score function, and $\sigma(\cdot)$ the sigmoid function. 
+
+
+Both \citet{guo2018initiator} and \citet{mei2020noise} applied NCE techniques to estimate the parameters of TPPs. The key difference between them lies in the specific NCE variant they adopt. \citet{guo2018initiator} employed the original binary classification formulation proposed by \citet{gutmann2012noise}, which treats the learning task as discriminating between real and noise sequences. In contrast, \citet{mei2020noise} adopted a ranking-based NCE variant introduced by \citet{jozefowicz2016exploring}, which is better suited for modeling conditional distributions—a natural fit for TPPs where future events are conditioned on historical ones. 
+
+
+\subsection{Fisher Divergence}
+\label{fisher_divergence}
+Fisher divergence, also known as score matching~\citep{Hyvarinen05}, measures discrepancies between distributions through their score functions (i.e., gradients of log-densities). Since it does not require evaluating normalizing constants, it is particularly attractive for models with intractable likelihoods. In general form, the objective can be written as
+\begin{equation}
+\hat{\theta} = \argmin_\theta \mathbb{E}_{f}\left[\|\nabla \log f(\mathcal{T})-\nabla \log f_\theta(\mathcal{T})\|^2\right],
+\end{equation}
+although defining the score operator for TPPs is more subtle than in the standard Euclidean-density setting. 
+
+
+Several prior works have introduced score matching into the context of point processes. For example, \citet{SahaniBM16} derived score matching estimators for classical Poisson processes. \citet{zhang2023integration} extended this framework to deep covariate-based spatio-TPPs, while \citet{li2023smurf} further generalized it to multivariate Hawkes processes. These efforts have significantly advanced the applicability of score matching in point process modeling.
+However, recent work by \citet{caoscore,cao2025score} highlights a critical limitation: the estimators proposed in these earlier studies are incomplete and only valid for specific classes of point processes. In more general cases—including some simple parametric models—these methods fail to produce accurate parameter estimates. To address this issue, \citet{caoscore,cao2025score} proposed a weighted (autoregressive) score matching estimator that generalizes to a broader class of point process models, offering improved theoretical soundness and practical applicability.
+
+
+
+
+
+
+
+\subsection{Comparison between Different Estimators}
+Among these methods, only MLE requires computing the integral of the conditional intensity function. The others avoid this step, potentially improving training efficiency. All methods are consistent under mild conditions, but MLE remains asymptotically optimal in terms of variance. Alternative methods may exhibit slower convergence and higher asymptotic variance, but offer better scalability and computational simplicity.
+A systematic comparison of representative training objectives for TPPs is summarized in \cref{table:training_comparison}, highlighting their computational requirements, statistical properties, and practical trade-offs. 
+
+
+\begin{table}[!htbp]
+\caption{Comparison of TPP training objectives.} 
+\label{table:training_comparison}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lccccc}
+\toprule
+Estimator 
+& Divergence Type 
+& Likelihood Required 
+& Numerical Integration 
+& Statistical Efficiency 
+& Representative Works \\
+\midrule
+MLE 
+& KL divergence 
+& Yes 
+& Yes 
+& Asymptotically optimal 
+& \citep{ozaki1979maximum,paninski2004maximum} \\
+Wasserstein 
+& Wasserstein distance 
+& No 
+& No 
+& Consistent, higher variance
+& \citep{xiao2017wasserstein,xiao2018learning} \\
+NCE 
+& Classification-based 
+& No 
+& No 
+& Consistent, higher variance
+& \citep{guo2018initiator,mei2020noise} \\
+Score Matching 
+& Fisher divergence 
+& No 
+& No 
+& Consistent, higher variance
+& \citep{SahaniBM16,li2023smurf,caoscore} \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+
+
+\section{Applications}
+
+% \begin{figure*}[!htbp]
+%     \centering
+%     \includegraphics[width=\linewidth]{Application.pdf}
+%     \caption{An overview of applications of TPPs. 
+%     TPPs are widely used for event prediction in domains such as social networks, epidemiology, fraud detection, earthquake forecasting, financial markets, and recommendation systems. TPPs also play an important role in causal discovery where the goal is to infer causal relationships from data to support decision-making. These causal analysis capabilities find important applications in the areas like neuroscience, trading behavior analysis, AI for operations, social mutual influence, healthcare, and cybersecurity.}
+%     \label{application}
+% \end{figure*}
+
+
+TPPs have a wide range of applications, including in seismology, finance, neuroscience, social networks, and epidemiology. Broadly speaking, these applications can be categorized into two main types: event prediction and causal discovery. 
+% An overview of applications of TPPs is shown in \cref{application}. 
+To provide a structured overview, \cref{table:application_comparison} summarizes representative TPP applications across different domains, highlighting their objectives, modeling choices, and typical use cases. 
+
+
+% \textbf{Event Prediction:}  
+% This involves predicting the timing, frequency, and types of future events based on historical data. Such applications are common in fields like social networks and epidemiology.  
+% For example, in shopping recommendation systems, one can predict a user's future shopping times and item types based on their past purchase history, enabling targeted promotional strategies~\citep{mei2017neural,meng2024interpretable}. Similarly, in epidemiology, past infection times and locations of patients can be used to predict the approximate number and regions of new cases in the upcoming month~\citep{rizoiu2018sir}. 
+
+% \textbf{Causal Discovery:}  
+% This involves learning the relationships between different event types from observational data. Applications in this category are prevalent in neuroscience and finance. Here, the focus is not on predicting future events but on uncovering dependencies between event types, often referred to as Granger causality.  
+% For example, in neuroscience, each neuron can be considered as an event type, and its spike train forms a univariate point process. The spike trains of multiple neurons naturally constitute a multivariate point process. The goal is to determine whether there exists functional connectivity between neurons~\citep{linderman2015scalable,zhou2022efficient}. 
+% Similarly, in high-frequency financial trading, a large number of asks (sell orders) and bids (buy orders) occur within short periods. Here, all sell orders are treated as one event type, and all buy orders as another. The primary interest lies in understanding the mutual influence between buy and sell orders in the order book~\citep{bacry2014hawkes}. 
+
+\subsection{Application in Event Prediction}
+\label{application_event}
+
+Event prediction leverages historical data to forecast the timing, frequency, and types of future events, with applications spanning social networks, epidemiology, earthquake forecasting, finance, and recommendation systems.  
+In social networks, Hawkes processes and neural TPPs are widely employed to model temporal interactions and information diffusion. For instance, \citet{zhang2021vigdet} introduced a neural TPP for detecting coordinated behavior, while \citet{kobayashi2016tideh,hegde2022framework} applied Hawkes processes to retweet dynamics prediction, and \citet{cencetti2021temporal} further analyze the higher-order social interactions. Recent work enhances interpretability \citep{meng2024interpretable} and predicting information popularity \citep{li2025public}. Additionally, these methods aid in anomaly detection, such as identifying fake accounts \citep{qu2022mush}, and \citet{ahammad2024identifying} integrated sentiment analysis to detect fake news trends during the COVID-19 pandemic. 
+
+
+
+
+\begin{table}[t]
+\caption{Comparison of TPP applications in event prediction and causal discovery.}
+\label{table:application_comparison}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}{llllll}
+\toprule
+Application Type 
+& Domain 
+& Primary Objective 
+& Event Representation 
+& Typical Models 
+& Representative Works \\
+\midrule
+Event Prediction 
+& Social Networks 
+& Predict future event time/type 
+& User actions (posts, retweets) 
+& Hawkes, Neural TPPs 
+& \citep{kobayashi2016tideh,zhang2021vigdet} \\
+
+Event Prediction 
+& Epidemiology 
+& Forecast disease spread 
+& Infection times, locations 
+& Hawkes, Spatio-temporal TPPs 
+& \citep{rizoiu2018sir,chiang2022hawkes} \\
+
+Event Prediction 
+& Earthquakes 
+& Aftershock forecasting 
+& Time–location of quakes 
+& Spatio-temporal Hawkes 
+& \citep{ogata1998space,kwon2023flexible} \\
+
+Event Prediction 
+& Finance 
+& Market event prediction 
+& Trades, orders 
+& Hawkes, Neural Hawkes 
+& \citep{bacry2014hawkes,shi2022state} \\
+
+Event Prediction 
+& Recommendation 
+& User behavior prediction 
+& Purchases, clicks 
+& Neural TPPs 
+& \citep{mei2017neural,wang2021sequential} \\
+\midrule
+Causal Discovery 
+& Neuroscience 
+& Infer functional connectivity 
+& Neural spike trains 
+& Multivariate Hawkes 
+& \citep{linderman2015scalable,zhou2022efficient} \\
+
+Causal Discovery 
+& Finance 
+& Discover buy–sell influence 
+& Order book events 
+& Hawkes with sparsity 
+& \citep{bacry2014hawkes,xu2016learning} \\
+
+Causal Discovery 
+& AI Operations 
+& Root cause analysis 
+& System failure events 
+& Topological Hawkes 
+& \citep{cai2022thps} \\
+
+Causal Discovery 
+& Healthcare 
+& Analyze treatment interactions 
+& Symptoms, drug events 
+& Hawkes-based causal models 
+& \citep{bao2017hawkes} \\
+
+Causal Discovery 
+& Cybersecurity 
+& Attack pattern analysis 
+& Security alerts 
+& Neural Hawkes 
+& \citep{fortino2022neural} \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+
+
+In epidemiology, Hawkes processes effectively model disease propagation, as demonstrated by \citet{rizoiu2018sir}. Studies such as \citet{chiang2022hawkes} incorporated mobility data to predict COVID-19 transmission patterns, while \citet{schwabe2021predicting} leveraged similar data for early outbreak forecasting. Further contributions include estimating transmission times \citep{schoenberg2023estimating} and assessing pandemic impacts using self-exciting processes \citep{giudici2023network}.
+In earthquake forecasting, spatio-temporal Hawkes processes are instrumental in capturing aftershock sequences. For instance, \citet{ogata1998space} introduced spatio-temporal TPP models for earthquake occurrences, with recent advancements enhancing flexibility \citep{kwon2023flexible} and refining decay rate modeling \citep{davis2024fractional}.
+In financial markets, Hawkes processes analyze market microstructure and limit order book dynamics \citep{chen2022hawkes}. Neural Hawkes processes \citep{shi2022state} and \citep{nystrom2022hawkes} further improve predictive accuracy in high frequency financial data.
+Recommendation systems leverage Hawkes processes to model sequential user behavior. 
+\citet{wang2021sequential} combined them with attention mechanisms for sequential recommendations. 
+These techniques can also be used to predict a user’s future shopping times and item types based on their past purchase history, enabling targeted promotional strategies~\citep{mei2017neural,meng2024interpretable}. 
+
+Beyond event prediction, TPPs can also be used to analyze heterogeneous event streams and uncover latent temporal patterns. One representative task is event sequence clustering, which aims to group event sequences according to their underlying temporal dynamics. This is useful in applications such as user behavior analysis, patient stratification, and social activity mining, where different groups may exhibit distinct triggering patterns or interaction structures. 
+A representative approach is the Dirichlet mixture model of Hawkes processes proposed by \citet{xu2017dirichlet}, which assumes that each cluster corresponds to a different Hawkes process and learns cluster-specific excitation patterns from asynchronous event sequences. Compared with standard feature-based clustering methods, TPP-based clustering explicitly models temporal dependencies and excitation structures, leading to more interpretable clusters from a dynamical perspective. 
+
+
+
+\subsection{Application in Causal Discovery}
+\label{application_causal}
+
+In Hawkes process, causal discovery aim to recover the causal structure among difference event types from observed event sequence data. Applications in this category are prevalent in areas like neuroscience, finance, AI for operations, social network, healthcare, and cybersecurity. Here, the focus is not on predicting future events but on uncovering dependencies between event types, often referred to as Granger causality~\citep{granger1969investigating}. These causal relationships enable better decision-making and provide mechanistic understanding of complex event dynamics.
+For example, in neuroscience, each neuron can be considered as an event type, and its spike train forms a univariate point process. The spike trains of multiple neurons naturally constitute a multivariate point process. The goal is to determine whether there exists functional connectivity between neurons~\citep{linderman2015scalable,zhou2022efficient}. 
+Similarly, in high-frequency financial trading, a large number of asks (sell orders) and bids (buy orders) occur within short periods. Here, all sell orders are treated as one event type, and all buy orders as another. The primary interest lies in understanding the mutual influence between buy and sell orders in the order book~\citep{bacry2014hawkes}. 
+In AI operations, TPPs identify system failure root causes by distinguishing primary triggers from secondary effects through their causal structure, guiding prioritized fixes~\citep{cai2022thps}. Social network analysis similarly leverages Hawkes processes to quantify mutual influence patterns, where user actions (posts, likes, shares) as distinct event types reveal how influential users trigger reaction cascades~\citep{zhou2013learningsocial}. Healthcare applications employ TPPs to analyze drug reactions and symptom interactions for improved treatment strategies~\citep{bao2017hawkes}. Cybersecurity implementations further demonstrate their value in attack pattern analysis for enhanced defense mechanisms~\citep{Bessy-Roland_Boumezoued_Hillairet_2021,fortino2022neural}.
+
+
+
+The modeling framework for these applications in causal discovery builds upon multivariate Hawkes processes (MHP) where a $K$-varaite MHP can be formulated as a collection of $K$ univariate TPPs with the conditional intensity function taking the form of \cref{mhp}. 
+% \begin{equation}
+%     \lambda_i^*(t) = \mu_i + \sum_{j=1}^{d}\sum_{t_n < t} \phi_{j,i}(t - t_n), 
+% \label{causal_hawkes}
+% \end{equation}
+% where \(\mu_i > 0\) is the baseline intensity for $i$-process and the triggering function \(\phi_{j,i}(\cdot): \mathbb{R}^+ \to \mathbb{R}^+\) is causal, non-negative, and captures the influence from process $j$ to $i$. 
+Crucially, we say process $k^\prime$ does not Granger-cause process $k$ if and only if $\phi_{k,k^\prime}(\cdot) = 0$. 
+Therefore, estimating these triggering functions thus directly translates to learning the causal structure. 
+While MLE offers a straightforward solution for learning causal structure, it often produces spurious connections due to finite samples and the lack of sparsity constraints. To tackle this issue, various types of sparsity approaches have been developed, typically categorized into constraint-based and score-based methodologies. 
+Constraint-based approaches address the problem through statistical testing to prune spurious edges. For instance, \citet{runge2019detecting} proposed a general constraint-based framework for learning causal structure in time series data using conditional independence tests, but it is only applicable to discrete-time processes. Later, \citet{mogensen2020causal} proposed a screening algorithm for the Hawkes process, extending it to the continuous-time domain. 
+
+%while \citep{wang2020uncertainty} enhances robustness by quantifying uncertainty in the estimates.
+%\citep{wang2020uncertainty} propose a uncertainty quantification method for the estimating causal strengths obtinaed by the MLE estimation which enable a more robust learning procedure. 
+
+In contrast, score-based approaches learn causal structure by optimizing a well-defined criterion with various sparsity regularizations to enforce structural sparsity. For instance, \citet{xu2016learning} proposed a nonparametric Hawkes process model with group sparsity regularization, while \citet{zhou2013learningsocial} employed both nuclear norm and $\ell_1$ norm as sparsity regularizations. \citet{ide2021cardinality} used $\ell_0$-regularization via an $\epsilon$-sparsity approach~\citep{phan2019}. Alternatively, based on data compression techniques, \citet{jalaldoust2022causal} proposed a minimum description length (MDL) criterion for Hawkes processes. Using a similar approach, \citet{hlavavckova2024granger} introduced a minimum message length criterion, which extends the MDL framework. This extension incorporates prior distributions—such as expert knowledge—over model parameters, enhancing flexibility in structure-related penalization. 
+
+By further assuming process stability, \citet{achab2018uncovering} demonstrated that the inference procedure can be accelerated using a cumulant matching strategy based on the analytical form of cumulants~\citep{jovanovic2015cumulants}, thereby eliminating the need to estimate the triggering function.
+Recently, several deep point process-based methods have been proposed to move beyond static parametric triggering functions. For example, \citet{zhang2021neural} introduced a variational neural relation inference framework that combines multivariate TPPs with message-passing graphs for probabilistic relation discovery. \citet{yang2024variational} further proposed a variational autoencoder with dynamic latent graphs to capture time-varying dependencies among event types. \citet{wang2025learning} modeled multivariate TPPs through neural jump stochastic differential equations with latent graphs, offering a flexible continuous-time framework for relation-aware intensity dynamics. 
+\citet{02817a8a3ee244c68c2a91510915c943} introduced an attribution method to uncover Granger causality, and \citet{wu2024learning} explored instance-wise causal structures using Transformer self-attention, aligning the mechanism with Granger causality principles. 
+These works illustrate that neural causal discovery in TPPs is increasingly shifting toward latent-graph and graph-neural formulations. 
+
+
+Another line of research addresses more realistic scenarios where processes may exhibit nonstationarity, topological dependence, and insufficient temporal resolution.
+First, nonstationary dynamics frequently emerge when event interactions and background intensities vary over time~\citep{chen2023detection}. \citet{chen2022learning} further demonstrated that the causal mechanisms can change over time.
+Second, network effects often exist, where events are influenced not only by their own history but also by their topological neighbors. Failure to account for these dependencies can lead to biased causal estimates.
+To handle topological dependencies, \citet{cai2022thps} proposed the Topological Hawkes Process (THP), which extends temporal convolution to graph-time convolution while employing an EM-based inference approach.
+Subsequent improvements by \citet{li2024simple} enhanced THP’s scalability through gradient-based optimization, and \citet{zhu2024causalnet} further generalized the framework using causal-attention Transformers to capture complex network relationships. 
+
+For low-resolution scenarios, \citet{trouleau2021cumulants} demonstrated the robustness of cumulant-based methods to observational noise. Later, \citet{cuppers2024causal} incorporated delayed effects using a delay-aware MDL criterion to handle observation delays. Furthermore, \citet{qiao2023structural} showed that low resolution may lead to instantaneous effects and thus developed a discrete-time structural Hawkes process to handle such instantaneous causal relationships. 
+
+
+
+
+
+
+% \section{Challenges}
+
+% Although TPPs have achieved significant advancements in recent years, several critical challenges remain. While \citet{shchur2021neural} provided an overview of experimental issues, we focus here on open problems related to model design and practical applications. 
+
+% \paragraph{Data and Model}
+% A key challenge is the lack of a unified experimental setup across existing neural TPP studies, which hampers reproducibility and limits fair performance comparisons. To address this, \citet{bosser2023predictive} conducted a large-scale empirical study evaluating various architectures under a consistent setup across diverse synthetic and real-world datasets. Their results provide valuable insights into the effects of event encoding, history encoding, and decoder parameterization. Nevertheless, a standard benchmark protocol for model development and comparison is still lacking. 
+
+% \paragraph{Model Interpretability}
+% Traditional statistical TPPs (e.g., Poisson, Hawkes) offer interpretable components with clear physical meanings, such as base intensity and excitation kernels. In contrast, neural TPPs, while more expressive, typically operate as black-box models with limited transparency. Although recent studies have proposed structured designs or post-hoc explanations to improve interpretability, this remains an underexplored area. Designing inherently interpretable neural architectures is a promising direction for future research. 
+
+% \paragraph{Model Scalability}
+% Neural TPPs often adopt Transformer-based architectures to capture long-range dependencies. However, standard attention mechanisms incur quadratic time and space complexity $\mathcal{O}(N^2)$, which severely limits their scalability on long sequences. Although recent architectures such as state space models and Mamba offer linear-complexity alternatives, their adaptation to TPP modeling is still in its early stages and requires further theoretical and empirical investigation. 
+
+% \paragraph{Sampling Efficiency}
+% Most existing works emphasize expressiveness and training efficiency, while sampling efficiency has been largely overlooked. Current sampling procedures, such as thinning for intensity-based models and inverse transform sampling for density-based models, are inherently sequential, limiting real-time and parallel applications. Recent advances in speculative decoding for autoregressive models could inspire new directions for parallel sampling in TPPs. 
+
+% \paragraph{Multimodal Modeling}
+% Conventional TPPs typically model simple event features such as timestamp and categorical mark. However, many real-world applications involve multimodal information (e.g., text, image, audio) associated with events. Inspired by the success of multimodal models in vision and language, recent research has begun to explore integrating rich modalities into TPPs. In particular, LLM-based TPPs offer a promising paradigm for modeling and generating multimodal event sequences, though this area remains in its infancy and requires further development in representation alignment and efficient fusion mechanisms. 
+
+\section{Challenges}
+
+Despite the rapid progress of temporal point processes (TPPs), several fundamental challenges remain unresolved. Unlike standard sequence modeling problems, TPPs introduce unique difficulties due to their continuous-time nature, reliance on conditional intensity functions, and strict temporal ordering constraints. These characteristics lead to challenges that go beyond those commonly encountered in general machine learning settings.
+
+\paragraph{Data and Model}
+A major bottleneck for neural TPP research lies not only in the absence of standardized and well-curated benchmarks, but also in the intrinsic heterogeneity of event sequence data. TPP datasets often exhibit irregular time gaps, highly variable sequence lengths, and diverse mark spaces, which makes it difficult to design unified preprocessing pipelines and evaluation protocols across datasets. This heterogeneity is not merely a practical inconvenience; it directly affects model behavior, as different models may implicitly rely on different assumptions about time scales, event density, or mark distributions. 
+Existing datasets differ widely in preprocessing, time resolution, event definitions, and evaluation protocols, which makes reported improvements difficult to compare and often irreproducible. This inconsistency can induce implicit distribution shifts that confound model evaluation and lead to misleading conclusions about architectural superiority. 
+While large-scale studies such as \citet{bosser2023predictive} have taken important steps toward unified evaluation, the field still lacks community-agreed benchmarks with fixed data splits, standardized metrics, and clear task definitions. 
+Some initial efforts have already been made. For example, EasyTPP~\citep{xueeasytpp} provides a unified repository that implements a wide range of classical TPP models, ensuring consistency across implementations. Meanwhile, benchmark datasets such as \citet{jiang2025danmakutppbench} further extend evaluation to multimodal and reasoning-oriented tasks. Establishing standardized benchmarks remains particularly challenging in TPPs due to the need to jointly handle temporal structure and event semantics.
+
+\paragraph{Model Interpretability}
+The interpretability gap between classical and neural TPPs is rooted in the role of the conditional intensity function. In traditional models such as Poisson or Hawkes processes, parameters directly correspond to meaningful quantities such as background rates and triggering kernels. In contrast, neural TPPs encode temporal dynamics implicitly in high-dimensional latent states, making it difficult to understand how past events influence future event intensity. 
+This issue is especially critical in applications such as causal discovery, decision support, and scientific modeling, where interpreting event dependencies is often more important than predictive accuracy. While recent works propose attention-based or post-hoc attribution methods, these explanations are often heuristic and lack formal guarantees. 
+A more principled direction is to design neural architectures with built-in inductive biases that preserve interpretable components, for example by constraining intensities, kernels, or latent dynamics to have physically meaningful structure. There have also been some initial efforts in this direction. For instance, \citet{meng2024interpretable,zhou2023automatic} attempt to align neural TPPs with traditional statistical TPPs to improve interpretability.
+
+\paragraph{Model Scalability}
+Scalability limitations in TPPs are particularly severe due to the combination of long event sequences and continuous-time modeling requirements. In many real-world applications, event sequences may span tens of thousands of timestamps, while the model must capture dependencies not only across events but also over continuous time intervals. 
+For attention-based models, this leads to quadratic complexity with respect to sequence length. More importantly, unlike standard sequence models, TPPs often require evaluating the conditional intensity function or its integral over time, which introduces additional computational overhead. 
+Although linear-complexity alternatives such as state space models and Mamba \citep{chang2024deep,gao2024mamba} have shown promise in sequence modeling, their theoretical properties and inductive biases for point process data remain poorly understood. Future work must go beyond simply replacing attention with efficient modules and instead study how these architectures represent hazard functions, history dependence, and long-term temporal causality.
+
+\paragraph{Sampling Efficiency}
+Sampling efficiency is a particularly critical challenge in TPPs due to the reliance on conditional intensity functions and sequential simulation procedures. Classical sampling methods, such as thinning and inverse transform sampling, require repeated evaluation of the intensity function over time, which becomes computationally expensive for complex neural TPPs. 
+Moreover, unlike discrete sequence models, TPP sampling must ensure temporal validity, such as strictly increasing timestamps and consistency with the underlying intensity function, which further constrains parallelization. As a result, many TPP models are efficient for likelihood evaluation but slow for simulation and forecasting. 
+Recent works have explored alternative generative paradigms to address this issue. For example, flow-based methods \citep{ludke2025edit,kerrigan2024eventflow,shou2025unified}, diffusion-based approaches \citep{yuan2023spatio,ludke2024unlocking,zhang2024neural}, and speculative decoding techniques \citep{gongtpp,bilovs2025speculative} aim to enable parallel or block-wise generation while preserving temporal consistency. However, these approaches introduce new trade-offs, such as weaker control over conditional structure or higher computational cost.
+
+\paragraph{Multimodal Modeling}
+Real-world event sequences are often accompanied by rich contextual information such as text, images, or sensor data. Integrating such multimodal signals into TPPs presents unique challenges due to the mismatch between continuous-time representations and high-dimensional discrete modalities. In particular, temporal information is structured and continuous, while modalities such as text and images are typically unstructured and discrete, leading to fundamental differences in representation and learning objectives. 
+Current TPPs struggle to integrate such heterogeneous data due to misaligned representations, missing modalities, and high-dimensional inputs. While LLM-based TPPs provide a promising direction by leveraging pretrained multimodal representations, they also introduce challenges in temporal alignment, uncertainty calibration, and controllability. 
+A key open problem is how to jointly model temporal dynamics and multimodal semantics in a principled way, while preserving both statistical consistency and computational efficiency. This direction is still emerging, but initial efforts have already been made to integrate textual and visual information into TPP modeling \citep{jiang2025danmakutppbench,liu2024tpp,zhang2023integration,kong2025language}.
+
+
+
+% \section{Challenges}
+
+% Despite the rapid progress of temporal point processes (TPPs), several fundamental challenges remain unresolved. Beyond empirical performance, these challenges stem from deeper issues in data curation, model structure, optimization, and deployment, which jointly limit the reliability, interpretability, and scalability of current TPP systems.
+
+% \paragraph{Data and Model}
+% A major bottleneck for neural TPP research is the absence of standardized and well-curated benchmarks. Existing datasets differ widely in preprocessing, time resolution, event definitions, and evaluation protocols, which makes reported improvements difficult to compare and often irreproducible. This inconsistency is not merely a logistical issue: it induces implicit distribution shifts that confound model evaluation and can lead to misleading conclusions about architectural superiority. While large-scale studies such as \citet{bosser2023predictive} have taken important steps toward unified evaluation, the field still lacks community-agreed benchmarks with fixed data splits, standardized metrics, and clear task definitions. A promising direction is to establish shared repositories similar to those in vision and NLP, where models are evaluated under identical data and metric pipelines, enabling principled and cumulative progress. 
+% Some initial efforts have already been made. For example, EasyTPP~\citep{xueeasytpp} provides a unified repository that implements a wide range of classical TPP models, ensuring consistency across implementations. 
+% Meanwhile, several standardized benchmark datasets have also been introduced, such as \citet{jiang2025danmakutppbench}. 
+
+
+% \paragraph{Model Interpretability}
+% The interpretability gap between classical and neural TPPs arises from a fundamental mismatch between model structure and domain semantics. In Poisson or Hawkes processes, parameters directly correspond to meaningful quantities such as background rates and triggering kernels, whereas neural TPPs represent temporal dynamics implicitly in high-dimensional latent states. As a result, even when neural models achieve superior predictive accuracy, their decisions are difficult to explain or validate in high-stakes applications such as healthcare or finance. While recent works propose attention-based or post-hoc attribution methods, these explanations are often heuristic and lack formal guarantees. A more principled direction is to design neural architectures with built-in inductive biases that preserve interpretable components, for example by constraining intensities, kernels, or latent dynamics to have physically meaningful structure.
+% There have also been some initial efforts in this direction. For instance, \citet{meng2024interpretable,zhou2023automatic} attempt to align neural TPPs with traditional statistical TPPs to improve interpretability. 
+
+% \paragraph{Model Scalability}
+% Scalability limitations originate from the quadratic complexity of attention-based architectures, which makes modeling long event histories prohibitively expensive. This is particularly problematic in domains such as online systems or medical records, where event sequences may span tens of thousands of timestamps. Although linear-complexity alternatives such as state space models and Mamba \citep{chang2024deep,gao2024mamba} have shown promise in sequence modeling, their theoretical properties and inductive biases for point process data remain poorly understood. Future work must go beyond simply replacing attention with efficient modules and instead study how these architectures represent hazard functions, history dependence, and long-term temporal causality. 
+
+% \paragraph{Sampling Efficiency}
+% Most existing TPPs are optimized for likelihood evaluation rather than for fast generation. However, many downstream applications—such as simulation, forecasting, and decision support—require sampling large numbers of future event sequences in real time. The root cause is that dominant sampling methods, including thinning and inverse transform sampling, are inherently sequential, making parallelization difficult. Bridging this gap will require rethinking the generative paradigm of TPPs. 
+% In recent years, a number of highly interesting works have emerged in this direction. For example, flow-based methods \citep{ludke2025edit,kerrigan2024eventflow,shou2025unified}, diffusion-based approaches \citep{yuan2023spatio,ludke2024unlocking,zhang2024neural}, and speculative decoding techniques \citep{gongtpp,bilovs2025speculative} have been developed to enable the parallel generation of multiple events or time steps while preserving temporal consistency. 
+
+% \paragraph{Multimodal Modeling}
+% Real-world event streams rarely consist of timestamps alone; instead, they are accompanied by rich contextual signals such as text, images, or sensor measurements. Current TPPs struggle to integrate such heterogeneous data due to misaligned representations, missing modalities, and high-dimensional inputs. While LLM-based TPPs provide a promising direction by leveraging pretrained multimodal representations, they also introduce new challenges in representation alignment, uncertainty calibration, and controllability. A key open problem is how to jointly model temporal dynamics and multimodal semantics in a way that is both statistically grounded and computationally efficient.
+% This direction is still emerging, but initial efforts have already been made to integrate textual and visual information into TPP modeling \citep{jiang2025danmakutppbench,liu2024tpp,zhang2023integration,kong2025language}. 
+
+
+
+
+% \begin{table}[!htbp]
+% \caption{Summary of Key Challenges in Temporal Point Processes}
+% \label{table:challenges}
+% \centering
+% \resizebox{\linewidth}{!}{
+% \begin{tabular}{llll}
+% \toprule
+% Challenge 
+% & Root Cause 
+% & Practical Impact 
+% & Representative Research Directions \\
+% \midrule
+% Data and Benchmarks 
+% & Inconsistent preprocessing, time resolution, and evaluation protocols 
+% & Limited reproducibility and unreliable performance comparison 
+% & Unified repositories and standardized benchmarks \citep{xueeasytpp,jiang2025danmakutppbench} \\
+
+% Model Interpretability 
+% & Implicit latent representations with weak semantic grounding 
+% & Difficult validation in high-stakes domains 
+% & Structure-aware neural TPPs aligned with statistical models \citep{meng2024interpretable,zhou2023automatic} \\
+
+% Model Scalability 
+% & Quadratic complexity of attention-based architectures 
+% & Infeasible training on long event sequences 
+% & State-space and Mamba-style architectures for TPPs \citep{gao2024mamba,chang2024deep} \\
+
+% Sampling Efficiency 
+% & Sequential nature of thinning and inverse transform sampling 
+% & Slow simulation and limited real-time deployment 
+% & Flow-based, diffusion-based, and speculative decoding methods \citep{ludke2025edit,zhang2024neural,bilovs2025speculative} \\
+
+% Multimodal Modeling 
+% & Representation misalignment and high-dimensional inputs 
+% & Limited ability to exploit contextual information 
+% & LLM-based and multimodal TPP frameworks \citep{liu2024tpp,kong2025language} \\
+% \bottomrule
+% \end{tabular}}
+% \end{table}
+
+
+
+\section{Conclusions}
+TPPs provide a powerful mathematical framework for modeling asynchronous event sequences across diverse domains such as neuroscience, finance, and social media. Over the years, the field has evolved from traditional parametric models to increasingly flexible nonparametric and neural approaches. In this survey, we reviewed recent progress in three major directions of TPP research: Bayesian TPPs, neural TPPs, and LLM-based TPPs. Each paradigm offers distinct modeling philosophies and strengths—Bayesian methods emphasize uncertainty quantification and principled inference, neural methods prioritize expressive power and scalability, while LLM-based approaches open new avenues for handling complex multimodal sequences.
+We also provided a taxonomy of representative works, highlighted core modeling principles and estimation strategies, and discussed ongoing challenges including model interpretability, scalability, and sampling efficiency. In particular, we emphasized recent developments since 2020 that have not been fully covered in earlier surveys, including Bayesian nonparametric models and the emerging trend of applying large language models to TPPs.
+Looking ahead, we believe that continued progress will hinge on deeper integration across statistical rigor, neural flexibility, and language-model capabilities. Addressing key challenges and enabling broader application of TPPs in real-world, multimodal, and high-resolution settings remain central to advancing the field. 
+
+
+\subsubsection*{Acknowledgments}
+This work was supported by the NSFC Projects (No.62576346, U24A20233, 62406080), the MOE Project of Key Research Institute of Humanities and Social Sciences (22JJD110001), the CCF-DiDi GAIA Collaborative Research Funds (CCF-DiDi GAIA 202521), the fundamental research funds for the central universities, and the research funds of Renmin University of China (24XNKJ13), and Beijing Advanced Innovation Center for Future Blockchain and Privacy Computing. 
+
+
+
+
+
+
+
+
+\bibliography{main}
+\bibliographystyle{tmlr}
+
+% \appendix
+% \section{Appendix}
+% You may include other additional sections here.
+
+\end{document}

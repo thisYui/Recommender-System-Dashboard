@@ -1,0 +1,65 @@
+\documentclass[sigconf]{acmart}
+
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{ChronoRoPE: Continuous-Time Rotary Position Embeddings for Generative Recommendation}
+
+\author{Your Name}
+\affiliation{%
+  \institution{Your Institution}
+  \city{Your City}
+  \country{Your Country}
+}
+\email{your.email@domain.com}
+
+\begin{abstract}
+Large Language Models (LLMs) have demonstrated remarkable capabilities in Generative Recommendation by capturing complex semantic dependencies between items. However, applying LLMs to real-world user interaction sequences exposes a fundamental architectural flaw: standard positional encodings, such as Rotary Position Embeddings (RoPE), assign uniformly spaced integer indices to tokens. This "uniform spacing fallacy" renders the attention mechanism blind to the continuous, highly asynchronous physical time gaps between user actions, failing to natively capture critical dynamics like seasonality and interest decay. Conventional solutions either discretize time into tokens, losing continuous granularity, or employ Temporal Point Processes (TPPs) which suffer from intractable integrals over large item vocabularies. 
+
+In this paper, we propose ChronoRoPE, a novel architectural modification that injects continuous physical timestamps directly into the rotational core of the Transformer's attention mechanism. By replacing discrete integer indices with a learnable, lightweight time-warping multi-layer perceptron (MLP), ChronoRoPE dynamically scales the rotation angles of queries and keys based on real-world time intervals. This allows the dot-product attention to naturally decay or align based on temporal distance without expanding the vocabulary or altering the LLM's core dimensionality. Extensive experiments on the Amazon Clothing dataset demonstrate that ChronoRoPE significantly outperforms both traditional sequence models and standard LLM-based generative recommenders, providing an elegant, highly feasible, and computationally efficient solution to continuous-time generative recommendation.
+\end{abstract}
+
+\keywords{Recommender Systems, Large Language Models, Rotary Position Embedding, Continuous Time, Temporal Dynamics}
+
+\maketitle
+
+\section{Introduction}
+% Introduce Generative RecSys and the shift to LLMs
+% Describe the Uniform Spacing Fallacy in standard Transformers (RoPE)
+% Discuss limitations of current time-aware models (Time tokenization, TPP O(|V|) bottleneck)
+% Introduce ChronoRoPE and its elegant mathematical intervention
+% Summarize contributions
+
+\section{Related Work}
+\subsection{Generative and Sequential Recommendation}
+\subsection{Time-Aware Recommendation and TPPs}
+\subsection{Rotary Position Embeddings in Transformers}
+
+\section{Methodology}
+\subsection{Preliminaries: Rotary Position Embedding (RoPE)}
+\subsection{The ChronoRoPE Architecture}
+\subsubsection{Continuous-Time Formulation}
+\subsubsection{The Time-Warping Function \tau(t)}
+\subsection{Training Strategy with LoRA}
+
+\section{Experimental Setup}
+\subsection{Dataset and Preprocessing (Amazon Clothing)}
+\subsection{Baselines}
+\subsection{Evaluation Metrics}
+\subsection{Implementation Details}
+
+\section{Results and Analysis}
+\subsection{Overall Performance}
+\subsection{Ablation Study on Time-Warping}
+\subsection{Attention Visualization (Time vs. Semantic Weight)}
+
+\section{Conclusion}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\end{document}

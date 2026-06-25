@@ -1,0 +1,42 @@
+\input{sections/experiments_subsections/result_table}
+
+\subsection{Setup}
+\subsubsection{Datasets}
+\input{sections/experiments_subsections/datasets}
+
+\subsubsection{Evaluation}
+\input{sections/experiments_subsections/evaluation_metrics}
+
+\subsection{Baselines Models \& Implementation Details}
+\input{sections/experiments_subsections/baselines_implementations}
+
+\subsection{Results}
+\input{sections/experiments_subsections/result}
+
+\subsection{Effect of Multi-temporal Embeddings}
+\begin{figure*}[t]
+  \centering
+  \begin{minipage}[t]{.49\linewidth}
+    \centering\includegraphics[width=\linewidth]{figures/combinations/ml-1m_60.png}
+    %\caption{MovieLens 1M}
+  \end{minipage}
+  \begin{minipage}[t]{.49\linewidth}
+    \centering\includegraphics[width=\linewidth]{figures/combinations/game_60.png}
+    %\caption{Amazon Game}
+  \end{minipage}
+  \caption{NDCG@10 Comparison with All Possible Combinations of Positional Embeddings on ML-1M (left) and Game (right) Dataset. C, D, P, S, E and L represent \textbf{Con}, \textbf{Day}, \textbf{Pos}, \textbf{Sin}, \textbf{Exp} and \textbf{Log}, repectively. We used $h=60$ for all experiments.}
+  \Description[The figure describes heatmaps of NDCG@10 comparison with all possible combinations of embedding types on MovieLens 1M and Amazon Game]{The left figure is a heatmap of NDCG@10 comparison with all possible combinations of embedding types on MovieLens 1M. Absolute embeddings lie on y-axis and relative embeddings lie on x-axis. As we move further into the x-axis, the heatmap gets hotter. Columns with Log embedding seems to be the hottest. The right figure describes the same heatmap on Amazon Game. As we move further down on y-axis, the heatmap gets hotter. Rows with Day embedding seems to be the hottest.}
+  \label{fig:tesearch}
+\end{figure*}
+\input{sections/experiments_subsections/effect_multiembeddings}
+
+%\subsection{Effect of Multi Self-attention Blocks}
+%\input{sections/experiments_subsections/effect_multiblocks}
+
+%\subsection{Effect of Information Separation}
+
+%\subsection{Effect of Hidden Dimension Size}
+%\input{sections/experiments_subsections/effect_hsize}
+
+%\subsection{Effect of freq \& $\tau$}
+%\input{sections/experiments_subsections/effect_freq_tau}

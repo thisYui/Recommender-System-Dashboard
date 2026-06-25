@@ -1,0 +1,661 @@
+% https://www.overleaf.com/6517452911rkxgqmcngmny
+\documentclass{article}
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2023
+
+% ready for submission
+% \usepackage{neurips_2023}
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+%     \usepackage[preprint]{neurips_2023}
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+%     \usepackage[final]{neurips_2023}
+
+% to avoid loading the natbib package, add option nonatbib:
+\usepackage[final,nonatbib]{neurips_2023}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{cite}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{amssymb}
+\usepackage{diagbox}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage{amsthm}
+\usepackage{comment}
+\usepackage{bm}
+\usepackage{multirow}
+\usepackage{algorithm}
+\usepackage{amssymb}
+\usepackage{algorithmic}
+\usepackage{wrapfig}
+\usepackage{array}
+\usepackage{booktabs,caption}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{bbding}
+\usepackage[flushleft]{threeparttable}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+
+
+\title{ContiFormer: Continuous-Time Transformer for Irregular Time Series Modeling}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+\begin{comment}
+\author{%
+  Yuqi Chen\thanks{Yuqi Chen and Weiwei Sun are with the School of Computer Science \& Shanghai Key Laboratory of Data Science, Fudan University. The work was conducted during his internship at Microsoft Research.}  \\
+  Fudan University, Shanghai \\
+  \And
+  Kan Ren\thanks{Correspondence to Kan Ren, contact: kanren@microsoft.com.} \\
+  Microsoft Research Asia \\
+  \And
+  Yansen Wang \\
+  Microsoft Research Asia \\
+  \And
+  Yuchen Fang \\
+  Shanghai Jiao Tong University \\
+  \And
+  Weiwei Sun \\
+  Fudan University, Shanghai \\
+  \And
+  Dongsheng Li \\
+  Microsoft Research Asia \\
+}
+\end{comment}
+
+\author{
+    Yuqi Chen$\textsuperscript{1,2}$\thanks{The work was conducted during the internship of Yuqi Chen and Yuchen Fang at Microsoft Research.}, 
+    Kan Ren$\textsuperscript{2}$\thanks{Correspondence to Kan Ren, contact: rk.ren@outlook.com.}, 
+    Yansen Wang$\textsuperscript{2}$, 
+    Yuchen Fang$\textsuperscript{2,3}$, 
+    Weiwei Sun$\textsuperscript{1}$, 
+    Dongsheng Li$\textsuperscript{2}$ \\
+    $\textsuperscript{1}$\ School of Computer Science \& Shanghai Key Laboratory of Data Science, Fudan University  \\
+    $\textsuperscript{2}$\ Microsoft Research Asia, $\textsuperscript{3}$\ Shanghai Jiao Tong University \\
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Modeling continuous-time dynamics on irregular time series is critical to account for data evolution and correlations that occur continuously. Traditional methods including recurrent neural networks or Transformer models leverage inductive bias via powerful neural architectures to capture complex patterns. However, due to their discrete characteristic, they have limitations in generalizing to continuous-time data paradigms. Though neural ordinary differential equations (Neural ODEs) and their variants have shown promising results in dealing with irregular time series, they often fail to capture the intricate correlations within these sequences. It is challenging yet demanding to concurrently model the relationship between input data points and capture the dynamic changes of the continuous-time system. To tackle this problem, we propose ContiFormer that extends the relation modeling of vanilla Transformer to the continuous-time domain, which explicitly incorporates the modeling abilities of continuous dynamics of Neural ODEs with the attention mechanism of Transformers. We mathematically characterize the expressive power of ContiFormer and illustrate that, by curated designs of function hypothesis, many Transformer variants specialized in irregular time series modeling can be covered as a special case of ContiFormer. A wide range of experiments on both synthetic and real-world datasets have illustrated the superior modeling capacities and prediction performance of ContiFormer on irregular time series data. The project link is \href{https://seqml.github.io/contiformer/}{https://seqml.github.io/contiformer/}.
+  
+\end{abstract}
+
+
+\section{Introduction}
+
+Irregular time series are prevalent in real-world applications like disease prevention, financial decision-making, and earthquake prediction~\cite{zuo2020transformer, bauer2016arrow, jia2019neural}. Their distinctive properties set them apart from regular time series data.
+First, irregular time series data are characterized by irregularly generated or non-uniformly sampled observations with variable time intervals, as well as missing data due to technical issues, or data quality problems, which pose challenges for traditional time series analysis techniques~\cite{che2018recurrent, yue2022ts2vec}.
+Second, even though the observations are irregularly sampled, the underlying data-generating process is assumed to be continuous~\cite{rubanova2019latent, kidger2020neural, park2022neural}.
+Third, the relationships among the observations can be intricate and continuously evolving.
+All these characteristics require elaborate modeling approaches for better understanding these data and making accurate predictions.
+
+The continuity and intricate dependency of these data samples pose significant challenges for model design. 
+Simply dividing the timeline into equally sized intervals can severely damage the continuity of the data~\cite{lipton2016directly}. 
+Recent works have suggested that underlying continuous-time process is appreciated for irregular time series modeling~\cite{rubanova2019latent, kidger2020neural, che2018recurrent, mei2017neural}, which requires the modeling procedure to capture the continuous dynamic of the system. 
+Furthermore, due to the continuous nature of data flow, we argue that the correlation within the observed data is also constantly changing over time.
+For instance, stock prices of tech giants (e.g., MSFT and GOOG) show consistent evolving trends, yet they are affected by short-term events (e.g., large language model releases) and long-term factors. 
+
+To tackle these challenges, researchers have pursued two main branches of solutions. 
+Neural ordinary differential equations (Neural ODEs) and state space models (SSMs) have illustrated promising abilities for capturing the dynamic change of the system over time~\cite{smith2022simplified, kidger2022neural, chen2018neural, gu2021efficiently}. 
+However, these methods overlook the intricate relationship between observations and their recursive nature can lead to cumulative errors if the number of iterations is numerous~\cite{chen2018neural}.
+Another line of research capitalizes on the powerful inductive bias of neural networks, such as various recurrent neural networks~\cite{che2018recurrent, mei2017neural, schirmer2022modeling} and Transformer models~\cite{xu2019self, shukla2021multi, ma2022non, zhang2019attain}. 
+However, their use of fixed-time encoding or learning upon certain kernel functions fails to capture the complicated input-dependent dynamic systems.
+
+Based on the above analysis, modeling the relationship between observations while capturing the temporal dynamics is a challenging task. 
+To address this problem, we propose a Continuous-Time Transformer, namely \textit{ContiFormer}, which incorporates the modeling abilities of continuous dynamics of Neural ODEs within the attention mechanism of Transformers and breaks the discrete nature of Transformer models.
+Specifically, to capture the dynamics of the observations, ContiFormer begins by defining latent trajectories for each observation in the given irregularly sampled data points. 
+Next, to capture the intricate yet continuously evolving relationship, it extends the discrete dot-product in Transformers to a continuous-time domain, where attention is calculated between continuous dynamics. 
+With the proposed attention mechanism and Transformer architecture, ContiFormer effectively models complex continuous-time dynamic systems. 
+
+The contributions of this paper can be summarized below.
+\begin{itemize}[leftmargin=5mm]
+    \item \textit{Continuous-Time Transformer.} To the best of our knowledge, we are the first to incorporate a continuous-time mechanism into attention calculation in Transformer, which is novel and captures the continuity of the underlying system of the irregularly sampled time-series data. 
+    \item \textit{Parallelism Modeling.} To tackle the conflicts between continuous-time calculation and the parallel calculation property of the Transformer model, we propose a novel reparameterization method, allowing us to parallelly execute the continuous-time attention in the different time ranges. 
+    \item \textit{Theoretical Analysis.} We mathematically characterize that various Transformer variants~\cite{xu2019self, li2020time, zhang2019attain, shukla2021multi, ma2022non} can be viewed as special instances of ContiFormer. Thus, our approach offers a broader scope that encompasses Transformer variants.
+    \item \textit{Experiment Results.} We examine our method on various irregular time series settings, including time-series interpolation, classification, and prediction. The extensive experimental results have illustrated the superior performance of our method against strong baseline models.
+\end{itemize}
+
+\section{Related Work}
+
+\paragraph{Time-Discretized Models.} 
+There exists a branch of models based on the time-discrete assumption which transforms the time-space into a discrete one.
+Recurrent Neural Networks (RNN)~\cite{hochreiter1997long, chung2014empirical} and Transformers~\cite{vaswani2017attention} are powerful time-discrete sequence models, which have achieved great success in natural language processing~\cite{devlin2018bert, liu2019roberta, zhang2021continuous}, computer vision~\cite{zhu2020deformable, guo2022cmt} and time series forecasting~\cite{wu2021autoformer, zhou2021informer, li2023towards, zhou2022fedformer, kitaev2020reformer, wu2022timesnet, zeng2023transformers}. 
+Utilizing them for irregular time series data necessitates discretizing the timeline into time bins or padding missing values, potentially resulting in information loss and disregarding inter-observation dynamics.~\cite{choi2018mime, mozer2017discrete, lipton2016directly}.
+An alternative is to construct models that can utilize these various time intervals~\cite{zhang2019attain, li2020time}. 
+Additionally, several recent approaches have also 
+encoded time information into features to model irregularly sampled time series, including time representation approaches~\cite{xu2019self, zhang2019attain} and kernel-based methods~\cite{ma2022non}, which allow learning for time dynamics.
+For instance, Mercer~\cite{xu2019self} concatenates the event embedding with the time representation.
+Despite these advances, these models are still insufficient in capturing input-dependent dynamic systems. 
+
+\paragraph{Continuous-Time Models.} 
+Other works shift to the continuous-time modeling paradigm.
+To overcome the discrete nature of RNNs, 
+a different strategy involves the exponential decay of the hidden state between observations~\cite{che2018recurrent, mei2017neural}. 
+Nevertheless, the applicability of these techniques is restricted to decaying dynamics specified between successive observations~\cite{chen2018neural}. 
+Neural ODEs are a class of models that leverage the theory of ordinary differential equations to define the dynamics of neural networks~\cite{chen2018neural, jia2019neural}.
+Neural CDE~\cite{kidger2020neural} and Neural RDE~\cite{morrill2021neural} further utilize the well-defined mathematics of controlled differential equations~\cite{arribas2018derivatives, kidger2019deep} and rough path theory~\cite{boutaib2013dimension} to construct continuous-time RNN. 
+ODE-RNN~\cite{rubanova2019latent} combines Neural ODE with Gated Recurrent Unit (GRU)~\cite{cho2014properties} to model continuous-time dynamics and input changes.
+Whereas these approaches usually fail to capture the evolving relationship between observations~\cite{schirmer2022modeling}. CADN~\cite{chien2022learning} and ANCDE~\cite{jhin2023attentive} extend ODE-RNN and Neural CDE by incorporating an attention mechanism to capture the temporal relationships, respectively.
+Another line of research explores the use of state space models (SSMs) to represent continuous-time dynamic systems~\cite{gu2021efficiently, smith2022simplified, gu2022parameterization,ansari2023neural}. However, these models adopt a recursive schema, which hampers its efficiency and can lead to cumulative errors~\cite{chen2018neural}.
+In contrast, our proposed model, ContiFormer leverages the parallelism advantages of the Transformer architecture and employs a non-autoregressive paradigm. 
+Furthermore, extending the Transformer to the continuous-time domain remains largely unexplored by researchers. Such extension provides a more flexible and powerful modeling ability for irregular time series data.
+
+\section{Method}
+
+The ContiFormer is a Transformer \cite{vaswani2017attention} model for processing time series data with irregular time intervals. 
+Formally, an irregular time series is defined as $\Gamma=[(X_1, t_1), \ldots, (X_N, t_N)]$, where observations may occur at any time and the observation time points $\boldsymbol{\omega}=(t_1, \ldots, t_N)$ are with irregular intervals. $X_i$ is the input feature for the $i$-th observation.
+We denote $X=[X_1; X_2; ..., X_N] \in \mathbb{R}^{N \times d}$.
+
+As aforementioned, it is challenging yet demanding to concurrently model the relationship between input data points and capture the dynamic changes of the continuous-time system. 
+To tackle the challenge, we propose a Continuous-Time Transformer architecture as shown in Figure ~\ref{fig:ctsa}. 
+Each layer of ContiFormer takes as input an irregular time series $X$ and the sampled time $\boldsymbol{\omega}$ and outputs a latent continuous trajectory that captures the dynamic change of the underlying system. 
+With such a design, ContiFormer transforms the discrete observation sequence into the continuous-time domain.
+At each layer, the core attention module takes a continuous perspective and expands the dot-product operation in the vanilla Transformer to the continuous-time domain, which not only models the underlying continuous dynamics but also captures the evolving input-dependent process.
+For better understanding, the description of each layer will omit the layer index, without causing confusion.
+
+Throughout the remaining section, we adopt the notation $\boldsymbol{\omega}$ to denote a sequence of (reference) time points, while $t$ is the random variable representing a query time point. 
+Matrices are donated using uppercase letters, and lowercase letters except $t$ represent continuous functions.
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.97\textwidth]{fig/ctsa.pdf}
+    \caption{Architecture of the ContiFormer layer. ContiFormer takes an irregular time series and its corresponding sampled time points as input. Queries, keys, and values are obtained in continuous-time form. The attention mechanism (CT-MHA) performs a scaled inner product in a continuous-time manner to capture the evolving relationship between observations, resulting in a complex continuous dynamic system. Feedforward and layer normalization are adopted, similar to the Transformer. Finally, a sampling trick is employed to make ContiFormer stackable. Note that the highlighted trajectories in purple indicate the part of functions that are involved in the calculation of the output. 
+    }
+    \label{fig:ctsa}
+\end{figure*}
+
+\subsection{Continuous-Time Attention Mechanism} \label{sec:machamism}
+
+The core of the ContiFormer layer is the proposed continuous-time multi-head attention (CT-MHA) module, as shown in Figure~\ref{fig:ctsa}.
+At each layer, we first transform the input irregular time series $X$ into $Q=[Q_1; Q_2; \ldots; Q_N]$ for queries, $K=[K_1; K_2; \ldots; K_N]$ for keys, and $V=[V_1; V_2; \ldots; V_N]$ for values. 
+At a high level, the CT-MHA module transforms the irregular time series inputs to latent trajectories and outputs a continuous dynamic system that captures the time-evolving relationship between observations. 
+To accomplish this, it utilizes ordinary differential equations to define the latent trajectories for each observation.
+Within the latent state, it assumes that the underlying dynamics evolve following linear ODEs.
+Subsequently, it constructs a continuous query function by approximating the underlying sample process of the input.
+Ultimately, it produces a continuous-time function that captures the evolving relationship and represents the complex dynamic system.
+
+\paragraph{Continuous Dynamics from Observations} 
+
+Transformer calculates scaled dot-product attention for queries, keys, and values ~\cite{vaswani2017attention}. In continuous form, we first employ ordinary differential equations to define the latent trajectories for each observation. Specifically, assuming that the first observation and last observation come at time point $t_1$ and $t_N$ respectively, we define continuous keys and values as
+\begin{equation}
+    \begin{aligned}
+        \boldsymbol{\mathrm{k}}_i(t_i) & = K_i ~, \quad   \boldsymbol{\mathrm{k}}_i(t) = \boldsymbol{\mathrm{k}}_i(t_i) + \int_{t_i}^{t} f\,\Big( \tau, \boldsymbol{\mathrm{k}}_i(\tau); \theta_k \Big)\, \text{d} \tau ~,\\
+        \boldsymbol{\mathrm{v}}_i(t_i) & = V_i ~, \quad   \boldsymbol{\mathrm{v}}_i(t) = \boldsymbol{\mathrm{v}}_i(t_i) + \int_{t_i}^{t} f\,\Big( \tau, \boldsymbol{\mathrm{v}}_i(\tau); \theta_v \Big)\, \text{d} \tau ~, \\
+    \end{aligned}
+\label{eq:kv}
+\end{equation}
+where $t\in [t_1, t_N]$, $\boldsymbol{\mathrm{k}}_i(\cdot), \boldsymbol{\mathrm{v}}_i(\cdot) \in \mathbb{R}^{d}$ represent the ordinary differential equation for the $i$-th observation with parameters $\theta_k$ and $\theta_v$, and the initial state of $\boldsymbol{\mathrm{k}}_i(t_i)$ and $\boldsymbol{\mathrm{v}}_i(t_i)$ respectively and the function $f\left( \cdot \right) \in \mathbb{R}^{d+1} \rightarrow \mathbb{R}^{d}$ controls the change of the dynamics.
+
+\paragraph{Query Function} \label{ms:q}
+
+While keys and values are associated with the input and output of the attention mechanism, a query specifies what information to extract from the input. 
+To model a dynamic system, queries can be modeled as a function of time that represents the overall changes in the input to the dynamic system at a specific time point $t$, i.e., $\boldsymbol{\mathrm{q}}(t)$. 
+Specifically, we adopt a common assumption that irregular time series is a discretization of an underlying continuous-time process. 
+Thus, similar to ~\cite{kidger2020neural}, we define a closed-form continuous-time interpolation function (e.g., natural cubic spline) with knots at $t_1, \ldots, t_N$ such that $\boldsymbol{\mathrm{q}}(t_i) = Q_i$ as an approximation of the underlying process. 
+
+\paragraph{Scaled Dot Product}
+
+The self-attention mechanism is the key component in Transformer architecture. 
+At its core, self-attention involves calculating the correlation between queries and keys. 
+This is achieved through the inner product of two matrices in discrete form, i.e., $Q \cdot K^\top$. 
+Extending the discrete inner-product to its continuous-time domain, given two real functions $f(x)$ and $g(x)$, we define the inner product of two functions in a closed interval $[a, b]$ as
+\begin{equation}
+    \left< f, g \right> = \int_{a}^b f(x) \cdot g(x) \text{d} x ~.
+\end{equation}
+Intuitively, it can be thought of as a way of quantifying how much the two functions ``align'' with each other over the interval. 
+Inspired by the formulation of the inner product in the continuous-time domain, we model the evolving relationship between the $i$-th sample and the dynamic system at time point $t$ as the inner product of $\boldsymbol{\mathrm{q}}$ and $\boldsymbol{\mathrm{k}}_i$ in a closed interval $[t_i, t]$, i.e.,
+\begin{equation}
+    \boldsymbol{\mathrm{\alpha}}_{i}(t) =  \frac{\int_{t_i}^{t} \boldsymbol{\mathrm{q}}(\tau) \cdot \boldsymbol{\mathrm{k}}_i(\tau)^\top \text{d}\tau}{t - t_i} ~.
+\label{eq:attn}
+\end{equation}
+Due to the nature of sequence data, it is common to encounter abnormal points, such as events with significantly large time differences. To avoid numeric instability during training, we divide the integrated solution by the time difference. As a consequence, Eq. (\ref{eq:attn}) exhibits discontinuity at $\boldsymbol{\mathrm{\alpha}}_i(t_i)$. To ensure the continuity of the function $\boldsymbol{\mathrm{\alpha}}_i(\cdot)$, we define $\boldsymbol{\mathrm{\alpha}}_i(t_i)$ as
+\begin{equation}
+\boldsymbol{\mathrm{\alpha}}_i(t_i) = \lim_{\epsilon \rightarrow 0} \frac{\int_{t_i}^{t_i + \epsilon} \boldsymbol{\mathrm{q}}(\tau) \cdot \boldsymbol{\mathrm{k}}_i(\tau)^\top \text{d}\tau}{\epsilon} = \boldsymbol{\mathrm{q}}(t_i) \cdot \boldsymbol{\mathrm{k}}_i(t_i)^\top ~.
+\label{eq:ii}
+\end{equation}
+
+\paragraph{Expected Values}
+
+Given a query time $t \in [t_1, t_N]$, the value of an observation at time point $t$ is defined as the expected value from $t_i$ to $t$. 
+Without loss of generality, it holds that the expected values of an observation sampled at time $t_i$ is $\boldsymbol{\mathrm{v}}_i(t_i)$ or $V_i$. 
+Formally, the expected value is defined as
+\begin{equation}
+    \widehat{\boldsymbol{\mathrm{v}}}_{i}(t) = \mathbb{E}_{t \sim [t_i, t]} \left[ \boldsymbol{\mathrm{v}}_i(t) \right] = \frac{\int_{t_i}^{t} \boldsymbol{\mathrm{v}}_i(\tau) \text{d} \tau}{t - t_i} ~.
+    \label{eq:vv}
+\end{equation}
+
+\paragraph{Multi-Head Attention} 
+
+The continuous-time attention mechanism is a powerful tool used in machine learning that allows for the modeling of complex, time-varying relationships between keys, queries, and values. Unlike traditional attention mechanisms that operate on discrete time steps, continuous-time attention allows for a more fine-grained analysis of data by modeling the input as a continuous function of time.
+Specifically, given the forehead-defined queries, keys, and values in continuous-time space, the continuous-time attention given a query time $t$ can be formally defined as
+\begin{equation}\
+\begin{aligned}
+    \operatorname{CT-ATTN}( Q, K, V, \boldsymbol{\omega})(t) & 
+    = \sum_{i=1}^{N} \widehat{\boldsymbol{\mathrm{\alpha}}}_i(t) \cdot \widehat{\boldsymbol{\mathrm{v}}}_i(t) ~,\\
+    \text { where } \widehat{\boldsymbol{\mathrm{\alpha}}}_i(t) & = \frac{\operatorname{exp} \left( \boldsymbol{\mathrm{\alpha}}_i(t) / \sqrt{d_k} \right)}{\sum_{j=1}^{N} \operatorname{exp} \left( \boldsymbol{\mathrm{\alpha}}_j(t) / \sqrt{d_k} \right)} ~. \\
+\end{aligned}
+\label{eqn:msha}
+\end{equation}
+Multi-head attention, an extension of the attention mechanism~\cite{vaswani2017attention}, allows simultaneous focus on different input aspects.
+It stabilizes training by reducing attention weight variance.
+We extend Eq. (\ref{eqn:msha}) by incorporating multiple sets of attention weights, i.e.,
+\begin{equation}
+\begin{aligned}
+\operatorname{CT-MHA}(Q, K, V, \boldsymbol{\omega})(t) & =\operatorname{Concat}\left(\operatorname{head}_{(1)}(t), \ldots, \operatorname{head}_{(\mathrm{H})}(t)\right) W^O ~,\\
+\text { where } \operatorname{head}_{(\mathrm{h})}(t) & =\operatorname{CT-ATTN}\left(Q W_{(\mathrm{h})}^Q, K W_{(\mathrm{h})}^K, V W_{(\mathrm{h})}^V, \boldsymbol{\omega} \right)(t) ~,
+\end{aligned}
+\label{eq:contiattn}
+\end{equation}
+where $W^O$, $W_{(\mathrm{h})}^Q$, $W_{(\mathrm{h})}^K$ and $W_{(\mathrm{h})}^V$ are parameter matrices, $\mathrm{h} \in [1,\mathrm{H}]$ and $\mathrm{H}$ is the head number.
+
+\subsection{Continuous-Time Transformer}
+
+Despite the widespread adoption of Transformers~\cite{vaswani2017attention} in various research fields, their extension for modeling continuous-time dynamic systems is underexplored.
+We propose ContiFormer that directly builds upon the original implementation of vanilla Transformer while extending it to the continuous-time domain.
+Specifically, we apply layer normalization (LN) after both the multi-head self-attention (MHA) and the feed-forward blocks (FFN). 
+We formally characterize the ContiFormer layer below
+\begin{equation}
+\begin{aligned}
+ \tilde{\boldsymbol{\mathrm{z}}}^{l}(t) &= \operatorname{LN}\Big( \operatorname{CT-MHA}(X^{l}, X^{l}, X^{l}, \boldsymbol{\omega}^{l})(t)  + \boldsymbol{\mathrm{x}}^{l}(t) \Big) ~,\\
+ \boldsymbol{\mathrm{z}}^{l}(t) & = \operatorname{LN}\Big( \operatorname{FFN}(\tilde{\boldsymbol{\mathrm{z}}}^{l}(t) ) + \tilde{\boldsymbol{\mathrm{z}}}^{l}(t) \Big) ~,\\
+\end{aligned}
+\label{eq:layer}
+\end{equation}
+where $\boldsymbol{\mathrm{z}}^{l}(t)$ is the output from the $l$-th ContiFormer layer at time point $t$. 
+Additionally, we adopt residual connection to avoid potential gradient vanishing~\cite{he2016deep}. 
+To incorporate the residual connection with the continuous-time output, we approximate the underlying process of the discrete input $X^l$ using a continuous function $\boldsymbol{\mathrm{x}}^l(t)$ based on the closed-form continuous-time interpolation function.
+
+\paragraph{Sampling Process} 
+
+As described before, each ContiFormer layer derives a continuous function $\boldsymbol{\mathrm{z}}^l(t)$ w.r.t. time as the output, while receiving discrete sequence $X^l$ as input.
+However, $\boldsymbol{\mathrm{z}}^l(t)$ can not be directly incorporated into neural network architectures that expect inputs in the form of fixed-dimensional vectors and sequences~\cite{shukla2021multi}, which places obstacles when stacking layers of ContiFormer.
+To address this issue, we establish reference time points for the output of each layer. These points are used to discretize the layer output, and can correspond to either the input time points (i.e., $\boldsymbol{\omega}$) or task-specific time points. 
+Specifically, assume that the reference points for the $l$-th layer is $\boldsymbol{\omega}^{l}=[t_1^l, t_2^l, ..., t_{\beta_l}^l]$, the input to the next layer $X^{l+1}$ can be sampled as $\{ \boldsymbol{\mathrm{z}}^{l}(t_j^l) | j \in [1, \beta_l] \}$.
+
+\newpage
+\subsection{Complexity Analysis}\label{sec:complexity}
+
+\begin{wraptable}{r}{0.6\textwidth}
+    \centering
+    \vspace{-13pt}
+    \caption{Per-layer complexity (Comp. per Layer), minimum number of sequential operations (Seq. Op.), and maximum path lengths (Max. Path Len.). $N$ is the sequence length, $d$ is the representation dimension, $T$ is the number of function evaluations (NFE) for the ODE solver in a single forward pass from $t_1$to $t_N$, and $S$ represents the NFE from $-1$ to $1$.}
+    \resizebox{0.6\textwidth}{!}{%
+    \begin{tabular}{cccc}
+    \toprule
+        Model & Comp. per Layer & Seq. Op. & Max. Path Len. \\
+    \midrule
+        Transformer~\cite{vaswani2017attention} & $O(N^2 \cdot d)$ & $O(1)$ & $O(1)$ \\
+        RNN~\cite{hopfield1982neural} & $O(N \cdot d^2)$ & $O(N)$ & $O(N)$ \\
+        Neural ODE~\cite{chen2018neural} & $O(T \cdot d^2)$ & $O(T)$ & $O(T)$ \\
+    \midrule
+        ContiFormer & $O(N^2 \cdot S \cdot d^2)$ & $O(S)$ & $O(1)$ \\
+    \bottomrule
+    \end{tabular}}
+    \label{tab:complex}
+    \vspace{-10pt}
+\end{wraptable}
+
+We consider an autoregressive task where the output of each observation is required for a particular classification or regression task. 
+Therefore, the reference points for each layer are defined as $\boldsymbol{\omega}^{l} = \boldsymbol{\omega}$. 
+
+To preserve the parallelization of Transformer architecture and meanwhile implement the continuous-time attention mechanism in Eq. (\ref{eqn:msha}), we first adopt time variable ODE~\cite{chen2021neuralstpp} to reparameterize ODEs into a single interval $[-1, 1]$, followed by numerical approximation method to approximate the integrals, i.e.,
+\begin{equation}
+    \boldsymbol{\mathrm{\alpha}}_i(t_j) = \frac{\int_{t_i}^{t_j} \boldsymbol{\mathrm{q}}(\tau) \cdot \boldsymbol{\mathrm{k}}_i(\tau)^\top \text{d}\tau}{t_j - t_i} = \frac{1}{2} \int_{-1}^{1} \tilde{\boldsymbol{\mathrm{q}}}_{i,j}(\tau) \cdot \tilde{\boldsymbol{\mathrm{k}}}_{i,j}(\tau)^\top \text{d} \tau \approx  \frac{1}{2} \sum_{p=1}^{P} \gamma_p \tilde{\boldsymbol{\mathrm{q}}}_{i,j}(\xi_p) \cdot \tilde{\boldsymbol{\mathrm{k}}}_{i,j}(\xi_p)^{\top} ~,
+\label{eq:app}
+\end{equation}
+where $P$ denotes the number of intermediate steps to approximate an integral, $\xi_p \in [-1, 1]$ and $\gamma_p \geq 0$, $\tilde{\boldsymbol{\mathrm{k}}}_{i,j}(s) = \boldsymbol{\mathrm{k}}_i\left((s(t_j - t_i) + t_i + t_j)/2\right)$, and $\tilde{\boldsymbol{\mathrm{q}}}_{i,j}(s) = \boldsymbol{\mathrm{q}}_i\left((s(t_j - t_i) + t_i + t_j)/2\right)$. Finally, $\boldsymbol{\mathrm{\alpha}}_i(t_j)$ can be solved with one invokes of ODESolver that contains $N^2$ systems, i.e., 
+\begin{equation}
+    \underbrace{\begin{bmatrix}
+    \tilde{\boldsymbol{\mathrm{k}}}_{1, 1}(\xi_{p-1}) \\
+    \vdots \\
+    \tilde{\boldsymbol{\mathrm{k}}}_{N,N}(\xi_{p-1})
+    \end{bmatrix}}_{\boldsymbol{\mathrm{K}}(\xi_{p-1})} + \int_{\xi_{p-1}}^{\xi_{p}} f(s, \boldsymbol{\mathrm{K}}(s); \theta_k) ds =
+    \underbrace{\begin{bmatrix}
+    \tilde{\boldsymbol{\mathrm{k}}}_{1, 1}(\xi_{p}) \\
+    \vdots \\
+    \tilde{\boldsymbol{\mathrm{k}}}_{N, N}(\xi_{p})
+    \end{bmatrix}}_{\boldsymbol{\mathrm{K}}(\xi_{p})} ~,
+\label{eq:solve}
+\end{equation}
+where $p \in [1, ..., P]$ and we further define $\xi_0=-1$. Additionally, $\tilde{\boldsymbol{\mathrm{q}}}_{i,j}(\xi_p)$ can be obtained by interpolating on the close-form continuous-time query function. Similar approach is adopted for solving $\widehat{\boldsymbol{\mathrm{v}}}_i(t_j)$ in Eq. (\ref{eq:vv}).
+The detailed implementation is deferred to Appendix \ref{sec:complex}.
+
+We consider three criteria to analyze the complexity of different models, i.e., per-layer complexity, minimum number of sequential operations, and maximum path lengths~\cite{vaswani2017attention}. 
+Complexity per layer refers to the computational resources required to process within a single layer of a neural network. 
+Sequential operation refers to the execution of operations that are processed iteratively or in a sequential manner. 
+Maximum path length measures the longest distance information must traverse to establish relationships, reflecting the model's ability to learn long-range dependencies.
+
+As noted in Table \ref{tab:complex}, 
+vanilla Transformer is an efficient model for sequence learning with $O(1)$ sequential operations and $O(1)$ path length because of the parallel attention mechanism, whereas the recurrent nature of RNN and Neural ODE rely on autoregressive property and suffer from a large number of sequential operations.
+Utilizing Eq. (\ref{eq:app}) and leveraging the parallelism inherent in the Transformer architecture, our model, ContiFormer, achieves $O(S)$  sequential operations and $O(1)$ path length, while also enjoying the advantage of capturing complex continuous-time dynamic systems. We have $S \ll T$ and we generally set $S < N$ in our experiments.
+
+\subsection{Representation Power of ContiFormer}
+
+In the previous subsections, we introduce a novel framework for modeling dynamic systems. Then a natural question is: \textit{How powerful is ContiFormer?} 
+We observe that by choosing proper weights, ContiFormer can be an extension of vanilla Transformer~\cite{vaswani2017attention}. 
+Further, many Transformer variants tailored for irregular time series, including time embedding methods~\cite{xu2019self, shukla2021multi} and kernelized attention methods~\cite{ma2022non, li2020time}, can be special cases of our model. 
+We provide an overview of the main theorem below and defer the proof to Appendix ~\ref{sec:proof}.
+
+\begin{theorem}[Universal Attention Approximation Theorem]
+Given query ($Q$) and key ($K$) matrices, such that $\|Q_i\|_2 < \infty, \|Q_i\|_0 = d$ for $i \in [1, ..., N]$.
+For certain attention matrix, i.e., $\operatorname{Attn}(Q, K) \in \mathbb{R}^{N \times N}$ (see Appendix \ref{sec:variants} for more information), there always exists a family of continuously differentiable vector functions $\boldsymbol{\mathrm{k}}_1(\cdot), \boldsymbol{\mathrm{k}}_2(\cdot), \ldots, \boldsymbol{\mathrm{k}}_N(\cdot)$, such that the discrete definition of the continuous-time attention formulation, i.e., $[\boldsymbol{\mathrm{\alpha}}_1(\cdot), \boldsymbol{\mathrm{\alpha}}_2(\cdot), ..., \boldsymbol{\mathrm{\alpha}}_N(\cdot)]$ in Eq. (\ref{eq:ii}), given by
+\begin{equation}
+\operatorname{\widetilde{Attn}}(Q, K)=\left[\begin{array}{cccc}
+\boldsymbol{\mathrm{\alpha}}_1(t_1) & \boldsymbol{\mathrm{\alpha}}_2(t_1) & \cdots & \boldsymbol{\mathrm{\alpha}}_N(t_1) \\
+\boldsymbol{\mathrm{\alpha}}_1(t_2) & \boldsymbol{\mathrm{\alpha}}_2(t_2) & \cdots & \boldsymbol{\mathrm{\alpha}}_N(t_2) \\
+\vdots & \vdots & \ddots & \vdots \\
+\boldsymbol{\mathrm{\alpha}}_1(t_N) & \boldsymbol{\mathrm{\alpha}}_2(t_N) & \cdots & \boldsymbol{\mathrm{\alpha}}_N(t_N)
+\end{array}\right] ~,
+\label{eq:proof}
+\end{equation}
+satisfies that $\operatorname{\widetilde{Attn}}(Q, K) = \operatorname{Attn}(Q, K)$.
+\end{theorem}
+
+\section{Experiments}
+
+In this section, we evaluate ContiFormer on three types of tasks 
+on irregular time series data, 
+i.e., interpolation and extrapolation, classification, event prediction, and forecasting. Additionally, we conduct experiments on pendulum regression task~\cite{schirmer2022modeling, gu2021efficiently}, the results are listed in Appendix \ref{sec:pendulum}.
+
+\paragraph{Implementation Details}
+
+By default, we use the natural cubic spline to construct the continuous-time query function. The vector field in ODE is defined as $f(t, \textbf{x})=\text{Actfn}(\text{LN}(\text{Linear}^{d, d}(\text{Linear}^{d, d}(\textbf{x}) + \text{Linear}^{1, d}(t))))$, where $\text{Actfn}(\cdot)$ is either \textit{tanh} or \textit{sigmoid} activation function, $\text{Linear}^{a,b}(\cdot): \mathbb{R}^a \rightarrow \mathbb{R}^b$ is a linear transformation from dimension $a$ to dimension $b$, $\text{LN}$ denotes the layer normalization. We adopt the Gauss-Legendre Quadrature approximation to implement Eq. (\ref{eq:app}). In the experiment, we choose the Runge-Kutta-4~\cite{runge1895numerische} (RK4) algorithm to solve the ODE with a fixed step of fourth order and a step size of $0.1$. Thus, the number of forward passes to integrate from $-1$ to $1$, i.e., $S$ in Table \ref{tab:complex}, is $80$.  All the experiments were carried out on a single 16GB NVIDIA Tesla V100 GPU. 
+
+\subsection{Modeling Continuous-Time Function}
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=\textwidth]{fig/interpolation_mark.pdf}
+    \caption{Interpolation and extrapolation of spirals with irregularly-samples time points by Transformer, Neural ODE, and our model. }
+    \label{fig:interpolate}
+    \vspace{-10pt}
+\end{figure*}
+
+\begin{wraptable}{r}{0.52\textwidth}
+\centering
+\vspace{-10pt}
+\caption{Interpolation and extrapolation results of different models on 2-dimensional spirals. $\downarrow$ indicates the lower the better.}
+\resizebox{0.52\textwidth}{!}{%
+\begin{tabular}{c|ccc}
+\toprule
+     Metric & Transformer~\cite{vaswani2017attention} & Latent ODE~\cite{chen2018neural} & \textbf{ContiFormer} \\
+\midrule
+\midrule
+\multicolumn{4}{c}{Task = \textit{Interpolation} ($\times 10^{-2}$)} \\
+\midrule
+RMSE ($\downarrow$) & 1.37 \small{$\pm$ 0.14} & 2.09 \small{$\pm$ 0.22} & \textbf{0.49 \small{$\pm$ 0.06}} \\
+MAE ($\downarrow$) & 1.42 \small{$\pm$ 0.13} & 1.95 \small{$\pm$ 0.25} & \textbf{0.52 \small{$\pm$ 0.06}} \\
+\midrule
+\midrule
+\multicolumn{4}{c}{Task = \textit{Extrapolation} ($\times 10^{-2}$)} \\
+\midrule
+RMSE ($\downarrow$) & 1.36 \small{$\pm$ 0.10} & 1.59 \small{$\pm$ 0.05} & \textbf{0.64 \small{$\pm$ 0.09}} \\
+MAE ($\downarrow$) & 1.49 \small{$\pm$ 0.12} & 1.52 \small{$\pm$ 0.05} & \textbf{0.65 \small{$\pm$ 0.08}} \\
+\bottomrule
+\end{tabular}}
+\label{tab:interp}
+\vspace{-10pt}
+\end{wraptable}
+
+The first experiment studies the effectiveness of different models from different categories on continuous-time function approximation.
+We generated a dataset of 300 2-dimensional 
+spirals, sampled at 150 equally-spaced time points. 
+To generate irregular time points, we randomly sample 50 points from each sub-sampled trajectory without replacement. 
+We visualize the interpolation and extrapolation results of the irregular time series for different models, namely Latent ODE (w/ RNN encoder)~\cite{chen2018neural}, Transformer~\cite{vaswani2017attention} and our proposed ContiFormer. 
+Besides, we list the interpolation and extrapolation results in Table ~\ref{tab:interp} using rooted mean squared error (RMSE) and mean absolute error (MAE) metrics. 
+More visualization results and experimental settings can be found in Appendix \ref{sec:interpolate}.
+As shown in Figure ~\ref{fig:interpolate}, both Latent ODE and ContiFormer can output a smooth and continuous function approximation, while Transformer fails to interpolate it given the noisy observations (\textcolor[rgb]{0.648, 0.203, 0.476}{\textcircled{\small\textbf{1}}}). 
+From Table~\ref{tab:interp}, we can observe that our model outperforms both Transformer and Latent ODE by a large margin. 
+The improvement lies in two aspects. 
+First, compared to Transformer, our ContiFormer can produce an almost\footnote{The output of ContiFormer can be considered ``continuous'' only if we overlook the approximation and numerical errors in the ODESolver. Additionally, traditional Transformers are commonly trained with dropout to prevent overfitting, which can result in discontinuous outputs. To mitigate this issue, a straightforward approach is to set the dropout rate to 0, thereby producing an ``almost'' continuous output for ContiFormer.} continuous-time output, making it more suitable for modeling continuous-time functions. 
+Second, compared to Latent ODE, our ContiFormer excels at retaining long-term information (\textcolor[rgb]{0.296, 0.339, 0.629}{\textcircled{\small\textbf{2}}}), leading to lower prediction error in extrapolating unseen time series. 
+Conversely, Latent ODE is prone to cumulative errors (\textcolor[rgb]{1, 0.7617, 0} {\textcircled{\small\textbf{3}}}), resulting in poorer performance in extrapolation tasks. 
+Therefore, we conclude that ContiFormer is a more suitable approach for modeling continuous-time functions on irregular time series.
+
+
+\subsection{Irregularly-Sampled Time Series Classification} \label{istsc}
+
+The second experiment evaluates our model on real-world irregular time series data.
+To this end, we first examine the effectiveness of different models for irregular time series classification. 
+We select 20 datasets from UEA Time Series Classification Archive~\cite{bagnall2018uea} with diverse characteristics in terms of the number, dimensionality, and length of time series samples. 
+More detailed information and experimental results can be found in Appendix ~\ref{sec:classify}. 
+To generate irregular time series data, we follow the setting of ~\cite{kidger2020neural} to randomly drop either 30\%, 50\% or 70\% observations.
+
+We compare the performance of ContiFormer with RNN-based methods (GRU-$\Delta$t~\cite{kidger2020neural}, GRU-D~\cite{che2018recurrent}), Neural ODE-based methods (ODE-RNN~\cite{rubanova2019latent}, CADN~\cite{chien2021continuous}, Neural CDE~\cite{kidger2020neural}), SSM-based models (S5~\cite{smith2022simplified}), and attention-based methods (TST~\cite{zerveas2021transformer}, mTAN~\cite{shukla2021multi}).
+
+\begin{table*}[t]
+\centering
+\caption{Experimental results on irregular time series classification. Avg. ACC. stands for average accuracy over 20 datasets and Avg. Rank stands for average ranking over 20 datasets. $\uparrow$ ($\downarrow$) indicates the higher (lower) the better.}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{c|cc|cc|cc}
+\toprule
+     Mask Ratio & \multicolumn{2}{c}{30\% Dropped} & \multicolumn{2}{c}{50\% Dropped} & \multicolumn{2}{c}{70\% Dropped} \\
+    \midrule
+     Metric & Avg. ACC. ($\uparrow$) & Avg. Rank ($\downarrow$) & Avg. ACC. ($\uparrow$) & Avg. Rank ($\downarrow$) &Avg. ACC. ($\uparrow$) & Avg. Rank ($\downarrow$)  \\
+     \cmidrule(l){1-1}
+    \cmidrule(l){2-3}
+    \cmidrule(l){4-5}
+    \cmidrule(l){6-7}
+    GRU-D~\cite{kidger2020neural} & 0.7284 & 6 & 0.7117 & 5.8 & 0.6725 & 6.15 \\
+    GRU-$\Delta$t~\cite{che2018recurrent} & 0.7298 & 5.75 & 0.7157 & 5.65 & 0.6795 & 5.7 \\
+    ODE-RNN~\cite{rubanova2019latent} & 0.7304 & 5.45 & 0.7000 & 5.55 & 0.6594 & 6.4 \\
+    Neural CDE~\cite{kidger2020neural} & 0.7142 & 6.85 & 0.6929 & 6.5 & 0.6753 & 6.3 \\
+    mTAN~\cite{shukla2021multi} & 0.7381 & 5.7 & 0.7118 & 5.85 & 0.6955 & 5.4 \\
+    CADN~\cite{chien2021continuous} & 0.7402 & 5.4 & 0.7211 & 5.55  & 0.7183 & 3.9\\
+    S5~\cite{smith2022simplified} & 0.7854 & 4.4 & 0.7638 & 4.25 & 0.7401 & 4.45 \\
+    TST~\cite{zerveas2021transformer} & 0.8089 & 2.75 & 0.7793 & 3.15 & 0.7297 & 4.2 \\
+    \midrule
+    \textbf{ContiFormer} & \textbf{0.8126} & \textbf{2.4} & \textbf{0.7997} & \textbf{1.9} & \textbf{0.7749} & \textbf{2.1} \\
+\bottomrule
+\end{tabular}}
+\label{tab:classify}
+\vspace{-10pt}
+\end{table*}
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+  \centering
+  \includegraphics[width=0.5\textwidth]{fig/attention.pdf}
+  \caption{Visualization of attention scores on UWaveGestureLibrary dataset. Colors indicate the attention scores for different instances at time $t=0$. Observations at time $t=0$ are observed and normalize the time interval to $[0, 1]$.}
+  \label{fig:attn}
+  \vspace{-10pt}
+\end{wrapfigure}
+
+Table ~\ref{tab:classify} presents the average accuracy and rank number under different drop ratios. 
+ContiFormer outperforms all the baselines on all three settings. The complete results are shown in Appendix ~\ref{sec:full}. 
+Moreover, attention-based methods perform better than both RNN-based methods and ODE-based methods, underscoring the significance of effectively modeling the inter-correlation of the observations.
+Additionally, we find that our method is more robust than other models. 
+ContiFormer exhibits the smallest performance gap between 30\% and 50\%. 
+
+Besides, we study the learned attention patterns with different models. 
+Attention captures the impact of previous observations on the future state of a system by measuring the correlation between different observations at different time points. Consequently, it is expected that a model effectively capturing the underlying dynamics would exhibit continuous, smooth, and input-dependent intermediate outcomes. As illustrated in Figure~\ref{fig:attn}, 
+ContiFormer and TST are both capable of capturing input-dependent patterns effectively, while mTAN struggles due to the fact that its attention mechanism depends solely on the time information.
+In addition, ContiFormer excels in capturing complex and smooth patterns compared to TST, showcasing its ability to model time-evolving correlations effectively and potentially more robust to noisy data. 
+Consequently, we believe that ContiFormer better captures the nature of irregular time series.
+
+\subsection{Predicting Irregular Event Sequences} \label{piel}
+
+\begin{table}[t]
+    \centering
+    \caption{Prediction result of compared models for event prediction. LL for log-likelihood and ACC for accuracy. $\uparrow$ ($\downarrow$) indicates the higher (lower) the better. (bold values indicate the best performance and $^+$ indicates outperforming the best baseline by at least 3 standard deviations.)}
+    \label{tab:exp}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{cccccccc}
+    \toprule
+        Model & Metric & Synthetic & Neonate & Traffic & MIMIC & StackOverflow & BookOrder \\ 
+    \midrule
+        \multirow{3}{*}{HP~\cite{hawkes1971spectra}} & LL ($\uparrow$) & -3.084 ± .005 & -4.618 ± .005 & -1.482 ± .005 & -4.618 ± .005 & -5.794 ± .005 & -1.036 ± .000 \\ 
+        ~ & Accuracy ($\uparrow$) & 0.756 ± .000 & -- & 0.570 ± .000 & 0.795 ± .000 & 0.441 ± .000 & 0.604 ± .000 \\ 
+        ~ & RMSE ($\downarrow$) & 0.953 ± .000 & 10.957 ± .012 & 0.407 ± .000 & 1.021 ± .000 & 1.341 ± .000 & 3.781 ± .000 \\ 
+    \midrule
+        \multirow{3}{*}{RMTPP~\cite{du2016recurrent}} & LL ($\uparrow$) & -1.025 ± .030 & -2.817 ± .023 & -0.546 ± .012 & -1.184 ± .023 & -2.374 ± .001 & -0.952 ± .007 \\ 
+        ~ & Accuracy ($\uparrow$) & 0.841 ± .000 & -- & 0.805 ± .002 & 0.823 ± .004 & 0.461 ± .000 & 0.624 ± .000 \\ 
+        ~ & RMSE ($\downarrow$) & 0.369 ± .014 & 9.517 ± .023 & 0.337 ± .001 & 0.864 ± .017 & 0.955 ± .000 & 3.647 ± .003 \\ 
+    \midrule
+        \multirow{3}{*}{NeuralHP~\cite{mei2017neural}} & LL ($\uparrow$) & -1.371 ± .004 & -2.795 ± .012 & -0.643 ± .004 & -1.239 ± .027 & -2.608 ± .000 & -1.104 ± .005 \\
+        ~ & Accuracy ($\uparrow$) & 0.841 ± .000 & -- & 0.759 ± .001 & 0.814 ± .001 & 0.450 ± .000 & 0.621 ± .000 \\ 
+        ~ & RMSE ($\downarrow$) & 0.631 ± .002 & 9.614 ± .013 & 0.358 ± .001 & 0.846 ± .007 & 1.022 ± .000 & 3.734 ± .003 \\ 
+    \midrule
+        \multirow{3}{*}{SAHP~\cite{xu2019self}} & LL ($\uparrow$) & -0.619 ± .063 & -2.646 ± .057 & 0.372 ± .022 & \textbf{-1.110 ± .030} & -2.404 ± .002 & -0.304 ± .002 \\ 
+        ~ & Accuracy ($\uparrow$) & 0.841 ± .000 & -- & 0.780 ± .001 & 0.830 ± .004 & 0.455 ± .000 & 0.622 ± .000 \\ 
+        ~ & RMSE ($\downarrow$) & 0.521 ± .055 & 9.403 ± .060 & 0.337 ± .000 & 0.851 ± .006 & 0.963 ± .000 & 3.676 ± .011 \\ 
+    \midrule
+        \multirow{3}{*}{THP~\cite{zuo2020transformer}} & LL ($\uparrow$) & -0.589 ± .017 & -2.702 ± .045 & -0.569 ± .015 & -1.137 ± .038 & -2.354 ± .001 & -1.102 ± .052 \\ 
+        ~ & Accuracy ($\uparrow$) & 0.841 ± .000 & -- & 0.818 ± .001 & 0.834 ± .005 & -0.468 ± .000 & 0.622 ± .004 \\ 
+        ~ & RMSE ($\downarrow$) & 0.205 ± .006 & 9.471 ± .045 & 0.332 ± .000 & 0.843 ± .017 & 0.951 ± .000 & 3.688 ± .004 \\ 
+    \midrule
+        \multirow{3}{*}{NSTKA~\cite{ma2022non}} & LL ($\uparrow$) & -1.001 ± .025 & -2.747 ± .061 & -0.667 ± .027 & -1.188 ± .012 & -2.406 ± .003 & -1.098 ± .019 \\ 
+        ~ & Accuracy ($\uparrow$) & 0.842 ± .000 & -- & 0.767 ± .001 & 0.833 ± .003 & 0.465 ± .000 & 0.621 ± .000 \\ 
+        ~ & RMSE ($\downarrow$) & 0.379 ± .015 & 9.502 ± .049 & 0.346 ± .001 & 0.842 ± .008 & 0.956 ± .000 & 3.731 ± .007 \\ 
+    \midrule
+        \multirow{3}{*}{GRU-$\Delta$t~\cite{chen2018neural}} & LL ($\uparrow$) & -0.871 ± .050 & -2.736 ± .031 & -0.613 ± .062 & -1.164 ± .026 & -2.389 ± .002 & -0.915 ± .006 \\
+        ~ & Accuracy ($\uparrow$) & 0.841 ± .000 & -- & 0.800 ± .004 & 0.832 ± .007 & 0.466 ± .000 & 0.627 ± .000 \\ 
+        ~ & RMSE ($\downarrow$) & 0.249 ± .013 & 9.421 ± .050 & 0.335 ± .001 & 0.850 ± .010 & 0.950 ± .000 & 3.666 ± .016 \\
+    \midrule
+        \multirow{3}{*}{ODE-RNN~\cite{rubanova2019latent}} & LL ($\uparrow$) & -1.032 ± .102 & -2.732 ± .080 & -0.491 ± .011 & -1.183 ± .028 & -2.395 ± .001 & -0.988 ± .006 \\ 
+        ~ & Accuracy ($\uparrow$) & 0.841 ± .000 & -- & 0.812 ± .000 & 0.827 ± .006 & 0.467 ± .000 & 0.624 ± .000 \\ 
+        ~ & RMSE ($\downarrow$) & 0.342 ± .030 & 9.289 ± .048 & 0.334 ± .000 & 0.865 ± .021 & 0.952 ± .000 & \textbf{3.605 ± .004} \\ 
+    \midrule
+        \multirow{3}{*}{mTAN~\cite{shukla2021multi}} & LL ($\uparrow$) & -0.920 ± .036 & -2.722 ± .026 & -0.548 ± .023 & -1.149 ± .029 & -2.391 ± .002 & -0.980 ± .004 \\
+        ~ & Accuracy ($\uparrow$) & 0.842 ± .000 & -- & 0.811 ± .002 & 0.832 ± .009 & 0.466 ± .000 & 0.620 ± .000 \\ 
+        ~ & RMSE ($\downarrow$) & 0.286 ± .008 & 9.363 ± .042 & 0.334 ± .001 & 0.848 ± .006 & 0.950 ± .000 & 3.680 ± .015 \\
+    \midrule
+        \multirow{3}{*}{ContiFormer} & LL ($\uparrow$) & \textbf{-0.535 ± .028$^+$} & \textbf{-2.550 ± .026} & \textbf{0.635 ± .019$^+$} & -1.135 ± .023 & \textbf{-2.332 ± .001$^+$} & \textbf{-0.270 ± .010$^+$} \\ 
+        ~ & Accuracy ($\uparrow$) & \textbf{0.842 ± .000} & -- & \textbf{0.822 ± .001$^+$} & \textbf{0.836 ± .006} & \textbf{0.473 ± .000$^+$} & \textbf{0.628 ± .001$^+$} \\ 
+        ~ & RMSE ($\downarrow$) & \textbf{0.192 ± .005} & \textbf{9.233 ± .033} & \textbf{0.328 ± .001$^+$} & \textbf{0.837 ± .007} & \textbf{0.948 ± .000$^+$} & 3.614 ± .020 \\ 
+    \bottomrule
+    \end{tabular}}
+\end{table}
+
+
+Next, we evaluate different models for predicting the type and occurrence time of the next event with irregular event sequences~\cite{shchur2019intensity, shchur2020fast, chen2021learning, gupta2022proactive}, a.k.a, marked temporal point process (MTPP) task.
+To this end, we use one synthetic dataset and five real-world datasets for evaluation, namely Synthetic, Neonate~\cite{stevenson2019dataset}, Traffic~\cite{lai2018modeling},
+MIMIC~\cite{du2016recurrent}, BookOrder~\cite{du2016recurrent} and StackOverflow~\cite{leskovec2014snap}. 
+We use the 4-fold cross-validation scheme for Synthetic, Neonate, and Traffic datasets following~\cite{fang2023learning}, and the 5-fold cross-validation scheme for the other three datasets following~\cite{mei2017neural, zuo2020transformer}.
+We repeat the experiment 3 times and report the mean and standard deviations in Table ~\ref{tab:exp}. More information about the task description, dataset information, and training algorithm can be found in Appendix \ref{sec:mtpp}.
+
+We first compare ContiFormer with 3 models on irregular time series, i.e., GRU-$\Delta$t, ODE-RNN, and mTAN, which respectively belong to RNN-based, ODE-based, and attention-based approaches. 
+Additionally, we compare ContiFormer with baselines specifically designed for the MTPP task. These models include parametric method (HP~\cite{hawkes1971spectra}), RNN-based methods (RMTPP ~\cite{du2016recurrent}, NeuralHP~\cite{mei2017neural}), and attention-based methods (SAHP~\cite{zhang2020self}, THP~\cite{zuo2020transformer}, NSTKA~\cite{ma2022non}). 
+
+The experimental results, as presented in Table ~\ref{tab:exp}, demonstrate the overall statistical superiority of ContiFormer to the compared baselines. Notably, the utilization of specific kernel functions, e.g., NSTKA and mTAN, results in subpar performance on certain datasets, highlighting their limitations in modeling complex data patterns in real-world scenarios.
+Furthermore, parametric methods like HP, perform poorly on most datasets, indicating their drawbacks in capturing real-life complexities. 
+
+\subsection{Regular Time Series Forecasting}
+
+Lastly, we evaluate ContiFormer's performance in the context of regular time series modeling. To this end, we conducted an extensive experiment following the experimental settings from~\cite{wu2021autoformer}. 
+We employed the ETT, Exchange, Weather, and ILI datasets for time series forecasting tasks. 
+We compare ContiFormer with the recent state-of-the-art model (TimesNet~\cite{wu2022timesnet}), Transformer-based models (FEDformer\cite{zhou2022fedformer}, Autoformer\cite{wu2021autoformer}) and MLP-based model (DLinear~\cite{zeng2023transformers}). 
+
+\begin{table}[t]
+    \centering
+    \caption{Results of regular time series forecasting. Input length for ILI is 36 and 96 for the others. Prediction lengths for ETTm2 and ETTh2 are $\{24, 48, 168, 336\}$, $\{96, 192, 336, 540\}$ for Exchange and Weather, and $\{24, 36, 48, 60\}$ for ILI. Results are averaged over the four prediction lengths. Bold/underlined values indicate the best/second-best. MSE stands for mean squared error.} 
+ \resizebox{\columnwidth}{!}{%
+    \begin{tabular}{c|cccccccccccc}
+    \toprule
+         Model & \multicolumn{2}{c}{ContiFormer} & \multicolumn{2}{c}{TimesNet\cite{wu2022timesnet}} & \multicolumn{2}{c}{DLinear\cite{zeng2023transformers}} & \multicolumn{2}{c}{FEDformer\cite{zhou2022fedformer}} & \multicolumn{2}{c}{Autoformer\cite{wu2021autoformer}} & \multicolumn{2}{c}{Transformer\cite{vaswani2017attention}} \\ 
+    \cmidrule(lr){2-3}
+    \cmidrule(lr){4-5}
+    \cmidrule(lr){6-7}
+    \cmidrule(lr){8-9}
+    \cmidrule(lr){10-11}
+    \cmidrule(lr){12-13}
+         Metric & MSE  & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE  \\
+    \midrule
+        Exchange & 0.339  & 0.399  & \underline{0.320}  & \underline{0.396}  & \textbf{0.277}  & \textbf{0.377}  & 0.392  & 0.446  & 0.440  & 0.477  & 1.325  & 0.949  \\ 
+    \midrule
+        ETTm2 &  0.226  & \underline{0.300}  & \textbf{0.214}  & \textbf{0.276}  & \underline{0.220}  & 0.305  & 0.226  & \underline{0.300}  & 0.231  & 0.307  & 0.689  & 0.633 \\ 
+    \midrule    
+        ETTh2 & 0.356  & 0.395  & \textbf{0.321}  & \textbf{0.364}  & 0.358  & 0.396  & \underline{0.351}  & \underline{0.393}  & 0.352  & 0.394  & 2.081  & 1.179  \\ 
+    \midrule
+        ILI & \textbf{2.632}  & \textbf{1.042}  & \underline{2.874}  & \underline{1.066}  & 4.188  & 1.493  & 4.467  & 1.547  & 4.046  & 1.446  & 5.130  & 1.507 \\ 
+    \midrule
+        Weather & \textbf{0.257}  & \underline{0.290}  & \underline{0.259}  & \textbf{0.285}  & 0.260  & 0.311  & 0.315  & 0.360  & 0.318  & 0.359  & 0.672  & 0.579 \\ 
+    \bottomrule
+    \end{tabular}}
+    \vspace{-10pt}
+    \label{tab:regular2}
+\end{table}
+
+Table ~\ref{tab:regular2} summarizes the experimental results. Contiformer achieves the best performance on ILI dataset. Specifically, it gives \textbf{10\%} MSE reduction (2.874 $\rightarrow$ 2.632). Also, Contiformer outperforms Autoformer and FEDformer on Exchange, ETTm2, and Weather datasets. Therefore, it demonstrates that Contiformer performs competitively with the state-of-the-art model on regular time series forecasting. For a more comprehensive exploration of the results, please refer to Appendix \ref{sec:regular}.
+
+\section{Efficiency Analysis}
+
+\begin{wraptable}{r}{0.5\textwidth}
+\centering
+\vspace{-10pt}
+\caption{Actual time cost during training for different models on RacketSports dataset (0\% dropped) from UEA dataset. We adopt RK4 solver for ODE-RNN, Neural CDE, and ContiFormer. Step size refers to the amount of time increment for the RK4 solver. $\uparrow$ ($\downarrow$) indicates the higher (lower) the better.}
+\resizebox{0.52\textwidth}{!}{%
+\begin{tabular}{cccc}
+\toprule
+     Model & Step Size & Time Cost ($\downarrow$) & Accuracy ($\uparrow$) \\
+\midrule
+TST~\cite{zerveas2021transformer} & -- & $0.14 \times$ & 0.826 \\
+S5~\cite{smith2022simplified} & -- & $1 \times$ & 0.772 \\
+\midrule
+\multirow{2}{*}{ODE-RNN~\cite{rubanova2019latent}} & 0.1 & $2.47 \times$ &  0.827 \\
+~ & 0.01 & $14.64 \times$ & 0.796 \\
+\midrule
+\multirow{2}{*}{Neural CDE~\cite{park2022neural}} & 0.1 & $3.48 \times$ & 0.743 \\
+~ & 0.01 & $25.03 \times$ & 0.748 \\
+\midrule
+\multirow{2}{*}{ContiFormer} & 0.1 & $1.88 \times$ & \textbf{0.836} \\
+& 0.01 & $5.87 \times$ & \textbf{0.836} \\
+\bottomrule
+\end{tabular}}
+\label{tab:timecost}
+\vspace{-5pt}
+\end{wraptable}
+
+Employing continuous-time modeling in ContiFormer often results in substantial time and GPU memory overhead. Hence, we conduct a comparative analysis of ContiFormer's actual time costs against those of Transformer-based models (TST), ODE-based models (ODE-
+RNN, Neural CDE), and SSM-based models (S5). 
+
+Table \ref{tab:timecost} shows that both TST and S5 are effective models. Additionally, ContiFormer leverages a parallel mechanism for faster inference, resulting in faster inference speed as compared to ODE-RNN and Neural CDE. Furthermore, ContiFormer demonstrates competitive performance even with a larger step size, as detailed in Appendix \ref{sec:tolerance}. Therefore, ContiFormer's robustness to step size allows it to achieve a superior balance between time cost and performance. Please refer to Appendix \ref{sec:cost} for more details.
+
+\section{Conclusion}
+
+We propose ContiFormer, a novel continuous-time Transformer for modeling dynamic systems of irregular time series data. Compared with the existing methods, ContiFormer is more flexible since it abandons explicit closed-form assumptions of the underlying dynamics,
+leading to
+better generalization in various circumstances. 
+Besides, similar to Neural ODE, ContiFormer can produce a continuous and smooth outcome. 
+Taking advantage of the self-attention mechanism, ContiFormer can also capture long-term dependency in irregular observation sequences, 
+achieving superior performance
+on a variety of irregular time series modeling tasks.
+
+\section{Acknowledgement}
+This research is supported in part by the National Natural Science Foundation of China under grant 62172107.
+
+\bibliographystyle{plain}
+\bibliography{reference}
+
+\newpage
+
+\appendix
+\include{appendix}
+
+\end{document}

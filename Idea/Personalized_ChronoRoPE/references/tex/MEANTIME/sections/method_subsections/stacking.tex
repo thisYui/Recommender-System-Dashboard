@@ -1,0 +1,26 @@
+Given the above definitions, we can create maximum 6 different types of self-attention blocks depending on the type of positional embeddings:
+\begin{equation}
+    \mathbf{B}_{type}(\mathbf{X}) = \mathbf{B}(\mathbf{X}, \mathbf{E}^{type}) = \mathbf{Z}
+\end{equation}
+
+For example, a block of type \textbf{Sinusoid} will compute:
+\begin{displaymath}
+   \mathbf{B}_{sinusoid}(\mathbf{X}) = \mathbf{B}(\mathbf{X}, \mathbf{E}^{sinusoid}) = \mathbf{Z}
+\end{displaymath}
+
+Suppose we decided to use $\Sigma$ different types of self-attention blocks ($\mathbf{B}_{{type}_1}, ..., \mathbf{B}_{{type}_\Sigma}$). We could keep $\Sigma$ blocks on the first layer, and have them take as input the same token embeddings to produce $\Sigma$ outputs: 
+\begin{equation}
+    [\mathbf{B}^1_{{type}_1}, ..., \mathbf{B}^1_{{type}_\Sigma}](\mathbf{E}^{token}) =
+    [\mathbf{B}^1_{{type}_1}(\mathbf{E}^{token}), ..., \mathbf{B}^1_{{type}_\Sigma}(\mathbf{E}^{token})] =
+    [\mathbf{Z}^1_1, ..., \mathbf{Z}^1_\Sigma] = \mathbf{Z}^1
+\end{equation}
+In addition to this, we can stack another $\Sigma$ blocks on the above layer and have them each take the output of the matching block below as input. 
+\begin{equation}
+    [\mathbf{B}^2_{{type}_1}, ..., \mathbf{B}^2_{{type}_\Sigma}](\mathbf{Z}^1) =
+    [\mathbf{B}^2_{{type}_1}(\mathbf{Z}^1_1), ..., \mathbf{B}^2_{{type}_\Sigma}(\mathbf{Z}^1_\Sigma)] =
+    [\mathbf{Z}^2_1, ..., \mathbf{Z}^2_\Sigma] = \mathbf{Z}^2
+\end{equation}
+
+This process can be repeated to stack a total of $L$ layers, which produce $\mathbf{Z}^L = [\mathbf{Z}^L_1, ..., \mathbf{Z}^L_\Sigma]$ at the end.
+
+Note that the two consecutive blocks (above/below) don't necessarily have to be the same type, but we force them to have the same type. We posited that inconsistent types could hinder the learning process. However, mixing block types could be worthy of future research.

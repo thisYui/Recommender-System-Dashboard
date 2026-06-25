@@ -1,0 +1,29 @@
+Given $s$ and $t$, any absolute position embedding layer should return a matrix of the form $\mathbf{E}^p \in \mathbb{R}^{N \times h}$: where each row $p_i \in \mathbb{R}^h$ is a representation of the $i^{th}$ position in a sequence of length $N$. We devised three ways to generate such a matrix.
+
+\begin{displaymath}
+  \mathbf{E}^{day} = \begin{bmatrix}
+                      m_{day_1}\\
+                      m_{day_2}\\
+                      ...\\
+                      m_{day_n}\\
+                    \end{bmatrix}
+  ,\mathbf{E}^{pos} = \begin{bmatrix}
+                       pos_1\\
+                       pos_2\\
+                       ...\\
+                       pos_n\\
+                     \end{bmatrix}\\
+  , 
+  \mathbf{E}^{const} = \begin{bmatrix}
+                       c\\
+                       c\\
+                       ...\\
+                       c\\
+                       \end{bmatrix}   
+\end{displaymath}
+
+The first is \textbf{Day}-embedding, where we represent each position by the day of its timestamp $t_i$ (as in \textit{how many days}, not as in \textit{Monday, Tuesday, ...}). More specifically, we keep a learnable embedding matrix $\mathbf{M}^D \in \mathbb{R}^{|D| \times h}$ where $|D|$ is the number of possible days in the span of the dataset. We convert each timestamp into its corresponding day, and then do an embedding lookup operation to get $\mathbf{E}^{day}$. We figured that \textbf{Day} is a reasonable choice for time unit since smaller time units can make the size of the embedding matrix too large, while larger time units can easily miss the delicate differences between each time period.
+
+\textbf{Pos}-embedding is analogous to the learnable positional embeddings used in \cite{BERT, BERT4Rec}, where each $pos_i$ is a learnable vector that represents the $i^{th}$ position, regardless of the input timestamps. \textbf{Const}-embedding is similar to \textbf{Pos}-embedding, except that all position vectors are shared. This removes positional biases so that we can focus only on the relationship between tokens' contents. The constant vector $c$ functions as a bias towards certain contents.
+
+Note that we don't add these positional embeddings to the token embeddings as in \cite{BERT, BERT4Rec}. We just pass them to the related self-attention blocks where we handle these embeddings separately. This prevents mix-ups between content and positional information, which is beneficial as will be shown in later ablation studies.

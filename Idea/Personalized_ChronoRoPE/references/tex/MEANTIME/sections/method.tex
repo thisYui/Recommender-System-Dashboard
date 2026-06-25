@@ -1,0 +1,37 @@
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/model_figure.pdf}
+  \caption{Model Architecture}
+  \Description[The figure describes our model architecture.]{In the figure, item array is converted by item embedding table and fed to each attention head. Time array is converted by absolute/relative embeddings into 6 different embeddings. Each attention head receives item embedding and unique temporal embedding. Concat&linear and FFN operation lies above the heads. Heads and FFNs are repeated for L layers. At the end of the layer, output vector is dot-producted with item embedding table to compute the final item score distribution.}
+  \label{fig:model}
+\end{figure*}
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/attention.pdf}
+  \caption{Brief overview of single attention head in multi-headed attention structure. (a) absolute self-attention in Transformer (b) relative self-attention in Transformer-XL and MEANTIME (c) absolute self-attention in MEANTIME.}
+  \Description[The figure describes three different types of single attention-head]{Figure(a) describes a single attention head used in transformer. The sum of E^Item and E^Pos is fed to the head. Figure(b) describes a single attention head from Transformer-xl and our model. E^Pos is replaced by E^R and positional information is not used in value computation. Linear layers are also separated between content and position. Figure(c) describes a single attention head used for absolute attention in our model. It borrows the structure from (a), but separates the content and position as in (b).}
+  \label{fig:attntypes}
+\end{figure*}
+
+Several self-attention based recommendation models have been proposed recently~\cite{SASRec, BERT4Rec}. However, the positional factors have been rather overlooked in these models for many reasons. First, they don't utilize timestamp values which hold important contextual information. While TiSASRec~\cite{TISASRec} successfully addressed this issue, they also used a simple embedding scheme for temporal values. This can possibly lead to an information bottleneck since the same embedding has to represent all possible positional biases. Furthermore, since all attention heads use the same positional information, they might wastefully learn the same patterns. As a way to mitigate these problems, we devise a novel model architecture that injects various temporal embeddings for each attention head as shown in Figure \ref{fig:model}.
+
+\subsection{Problem Formulation}
+\input{sections/method_subsections/problem_formulation}
+
+\subsection{Input Embedding}
+\label{section:inputembedding}
+\input{sections/method_subsections/input_layer}
+
+\subsection{Self-Attention Structure}
+\subsubsection{Attention Architecture}
+\input{sections/method_subsections/self_attention_block}
+
+\subsubsection{Stacking Layers}
+\input{sections/method_subsections/stacking_layers}
+
+\subsubsection{Prediction Layer}
+\input{sections/method_subsections/prediction}
+
+\subsection{Model Training}
+\input{sections/method_subsections/training_inference}

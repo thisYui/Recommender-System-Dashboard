@@ -1,0 +1,627 @@
+
+% Journals
+
+% First the Full Name is given, then the abbreviation used in the AMS Math
+% Reviews, with an indication if it could not be found there.
+% Note the 2nd overwrites the 1st, so swap them if you want the full name.
+
+ %{AMS}
+ @String{AMSTrans = "American Mathematical Society Translations" }
+ @String{AMSTrans = "Amer. Math. Soc. Transl." }
+ @String{BullAMS = "Bulletin of the American Mathematical Society" }
+ @String{BullAMS = "Bull. Amer. Math. Soc." }
+ @String{ProcAMS = "Proceedings of the American Mathematical Society" }
+ @String{ProcAMS = "Proc. Amer. Math. Soc." }
+ @String{TransAMS = "Transactions of the American Mathematical Society" }
+ @String{TransAMS = "Trans. Amer. Math. Soc." }
+
+ %ACM
+ @String{CACM = "Communications of the {ACM}" }
+ @String{CACM = "Commun. {ACM}" }
+ @String{CompServ = "Comput. Surveys" }
+ @String{JACM = "J. ACM" }
+ @String{ACMMathSoft = "{ACM} Transactions on Mathematical Software" }
+ @String{ACMMathSoft = "{ACM} Trans. Math. Software" }
+ @String{SIGNUM = "{ACM} {SIGNUM} Newsletter" }
+ @String{SIGNUM = "{ACM} {SIGNUM} Newslett." }
+
+ @String{AmerSocio = "American Journal of Sociology" }
+ @String{AmerStatAssoc = "Journal of the American Statistical Association" }
+ @String{AmerStatAssoc = "J. Amer. Statist. Assoc." }
+ @String{ApplMathComp = "Applied Mathematics and Computation" }
+ @String{ApplMathComp = "Appl. Math. Comput." }
+ @String{AmerMathMonthly = "American Mathematical Monthly" }
+ @String{AmerMathMonthly = "Amer. Math. Monthly" }
+ @String{BIT = "{BIT}" }
+ @String{BritStatPsych = "British Journal of Mathematical and Statistical
+          Psychology" }
+ @String{BritStatPsych = "Brit. J. Math. Statist. Psych." }
+ @String{CanMathBull = "Canadian Mathematical Bulletin" }
+ @String{CanMathBull = "Canad. Math. Bull." }
+ @String{CompApplMath = "Journal of Computational and Applied Mathematics" }
+ @String{CompApplMath = "J. Comput. Appl. Math." }
+ @String{CompPhys = "Journal of Computational Physics" }
+ @String{CompPhys = "J. Comput. Phys." }
+ @String{CompStruct = "Computers and Structures" }
+ @String{CompStruct = "Comput. \& Structures" }
+ @String{CompJour = "The Computer Journal" }
+ @String{CompJour = "Comput. J." }
+ @String{CompSysSci = "Journal of Computer and System Sciences" }
+ @String{CompSysSci = "J. Comput. System Sci." }
+ @String{Computing = "Computing" }
+ @String{ContempMath = "Contemporary Mathematics" }
+ @String{ContempMath = "Contemp. Math." }
+ @String{Crelle = "Crelle's Journal" }
+ @String{GiornaleMath = "Giornale di Mathematiche" }
+ @String{GiornaleMath = "Giorn. Mat." } % didn't find in AMS MR., ibid.
+
+ %IEEE
+ @String{Computer = "{IEEE} Computer" }
+ @String{IEEETransComp = "{IEEE} Transactions on Computers" }
+ @String{IEEETransComp = "{IEEE} Trans. Comput." }
+ @String{IEEETransAC = "{IEEE} Transactions on Automatic Control" }
+ @String{IEEETransAC = "{IEEE} Trans. Automat. Control" }
+ @String{IEEESpec = "{IEEE} Spectrum" } % didn't find in AMS MR
+ @String{ProcIEEE = "Proceedings of the {IEEE}" }
+ @String{ProcIEEE = "Proc. {IEEE}" } % didn't find in AMS MR
+ @String{IEEETransAeroElec = "{IEEE} Transactions on Aerospace and Electronic
+     Systems" }
+ @String{IEEETransAeroElec = "{IEEE} Trans. Aerospace Electron. Systems" }
+
+ @String{IMANumerAna = "{IMA} Journal of Numerical Analysis" }
+ @String{IMANumerAna = "{IMA} J. Numer. Anal." }
+ @String{InfProcLet = "Information Processing Letters" }
+ @String{InfProcLet = "Inform. Process. Lett." }
+ @String{InstMathApp = "Journal of the Institute of Mathematics and
+     its Applications" }
+ @String{InstMathApp = "J. Inst. Math. Appl." }
+ @String{IntControl = "International Journal of Control" }
+ @String{IntControl = "Internat. J. Control" }
+ @String{IntNumerEng = "International Journal for Numerical Methods in
+     Engineering" }
+ @String{IntNumerEng = "Internat. J. Numer. Methods Engrg." }
+ @String{IntSuper = "International Journal of Supercomputing Applications" }
+ @String{IntSuper = "Internat. J. Supercomputing Applic." } % didn't find
+%% in AMS MR
+ @String{Kibernetika = "Kibernetika" }
+ @String{JResNatBurStand = "Journal of Research of the National Bureau
+     of Standards" }
+ @String{JResNatBurStand = "J. Res. Nat. Bur. Standards" }
+ @String{LinAlgApp = "Linear Algebra and its Applications" }
+ @String{LinAlgApp = "Linear Algebra Appl." }
+ @String{MathAnaAppl = "Journal of Mathematical Analysis and Applications" }
+ @String{MathAnaAppl = "J. Math. Anal. Appl." }
+ @String{MathAnnalen = "Mathematische Annalen" }
+ @String{MathAnnalen = "Math. Ann." }
+ @String{MathPhys = "Journal of Mathematical Physics" }
+ @String{MathPhys = "J. Math. Phys." }
+ @String{MathComp = "Mathematics of Computation" }
+ @String{MathComp = "Math. Comp." }
+ @String{MathScand = "Mathematica Scandinavica" }
+ @String{MathScand = "Math. Scand." }
+ @String{TablesAidsComp = "Mathematical Tables and Other Aids to Computation" }
+ @String{TablesAidsComp = "Math. Tables Aids Comput." }
+ @String{NumerMath = "Numerische Mathematik" }
+ @String{NumerMath = "Numer. Math." }
+ @String{PacificMath = "Pacific Journal of Mathematics" }
+ @String{PacificMath = "Pacific J. Math." }
+ @String{ParDistComp = "Journal of Parallel and Distributed Computing" }
+ @String{ParDistComp = "J. Parallel and Distrib. Comput." } % didn't find
+%% in AMS MR
+ @String{ParComputing = "Parallel Computing" }
+ @String{ParComputing = "Parallel Comput." }
+ @String{PhilMag = "Philosophical Magazine" }
+ @String{PhilMag = "Philos. Mag." }
+ @String{ProcNAS = "Proceedings of the National Academy of Sciences
+                    of the USA" }
+ @String{ProcNAS = "Proc. Nat. Acad. Sci. U. S. A." }
+ @String{Psychometrika = "Psychometrika" }
+ @String{QuartMath = "Quarterly Journal of Mathematics, Oxford, Series (2)" }
+ @String{QuartMath = "Quart. J. Math. Oxford Ser. (2)" }
+ @String{QuartApplMath = "Quarterly of Applied Mathematics" }
+ @String{QuartApplMath = "Quart. Appl. Math." }
+ @String{RevueInstStat = "Review of the International Statisical Institute" }
+ @String{RevueInstStat = "Rev. Inst. Internat. Statist." }
+
+ %SIAM
+ @String{JSIAM = "Journal of the Society for Industrial and Applied
+     Mathematics" }
+ @String{JSIAM = "J. Soc. Indust. Appl. Math." }
+ @String{JSIAMB = "Journal of the Society for Industrial and Applied
+     Mathematics, Series B, Numerical Analysis" }
+ @String{JSIAMB = "J. Soc. Indust. Appl. Math. Ser. B Numer. Anal." }
+ @String{SIAMAlgMeth = "{SIAM} Journal on Algebraic and Discrete Methods" }
+ @String{SIAMAlgMeth = "{SIAM} J. Algebraic Discrete Methods" }
+ @String{SIAMAppMath = "{SIAM} Journal on Applied Mathematics" }
+ @String{SIAMAppMath = "{SIAM} J. Appl. Math." }
+ @String{SIAMComp = "{SIAM} Journal on Computing" }
+ @String{SIAMComp = "{SIAM} J. Comput." }
+ @String{SIAMMatrix = "{SIAM} Journal on Matrix Analysis and Applications" }
+ @String{SIAMMatrix = "{SIAM} J. Matrix Anal. Appl." }
+ @String{SIAMNumAnal = "{SIAM} Journal on Numerical Analysis" }
+ @String{SIAMNumAnal = "{SIAM} J. Numer. Anal." }
+ @String{SIAMReview = "{SIAM} Review" }
+ @String{SIAMReview = "{SIAM} Rev." }
+ @String{SIAMSciStat = "{SIAM} Journal on Scientific and Statistical
+     Computing" }
+ @String{SIAMSciStat = "{SIAM} J. Sci. Statist. Comput." }
+
+ @String{SoftPracExp = "Software Practice and Experience" }
+ @String{SoftPracExp = "Software Prac. Experience" } % didn't find in AMS MR
+ @String{StatScience = "Statistical Science" }
+ @String{StatScience = "Statist. Sci." }
+ @String{Techno = "Technometrics" }
+ @String{USSRCompMathPhys = "{USSR} Computational Mathematics and Mathematical
+     Physics" }
+ @String{USSRCompMathPhys = "{U. S. S. R.} Comput. Math. and Math. Phys." }
+ @String{VLSICompSys = "Journal of {VLSI} and Computer Systems" }
+ @String{VLSICompSys = "J. {VLSI} Comput. Syst." }
+ @String{ZAngewMathMech = "Zeitschrift fur Angewandte Mathematik und
+     Mechanik" }
+ @String{ZAngewMathMech = "Z. Angew. Math. Mech." }
+ @String{ZAngewMathPhys = "Zeitschrift fur Angewandte Mathematik und Physik" }
+ @String{ZAngewMathPhys = "Z. Angew. Math. Phys." }
+
+% Publishers % ================================================= |
+
+ @String{Academic = "Academic Press" }
+ @String{ACMPress = "{ACM} Press" }
+ @String{AdamHilger = "Adam Hilger" }
+ @String{AddisonWesley = "Addison-Wesley" }
+ @String{AllynBacon = "Allyn and Bacon" }
+ @String{AMS = "American Mathematical Society" }
+ @String{Birkhauser = "Birkha{\"u}ser" }
+ @String{CambridgePress = "Cambridge University Press" }
+ @String{Chelsea = "Chelsea" }
+ @String{ClaredonPress = "Claredon Press" }
+ @String{DoverPub = "Dover Publications" }
+ @String{Eyolles = "Eyolles" }
+ @String{HoltRinehartWinston = "Holt, Rinehart and Winston" }
+ @String{Interscience = "Interscience" }
+ @String{JohnsHopkinsPress = "The Johns Hopkins University Press" }
+ @String{JohnWileySons = "John Wiley and Sons" }
+ @String{Macmillan = "Macmillan" }
+ @String{MathWorks = "The Math Works Inc." }
+ @String{McGrawHill = "McGraw-Hill" }
+ @String{NatBurStd = "National Bureau of Standards" }
+ @String{NorthHolland = "North-Holland" }
+ @String{OxfordPress = "Oxford University Press" }  %address Oxford or London?
+ @String{PergamonPress = "Pergamon Press" }
+ @String{PlenumPress = "Plenum Press" }
+ @String{PrenticeHall = "Prentice-Hall" }
+ @String{SIAMPub = "{SIAM} Publications" }
+ @String{Springer = "Springer-Verlag" }
+ @String{TexasPress = "University of Texas Press" }
+ @String{VanNostrand = "Van Nostrand" }
+ @String{WHFreeman = "W. H. Freeman and Co." }
+
+%Entries
+
+@article{SASRec,
+  author={W. {Kang} and J. {McAuley}},
+  title={Self-Attentive Sequential Recommendation}, 
+  journal={International Conference on Data Mining (ICDM)}, 
+  year={2018},
+}
+
+@article{TISASRec,
+  author={Li, Jiacheng and Wang, Yujie and McAuley, Julian},
+  title={Time Interval Aware Self-Attention for Sequential Recommendation},
+  journal={Web Search and Data Mining (WSDM)},
+  year={2020}
+}
+
+@article{BERT4Rec,
+  author={Sun, Fei and Liu, Jun and Wu, Jian and Pei, Changhua and Lin, Xiao and Ou, Wenwu and Jiang, Peng},
+  title={BERT4Rec: Sequential recommendation with bidirectional encoder representations from transformer},
+  journal={International Conference on Information and Knowledge Management (CIKM)},
+  year={2019}
+}
+
+@article{BERT,
+  author    = {Jacob Devlin and
+               Ming{-}Wei Chang and
+               Kenton Lee and
+               Kristina Toutanova},
+  editor    = {Jill Burstein and
+               Christy Doran and
+               Thamar Solorio},
+  title     = {{BERT:} Pre-training of Deep Bidirectional Transformers for Language
+               Understanding},
+  journal = {the North American Chapter of
+               the Association for Computational Linguistics: Human Language Technologies (NAACL-HLT)},
+  year      = {2019},
+}
+
+@article{GRU4Rec,
+  author    = {Bal{\'{a}}zs Hidasi and
+               Alexandros Karatzoglou and
+               Linas Baltrunas and
+               Domonkos Tikk},
+  editor    = {Yoshua Bengio and
+               Yann LeCun},
+  title     = {Session-based Recommendations with Recurrent Neural Networks},
+  journal = {International Conference on Learning Representations (ICLR)},
+  year      = {2016},
+}
+
+
+@article{RNN4Rec,
+  author={Zhang, Yuyu and Dai, Hanjun and Xu, Chang and Feng, Jun and Wang, Taifeng and Bian, Jiang and Wang, Bin and Liu, Tie-Yan},
+  title={Sequential click prediction for sponsored search with recurrent neural networks},
+  journal={AAAI Conference on Artificial Intelligence (AAAI)},
+  year={2014}
+}
+
+@article{CASER,
+  author={Tang, Jiaxi and Wang, Ke},
+  title={Personalized top-n sequential recommendation via convolutional sequence embedding},
+  journal={Web Search and Data Mining (WSDM)},
+  year={2018}
+}
+
+@article{CNNGENERATIVE,
+  author={Yuan, Fajie and Karatzoglou, Alexandros and Arapakis, Ioannis and Jose, Joemon M and He, Xiangnan},
+  title={A simple convolutional generative network for next item recommendation},
+  journal={Web Search and Data Mining (WSDM)},
+  year={2019}
+}
+
+@article{MEMORYNETWORK,
+  author={Chen, Xu and Xu, Hongteng and Zhang, Yongfeng and Tang, Jiaxi and Cao, Yixin and Qin, Zheng and Zha, Hongyuan},
+  title={Sequential recommendation with user memory networks},
+  journal={Proceedings of the eleventh ACM international conference on web search and data mining},
+  year={2018}
+}
+
+@article{NEURALATTENTIVE,
+  author={Li, Jing and Ren, Pengjie and Chen, Zhumin and Ren, Zhaochun and Lian, Tao and Ma, Jun},
+  title={Neural attentive session-based recommendation},
+  journal={Proceedings of the 2017 ACM on Conference on Information and Knowledge Management},
+  year={2017}
+}
+
+@article{HIERARCHICALATTENTION,
+  author={Cui, Qiang and Wu, Shu and Huang, Yan and Wang, Liang},
+  title={A hierarchical contextual attention-based network for sequential recommendation},
+  journal={Neurocomputing},
+  year={2019},
+}
+
+@article{HIERARCHICALGRU4REC,
+  author={Quadrana, Massimo and Karatzoglou, Alexandros and Hidasi, Bal{\'a}zs and Cremonesi, Paolo},
+  title={Personalizing session-based recommendations with hierarchical recurrent neural networks},
+  journal={Recommender Systems (RecSys)},
+  year={2017}
+}
+
+@article{HIERARCHICALCNN,
+  author={You, Jiaxuan and Wang, Yichen and Pal, Aditya and Eksombatchai, Pong and Rosenburg, Chuck and Leskovec, Jure},
+  title={Hierarchical temporal convolutional networks for dynamic recommender systems},
+  journal={International Conference on World Wide Web (WWW)},
+  year={2019}
+}
+
+@article{FIRSTATTENTION,
+  author={Bahdanau, Dzmitry and Cho, Kyunghyun and Bengio, Yoshua},
+  title={Neural machine translation by jointly learning to align and translate},
+  journal={arXiv preprint arXiv:1409.0473},
+  year={2014}
+}
+
+@article{TRANSFORMER,
+  author={Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N and Kaiser, {\L}ukasz and Polosukhin, Illia},
+  title={Attention is all you need},
+  journal={Advances in neural information processing systems},
+  year={2017}
+}
+
+@article{TRANSFORMER-XL,
+  author    = {Zihang Dai and
+               Zhilin Yang and
+               Yiming Yang and
+               Jaime G. Carbonell and
+               Quoc Viet Le and
+               Ruslan Salakhutdinov},
+  editor    = {Anna Korhonen and
+               David R. Traum and
+               Llu{\'{\i}}s M{\`{a}}rquez},
+  title     = {Transformer-XL: Attentive Language Models beyond a Fixed-Length Context},
+  journal = {Association for Computational Linguistics (ACL)},
+  year      = {2019},
+}
+
+
+
+@article{GPT-2,
+  author={Radford, Alec and Wu, Jeffrey and Child, Rewon and Luan, David and Amodei, Dario and Sutskever, Ilya},
+  title={Language models are unsupervised multitask learners},
+  journal={OpenAI Blog},
+  year={2019}
+}
+
+@article{XLNET,
+  author={Yang, Zhilin and Dai, Zihang and Yang, Yiming and Carbonell, Jaime and Salakhutdinov, Russ R and Le, Quoc V},
+  title={Xlnet: Generalized autoregressive pretraining for language understanding},
+  journal={Advances in Neural Information Processing Systems (NeurIPS)},
+  year={2019}
+}
+
+@article{M3,
+  author={Tang, Jiaxi and Belletti, Francois and Jain, Sagar and Chen, Minmin and Beutel, Alex and Xu, Can and H. Chi, Ed},
+  title={Towards neural mixture recommender for long range dependent user sequences},
+  journal={The World Wide Web Conference},
+  year={2019}
+}
+
+@article{rendle2010factorizing,
+  author={Rendle, Steffen and Freudenthaler, Christoph and Schmidt-Thieme, Lars},
+  title={Factorizing personalized markov chains for next-basket recommendation},
+  journal={International Conference on World Wide Web (WWW)},
+  year={2010}
+}
+
+@article{he2016fusing,
+  author={He, Ruining and McAuley, Julian},
+  title={Fusing similarity models with markov chains for sparse sequential recommendation},
+  journal={International Conference on Data Mining (ICDM)},
+  year={2016},
+}
+
+@article{hidasi2018recurrent,
+  author={Hidasi, Bal{\'a}zs and Karatzoglou, Alexandros},
+  title={Recurrent neural networks with top-k gains for session-based recommendations},
+  journal={International Conference on Information and Knowledge Management (CIKM)},
+  year={2018}
+}
+
+@article{DREAM,
+  author={Yu, Feng and Liu, Qiang and Wu, Shu and Wang, Liang and Tan, Tieniu},
+  title={A dynamic recurrent model for next basket recommendation},
+  journal={ACM SIGIR conference on Research and Development in Information Retrieval},
+  year={2016}
+}
+
+@article{wu2017recurrent,
+  author={Wu, Chao-Yuan and Ahmed, Amr and Beutel, Alex and Smola, Alexander J and Jing, How},
+  title={Recurrent recommender networks},
+  journal={Web Search and Data Mining (WSDM)},
+  year={2017}
+}
+
+
+@article{wu2017sequential,
+  author    = {Bo Wu and
+               Wen{-}Huang Cheng and
+               Yongdong Zhang and
+               Qiushi Huang and
+               Jintao Li and
+               Tao Mei},
+  editor    = {Carles Sierra},
+  title     = {Sequential Prediction of Social Media Popularity with Deep Temporal
+               Context Networks},
+  journal = {International Joint Conference on Artificial Intelligence (IJCAI)},
+  year      = {2017},
+}
+
+
+@article{DIN,
+  author={Zhou, Guorui and Zhu, Xiaoqiang and Song, Chenru and Fan, Ying and Zhu, Han and Ma, Xiao and Yan, Yanghui and Jin, Junqi and Li, Han and Gai, Kun},
+  title={Deep interest network for click-through rate prediction},
+  journal={ACM SIGKDD International Conference on Knowledge Discovery \& Data Mining},
+  year={2018}
+}
+
+@article{DINEVOLUTION,
+  author={Zhou, Guorui and Mou, Na and Fan, Ying and Pi, Qi and Bian, Weijie and Zhou, Chang and Zhu, Xiaoqiang and Gai, Kun},
+  title={Deep interest evolution network for click-through rate prediction},
+  journal={AAAI Conference on Artificial Intelligence (AAAI)},
+  year={2019}
+}
+
+@article{SRCHALLENGESPROGRESSANDPROSPECTS,
+  author={Wang, Shoujin and Hu, Liang and Wang, Yan and Cao, Longbing and Sheng, Quan Z and Orgun, Mehmet},
+  title={Sequential recommender systems: challenges, progress and prospects},
+  journal={arXiv preprint arXiv:2001.04830},
+  year={2019}
+}
+
+@article{GNNCOATTENTION,
+  author={Hu, Binbin and Shi, Chuan and Zhao, Wayne Xin and Yu, Philip S},
+  title={Leveraging meta-path based context for top-n recommendation with a neural co-attention model},
+  journal={Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery \& Data Mining},
+  year={2018}
+}
+
+@article{DUALGRAPHATTENTION,
+  author={Wu, Qitian and Zhang, Hengrui and Gao, Xiaofeng and He, Peng and Weng, Paul and Gao, Han and Chen, Guihai},
+  title={Dual graph attention networks for deep latent representation of multifaceted social effects in recommender systems},
+  journal={The World Wide Web Conference},
+  year={2019}
+}
+
+@article{SESSIONGNN,
+  author={Wu, Shu and Tang, Yuyuan and Zhu, Yanqiao and Wang, Liang and Xie, Xing and Tan, Tieniu},
+  title={Session-based recommendation with graph neural networks},
+  journal={AAAI Conference on Artificial Intelligence},
+  year={2019}
+}
+
+@article{DWELLTIMERNN,
+  author={Bogina, Veronika and Kuflik, Tsvi},
+  title={Incorporating Dwell Time in Session-Based Recommendations with Recurrent Neural Networks.},
+  journal={RecTemp@ RecSys},
+  year={2017}
+}
+
+@article{IMPROVEDRNN,
+  author={Tan, Yong Kiam and Xu, Xinxing and Liu, Yong},
+  title={Improved recurrent neural networks for session-based recommendations},
+  journal={Proceedings of the 1st Workshop on Deep Learning for Recommender Systems},
+  year={2016}
+}
+
+@article{3DCNN,
+  author={Tuan, Trinh Xuan and Phuong, Tu Minh},
+  title={3D convolutional networks for session-based recommendation with content features},
+  journal={Proceedings of the Eleventh ACM Conference on Recommender Systems},
+  year={2017}
+}
+
+@article{NARM,
+  author={Li, Jing and Ren, Pengjie and Chen, Zhumin and Ren, Zhaochun and Lian, Tao and Ma, Jun},
+  title={Neural attentive session-based recommendation},
+  journal={International Conference on Information and Knowledge Management (CIKM)},
+  year={2017}
+}
+
+@article{STAMP,
+  author={Liu, Qiao and Zeng, Yifu and Mokhosi, Refuoe and Zhang, Haibin},
+  title={STAMP: short-term attention/memory priority model for session-based recommendation},
+  journal={ACM SIGKDD International Conference on Knowledge Discovery \& Data Mining},
+  year={2018}
+}
+
+@article{ATTENTIONBIGRUMUSIC,
+  author={Sachdeva, Noveen and Gupta, Kartik and Pudi, Vikram},
+  title={Attentive neural architecture incorporating song features for music recommendation},
+  journal={Proceedings of the 12th ACM Conference on Recommender Systems},
+  year={2018}
+}
+
+@article{SIMILARITYMC,
+  author={He, Ruining and McAuley, Julian},
+  title={Fusing similarity models with markov chains for sparse sequential recommendation},
+  journal={International Conference on Data Mining (ICDM)},
+  year={2016},
+}
+
+
+@article{MCAULEYMC2016,
+  author    = {Ruining He and
+               Chen Fang and
+               Zhaowen Wang and
+               Julian J. McAuley},
+  editor    = {Shilad Sen and
+               Werner Geyer and
+               Jill Freyne and
+               Pablo Castells},
+  title     = {Vista: {A} Visually, Socially, and Temporally-aware Model for Artistic
+               Recommendation},
+  journal = {Recommender Systems (RecSys)},
+  year      = {2016},
+}
+
+@article{TRANSREC,
+  author    = {Ruining He and
+               Wang{-}Cheng Kang and
+               Julian J. McAuley},
+  editor    = {Paolo Cremonesi and
+               Francesco Ricci and
+               Shlomo Berkovsky and
+               Alexander Tuzhilin},
+  title     = {Translation-based Recommendation},
+  journal = {Recommender Systems (RecSys)},
+  year      = {2017},
+}
+
+
+@article{TIMESVD++,
+  author={Koren, Yehuda},
+  title={Collaborative filtering with temporal dynamics},
+  journal={ACM SIGKDD International Conference on Knowledge Discovery \& Data Mining},
+  year={2009}
+}
+
+@article{NETFLIXPRIZE,
+  author={Koren, Yehuda},
+  title={The bellkor solution to the netflix grand prize},
+  journal={Netflix prize documentation},
+  year={2009}
+}
+
+@article{BPTF,
+  author={Xiong, Liang and Chen, Xi and Huang, Tzu-Kuo and Schneider, Jeff and Carbonell, Jaime G},
+  title={Temporal collaborative filtering with bayesian probabilistic tensor factorization},
+  journal={International Conference on Data Mining (ICSM)},
+  year={2010},
+}
+
+@article{DLTEMPORAL,
+  author={Song, Yang and Elkahky, Ali Mamdouh and He, Xiaodong},
+  title={Multi-rate deep learning for temporal recommendation},
+  journal={Proceedings of the 39th International ACM SIGIR conference on Research and Development in Information Retrieval},
+  year={2016}
+}
+
+@article{TIMELSTM,
+  author={Zhu, Yu and Li, Hao and Liao, Yikang and Wang, Beidou and Guan, Ziyu and Liu, Haifeng and Cai, Deng},
+  title={What to Do Next: Modeling User Behaviors by Time-LSTM.},
+  journal={International Joint Conference on Artificial Intelligence (IJCAI)},
+  year={2017}
+}
+
+@article{CTA,
+  author={Wu, Jibang and Cai, Renqin and Wang, Hongning},
+  title={D{\'e}j{\`a} vu: A Contextualized Temporal Attention Mechanism for Sequential Recommendation},
+  journal={Proceedings of The Web Conference},
+  year={2020}
+}
+
+@article{movielens,
+  author    = {F. Maxwell Harper and
+               Joseph A. Konstan},
+  title     = {The MovieLens Datasets: History and Context},
+  journal   = {ACM Transactions on Interactive Intelligent Systems (tiis).},
+  year      = {2016},
+}
+
+
+@article{amazondataset,
+  author={McAuley, Julian and Targett, Christopher and Shi, Qinfeng and Van Den Hengel, Anton},
+  title={Image-based recommendations on styles and substitutes},
+  journal={ACM SIGIR Conference on Research and Development in Information Retrieval},
+  year={2015}
+}
+
+@article{MARANK,
+  author={Yu, Lu and Zhang, Chuxu and Liang, Shangsong and Zhang, Xiangliang},
+  title={Multi-order attentive ranking model for sequential recommendation},
+  journal={AAAI Conference on Artificial Intelligence},
+  year={2019}
+}
+
+@article{LAYERNORM,
+  author={Ba, Jimmy Lei and Kiros, Jamie Ryan and Hinton, Geoffrey E},
+  title={Layer normalization},
+  journal={arXiv preprint arXiv:1607.06450},
+  year={2016}
+}
+
+@article{LNORDER,
+  author={Xiong, Ruibin and Yang, Yunchang and He, Di and Zheng, Kai and Zheng, Shuxin and Xing, Chen and Zhang, Huishuai and Lan, Yanyan and Wang, Liwei and Liu, Tie-Yan},
+  title={On layer normalization in the transformer architecture},
+  journal={arXiv preprint arXiv:2002.04745},
+  year={2020}
+}
+
+@article{BPR,
+  author={Rendle, Steffen and Freudenthaler, Christoph and Gantner, Zeno and Schmidt-Thieme, Lars},
+  title={BPR: Bayesian personalized ranking from implicit feedback},
+  journal={arXiv preprint arXiv:1205.2618},
+  year={2012}
+}
+
+@article{NCF,
+  author={He, Xiangnan and Liao, Lizi and Zhang, Hanwang and Nie, Liqiang and Hu, Xia and Chua, Tat-Seng},
+  title={Neural collaborative filtering},
+  journal={Proceedings of the 26th international conference on world wide web},
+  year={2017}
+}
+
+@article{GRADCAM,
+  author={Selvaraju, Ramprasaath R and Cogswell, Michael and Das, Abhishek and Vedantam, Ramakrishna and Parikh, Devi and Batra, Dhruv},
+  title={Grad-cam: Visual explanations from deep networks via gradient-based localization},
+  journal={Proceedings of the IEEE international conference on computer vision},
+  year={2017}
+}
