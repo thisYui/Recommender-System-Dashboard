@@ -1,8 +1,4 @@
-# Hồi 6: Mảnh Ghép Hoàn Hảo Cho Kỷ Nguyên Generative RS (LLMs)
-
-Dù chúng ta bắt đầu thực nghiệm trên nền tảng Sequential RS (truyền thống) để chứng minh tính khả thi, nhưng **đích đến tối thượng và không gian tỏa sáng rực rỡ nhất** của Personalized ChronoRoPE chính là mảng **Generative Recommendation (Generative RS)**.
-
-Hãy cùng phân tích tại sao ChronoRoPE lại là "mảnh ghép còn thiếu" hoàn hảo cho các siêu mô hình ngôn ngữ lớn (LLMs) trong lĩnh vực gợi ý mua sắm.
+# Generative RS Integration(LLMs)
 
 ## 1. LLMs: Những gã khổng lồ "Ngây Ngô" về thời gian sinh học
 
@@ -36,4 +32,4 @@ Câu trả lời là **Hoàn toàn khả thi**, và thậm chí còn rất thanh
 - Với mô hình **LLM khổng lồ** (hàng tỷ tham số), chúng ta KHÔNG cần huấn luyện lại từ đầu (Full Fine-tuning). Chúng ta chỉ cần đóng băng (Freeze) mô hình LLM, và sử dụng các kỹ thuật tinh chỉnh tham số hiệu quả như **LoRA (Low-Rank Adaptation)** trên các ma trận Q, K.
 - Quá trình huấn luyện lúc này chỉ tập trung cập nhật trọng số cho Meta-MLP và bộ adapter LoRA.
 
-> Nhờ chiến lược này, chúng ta có thể huấn luyện ChronoRoPE trên nền Generative RS chỉ với 1-2 GPU thông thường, biến một bài toán tưởng chừng chỉ dành cho các "ông lớn" công nghệ thành một công trình nghiên cứu hàn lâm có thể thực thi được.
+> Nhờ chiến lược này, chúng ta có thể huấn luyện ChronoRoPE trên nền Generative RS chỉ với 1-2 GPU thông thường
