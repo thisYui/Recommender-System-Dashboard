@@ -1,4 +1,4 @@
-# Hồi 1: Bức Tranh Toàn Cảnh - Transformer-based Sequential Recommendation
+# Bức Tranh Toàn Cảnh - Transformer-based Sequential Recommendation
 
 Để đi sâu vào bất kỳ cải tiến cốt lõi nào, chúng ta cần hiểu rõ "sân chơi" mà chúng ta đang đứng. Sân chơi của chúng ta chính là bài toán **Sequential Recommendation (Gợi ý dựa trên chuỗi)**, và cụ thể hơn là nhánh: **Transformer-based SR** (Các hệ thống gợi ý sử dụng kiến trúc Transformer).
 

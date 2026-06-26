@@ -54,7 +54,7 @@ Tại sao gọi là "Meta"? Vì nó nằm ngoài luồng dự đoán Item chính
 
 ## 3. Time-Warping: Thổi hồn vào phương trình RoPE
 
-Giờ là lúc "lắp ghép" tất cả những tinh hoa lại với nhau. Hãy nhớ lại công thức xoay góc của RoPE khi áp dụng Thời gian thực (Timestamp $t$):
+Giờ là lúc "lắp ghép" tất cả lại với nhau. Hãy nhớ lại công thức xoay góc của RoPE khi áp dụng Thời gian thực (Timestamp $t$):
 
 $$
 \Theta(t) = t \times \theta_{base}
